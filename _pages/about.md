@@ -4,7 +4,7 @@ title: About
 permalink: /about/
 ---
 
-<img src="https://raw.githubusercontent.com/manaaziz/manaaziz.github.io/master/images/aboutpic.png" alt="drawing" width="500"/> 
+<img src="https://raw.githubusercontent.com/manaaziz/manaaziz.com/master/assets/images/aboutpic.png" alt="drawing" width="500"/> 
 
 My name is Mana. I like to travel, but for me it isn't about the destination. As much as I love certain places, it is mostly about the people that are around me and the experiences that I can have and share. In fact, sometimes I get emotional thinking about what amazing people I have around me. This love for travel has driven me to Barcelona, Spain with the objective to make a life for myself. 
 
