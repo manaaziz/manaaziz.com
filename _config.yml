@@ -107,15 +107,15 @@ author:
   location         : "Barcelona, Spain"
   email            :
   links:
+    - label: "Instagram"
+      icon: "fab fa-fw fa-instagram"
+      url: "https://instagram.com/mana.logue"
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
       url: "mailto:manaazizsoltani@gmail.com"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/manaaziz"
-    - label: "Instagram"
-      icon: "fab fa-fw fa-instagram"
-      url: "https://instagram.com/mana.logue"
 
 # Site Footer
 footer:
@@ -123,12 +123,12 @@ footer:
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
       url: "https://instagram.com/mana.logue"
-    - label: "GitHub"
-      icon: "fab fa-fw fa-github"
-      url: "https://github.com/manaaziz"
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
       url: "mailto:manaazizsoltani@gmail.com"
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/manaaziz"
 
 
 
