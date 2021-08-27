@@ -21,7 +21,7 @@ title_separator          : "-"
 subtitle                 : #
 name                     : "Mana Azizsoltani"
 description              : "The ongoing story of an Americanito in Barcelona"
-url                      : # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
+url                      : "https://manaaziz.com"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : "manaaziz/manaaziz.com"
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
