@@ -19,7 +19,7 @@ locale                   : "en-US"
 title                    : "The Manalogue"
 title_separator          : "-"
 subtitle                 : #
-name                     : "Mana Azizsoltani"
+name                     : &name "Mana Azizsoltani"
 description              : "The ongoing story of an Americanito in Barcelona"
 url                      : "https://manaaziz.com"
 baseurl                  : # the subpath of your site, e.g. "/blog"
@@ -103,7 +103,7 @@ analytics:
 
 # Site Author
 author:
-  name             : "Mana Azizsoltani"
+  name             : *name
   avatar           : "/assets/images/bio-photo.jpeg"
   bio              : "I am an **amazing** person."
   location         : "Barcelona, Spain"
