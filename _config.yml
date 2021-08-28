@@ -16,7 +16,7 @@ minimal_mistakes_skin    : "dark"
 
 # Site Settings
 locale                   : "en-US"
-title                    : "EL Manalogue"
+title                    : "The Manalogue"
 title_separator          : "-"
 subtitle                 : #
 name                     : "Mana Azizsoltani"
@@ -262,13 +262,6 @@ compress_html:
   ignore:
     envs: development
 
- # Collections
- collections:
-   portfolio:
-     output: true
-     permalink: /:collection/:path/
-
-
 
 # Defaults
 defaults:
@@ -292,11 +285,3 @@ defaults:
     values:
       layout: single
       author_profile: true
-  # _portfolio
-  - scope:
-      path: ""
-      type: portfolio
-    values:
-      layout: single
-      author_profile: false
-      share: true
