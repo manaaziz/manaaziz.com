@@ -3,7 +3,7 @@ main:
   - title: "Home"
     url: /
   - title: "About"
-    url: https://manaaziz.com/about/
+    url: /about/
   # - title: "Sample Collections"
   #   url: /collection-archive/
   # - title: "Sitemap"
