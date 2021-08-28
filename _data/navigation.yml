@@ -2,8 +2,11 @@
 main:
   - title: "Home"
     url: /
+  - title: "Blog Posts"
+    url: /posts/
   - title: "About"
     url: /about/
+    
   # - title: "Sample Collections"
   #   url: /collection-archive/
   # - title: "Sitemap"
