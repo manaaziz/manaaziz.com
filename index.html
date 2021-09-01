@@ -19,6 +19,12 @@ feature_row:
     url: "/about"
     btn_label: "Read More"
     btn_class: "btn--primary"
+  - image_path: /assets/images/barcapic.JPG
+    title: "Manalogue Posts"
+    excerpt: "The ongoing story of life as an Americanito in Barcelona."
+    url: "/posts/"
+    btn_label: "Read More"
+    btn_class: "btn--primary"
   - image_path: /assets/images/bio-photo.jpeg
     alt: "Resume/CV"
     title: "Resume/CV"
@@ -26,13 +32,27 @@ feature_row:
     url: "/resume"
     btn_label: "Read More"
     btn_class: "btn--primary"
-  - image_path: /assets/images/barcapic.JPG
-    title: "Manalogue Posts"
-    excerpt: "The ongoing story of life as an Americanito in Barcelona."
-    url: "/posts/"
-    btn_label: "Read More"
-    btn_class: "btn--primary"
 ---
+
+<header>
+   <img src="/assets/images/bcncoverphoto2.jpg" alt="bcn cover pic">
+#   <section class='hero-header-text'>
+#     <h1>Ellen Macpherson</h1>
+#     <h2>Just another tech blog.</h2>
+#     <button>Read more.</button>
+#   </section>
+</header>
+
+header {
+    width: 100%;
+#    background: black;
+    overflow: hidden;
+}
+
+img {
+   object-fit: cover;
+   opacity: 0.4;
+}
 
 <h2> manalogue <small style="color:gray">[<b class="term"> mon </b>-<i>uh</i>-lawg]</small>: Mana going on and on about his totally super awesome life </h2>
 
