@@ -2,11 +2,13 @@
 main:
   - title: "Home"
     url: /
-  - title: "Blog Posts"
-    url: /posts/
+  - title: "Blog"
+    url: /blog/
   - title: "About"
     url: /about/
-    
+  - title: "Resume/CV"
+    url: /resume/
+   
   # - title: "Sample Collections"
   #   url: /collection-archive/
   # - title: "Sitemap"
