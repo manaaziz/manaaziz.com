@@ -90,7 +90,7 @@ social:
   type                   : # Person or Organization (defaults to Person)
   name                   : # If the user or organization name differs from the site's name
   links: 
-    - "https://instagram.com/mana.logue"
+    - "https://instagram.com/mana010"
     - "https://www.linkedin.com/in/manaazizsoltani"
 
 # Analytics
@@ -105,19 +105,19 @@ analytics:
 author:
   name             : *name
   avatar           : "/assets/images/bio-photo.jpeg"
-  bio              : "Americanito en Barcelona"
-  location         : "Barcelona, Spain"
+  bio              : "PhD Student in Hospitality"
+  location         : "Las Vegas, Nevada"
   email            :
   links:
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
-      url: "https://instagram.com/mana.logue"
+      url: "https://instagram.com/mana010"
     - label: "LinkedIn"
       icon: "fab fa-fw fa-linkedin"
       url: "https://www.linkedin.com/in/manaazizsoltani/"
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
-      url: "mailto:manaazizsoltani@gmail.com"
+      url: "mailto:azizsm1@unlv.nevada.edu"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/manaaziz"
@@ -127,13 +127,13 @@ footer:
   links:
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
-      url: "https://instagram.com/mana.logue"
+      url: "https://instagram.com/mana010"
     - label: "LinkedIn"
       icon: "fab fa-fw fa-linkedin"
       url: "https://www.linkedin.com/in/manaazizsoltani/"
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
-      url: "mailto:manaazizsoltani@gmail.com"
+      url: "mailto:azizsm1@unlv.nevada.edu"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/manaaziz"
