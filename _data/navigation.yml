@@ -2,7 +2,7 @@
 main:
   - title: "Home"
     url: /
-  - title: "Blog"
+  - title: "Blogs"
     url: /blog/
   - title: "About"
     url: /about/
@@ -13,3 +13,5 @@ main:
   #   url: /collection-archive/
   # - title: "Sitemap"
   #   url: /sitemap/
+  # - title: "Gallery"
+  #   url: /gallery/
