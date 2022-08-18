@@ -6,7 +6,7 @@ main:
     url: /blog/
   - title: "About"
     url: /about/
-  - title: "Resume/CV"
+  - title: "CV/Resume"
     url: /resume/
    
   # - title: "Sample Collections"
