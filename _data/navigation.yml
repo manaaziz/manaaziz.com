@@ -8,6 +8,8 @@ main:
     url: /about/
   - title: "CV/Resume"
     url: /resume/
+  - title: "Gallery"
+    url: /gallery/
    
   # - title: "Sample Collections"
   #   url: /collection-archive/
