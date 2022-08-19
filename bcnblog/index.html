@@ -4,18 +4,3 @@ layout: home-bcnblog
 title: Americanito in Barcelona
 category: bcnblog
 ---
-{% for post in site.posts %}      
-  {% if post.categories contains 'bcnblog' %}
-	<div class="post">
-		<h3 class="title"><a href="{{ post.url }}">{{ post.title }}</a></h3>
-		<p class="meta">
-      			{{ post.date | date: "%B" }}
-      			{{ post.date | date: "%d" | plus:'0' }}, 
-      			{{ post.date | date: "%Y" }}
-		</p>
-		<div class="entry">
-			{{ post.content | strip_html | truncatewords: 30 }}
-		</div>
-	</div>
-  {% endif %}
-{% endfor %}
