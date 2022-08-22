@@ -122,7 +122,7 @@ author:
       icon: "fab fa-fw fa-instagram"
       url: "https://instagram.com/mana010"
     - label: "CV Download"
-      icon: "fas fa-fw fa-file"
+      icon: "fas fa-fw fa-file-user"
       url: "https://raw.githubusercontent.com/manaaziz/manaaziz.com/master/assets/CV.pdf"
 
 # Site Footer
