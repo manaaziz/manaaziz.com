@@ -109,9 +109,6 @@ author:
   location         : "Las Vegas, Nevada"
   email            :
   links:
-    - label: "Instagram"
-      icon: "fab fa-fw fa-instagram"
-      url: "https://instagram.com/mana010"
     - label: "LinkedIn"
       icon: "fab fa-fw fa-linkedin"
       url: "https://www.linkedin.com/in/manaazizsoltani/"
@@ -121,6 +118,12 @@ author:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/manaaziz"
+    - label: "Instagram"
+      icon: "fab fa-fw fa-instagram"
+      url: "https://instagram.com/mana010"
+    - label: "CV Download"
+      icon: "/assets/images/cvicon.jpg"
+      url: "https://github.com/manaaziz/manaaziz.com/blob/0872dd66cfefafc182437c361ca9a5105685b9c5/assets/CV.pdf"
 
 # Site Footer
 footer:
