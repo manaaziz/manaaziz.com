@@ -123,7 +123,7 @@ author:
       url: "https://instagram.com/mana010"
     - label: "CV Download"
       icon: "/assets/images/cvicon.jpg"
-      url: "https://github.com/manaaziz/manaaziz.com/blob/0872dd66cfefafc182437c361ca9a5105685b9c5/assets/CV.pdf"
+      url: "https://raw.githubusercontent.com/manaaziz/manaaziz.com/master/assets/CV.pdf"
 
 # Site Footer
 footer:
