@@ -122,15 +122,12 @@ author:
       icon: "fab fa-fw fa-instagram"
       url: "https://instagram.com/mana010"
     - label: "CV Download"
-      icon: "fas fa-fw fa-file-user"
+      icon: "fas fa-fw fa-file"
       url: "https://raw.githubusercontent.com/manaaziz/manaaziz.com/master/assets/CV.pdf"
 
 # Site Footer
 footer:
   links:
-    - label: "Instagram"
-      icon: "fab fa-fw fa-instagram"
-      url: "https://instagram.com/mana010"
     - label: "LinkedIn"
       icon: "fab fa-fw fa-linkedin"
       url: "https://www.linkedin.com/in/manaazizsoltani/"
@@ -140,6 +137,12 @@ footer:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/manaaziz"
+    - label: "Instagram"
+      icon: "fab fa-fw fa-instagram"
+      url: "https://instagram.com/mana010"
+    - label: "CV Download"
+      icon: "fas fa-fw fa-file"
+      url: "https://raw.githubusercontent.com/manaaziz/manaaziz.com/master/assets/CV.pdf"
 
 
 
