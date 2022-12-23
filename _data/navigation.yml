@@ -8,10 +8,10 @@ main:
     url: /about/
   - title: "Gallery"
     url: /gallery/
+  - title: "Podcast"
+    url: /podcast/
     
   # - title: "Sample Collections"
   #   url: /collection-archive/
   # - title: "Sitemap"
   #   url: /sitemap/
-  # - title: "Gallery"
-  #   url: /gallery/
