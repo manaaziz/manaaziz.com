@@ -5,6 +5,13 @@ layout: splash
 classes:
   - landing
 
+feature_row_EU23blog:
+  - image_path: assets/images/phdblog-cover.jpg
+    title: "Europe 2023"
+    excerpt: "The travel blog from my Europe trip in the summer of 2023"
+    url: "/EU23blog"
+    btn_label: "Read More"
+    btn_class: "btn--primary"
 feature_row_phdblog:
   - image_path: assets/images/phdblog-cover.jpg
     title: "Becoming Dr. Mana"
@@ -22,5 +29,7 @@ feature_row_bcnblog:
 ---
 
 <br>
+
+{% include feature_row id="feature_row_EU23blog" type="right" %}
 {% include feature_row id="feature_row_phdblog" type="left" %}
 {% include feature_row id="feature_row_bcnblog" type="right" %}
