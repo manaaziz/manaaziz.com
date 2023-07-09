@@ -1,0 +1,72 @@
+BEGIN:VCALENDAR
+PRODID:-//Google Inc//Google Calendar 70.9054//EN
+VERSION:2.0
+CALSCALE:GREGORIAN
+METHOD:REQUEST
+BEGIN:VTIMEZONE
+TZID:America/Los_Angeles
+X-LIC-LOCATION:America/Los_Angeles
+BEGIN:DAYLIGHT
+TZOFFSETFROM:-0800
+TZOFFSETTO:-0700
+TZNAME:PDT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:-0700
+TZOFFSETTO:-0800
+TZNAME:PST
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+DTSTART;TZID=America/Los_Angeles:20230729T184500
+DTEND;TZID=America/Los_Angeles:20230729T235900
+DTSTAMP:20230709T195346Z
+ORGANIZER;CN=manaazizsoltani@gmail.com:mailto:manaazizsoltani@gmail.com
+UID:2n80sj6rq742gmlefa2q6qim7g@google.com
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=
+ TRUE;CN=azizsm1@unlv.nevada.edu;X-NUM-GUESTS=0:mailto:azizsm1@unlv.nevada.e
+ du
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE
+ ;CN=manaazizsoltani@gmail.com;X-NUM-GUESTS=0:mailto:manaazizsoltani@gmail.c
+ om
+X-GOOGLE-CONFERENCE:https://meet.google.com/xah-rjud-dxi
+X-MICROSOFT-CDO-OWNERAPPTID:-575929942
+CREATED:20230709T194452Z
+DESCRIPTION:<p>It's time for PROM! The event will take place on Saturday\, 
+ July 29\, 2023. Please be on time\, as the itinerary is the following:</p><
+ ul><li>6:45pm: arrive at 11 Golf View Dr.</li><li>7:00pm: party bus leaves 
+ from Mana's house</li><li>7:30pm: arrive at Lake Las Vegas</li><li>7:30-8:0
+ 0pm: take pictures at Lake Las Vegas</li><li>8:00-9:00pm: ride party bus ba
+ ck to Mana's house</li><li>9:00pm-LATE: PROM party at Mana's house</li></ul
+ ><p>Other pertinent information for those of you attending:</p><ul><li>Cost
+  of attendance is $20/person to help with the cost of the party bus<ul><li>
+ Venmo: mana010</li><li>Zelle: 702-445-3737</li></ul></li><li>Everyone must 
+ bring a (boy-girl) date</li><li>Dress code: PROM!!!</li><li>Promposals\, th
+ ough encouraged\, are not necessary</li><li>Corsages are not necessary\, bu
+ t you may get one if you like.</li><li>Please show up at 6:45 SHARP so that
+  we can get on the party bus on time</li><li>I will have alcohol\, but if t
+ here is something in particular that you want\, please bring it with you.</
+ li><li>PLEASE add songs to the playlist :)<ul><li><a href="https://open.spo
+ tify.com/playlist/4EiMJNSIZOZZqJBl6ng8nC?si=421b34d37acd475c&amp\;pt=b98a1f
+ 962ad0d178a041dec6a2fa7e53">https://open.spotify.com/playlist/4EiMJNSIZOZZq
+ JBl6ng8nC?si=421b34d37acd475c&amp\;pt=b98a1f962ad0d178a041dec6a2fa7e53</a><
+ /li></ul></li></ul><p>Can't wait to see you there :)</p>\n\n-::~:~::~:~:~:~
+ :~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~::~:~::-\nJ
+ oin with Google Meet: https://meet.google.com/xah-rjud-dxi\n\nLearn more ab
+ out Meet at: https://support.google.com/a/users/answer/9282720\n\nPlease do
+  not edit this section.\n-::~:~::~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:
+ ~:~:~:~:~:~:~:~:~:~:~:~:~:~:~::~:~::-
+LAST-MODIFIED:20230709T195345Z
+LOCATION:11 Golf View Dr\, Henderson\, NV 89074\, USA
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:PROM @ Mana's
+TRANSP:OPAQUE
+ATTACH;FILENAME=prom-inv.png;FMTTYPE=image/png:https://drive.google.com/ope
+ n?id=14IIGKXMDWrt4vEiCHNWCtpEyyIOcSDdv&authuser=0
+END:VEVENT
+END:VCALENDAR
