@@ -1,37 +1,81 @@
 ---
-title: " "
-browser_title: " "
+title: "Mana Azizsoltani"
+browser_title: "Mana Azizsoltani"
 layout: splash
 classes:
-  - landing
-header:
-  image: /assets/images/webbanner.jpg
-
-feature_row:
-  - image_path: assets/images/aboutpic.jpg
-    alt: "About Me"
-    title: "About Me"
-    excerpt: "Born in Las Vegas, Nevada (for better or for worse). I love learning, exploring, life, and people."
-    url: "/about"
-    btn_label: "Read More"
-    btn_class: "btn--primary"
-  - image_path: /assets/images/barcapic.jpg
-    title: "Manalogue Posts"
-    excerpt: "Get to know me and my life through my blogs"
-    url: "/blog/"
-    btn_label: "Read More"
-    btn_class: "btn--primary"
-  - image_path: /assets/images/bio-photo.jpg
-    alt: "CV/Resume"
-    title: "CV/Resume"
-    excerpt: "I am currently a PhD Student at the William F. Harrah College of Hospitality at UNLV. Download my CV!"
-    url: "https://raw.githubusercontent.com/manaaziz/manaaziz.com/master/assets/CV.pdf"
-    btn_label: "Download"
-    btn_class: "btn--primary"
-
+  - portfolio-home
 ---
 
-<h2> MANALOGUE <small style="color:gray">[<b class="term">mon</b>-<i>uh</i>-lawg]</small>: life through my eyes, and my eyes only </h2>
+<main class="portfolio-shell">
+  <section class="portfolio-hero" aria-labelledby="intro-title">
+    <div class="portfolio-hero__copy">
+      <p class="portfolio-kicker">Hospitality analytics · machine learning · teaching</p>
+      <h1 id="intro-title">Mana Azizsoltani</h1>
+      <p class="portfolio-lede">
+        I work at the intersection of hospitality, statistics, and machine learning, with research spanning hotel demand forecasting, gaming analytics, revenue management, and quantitative education.
+      </p>
+      <div class="portfolio-actions">
+        <a class="portfolio-button portfolio-button--primary" href="/research/">Research</a>
+        <a class="portfolio-button" href="/assets/Azizsoltani_CV.pdf">CV</a>
+        <a class="portfolio-button" href="mailto:azizsm1@unlv.nevada.edu">Email</a>
+      </div>
+    </div>
+    <figure class="portfolio-portrait">
+      <img src="/assets/images/bio-photo.jpg" alt="Mana Azizsoltani">
+      <figcaption>Hospitality analytics researcher with training in mathematics, statistics, and data-driven decision-making.</figcaption>
+    </figure>
+  </section>
 
-<br>
-{% include feature_row %}
+  <section class="portfolio-section" aria-labelledby="work-title">
+    <div class="portfolio-section__header">
+      <p class="portfolio-kicker">Selected areas</p>
+      <h2 id="work-title">A site for the professional work, with room for the person.</h2>
+    </div>
+    <div class="portfolio-grid">
+      <a class="portfolio-card portfolio-card--feature" href="/research/">
+        <span class="portfolio-card__label">Research</span>
+        <h3>Machine learning for hospitality, tourism, gaming, and revenue questions.</h3>
+        <p>Demand forecasting, booking cancellations, gaming payments, measurement invariance, and applied analytics.</p>
+      </a>
+      <a class="portfolio-card" href="/teaching/">
+        <span class="portfolio-card__label">Teaching</span>
+        <h3>Statistics, R, forecasting, and applied data analysis.</h3>
+        <p>Teaching assistant work, guest lectures, tutoring, mentoring, and quantitative hospitality pedagogy.</p>
+      </a>
+      <a class="portfolio-card" href="/blog/">
+        <span class="portfolio-card__label">Blog</span>
+        <h3>Writing from the academic and personal archive.</h3>
+        <p>Keep the Manalogue spirit, but let it live as one thoughtful section of a broader professional site.</p>
+      </a>
+      <a class="portfolio-card" href="/gallery/">
+        <span class="portfolio-card__label">Gallery</span>
+        <h3>Photos from conferences, travel, teaching, and community work.</h3>
+        <p>Visual proof of a life that moves between classrooms, research forums, and the wider world.</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="portfolio-band" aria-labelledby="about-title">
+    <div>
+      <p class="portfolio-kicker">About</p>
+      <h2 id="about-title">Quantitative training, hospitality questions, international curiosity.</h2>
+    </div>
+    <p>
+      My path runs through mathematics at UNLV, statistics at NC State, doctoral work in hospitality administration, and a lot of lived curiosity: Las Vegas, Barcelona, classrooms, research forums, student organizations, and service work.
+    </p>
+    <a class="portfolio-text-link" href="/about/">Read the full about page</a>
+  </section>
+
+  <section class="portfolio-section portfolio-section--split" aria-labelledby="connect-title">
+    <div>
+      <p class="portfolio-kicker">Connect</p>
+      <h2 id="connect-title">Links, CV, and the useful doors.</h2>
+    </div>
+    <div class="portfolio-link-list">
+      <a href="https://www.linkedin.com/in/manaazizsoltani/">LinkedIn</a>
+      <a href="https://github.com/manaaziz">GitHub</a>
+      <a href="https://instagram.com/mana010">Instagram</a>
+      <a href="/assets/Azizsoltani_CV.pdf">Download CV</a>
+    </div>
+  </section>
+</main>

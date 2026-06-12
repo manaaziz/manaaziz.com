@@ -2,14 +2,16 @@
 main:
   - title: "Home"
     url: /
-  - title: "Blogs"
-    url: /blog/
+  - title: "Research"
+    url: /research/
+  - title: "Teaching"
+    url: /teaching/
   - title: "About"
     url: /about/
+  - title: "Blog"
+    url: /blog/
   - title: "Gallery"
     url: /gallery/
-  - title: "Podcast"
-    url: /podcast/
     
   # - title: "Sample Collections"
   #   url: /collection-archive/

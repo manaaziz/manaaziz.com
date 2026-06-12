@@ -16,16 +16,16 @@ minimal_mistakes_skin    : "dark"
 
 # Site Settings
 locale                   : "en-US"
-title                    : "The Manalogue"
+title                    : "Mana Azizsoltani"
 title_separator          : "-"
 subtitle                 : #
 name                     : &name "Mana Azizsoltani"
-description              : "The ongoing story of an Americanito in Barcelona"
+description              : "Hospitality analytics researcher, educator, and data storyteller"
 url                      : "https://manaaziz.com"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : "manaaziz/manaaziz.com"
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
-logo                     : "/assets/images/BitmojiAvatar.png"
+logo                     : "/assets/images/bio-photo.jpg"
 masthead_title           : # overrides the website title displayed in the masthead, use " " for no title
 # breadcrumbs            : false # true, false (default)
 words_per_minute         : 200
@@ -105,7 +105,7 @@ analytics:
 author:
   name             : *name
   avatar           : "/assets/images/bio-photo.jpg"
-  bio              : "PhD Student in Hospitality"
+  bio              : "Hospitality analytics researcher"
   location         : "Las Vegas, Nevada"
   email            :
   links:
@@ -123,7 +123,7 @@ author:
       url: "https://instagram.com/mana010"
     - label: "CV Download"
       icon: "fas fa-fw fa-file"
-      url: "https://raw.githubusercontent.com/manaaziz/manaaziz.com/master/assets/CV.pdf"
+      url: "/assets/Azizsoltani_CV.pdf"
 
 # Site Footer
 footer:
@@ -142,7 +142,7 @@ footer:
       url: "https://instagram.com/mana010"
     - label: "CV Download"
       icon: "fas fa-fw fa-file"
-      url: "https://raw.githubusercontent.com/manaaziz/manaaziz.com/master/assets/CV.pdf"
+      url: "/assets/Azizsoltani_CV.pdf"
 
 
 
