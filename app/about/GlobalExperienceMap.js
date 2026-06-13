@@ -182,6 +182,56 @@ const collaborations = [
   }
 ];
 
+const globalRegions = [
+  {
+    id: "north-america",
+    label: "North America",
+    summary: "U.S.-based casino analytics, hospitality education, and gaming research work.",
+    countries: ["us"],
+    defaultCountry: "us"
+  },
+  {
+    id: "south-america",
+    label: "South America",
+    summary: "Future collaborations in South America will live here as the project list grows.",
+    countries: []
+  },
+  {
+    id: "europe",
+    label: "Europe",
+    summary: "Academic, trust, hospitality, and gaming connections across Europe.",
+    countries: ["gb", "es"],
+    defaultCountry: "gb"
+  },
+  {
+    id: "africa",
+    label: "Africa",
+    summary: "Future collaborations in Africa will live here as the project list grows.",
+    countries: []
+  },
+  {
+    id: "middle-east",
+    label: "Middle East",
+    summary: "Emerging integrated resort and gaming analytics work in the Gulf region.",
+    countries: ["ae"],
+    defaultCountry: "ae"
+  },
+  {
+    id: "asia",
+    label: "Asia",
+    summary: "Integrated resort, casino, and hospitality analytics work across East and Southeast Asia.",
+    countries: ["cn", "kr", "vn"],
+    defaultCountry: "cn"
+  },
+  {
+    id: "oceania",
+    label: "Oceania",
+    summary: "Gaming and hospitality operator connections in Australia.",
+    countries: ["au"],
+    defaultCountry: "au"
+  }
+];
+
 const usRegions = [
   {
     id: "west",
@@ -285,6 +335,9 @@ const usRegions = [
 const usRegionByState = new Map(
   usRegions.flatMap((region) => region.states.map((state) => [state, region.id]))
 );
+const regionByCountry = new Map(
+  globalRegions.flatMap((region) => region.countries.map((countryId) => [countryId, region.id]))
+);
 const usStateFeatures = feature(usAtlas, usAtlas.objects.states).features;
 const usInteriorBorders = mesh(usAtlas, usAtlas.objects.states, (a, b) => a !== b);
 const usOutline = mesh(usAtlas, usAtlas.objects.nation, (a, b) => a === b);
@@ -292,28 +345,53 @@ const usPath = geoPath();
 
 export default function GlobalExperienceMap() {
   const [activeId, setActiveId] = useState("us");
-  const [mapMode, setMapMode] = useState("world");
+  const [mapMode, setMapMode] = useState("regions");
+  const [activeGlobalRegionId, setActiveGlobalRegionId] = useState("north-america");
   const [activeRegionId, setActiveRegionId] = useState("west");
   const collaborationById = useMemo(
     () => new Map(collaborations.map((item) => [item.id, item])),
+    []
+  );
+  const globalRegionById = useMemo(
+    () => new Map(globalRegions.map((item) => [item.id, item])),
     []
   );
   const regionById = useMemo(
     () => new Map(usRegions.map((item) => [item.id, item])),
     []
   );
+  const activeGlobalRegion = globalRegionById.get(activeGlobalRegionId) || globalRegions[0];
+  const activeCountry = collaborationById.get(activeId);
+  const activeRegionCountries = activeGlobalRegion.countries
+    .map((countryId) => collaborationById.get(countryId))
+    .filter(Boolean);
+  const activeRegionOverview = {
+    country: activeGlobalRegion.label,
+    id: activeGlobalRegion.id,
+    summary: activeGlobalRegion.summary,
+    work: activeRegionCountries.map((country) => card({
+      name: country.country,
+      type: country.drilldown ? "Drilldown" : "Projects",
+      blurb: country.summary
+    }))
+  };
   const active = mapMode === "us"
     ? regionById.get(activeRegionId) || usRegions[0]
-    : collaborationById.get(activeId) || collaborations[0];
+    : mapMode === "regions"
+      ? activeRegionOverview
+      : activeCountry || {
+        country: activeGlobalRegion.label,
+        id: activeGlobalRegion.id,
+        summary: activeGlobalRegion.summary,
+        work: []
+      };
 
   function activateCountry(locationId) {
     const collaboration = collaborationById.get(locationId);
     if (!collaboration) return;
 
     setActiveId(locationId);
-    if (locationId !== "us") {
-      setMapMode("world");
-    }
+    setActiveGlobalRegionId(regionByCountry.get(locationId) || activeGlobalRegionId);
   }
 
   function openCountry(locationId) {
@@ -321,10 +399,42 @@ export default function GlobalExperienceMap() {
     if (!collaboration) return;
 
     setActiveId(locationId);
+    setActiveGlobalRegionId(regionByCountry.get(locationId) || activeGlobalRegionId);
     if (collaboration.drilldown) {
       setMapMode("us");
       setActiveRegionId("west");
+    } else {
+      setMapMode("region");
     }
+  }
+
+  function activateGlobalRegion(regionId) {
+    const region = globalRegionById.get(regionId);
+    if (!region) return;
+
+    setActiveGlobalRegionId(regionId);
+    if (region.defaultCountry) {
+      setActiveId(region.defaultCountry);
+    }
+  }
+
+  function openGlobalRegion(regionId) {
+    const region = globalRegionById.get(regionId);
+    if (!region) return;
+
+    setActiveGlobalRegionId(regionId);
+    if (region.defaultCountry) {
+      setActiveId(region.defaultCountry);
+    } else {
+      setActiveId("");
+    }
+    setMapMode("region");
+  }
+
+  function backToRegionMap() {
+    setMapMode("region");
+    setActiveGlobalRegionId("north-america");
+    setActiveId("us");
   }
 
   return (
@@ -336,40 +446,11 @@ export default function GlobalExperienceMap() {
 
       <div className="global-map-shell" data-mode={mapMode}>
         <div className="world-map-panel" aria-label="Interactive world map">
-          {mapMode === "world" ? (
-            <svg className="world-map" viewBox={worldMap.viewBox} role="img" aria-labelledby="world-map-title">
-              <title id="world-map-title">Highlighted countries where Mana has worked or collaborated</title>
-              {worldMap.locations.map((location) => {
-                const collaboration = collaborationById.get(location.id);
-                const isActive = activeId === location.id;
-
-                return (
-                  <path
-                    aria-label={collaboration ? `${location.name}: ${collaboration.summary}` : location.name}
-                    className={collaboration ? "map-country is-highlighted" : "map-country"}
-                    d={location.path}
-                    key={location.id}
-                    onClick={() => openCountry(location.id)}
-                    onFocus={() => activateCountry(location.id)}
-                    onKeyDown={(event) => {
-                      if ((event.key === "Enter" || event.key === " ") && collaboration) {
-                        event.preventDefault();
-                        openCountry(location.id);
-                      }
-                    }}
-                    onMouseEnter={() => activateCountry(location.id)}
-                    role={collaboration ? "button" : "presentation"}
-                    tabIndex={collaboration ? 0 : -1}
-                    data-active={isActive ? "true" : "false"}
-                  />
-                );
-              })}
-            </svg>
-          ) : (
+          {mapMode === "us" ? (
             <div className="us-drilldown">
               <div className="drilldown-topline">
-                <button className="map-back-button" onClick={() => setMapMode("world")} type="button">
-                  Back to globe
+                <button className="map-back-button" onClick={backToRegionMap} type="button">
+                  Back to North America
                 </button>
                 <span>United States detail</span>
               </div>
@@ -400,6 +481,88 @@ export default function GlobalExperienceMap() {
                 <path className="us-map-outline" d={usPath(usOutline)} />
               </svg>
             </div>
+          ) : (
+            <div className="regional-map-view">
+              <div className="drilldown-topline">
+                {mapMode === "region" ? (
+                  <button className="map-back-button" onClick={() => setMapMode("regions")} type="button">
+                    Back to regions
+                  </button>
+                ) : (
+                  <span>Choose a region</span>
+                )}
+                <span>{mapMode === "region" ? activeGlobalRegion.label : "Global view"}</span>
+              </div>
+              <svg className="world-map" viewBox={worldMap.viewBox} role="img" aria-labelledby="world-map-title">
+                <title id="world-map-title">
+                  {mapMode === "region"
+                    ? `${activeGlobalRegion.label} countries where Mana has worked or collaborated`
+                    : "Regional overview of where Mana has worked or collaborated"}
+                </title>
+                {worldMap.locations.map((location) => {
+                  const collaboration = collaborationById.get(location.id);
+                  const globalRegionId = regionByCountry.get(location.id);
+                  const isKnownRegionCountry = Boolean(globalRegionId);
+                  const isActiveRegionCountry = globalRegionId === activeGlobalRegionId;
+                  const isActiveCountry = activeId === location.id;
+                  const isInteractive = mapMode === "region" ? isActiveRegionCountry : isKnownRegionCountry;
+
+                  return (
+                    <path
+                      aria-label={collaboration ? `${location.name}: ${collaboration.summary}` : location.name}
+                      className={[
+                        "map-country",
+                        isKnownRegionCountry ? "is-highlighted" : "",
+                        mapMode === "region" && !isActiveRegionCountry ? "is-muted" : ""
+                      ].filter(Boolean).join(" ")}
+                      d={location.path}
+                      key={location.id}
+                      onClick={() => {
+                        if (!isInteractive) return;
+                        if (mapMode === "regions" && globalRegionId) {
+                          openGlobalRegion(globalRegionId);
+                        } else {
+                          openCountry(location.id);
+                        }
+                      }}
+                      onFocus={() => {
+                        if (!isInteractive) return;
+                        if (mapMode === "regions" && globalRegionId) {
+                          activateGlobalRegion(globalRegionId);
+                        } else {
+                          activateCountry(location.id);
+                        }
+                      }}
+                      onKeyDown={(event) => {
+                        if ((event.key === "Enter" || event.key === " ") && isInteractive) {
+                          event.preventDefault();
+                          if (mapMode === "regions" && globalRegionId) {
+                            openGlobalRegion(globalRegionId);
+                          } else {
+                            openCountry(location.id);
+                          }
+                        }
+                      }}
+                      onMouseEnter={() => {
+                        if (!isInteractive) return;
+                        if (mapMode === "regions" && globalRegionId) {
+                          activateGlobalRegion(globalRegionId);
+                        } else {
+                          activateCountry(location.id);
+                        }
+                      }}
+                      role={isInteractive ? "button" : "presentation"}
+                      tabIndex={isInteractive ? 0 : -1}
+                      data-active={
+                        mapMode === "regions"
+                          ? (activeGlobalRegionId === globalRegionId ? "true" : "false")
+                          : isActiveCountry ? "true" : "false"
+                      }
+                    />
+                  );
+                })}
+              </svg>
+            </div>
           )}
         </div>
 
@@ -407,7 +570,7 @@ export default function GlobalExperienceMap() {
           <span>{mapMode === "us" ? active.label : active.country}</span>
           <h3>{active.summary}</h3>
           <div className="collaboration-cards" aria-label={`${mapMode === "us" ? active.label : active.country} collaborations`}>
-            {active.work.map((item) => (
+            {active.work.length ? active.work.map((item) => (
               <article className="collaboration-card" key={`${active.id}-${item.name}`}>
                 <div className="collaboration-logo" aria-label={item.name}>
                   {item.logo ? (
@@ -429,23 +592,40 @@ export default function GlobalExperienceMap() {
                   )}
                 </div>
               </article>
-            ))}
+            )) : (
+              <p className="map-empty-note">No public project cards here yet. This region is ready for future work.</p>
+            )}
           </div>
         </aside>
       </div>
 
-      <div className="country-tabs" aria-label="Highlighted countries">
-        {collaborations.map((item) => (
+      <div className="country-tabs region-tabs" aria-label="Highlighted regions">
+        {globalRegions.map((item) => (
           <button
-            className={activeId === item.id ? "country-tab is-active" : "country-tab"}
+            className={activeGlobalRegionId === item.id ? "country-tab is-active" : "country-tab"}
             key={item.id}
-            onClick={() => openCountry(item.id)}
+            onClick={() => openGlobalRegion(item.id)}
             type="button"
           >
-            {item.drilldown ? `${item.country} +` : item.country}
+            {item.label}
           </button>
         ))}
       </div>
+
+      {mapMode !== "regions" && activeRegionCountries.length > 0 ? (
+        <div className="country-tabs country-tabs-secondary" aria-label={`${activeGlobalRegion.label} countries`}>
+          {activeRegionCountries.map((item) => (
+            <button
+              className={activeId === item.id || (mapMode === "us" && item.id === "us") ? "country-tab is-active" : "country-tab"}
+              key={item.id}
+              onClick={() => openCountry(item.id)}
+              type="button"
+            >
+              {item.drilldown ? `${item.country} +` : item.country}
+            </button>
+          ))}
+        </div>
+      ) : null}
 
       <p className="map-credit">
         Map data from <a href="https://github.com/VictorCazanave/svg-maps">svg-maps</a>, licensed CC BY 4.0.

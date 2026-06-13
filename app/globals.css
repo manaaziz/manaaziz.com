@@ -863,6 +863,10 @@ h3 {
   animation: map-drill-up 420ms var(--ease-out-back) both;
 }
 
+.global-map-shell[data-mode="region"] .world-map-panel {
+  animation: map-drill-up 420ms var(--ease-out-back) both;
+}
+
 .world-map-panel,
 .map-detail-card {
   border: 1px solid var(--line);
@@ -884,6 +888,13 @@ h3 {
   min-height: 24rem;
 }
 
+.regional-map-view {
+  display: grid;
+  align-content: start;
+  gap: 1rem;
+  min-height: 100%;
+}
+
 .map-country {
   fill: rgba(255, 250, 241, 0.72);
   stroke: rgba(23, 23, 23, 0.45);
@@ -900,6 +911,12 @@ h3 {
   cursor: pointer;
 }
 
+.map-country.is-muted {
+  fill: rgba(255, 250, 241, 0.42);
+  stroke: rgba(23, 23, 23, 0.18);
+  opacity: 0.42;
+}
+
 .map-country.is-highlighted:hover,
 .map-country.is-highlighted:focus,
 .map-country[data-active="true"] {
@@ -907,6 +924,12 @@ h3 {
   stroke: #171717;
   filter: drop-shadow(0 8px 12px rgba(47, 111, 100, 0.2));
   outline: none;
+}
+
+.map-country.is-muted:hover,
+.map-country.is-muted:focus {
+  fill: rgba(255, 250, 241, 0.42);
+  filter: none;
 }
 
 .us-drilldown {
@@ -1110,6 +1133,12 @@ h3 {
   color: #314b83;
 }
 
+.work-tag.projects,
+.work-tag.drilldown {
+  background: rgba(65, 43, 16, 0.1);
+  color: #5f4015;
+}
+
 .collaboration-card h4 {
   margin: 0.5rem 0 0.25rem;
   font-size: 1rem;
@@ -1138,11 +1167,31 @@ h3 {
   text-decoration: none;
 }
 
+.map-empty-note {
+  margin: 0;
+  padding: 1rem;
+  border: 1px dashed var(--line-strong);
+  border-radius: 8px;
+  background: rgba(255, 250, 241, 0.64);
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
 .country-tabs {
   display: flex;
   flex-wrap: wrap;
   gap: 0.55rem;
   margin-top: 1rem;
+}
+
+.country-tabs-secondary {
+  margin-top: 0.65rem;
+}
+
+.country-tabs-secondary .country-tab {
+  font-size: 0.8rem;
+  padding: 0.42rem 0.66rem;
 }
 
 .country-tab {
@@ -2018,6 +2067,7 @@ h3 {
 @media (prefers-reduced-motion: reduce) {
   .timeline-arrow::before,
   .timeline-arrow span,
+  .global-map-shell[data-mode="region"] .world-map-panel,
   .global-map-shell[data-mode="us"] .world-map-panel {
     animation: none;
   }
