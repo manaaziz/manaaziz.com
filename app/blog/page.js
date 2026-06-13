@@ -8,6 +8,11 @@ export const metadata = {
 export default function BlogPage() {
   const series = getSeriesSummaries();
   const recentPosts = getRecentPosts(5);
+  const totalPosts = series.reduce((total, item) => total + item.posts.length, 0);
+  const totalReadingMinutes = series.reduce(
+    (total, item) => total + item.posts.reduce((seriesTotal, post) => seriesTotal + post.readingMinutes, 0),
+    0
+  );
 
   return (
     <main className="page-shell">
@@ -17,14 +22,37 @@ export default function BlogPage() {
         The blog is the home for the Manalogue archive: PhD reflections, travel writing, and older essays from Barcelona and Europe.
       </p>
 
+      <section className="blog-dashboard reveal" aria-label="Blog archive summary">
+        <div>
+          <span>{totalPosts}</span>
+          <p>posts migrated</p>
+        </div>
+        <div>
+          <span>{series.length}</span>
+          <p>series</p>
+        </div>
+        <div>
+          <span>{totalReadingMinutes}</span>
+          <p>minutes of reading</p>
+        </div>
+      </section>
+
+      <nav className="topic-pills reveal" aria-label="Browse blog series">
+        {series.map((item) => (
+          <a href={`#${item.seriesSlug}`} key={item.seriesSlug}>
+            {item.title}
+          </a>
+        ))}
+      </nav>
+
       <section className="media-grid">
         {series.map((item) => (
-          <Link className="media-card" href={`/blog/${item.seriesSlug}`} key={item.title}>
+          <Link className="media-card reveal" href={`/blog/${item.seriesSlug}`} id={item.seriesSlug} key={item.title}>
             <img src={item.cover} alt="" />
             <div>
+              <span>{item.posts.length} posts</span>
               <h2>{item.title}</h2>
               <p>{item.description}</p>
-              <span>{item.posts.length} posts</span>
             </div>
           </Link>
         ))}
@@ -37,7 +65,7 @@ export default function BlogPage() {
         </div>
         <div className="post-list">
           {recentPosts.map((post) => (
-            <Link className="post-list-item" href={post.href} key={post.href}>
+            <Link className="post-list-item reveal" href={post.href} key={post.href}>
               <span>{post.seriesTitle} - {post.date} - {post.readingMinutes} min read</span>
               <h2>{post.title}</h2>
               <p>{post.excerpt}</p>

@@ -6,6 +6,7 @@ export default function PostContent({ post }) {
 
   return (
     <main className="page-shell post-shell">
+      <div className="reading-progress" aria-hidden="true" />
       <Link className="back-link" href={`/blog/${post.seriesSlug}`}>
         Back to {post.seriesTitle}
       </Link>

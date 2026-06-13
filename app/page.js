@@ -64,14 +64,14 @@ export default function Home() {
         </a>
       </section>
 
-      <section className="section-intro" id="selected-areas">
+      <section className="section-intro reveal" id="selected-areas">
         <p className="eyebrow">Selected areas</p>
         <h2>A professional home with enough room for the person.</h2>
       </section>
 
       <section className="card-grid">
         {focusAreas.map((area, index) => (
-          <Link className={index === 0 ? "feature-card highlighted" : "feature-card"} href={area.href} key={area.href}>
+          <Link className={index === 0 ? "feature-card highlighted reveal" : "feature-card reveal"} href={area.href} key={area.href}>
             <span>{area.label}</span>
             <h3>{area.title}</h3>
             <p>{area.body}</p>
@@ -79,7 +79,7 @@ export default function Home() {
         ))}
       </section>
 
-      <section className="split-band">
+      <section className="split-band reveal">
         <div>
           <p className="eyebrow">About</p>
           <h2>Quantitative training, hospitality questions, international curiosity.</h2>
