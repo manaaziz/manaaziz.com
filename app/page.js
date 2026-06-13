@@ -28,30 +28,10 @@ const focusAreas = [
   }
 ];
 
-const stats = [
-  ["PhD", "Hospitality Administration"],
-  ["MS", "Statistics"],
-  ["BS", "Mathematics"]
-];
-
 export default function Home() {
   return (
     <main>
       <section className="hero hero-home" aria-label="Mana Azizsoltani introduction">
-        <div className="hero-rail">
-          <span>Hospitality analytics researcher</span>
-          <span>2026</span>
-        </div>
-
-        <div className="hero-metrics" aria-label="Education summary">
-          {stats.map(([value, label]) => (
-            <div key={value}>
-              <strong>{value}</strong>
-              <span>{label}</span>
-            </div>
-          ))}
-        </div>
-
         <div className="hero-copy">
           <p className="eyebrow">Hospitality analytics - machine learning - teaching</p>
           <h1 className="hero-greeting">
@@ -112,15 +92,6 @@ export default function Home() {
             Read the full about page
           </Link>
         </div>
-      </section>
-
-      <section className="stat-row" aria-label="Education summary">
-        {stats.map(([value, label]) => (
-          <div key={value}>
-            <strong>{value}</strong>
-            <span>{label}</span>
-          </div>
-        ))}
       </section>
     </main>
   );
