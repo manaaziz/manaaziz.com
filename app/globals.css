@@ -6,7 +6,7 @@
   --ink: #171717;
   --muted: #6f665a;
   --line: rgba(23, 23, 23, 0.13);
-  --gold: #f2a51a;
+  --gold: #171717;
   --green: #2f6f64;
   --blue: #4a69a8;
   --cream: #fff7e8;
@@ -179,7 +179,7 @@ main {
 
 .eyebrow {
   margin: 0 0 1rem;
-  color: #9b5d00;
+  color: var(--ink);
   font-size: 0.78rem;
   font-weight: 800;
   letter-spacing: 0;
@@ -236,17 +236,25 @@ h3 {
   padding: 0.65rem 1rem;
   border: 1px solid rgba(23, 23, 23, 0.16);
   border-radius: 999px;
-  background: rgba(255, 250, 241, 0.68);
+  background: rgba(255, 255, 255, 0.42);
   color: var(--ink);
   font-weight: 800;
   text-decoration: none;
 }
 
 .button.primary {
-  border-color: transparent;
-  background: var(--gold);
-  color: #171717;
-  box-shadow: 0 14px 24px rgba(242, 165, 26, 0.25);
+  min-height: auto;
+  padding: 0 0 0.18rem;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.button.primary::after {
+  margin-left: 0.35rem;
+  content: "↗";
 }
 
 .button-row {
@@ -271,12 +279,12 @@ h3 {
 
 .portrait-panel img {
   position: absolute;
-  right: -10%;
-  bottom: 0;
-  width: 132%;
+  right: -2%;
+  bottom: -4rem;
+  width: 108%;
   max-width: none;
   height: auto;
-  filter: drop-shadow(0 28px 36px rgba(17, 17, 17, 0.14));
+  filter: drop-shadow(0 26px 34px rgba(17, 17, 17, 0.12));
 }
 
 .portrait-panel figcaption {
@@ -393,9 +401,10 @@ h3 {
 }
 
 .text-link {
-  color: var(--gold);
+  color: var(--ink);
   font-weight: 800;
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
 }
 
 .page-shell {
@@ -821,12 +830,13 @@ h3 {
     grid-row: 2;
     width: 100%;
     max-width: 100%;
-    height: 25rem;
+    height: 21rem;
   }
 
   .portrait-panel img {
-    right: -6%;
-    width: 112%;
+    right: -2%;
+    bottom: -2.5rem;
+    width: 102%;
   }
 
   .scroll-cue {
