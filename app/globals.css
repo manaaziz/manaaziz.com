@@ -46,7 +46,6 @@ img {
 }
 
 .site-header,
-.site-footer,
 main {
   width: min(var(--max), calc(100vw - 2rem));
   max-width: calc(100vw - 2rem);
@@ -262,6 +261,9 @@ h3 {
 }
 
 .portrait-panel {
+  --portrait-bottom: -4rem;
+  --portrait-scale: 1.08;
+  --portrait-x: 50%;
   position: relative;
   overflow: hidden;
   z-index: 1;
@@ -279,12 +281,13 @@ h3 {
 
 .portrait-panel img {
   position: absolute;
-  right: -2%;
-  bottom: -4rem;
-  width: 108%;
+  left: var(--portrait-x);
+  bottom: var(--portrait-bottom);
+  width: calc(100% * var(--portrait-scale));
   max-width: none;
   height: auto;
   filter: drop-shadow(0 26px 34px rgba(17, 17, 17, 0.12));
+  transform: translateX(-50%);
 }
 
 .portrait-panel figcaption {
@@ -375,8 +378,7 @@ h3 {
 .callout li,
 .media-card p,
 .media-card span,
-.gallery-section p,
-.site-footer p {
+.gallery-section p {
   color: var(--muted);
 }
 
@@ -686,31 +688,103 @@ h3 {
 }
 
 .site-footer {
+  width: 100%;
+  margin-top: 5rem;
+  background: #143247;
+  color: #eef6f5;
+}
+
+.footer-inner {
+  width: min(var(--max), calc(100vw - 2rem));
+  max-width: calc(100vw - 2rem);
+  margin-inline: auto;
+  padding: clamp(3rem, 7vw, 5rem) 0 2rem;
+}
+
+.footer-brand {
+  max-width: 42rem;
+}
+
+.footer-brand strong {
+  color: #8ea7ff;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 1;
+}
+
+.footer-brand p {
+  max-width: 36rem;
+  margin: 1rem 0 0;
+  color: rgba(238, 246, 245, 0.82);
+  font-size: clamp(1.1rem, 2vw, 1.45rem);
+  line-height: 1.5;
+}
+
+.footer-directory {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1.5rem, 4vw, 4rem);
+  margin-top: clamp(3rem, 7vw, 5rem);
+}
+
+.footer-group {
+  display: grid;
+  align-content: start;
+  gap: 0.85rem;
+}
+
+.footer-group h2 {
+  color: rgba(238, 246, 245, 0.58);
+  font-size: 0.88rem;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.footer-group a,
+.footer-socials a {
+  color: rgba(238, 246, 245, 0.86);
+  text-decoration: none;
+}
+
+.footer-group a {
+  font-size: 1.05rem;
+}
+
+.footer-group a:hover,
+.footer-socials a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.footer-bottom {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   gap: 1.5rem;
-  padding: 2rem 0 3rem;
-  border-top: 1px solid var(--line);
+  margin-top: clamp(3rem, 7vw, 5rem);
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(238, 246, 245, 0.18);
 }
 
-.site-footer p {
-  max-width: 38rem;
-  margin: 0.35rem 0 0;
+.footer-bottom p {
+  margin: 0;
+  color: rgba(238, 246, 245, 0.7);
+  font-size: 0.92rem;
 }
 
-.footer-links {
+.footer-socials {
+  display: flex;
+  flex-wrap: wrap;
   justify-content: flex-end;
+  gap: 0.75rem 1rem;
 }
 
-.footer-links a {
-  color: var(--muted);
-  font-size: 0.9rem;
-  text-decoration: none;
+.footer-socials a {
+  font-size: 0.92rem;
 }
 
 @media (max-width: 920px) {
   .site-header,
-  .site-footer,
   .split-band,
   .gallery-section {
     grid-template-columns: 1fr;
@@ -731,6 +805,8 @@ h3 {
   }
 
   .portrait-panel {
+    --portrait-bottom: -3.5rem;
+    --portrait-scale: 0.92;
     grid-column: 1;
     grid-row: 2;
     height: clamp(34rem, 78vw, 46rem);
@@ -746,6 +822,19 @@ h3 {
   .site-footer {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .footer-directory {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footer-bottom {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .footer-socials {
+    justify-content: flex-start;
   }
 
   .card-grid,
@@ -768,12 +857,21 @@ h3 {
   }
 
   .site-header,
-  .site-footer,
   main {
     width: auto;
     max-width: none;
     margin-inline: 0.5rem;
     overflow-x: clip;
+  }
+
+  .footer-inner {
+    width: auto;
+    max-width: none;
+    margin-inline: 1rem;
+  }
+
+  .footer-directory {
+    grid-template-columns: 1fr;
   }
 
   .hero-home {
@@ -826,17 +924,13 @@ h3 {
   }
 
   .portrait-panel {
+    --portrait-bottom: -2.5rem;
+    --portrait-scale: 1.02;
     grid-column: 1;
     grid-row: 2;
     width: 100%;
     max-width: 100%;
     height: 21rem;
-  }
-
-  .portrait-panel img {
-    right: -2%;
-    bottom: -2.5rem;
-    width: 102%;
   }
 
   .scroll-cue {
