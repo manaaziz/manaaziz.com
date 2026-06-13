@@ -54,14 +54,9 @@ export default function Home() {
           </div>
         </div>
 
-        <figure className="portrait-panel">
-          <img
-            src="/assets/images/mana-cutout-shoulders.png"
-            alt="Mana Azizsoltani"
-            width="2564"
-            height="1740"
-          />
-        </figure>
+        <div className="portrait-panel portrait-placeholder" aria-label="Portrait placeholder">
+          <span>Portrait coming soon</span>
+        </div>
 
         <a className="scroll-cue" href="#selected-areas">
           Scroll down

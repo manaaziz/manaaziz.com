@@ -261,9 +261,6 @@ h3 {
 }
 
 .portrait-panel {
-  --portrait-bottom: -4rem;
-  --portrait-scale: 1.08;
-  --portrait-x: 50%;
   position: relative;
   overflow: hidden;
   z-index: 1;
@@ -279,28 +276,22 @@ h3 {
   box-shadow: none;
 }
 
-.portrait-panel img {
-  position: absolute;
-  left: var(--portrait-x);
-  bottom: var(--portrait-bottom);
-  width: calc(100% * var(--portrait-scale));
-  max-width: none;
-  height: auto;
-  filter: drop-shadow(0 26px 34px rgba(17, 17, 17, 0.12));
-  transform: translateX(-50%);
+.portrait-placeholder {
+  display: grid;
+  min-height: 34rem;
+  place-items: center;
+  border: 1px dashed rgba(23, 23, 23, 0.22);
+  border-radius: 18px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.32), rgba(255, 250, 241, 0.72)),
+    rgba(255, 255, 255, 0.28);
 }
 
-.portrait-panel figcaption {
-  position: absolute;
-  right: 1rem;
-  bottom: 1rem;
-  left: 1rem;
-  padding: 0.85rem 1rem;
-  border: 1px solid rgba(255, 250, 241, 0.22);
-  border-radius: 16px;
-  background: rgba(23, 23, 23, 0.78);
-  color: var(--cream);
-  font-size: 0.85rem;
+.portrait-placeholder span {
+  color: rgba(23, 23, 23, 0.46);
+  font-size: 0.86rem;
+  font-weight: 800;
+  text-transform: uppercase;
 }
 
 .scroll-cue {
@@ -805,8 +796,6 @@ h3 {
   }
 
   .portrait-panel {
-    --portrait-bottom: -3.5rem;
-    --portrait-scale: 0.92;
     grid-column: 1;
     grid-row: 2;
     height: clamp(34rem, 78vw, 46rem);
@@ -924,8 +913,6 @@ h3 {
   }
 
   .portrait-panel {
-    --portrait-bottom: -2.5rem;
-    --portrait-scale: 1.02;
     grid-column: 1;
     grid-row: 2;
     width: 100%;
