@@ -188,49 +188,74 @@ const globalRegions = [
     label: "North America",
     summary: "U.S.-based casino analytics, hospitality education, and gaming research work.",
     countries: ["us"],
-    defaultCountry: "us"
+    defaultCountry: "us",
+    position: { left: "22%", top: "38%" },
+    zoom: { scale: 1.85, originX: "23%", originY: "40%" }
   },
   {
     id: "south-america",
     label: "South America",
     summary: "Future collaborations in South America will live here as the project list grows.",
-    countries: []
+    countries: [],
+    position: { left: "34%", top: "66%" },
+    zoom: { scale: 2.25, originX: "34%", originY: "66%" }
   },
   {
     id: "europe",
     label: "Europe",
     summary: "Academic, trust, hospitality, and gaming connections across Europe.",
     countries: ["gb", "es"],
-    defaultCountry: "gb"
+    defaultCountry: "gb",
+    position: { left: "49%", top: "32%" },
+    zoom: { scale: 3.05, originX: "48%", originY: "36%" }
   },
   {
     id: "africa",
     label: "Africa",
     summary: "Future collaborations in Africa will live here as the project list grows.",
-    countries: []
+    countries: [],
+    position: { left: "52%", top: "56%" },
+    zoom: { scale: 2.25, originX: "52%", originY: "56%" }
   },
   {
     id: "middle-east",
     label: "Middle East",
     summary: "Emerging integrated resort and gaming analytics work in the Gulf region.",
     countries: ["ae"],
-    defaultCountry: "ae"
+    defaultCountry: "ae",
+    position: { left: "60%", top: "48%" },
+    zoom: { scale: 3.25, originX: "60%", originY: "48%" }
   },
   {
     id: "asia",
     label: "Asia",
     summary: "Integrated resort, casino, and hospitality analytics work across East and Southeast Asia.",
     countries: ["cn", "kr", "vn"],
-    defaultCountry: "cn"
+    defaultCountry: "cn",
+    position: { left: "73%", top: "43%" },
+    zoom: { scale: 2.05, originX: "73%", originY: "46%" }
   },
   {
     id: "oceania",
     label: "Oceania",
     summary: "Gaming and hospitality operator connections in Australia.",
     countries: ["au"],
-    defaultCountry: "au"
+    defaultCountry: "au",
+    position: { left: "79%", top: "73%" },
+    zoom: { scale: 2.65, originX: "79%", originY: "73%" }
   }
 ];
+
+const countryFloatPositions = {
+  us: { left: "22%", top: "40%" },
+  gb: { left: "47%", top: "32%" },
+  es: { left: "45%", top: "39%" },
+  ae: { left: "60%", top: "49%" },
+  cn: { left: "71%", top: "43%" },
+  kr: { left: "78%", top: "39%" },
+  vn: { left: "73%", top: "56%" },
+  au: { left: "79%", top: "76%" }
+};
 
 const usRegions = [
   {
@@ -385,6 +410,9 @@ export default function GlobalExperienceMap() {
         summary: activeGlobalRegion.summary,
         work: []
       };
+  const activeCountryFloatPosition = activeCountry
+    ? countryFloatPositions[activeCountry.id] || { left: "50%", top: "50%" }
+    : null;
 
   function activateCountry(locationId) {
     const collaboration = collaborationById.get(locationId);
@@ -441,7 +469,7 @@ export default function GlobalExperienceMap() {
     <section className="global-experience" aria-labelledby="global-experience-title">
       <div className="section-intro">
         <p className="eyebrow">Experience</p>
-        <h2 id="global-experience-title">International projects across casino, hospitality, and data science.</h2>
+        <h2 id="global-experience-title">I bring a wide range of global experience</h2>
       </div>
 
       <div className="global-map-shell" data-mode={mapMode}>
@@ -493,75 +521,95 @@ export default function GlobalExperienceMap() {
                 )}
                 <span>{mapMode === "region" ? activeGlobalRegion.label : "Global view"}</span>
               </div>
-              <svg className="world-map" viewBox={worldMap.viewBox} role="img" aria-labelledby="world-map-title">
-                <title id="world-map-title">
-                  {mapMode === "region"
-                    ? `${activeGlobalRegion.label} countries where Mana has worked or collaborated`
-                    : "Regional overview of where Mana has worked or collaborated"}
-                </title>
-                {worldMap.locations.map((location) => {
-                  const collaboration = collaborationById.get(location.id);
-                  const globalRegionId = regionByCountry.get(location.id);
-                  const isKnownRegionCountry = Boolean(globalRegionId);
-                  const isActiveRegionCountry = globalRegionId === activeGlobalRegionId;
-                  const isActiveCountry = activeId === location.id;
-                  const isInteractive = mapMode === "region" ? isActiveRegionCountry : isKnownRegionCountry;
+              {mapMode === "regions" ? (
+                <div className="region-overview-map" aria-label="Choose a global region">
+                  <svg className="world-map region-base-map" viewBox={worldMap.viewBox} aria-hidden="true">
+                    {worldMap.locations.map((location) => (
+                      <path className="map-country" d={location.path} key={location.id} />
+                    ))}
+                  </svg>
+                  <div className="region-hotspots">
+                    {globalRegions.map((region) => (
+                      <button
+                        aria-label={`Open ${region.label}: ${region.summary}`}
+                        className={activeGlobalRegionId === region.id ? "region-hotspot is-active" : "region-hotspot"}
+                        key={region.id}
+                        onClick={() => openGlobalRegion(region.id)}
+                        onFocus={() => activateGlobalRegion(region.id)}
+                        onMouseEnter={() => activateGlobalRegion(region.id)}
+                        style={{
+                          "--x": region.position.left,
+                          "--y": region.position.top
+                        }}
+                        type="button"
+                      >
+                        <span>{region.label}</span>
+                        <small>{region.countries.length ? "Explore region" : "Coming soon"}</small>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div
+                  className="country-map-stage"
+                  style={{
+                    "--region-scale": activeGlobalRegion.zoom.scale,
+                    "--region-floater-scale": 1 / activeGlobalRegion.zoom.scale,
+                    "--region-origin-x": activeGlobalRegion.zoom.originX,
+                    "--region-origin-y": activeGlobalRegion.zoom.originY
+                  }}
+                >
+                  <div className="map-zoom-layer">
+                    <svg className="world-map" viewBox={worldMap.viewBox} role="img" aria-labelledby="world-map-title">
+                      <title id="world-map-title">{`${activeGlobalRegion.label} countries where Mana has worked or collaborated`}</title>
+                      {worldMap.locations.map((location) => {
+                        const collaboration = collaborationById.get(location.id);
+                        const globalRegionId = regionByCountry.get(location.id);
+                        const isActiveRegionCountry = globalRegionId === activeGlobalRegionId;
+                        const isActiveCountry = activeId === location.id;
 
-                  return (
-                    <path
-                      aria-label={collaboration ? `${location.name}: ${collaboration.summary}` : location.name}
-                      className={[
-                        "map-country",
-                        isKnownRegionCountry ? "is-highlighted" : "",
-                        mapMode === "region" && !isActiveRegionCountry ? "is-muted" : ""
-                      ].filter(Boolean).join(" ")}
-                      d={location.path}
-                      key={location.id}
-                      onClick={() => {
-                        if (!isInteractive) return;
-                        if (mapMode === "regions" && globalRegionId) {
-                          openGlobalRegion(globalRegionId);
-                        } else {
-                          openCountry(location.id);
-                        }
-                      }}
-                      onFocus={() => {
-                        if (!isInteractive) return;
-                        if (mapMode === "regions" && globalRegionId) {
-                          activateGlobalRegion(globalRegionId);
-                        } else {
-                          activateCountry(location.id);
-                        }
-                      }}
-                      onKeyDown={(event) => {
-                        if ((event.key === "Enter" || event.key === " ") && isInteractive) {
-                          event.preventDefault();
-                          if (mapMode === "regions" && globalRegionId) {
-                            openGlobalRegion(globalRegionId);
-                          } else {
-                            openCountry(location.id);
-                          }
-                        }
-                      }}
-                      onMouseEnter={() => {
-                        if (!isInteractive) return;
-                        if (mapMode === "regions" && globalRegionId) {
-                          activateGlobalRegion(globalRegionId);
-                        } else {
-                          activateCountry(location.id);
-                        }
-                      }}
-                      role={isInteractive ? "button" : "presentation"}
-                      tabIndex={isInteractive ? 0 : -1}
-                      data-active={
-                        mapMode === "regions"
-                          ? (activeGlobalRegionId === globalRegionId ? "true" : "false")
-                          : isActiveCountry ? "true" : "false"
-                      }
-                    />
-                  );
-                })}
-              </svg>
+                        return (
+                          <path
+                            aria-label={collaboration ? `${location.name}: ${collaboration.summary}` : location.name}
+                            className={[
+                              "map-country",
+                              isActiveRegionCountry ? "is-highlighted" : "is-muted"
+                            ].filter(Boolean).join(" ")}
+                            d={location.path}
+                            key={location.id}
+                            onClick={() => isActiveRegionCountry && openCountry(location.id)}
+                            onFocus={() => isActiveRegionCountry && activateCountry(location.id)}
+                            onKeyDown={(event) => {
+                              if ((event.key === "Enter" || event.key === " ") && isActiveRegionCountry) {
+                                event.preventDefault();
+                                openCountry(location.id);
+                              }
+                            }}
+                            onMouseEnter={() => isActiveRegionCountry && activateCountry(location.id)}
+                            role={isActiveRegionCountry ? "button" : "presentation"}
+                            tabIndex={isActiveRegionCountry ? 0 : -1}
+                            data-active={isActiveCountry ? "true" : "false"}
+                          />
+                        );
+                      })}
+                    </svg>
+                    {activeCountry && activeCountryFloatPosition ? (
+                      <button
+                        className="country-floater"
+                        onClick={() => openCountry(activeCountry.id)}
+                        style={{
+                          "--x": activeCountryFloatPosition.left,
+                          "--y": activeCountryFloatPosition.top
+                        }}
+                        type="button"
+                      >
+                        <span>{activeCountry.country}</span>
+                        <small>{activeCountry.drilldown ? "Open U.S. detail" : "View country projects"}</small>
+                      </button>
+                    ) : null}
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </div>
