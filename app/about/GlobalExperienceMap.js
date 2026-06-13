@@ -39,7 +39,7 @@ const collaborations = [
         name: "Wynn Las Vegas",
         type: "Consulting",
         blurb: "Supported casino and hospitality analytics work for operator-facing decisions.",
-        logo: "/assets/images/logos/1128.HK_BIG-b02662a0.png"
+        logo: "/assets/partner-logos/wynn-macau.png"
       }),
       card({
         name: "GMA Consulting",
@@ -80,7 +80,7 @@ const collaborations = [
         name: "Wynn Mayfair",
         type: "Consulting",
         blurb: "Tracked international luxury hospitality and gaming market context.",
-        logo: "/assets/images/logos/24c29a9a52a740359bb959093e5243a9.png"
+        logo: "/assets/partner-logos/wynn-mayfair.png"
       })
     ]
   },
@@ -93,32 +93,45 @@ const collaborations = [
         name: "Wynn Al Marjan Island",
         type: "Consulting",
         blurb: "Followed emerging integrated resort strategy in a new gaming market.",
-        logo: "/assets/images/logos/Wynn_Al_Marjan_Island_Logo_2025.png"
+        logo: "/assets/partner-logos/wynn-al-marjan.png"
       })
     ]
   },
   {
     country: "China",
     id: "cn",
-    summary: "International casino, resort, and integrated hospitality markets.",
+    summary: "Integrated resort and casino hospitality work across China and Macau.",
     work: [
+      card({
+        name: "Wynn Palace",
+        type: "Consulting",
+        blurb: "Studied premium integrated resort operations and casino hospitality strategy.",
+        href: "/blog/europe-2023",
+        logo: "/assets/partner-logos/wynn-macau.png"
+      }),
+      card({
+        name: "Wynn Macau",
+        type: "Consulting",
+        blurb: "Explored gaming, hospitality, and market context in Macau.",
+        logo: "/assets/partner-logos/wynn-macau.png"
+      }),
       card({
         name: "City of Dreams",
         type: "Consulting",
         blurb: "Studied integrated resort positioning and casino hospitality operations.",
-        logo: "/assets/images/logos/Melco_logo.png"
+        logo: "/assets/partner-logos/melco.png"
       }),
       card({
         name: "Studio City",
         type: "Consulting",
         blurb: "Reviewed resort entertainment and gaming market strategy in Macau.",
-        logo: "/assets/images/logos/Melco_logo.png"
+        logo: "/assets/partner-logos/melco.png"
       }),
       card({
         name: "Altira Macau",
         type: "Consulting",
         blurb: "Explored premium hospitality and casino market context.",
-        logo: "/assets/images/logos/Melco_logo.png"
+        logo: "/assets/partner-logos/melco.png"
       })
     ]
   },
@@ -131,39 +144,7 @@ const collaborations = [
         name: "INSPIRE Resort Entertainment",
         type: "Consulting",
         blurb: "Worked on casino and resort analytics questions for an integrated entertainment resort.",
-        logo: "/assets/images/logos/IER_Logotype_RGB.png"
-      })
-    ]
-  },
-  {
-    country: "Macau",
-    id: "mo",
-    summary: "Integrated resort and casino hospitality work in one of the world's major gaming markets.",
-    work: [
-      card({
-        name: "Wynn Palace",
-        type: "Consulting",
-        blurb: "Studied premium integrated resort operations and casino hospitality strategy.",
-        href: "/blog/europe-2023",
-        logo: "/assets/images/logos/1128.HK_BIG-b02662a0.png"
-      }),
-      card({
-        name: "Wynn Macau",
-        type: "Consulting",
-        blurb: "Explored gaming, hospitality, and market context in Macau.",
-        logo: "/assets/images/logos/1128.HK_BIG-b02662a0.png"
-      }),
-      card({
-        name: "City of Dreams",
-        type: "Consulting",
-        blurb: "Observed integrated resort strategy and entertainment-driven hospitality.",
-        logo: "/assets/images/logos/Melco_logo.png"
-      }),
-      card({
-        name: "Studio City",
-        type: "Consulting",
-        blurb: "Examined entertainment resort positioning in Macau's casino market.",
-        logo: "/assets/images/logos/Melco_logo.png"
+        logo: "/assets/partner-logos/inspire-resort.png"
       })
     ]
   },
@@ -176,7 +157,7 @@ const collaborations = [
         name: "Hoiana",
         type: "Consulting",
         blurb: "Reviewed integrated resort and casino hospitality context in Southeast Asia.",
-        logo: "/assets/images/logos/1691075779109-771fb91b-7411-40e2-ab45-906ce79464bb.jpg"
+        logo: "/assets/partner-logos/hoiana.png"
       })
     ]
   },
@@ -189,13 +170,13 @@ const collaborations = [
         name: "Crown Resorts",
         type: "Consulting",
         blurb: "Worked with gaming and hospitality context for Australian operator questions.",
-        logo: "/assets/images/logos/Crown_Resorts_logo.svg.png"
+        logo: "/assets/partner-logos/crown-resorts.png"
       }),
       card({
         name: "The Star Entertainment Group",
         type: "Consulting",
         blurb: "Tracked operator strategy and casino hospitality questions in Australia.",
-        logo: "/assets/images/logos/SGR.AX_BIG-d0a53ced.png"
+        logo: "/assets/partner-logos/the-star.png"
       })
     ]
   }
@@ -225,13 +206,13 @@ const usRegions = [
         name: "Wynn Las Vegas",
         type: "Consulting",
         blurb: "Supported analytics work tied to casino and hospitality operations.",
-        logo: "/assets/images/logos/1128.HK_BIG-b02662a0.png"
+        logo: "/assets/partner-logos/wynn-macau.png"
       }),
       card({
         name: "Encore",
         type: "Consulting",
         blurb: "Worked with operator context for premium resort and gaming decisions.",
-        logo: "/assets/images/logos/1128.HK_BIG-b02662a0.png"
+        logo: "/assets/partner-logos/wynn-macau.png"
       }),
       card({
         name: "WDTS",
