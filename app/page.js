@@ -75,7 +75,7 @@ export default function Home() {
         </div>
 
         <figure className="portrait-panel">
-          <img src="/assets/images/mana-headshot.jpeg" alt="Mana Azizsoltani" />
+          <img src="/assets/images/mana-cutout.png" alt="Mana Azizsoltani" />
         </figure>
 
         <a className="scroll-cue" href="#selected-areas">
