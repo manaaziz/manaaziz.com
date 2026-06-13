@@ -50,7 +50,8 @@ const footerGroups = [
       { href: "https://www.linkedin.com/in/manaazizsoltani/", label: "LinkedIn" },
       { href: "https://instagram.com/mana010", label: "Instagram" },
       { href: "https://github.com/manaaziz", label: "GitHub" },
-      { href: "https://scholar.google.com/scholar?q=Mana%20Azizsoltani", label: "Google Scholar" }
+      { href: "https://scholar.google.com/citations?user=Qe4izygAAAAJ&hl=en", label: "Google Scholar" },
+      { href: "https://orcid.org/0009-0001-5193-2823", label: "ORCID" }
     ]
   },
   {
@@ -67,7 +68,8 @@ const socialLinks = [
   { href: "https://www.linkedin.com/in/manaazizsoltani/", label: "LinkedIn" },
   { href: "https://instagram.com/mana010", label: "Instagram" },
   { href: "https://github.com/manaaziz", label: "GitHub" },
-  { href: "https://scholar.google.com/scholar?q=Mana%20Azizsoltani", label: "Scholar" }
+  { href: "https://scholar.google.com/citations?user=Qe4izygAAAAJ&hl=en", label: "Scholar" },
+  { href: "https://orcid.org/0009-0001-5193-2823", label: "ORCID" }
 ];
 
 export default function RootLayout({ children }) {
