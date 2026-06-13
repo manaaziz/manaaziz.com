@@ -33,13 +33,12 @@ export default function Home() {
     <main>
       <section className="hero hero-home" aria-label="Mana Azizsoltani introduction">
         <div className="hero-copy">
-          <p className="eyebrow">Hospitality analytics - machine learning - teaching</p>
           <h1 className="hero-greeting">
             <LocalizedHello />
           </h1>
           <p className="hero-signature">- I&apos;m Mana Azizsoltani.</p>
           <p className="lede">
-            I work at the intersection of hospitality, statistics, and machine learning, with research spanning hotel demand forecasting, gaming analytics, revenue management, and quantitative education.
+            I am a consultant, researcher, and professor focused on data science and AI solutions in the casino and hospitality industry.
           </p>
           <div className="button-row">
             <Link className="button primary" href="/research">
