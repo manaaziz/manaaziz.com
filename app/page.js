@@ -1,34 +1,31 @@
 import Link from "next/link";
 import LocalizedHello from "@/components/LocalizedHello";
+import { getRecentPosts } from "@/lib/posts";
 
-const focusAreas = [
+const workAreas = [
+  {
+    href: "mailto:azizsm1@unlv.nevada.edu",
+    label: "Consulting",
+    title: "Helping companies leverage data and AI.",
+    body: "Applied data science, AI, forecasting, reporting, and analytics work for casino and hospitality operators."
+  },
   {
     href: "/research",
     label: "Research",
-    title: "Machine learning for hospitality, tourism, gaming, and revenue questions.",
-    body: "Demand forecasting, booking cancellations, gaming payments, measurement invariance, and applied analytics."
+    title: "Data-driven, industry-relevant research.",
+    body: "Machine learning, revenue management, gaming analytics, demand forecasting, and hospitality technology."
   },
   {
     href: "/teaching",
     label: "Teaching",
-    title: "Statistics, R, forecasting, and applied data analysis.",
-    body: "Teaching assistant work, guest lectures, tutoring, mentoring, and quantitative hospitality pedagogy."
-  },
-  {
-    href: "/blog",
-    label: "Blog",
-    title: "Writing from the academic and personal archive.",
-    body: "The Manalogue spirit, now living as one thoughtful section of a broader professional site."
-  },
-  {
-    href: "/gallery",
-    label: "Gallery",
-    title: "Photos from conferences, travel, teaching, and community work.",
-    body: "A visual record of classrooms, research forums, travel, and student leadership."
+    title: "Educating and empowering young minds.",
+    body: "Statistics, R, forecasting, applied data analysis, entrepreneurship, and student mentorship."
   }
 ];
 
 export default function Home() {
+  const recentPosts = getRecentPosts(4);
+
   return (
     <main>
       <section className="hero hero-home" aria-label="Mana Azizsoltani introduction">
@@ -41,8 +38,11 @@ export default function Home() {
             I am a consultant, researcher, and professor focused on data science and AI solutions in the casino and hospitality industry.
           </p>
           <div className="button-row">
-            <Link className="button primary" href="/research">
-              Research
+            <Link className="button primary" href="/about">
+              About
+            </Link>
+            <Link className="button" href="/blog">
+              Blog
             </Link>
             <a className="button" href="/assets/Azizsoltani_CV.pdf">
               CV
@@ -63,14 +63,29 @@ export default function Home() {
         </a>
       </section>
 
-      <section className="section-intro reveal" id="selected-areas">
-        <p className="eyebrow">Selected areas</p>
-        <h2>A professional home with enough room for the person.</h2>
+      <section className="split-band home-about reveal" id="selected-areas">
+        <div>
+          <p className="eyebrow">About</p>
+          <h2>Get to know me a little bit more.</h2>
+        </div>
+        <div>
+          <p>
+            I work at the intersection of hospitality, gaming, data science, AI, research, and teaching. The about page is where the professional story has more room to breathe.
+          </p>
+          <Link className="button" href="/about">
+            About Mana
+          </Link>
+        </div>
       </section>
 
-      <section className="card-grid">
-        {focusAreas.map((area, index) => (
-          <Link className={index === 0 ? "feature-card highlighted reveal" : "feature-card reveal"} href={area.href} key={area.href}>
+      <section className="section-intro reveal">
+        <p className="eyebrow">Work</p>
+        <h2>Consulting, research, and teaching connected by applied analytics.</h2>
+      </section>
+
+      <section className="card-grid home-work-grid">
+        {workAreas.map((area) => (
+          <Link className="feature-card reveal" href={area.href} key={area.href}>
             <span>{area.label}</span>
             <h3>{area.title}</h3>
             <p>{area.body}</p>
@@ -78,17 +93,26 @@ export default function Home() {
         ))}
       </section>
 
-      <section className="split-band reveal">
+      <section className="home-stream reveal">
         <div>
-          <p className="eyebrow">About</p>
-          <h2>Quantitative training, hospitality questions, international curiosity.</h2>
+          <p className="eyebrow">Latest</p>
+          <h2>Writing, podcasts, and field notes.</h2>
+          <Link className="button" href="/blog">
+            Browse the blog
+          </Link>
         </div>
-        <div>
-          <p>
-            My path runs through mathematics at UNLV, statistics at NC State, doctoral work in hospitality administration, Las Vegas, Barcelona, classrooms, research forums, student organizations, and service work.
-          </p>
-          <Link className="text-link" href="/about">
-            Read the full about page
+        <div className="home-stream-list">
+          {recentPosts.map((post) => (
+            <Link className="post-list-item" href={post.href} key={post.href}>
+              <span>{post.seriesTitle} - {post.date} - {post.readingMinutes} min read</span>
+              <h2>{post.title}</h2>
+              <p>{post.excerpt}</p>
+            </Link>
+          ))}
+          <Link className="post-list-item home-media-card" href="/podcast">
+            <span>Podcast</span>
+            <h2>Recent graduates, careers, and the transition into work.</h2>
+            <p>A place for the podcast archive and future media appearances to live alongside the writing.</p>
           </Link>
         </div>
       </section>

@@ -18,20 +18,19 @@ export const viewport = {
 
 const navItems = [
   { href: "/", label: "Home" },
-  { href: "/research", label: "Research" },
-  { href: "/teaching", label: "Teaching" },
   { href: "/about", label: "About" },
-  { href: "/blog", label: "Blog" },
-  { href: "/gallery", label: "Gallery" }
+  { href: "/consulting", label: "Consulting" },
+  { href: "/research", label: "Research" },
+  { href: "/teaching", label: "Teaching" }
 ];
 
 const footerGroups = [
   {
-    title: "Academic",
+    title: "Work",
     links: [
+      { href: "/consulting", label: "Consulting" },
       { href: "/research", label: "Research" },
-      { href: "/teaching", label: "Teaching" },
-      { href: "/gallery", label: "Gallery" }
+      { href: "/teaching", label: "Teaching" }
     ]
   },
   {
@@ -49,7 +48,8 @@ const socialLinks = [
   { href: "https://instagram.com/mana010", label: "Instagram", icon: "ig" },
   { href: "https://github.com/manaaziz", label: "GitHub", icon: "gh" },
   { href: "https://scholar.google.com/citations?user=Qe4izygAAAAJ&hl=en", label: "Google Scholar", icon: "gs" },
-  { href: "https://orcid.org/0009-0001-5193-2823", label: "ORCID", icon: "id" }
+  { href: "https://orcid.org/0009-0001-5193-2823", label: "ORCID", icon: "id" },
+  { href: "https://www.ratemyprofessors.com/professor/3107663", label: "RateMyProfessors", icon: "rmp" }
 ];
 
 const newsletterAction = process.env.NEXT_PUBLIC_NEWSLETTER_FORM_URL || "";
@@ -100,6 +100,16 @@ function SocialIcon({ icon }) {
     );
   }
 
+  if (icon === "rmp") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M5.2 18.8V5.2h6.1c3 0 4.8 1.5 4.8 4 0 1.7-.8 3-2.3 3.6l3.2 6h-3.2l-2.7-5.3H8.2v5.3h-3Z" />
+        <path d="M8.2 10.9h2.7c1.3 0 2-.6 2-1.7s-.7-1.6-2-1.6H8.2v3.3Z" />
+        <path d="M18.4 5.2h1.7v13.6h-1.7V5.2Z" />
+      </svg>
+    );
+  }
+
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true">
       <path d="M6.2 9.7v9.2" />
@@ -111,7 +121,7 @@ function SocialIcon({ icon }) {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" data-scroll-behavior="smooth">
       <body>
         <header className="site-header">
           <Link className="brand" href="/" aria-label="Mana Azizsoltani home">
