@@ -103,9 +103,8 @@ function SocialIcon({ icon }) {
   if (icon === "rmp") {
     return (
       <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M5.2 18.8V5.2h6.1c3 0 4.8 1.5 4.8 4 0 1.7-.8 3-2.3 3.6l3.2 6h-3.2l-2.7-5.3H8.2v5.3h-3Z" />
-        <path d="M8.2 10.9h2.7c1.3 0 2-.6 2-1.7s-.7-1.6-2-1.6H8.2v3.3Z" />
-        <path d="M18.4 5.2h1.7v13.6h-1.7V5.2Z" />
+        <path d="M3.6 4.8h16.8v10.7H9.3l-4.1 3.7.8-3.7H3.6V4.8Z" />
+        <text x="6.2" y="12.3">RMP</text>
       </svg>
     );
   }

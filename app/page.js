@@ -4,7 +4,7 @@ import { getRecentPosts } from "@/lib/posts";
 
 const workAreas = [
   {
-    href: "mailto:azizsm1@unlv.nevada.edu",
+    href: "/consulting",
     label: "Consulting",
     title: "Helping companies leverage data and AI.",
     body: "Applied data science, AI, forecasting, reporting, and analytics work for casino and hospitality operators."

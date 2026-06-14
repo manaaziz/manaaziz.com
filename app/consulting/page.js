@@ -10,29 +10,29 @@ export default function ConsultingPage() {
       <p className="eyebrow">Consulting</p>
       <h1>Helping companies leverage data and AI</h1>
       <p className="lede">
-        I help casino and hospitality teams turn analytics, forecasting, machine learning, and AI into clearer operational decisions.
+        I help casino and hospitality teams turn analytics, forecasting, machine learning, and AI into clearer decisions across marketing, surveillance, and operational optimization.
       </p>
 
       <section className="article-list">
         <article>
-          <span>Operators</span>
-          <h2>Analytics that connects to actual decisions</h2>
+          <span>Marketing</span>
+          <h2>From segmentation to individual-level personalization</h2>
           <p>
-            Consulting work can include forecasting, player and guest behavior analysis, reporting systems, model interpretation, and operator-facing recommendations.
+            Casino marketing is moving beyond broad segments and micro-segments toward the right offer, for the right patron, at the right time, with the right components, terms, and delivery channel.
           </p>
         </article>
         <article>
-          <span>AI and data science</span>
-          <h2>Practical tools, not theater</h2>
+          <span>Player behavior</span>
+          <h2>Models that explain who may change behavior</h2>
           <p>
-            I focus on data products, workflows, and explanations that teams can understand, trust, and use in the real world.
+            Projects include offer sensitivity, churn prediction, patron lifecycle modeling, future value prediction, preference modeling, and personalized offer construction.
           </p>
         </article>
         <article>
-          <span>Hospitality and gaming</span>
-          <h2>Domain context matters</h2>
+          <span>Surveillance and operations</span>
+          <h2>Signals that help teams act faster</h2>
           <p>
-            My work sits at the intersection of hospitality operations, casino analytics, machine learning, research, and teaching.
+            Work includes real-time marketing, AI-crafted unusual loss offers, unusually high loss thresholds by patron, improbable loss detection, forecasting, reporting, and operator-facing recommendations.
           </p>
         </article>
       </section>

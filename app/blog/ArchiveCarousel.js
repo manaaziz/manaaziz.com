@@ -7,6 +7,7 @@ const pageSize = 3;
 
 export default function ArchiveCarousel({ posts }) {
   const [pageIndex, setPageIndex] = useState(0);
+  const [direction, setDirection] = useState("next");
   const pages = useMemo(() => {
     const chunks = [];
     for (let index = 0; index < posts.length; index += pageSize) {
@@ -17,7 +18,12 @@ export default function ArchiveCarousel({ posts }) {
   const pageCount = Math.max(pages.length, 1);
 
   function goToPage(nextIndex) {
-    setPageIndex((nextIndex + pageCount) % pageCount);
+    const wrappedIndex = (nextIndex + pageCount) % pageCount;
+    const forwardDistance = (wrappedIndex - pageIndex + pageCount) % pageCount;
+    const backwardDistance = (pageIndex - wrappedIndex + pageCount) % pageCount;
+
+    setDirection(forwardDistance <= backwardDistance ? "next" : "previous");
+    setPageIndex(wrappedIndex);
   }
 
   return (
@@ -41,6 +47,7 @@ export default function ArchiveCarousel({ posts }) {
       <div className="archive-carousel-window">
         <div
           className="archive-carousel-track"
+          data-direction={direction}
           style={{ transform: `translateX(-${pageIndex * 100}%)` }}
         >
           {pages.map((page, index) => (
