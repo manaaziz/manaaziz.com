@@ -22,13 +22,6 @@ const collaborations = [
     drilldown: true,
     work: [
       card({
-        name: "UNLV",
-        type: "Education",
-        blurb: "Taught, researched, and completed doctoral work in hospitality analytics.",
-        href: "/teaching",
-        logo: "/assets/logos/unlv.png"
-      }),
-      card({
         name: "International Gaming Institute",
         type: "Research",
         blurb: "Worked on applied gaming research connecting data, operations, and responsible innovation.",
@@ -39,7 +32,7 @@ const collaborations = [
         name: "Wynn Las Vegas",
         type: "Consulting",
         blurb: "Supported casino and hospitality analytics work for operator-facing decisions.",
-        logo: "/assets/partner-logos/wynn-macau.png"
+        logo: "/assets/partner-logos/wynn_macau_logo.png"
       }),
       card({
         name: "GMA Consulting",
@@ -54,15 +47,10 @@ const collaborations = [
     summary: "Academic, cultural, and community ties from time spent studying and working in Barcelona.",
     work: [
       card({
-        name: "Barcelona",
-        type: "Education",
-        blurb: "Studied, taught, and built international perspective through time in Barcelona.",
+        name: "Barcelona hospitality teaching",
+        type: "Teaching",
+        blurb: "Connected classroom experience with hospitality, culture, and international student development.",
         href: "/blog/barcelona"
-      }),
-      card({
-        name: "Hospitality education",
-        type: "Education",
-        blurb: "Connected classroom experience with hospitality, culture, and student development."
       })
     ]
   },
@@ -80,7 +68,7 @@ const collaborations = [
         name: "Wynn Mayfair",
         type: "Consulting",
         blurb: "Tracked international luxury hospitality and gaming market context.",
-        logo: "/assets/partner-logos/wynn-mayfair.png"
+        logo: "/assets/partner-logos/wynn_mayfair_logo.png"
       })
     ]
   },
@@ -93,7 +81,7 @@ const collaborations = [
         name: "Wynn Al Marjan Island",
         type: "Consulting",
         blurb: "Followed emerging integrated resort strategy in a new gaming market.",
-        logo: "/assets/partner-logos/wynn-al-marjan.png"
+        logo: "/assets/partner-logos/wynn_al_marjan_logo.png"
       })
     ]
   },
@@ -103,35 +91,17 @@ const collaborations = [
     summary: "Integrated resort and casino hospitality work across China and Macau.",
     work: [
       card({
-        name: "Wynn Palace",
+        name: "Wynn",
         type: "Consulting",
-        blurb: "Studied premium integrated resort operations and casino hospitality strategy.",
+        blurb: "Worked with Wynn-related Macau context across premium integrated resort operations, casino hospitality, and market strategy.",
         href: "/blog/europe-2023",
-        logo: "/assets/partner-logos/wynn-macau.png"
+        logo: "/assets/partner-logos/wynn_macau_logo.png"
       }),
       card({
-        name: "Wynn Macau",
+        name: "Melco",
         type: "Consulting",
-        blurb: "Explored gaming, hospitality, and market context in Macau.",
-        logo: "/assets/partner-logos/wynn-macau.png"
-      }),
-      card({
-        name: "City of Dreams",
-        type: "Consulting",
-        blurb: "Studied integrated resort positioning and casino hospitality operations.",
-        logo: "/assets/partner-logos/melco.png"
-      }),
-      card({
-        name: "Studio City",
-        type: "Consulting",
-        blurb: "Reviewed resort entertainment and gaming market strategy in Macau.",
-        logo: "/assets/partner-logos/melco.png"
-      }),
-      card({
-        name: "Altira Macau",
-        type: "Consulting",
-        blurb: "Explored premium hospitality and casino market context.",
-        logo: "/assets/partner-logos/melco.png"
+        blurb: "Studied integrated resort positioning and casino hospitality operations across Melco's Macau portfolio.",
+        logo: "/assets/partner-logos/melco_logo.png"
       })
     ]
   },
@@ -144,7 +114,7 @@ const collaborations = [
         name: "INSPIRE Resort Entertainment",
         type: "Consulting",
         blurb: "Worked on casino and resort analytics questions for an integrated entertainment resort.",
-        logo: "/assets/partner-logos/inspire-resort.png"
+        logo: "/assets/partner-logos/inspire_resort_logo.png"
       })
     ]
   },
@@ -157,7 +127,7 @@ const collaborations = [
         name: "Hoiana",
         type: "Consulting",
         blurb: "Reviewed integrated resort and casino hospitality context in Southeast Asia.",
-        logo: "/assets/partner-logos/hoiana.png"
+        logo: "/assets/partner-logos/hoiana_logo.png"
       })
     ]
   },
@@ -170,13 +140,13 @@ const collaborations = [
         name: "Crown Resorts",
         type: "Consulting",
         blurb: "Worked with gaming and hospitality context for Australian operator questions.",
-        logo: "/assets/partner-logos/crown-resorts.png"
+        logo: "/assets/partner-logos/crown_resorts_logo.png"
       }),
       card({
         name: "The Star Entertainment Group",
         type: "Consulting",
         blurb: "Tracked operator strategy and casino hospitality questions in Australia.",
-        logo: "/assets/partner-logos/the-star.png"
+        logo: "/assets/partner-logos/the_star_logo.png"
       })
     ]
   }
@@ -186,11 +156,12 @@ const globalRegions = [
   {
     id: "north-america",
     label: "North America",
-    summary: "U.S.-based casino analytics, hospitality education, and gaming research work.",
+    summary: "U.S.-based casino analytics, teaching, consulting, and gaming research work.",
     countries: ["us"],
     defaultCountry: "us",
     position: { left: "22%", top: "38%" },
-    zoom: { scale: 1.85, originX: "23%", originY: "40%" }
+    mapCountries: ["bz", "ca", "cr", "gt", "hn", "mx", "ni", "pa", "sv", "us"],
+    viewBox: "0 125 355 330"
   },
   {
     id: "south-america",
@@ -198,7 +169,8 @@ const globalRegions = [
     summary: "Future collaborations in South America will live here as the project list grows.",
     countries: [],
     position: { left: "34%", top: "66%" },
-    zoom: { scale: 2.25, originX: "34%", originY: "66%" }
+    mapCountries: ["ar", "bo", "br", "cl", "co", "ec", "fk", "gf", "gy", "pe", "py", "sr", "uy", "ve"],
+    viewBox: "255 330 215 320"
   },
   {
     id: "europe",
@@ -207,7 +179,12 @@ const globalRegions = [
     countries: ["gb", "es"],
     defaultCountry: "gb",
     position: { left: "49%", top: "32%" },
-    zoom: { scale: 3.05, originX: "48%", originY: "36%" }
+    mapCountries: [
+      "ad", "al", "at", "ba", "be", "bg", "by", "ch", "cz", "de", "dk", "ee", "es", "fi", "fo", "fr", "gb",
+      "gg", "gi", "gr", "hr", "hu", "ie", "im", "is", "it", "je", "li", "lt", "lu", "lv", "mc", "md", "me",
+      "mk", "mt", "nl", "no", "pl", "pt", "ro", "rs", "se", "si", "sk", "sm", "ua", "va"
+    ],
+    viewBox: "395 230 185 160"
   },
   {
     id: "africa",
@@ -215,7 +192,13 @@ const globalRegions = [
     summary: "Future collaborations in Africa will live here as the project list grows.",
     countries: [],
     position: { left: "52%", top: "56%" },
-    zoom: { scale: 2.25, originX: "52%", originY: "56%" }
+    mapCountries: [
+      "ao", "bf", "bi", "bj", "bw", "cd", "cf", "cg", "ci", "cm", "cv", "dj", "dz", "eg", "eh", "er", "et",
+      "ga", "gh", "gm", "gn", "gq", "gw", "ke", "km", "lr", "ls", "ly", "ma", "mg", "ml", "mr", "mu", "mw",
+      "mz", "na", "ne", "ng", "re", "rw", "sc", "sd", "sh", "sl", "sn", "so", "ss", "st", "sz", "td", "tg",
+      "tn", "tz", "ug", "yt", "za", "zm", "zw"
+    ],
+    viewBox: "410 330 245 300"
   },
   {
     id: "middle-east",
@@ -224,7 +207,8 @@ const globalRegions = [
     countries: ["ae"],
     defaultCountry: "ae",
     position: { left: "60%", top: "48%" },
-    zoom: { scale: 3.25, originX: "60%", originY: "48%" }
+    mapCountries: ["ae", "bh", "cy", "il", "iq", "jo", "kw", "lb", "om", "ps", "qa", "sa", "sy", "tr", "ye"],
+    viewBox: "555 320 140 115"
   },
   {
     id: "asia",
@@ -233,7 +217,11 @@ const globalRegions = [
     countries: ["cn", "kr", "vn"],
     defaultCountry: "cn",
     position: { left: "73%", top: "43%" },
-    zoom: { scale: 2.05, originX: "73%", originY: "46%" }
+    mapCountries: [
+      "af", "am", "az", "bd", "bn", "bt", "cc", "cn", "cx", "ge", "hk", "id", "in", "jp", "kg", "kh", "kp",
+      "kr", "kz", "la", "lk", "mm", "mn", "mo", "my", "np", "ph", "pk", "sg", "th", "tj", "tm", "tw", "uz", "vn"
+    ],
+    viewBox: "610 205 330 305"
   },
   {
     id: "oceania",
@@ -242,31 +230,201 @@ const globalRegions = [
     countries: ["au"],
     defaultCountry: "au",
     position: { left: "79%", top: "73%" },
-    zoom: { scale: 2.65, originX: "79%", originY: "73%" }
+    mapCountries: ["as", "au", "fj", "fm", "gu", "ki", "mh", "mp", "nc", "nf", "nr", "nz", "pf", "pg", "pn", "pw", "sb", "tk", "to", "tv", "vu", "wf", "ws"],
+    viewBox: "780 450 220 180"
   }
 ];
 
 const countryFloatPositions = {
-  us: { left: "22%", top: "40%" },
-  gb: { left: "47%", top: "32%" },
-  es: { left: "45%", top: "39%" },
-  ae: { left: "60%", top: "49%" },
-  cn: { left: "71%", top: "43%" },
-  kr: { left: "78%", top: "39%" },
-  vn: { left: "73%", top: "56%" },
-  au: { left: "79%", top: "76%" }
+  us: { left: "45%", top: "48%" },
+  gb: { left: "41%", top: "42%" },
+  es: { left: "38%", top: "68%" },
+  ae: { left: "58%", top: "60%" },
+  cn: { left: "54%", top: "60%" },
+  kr: { left: "66%", top: "48%" },
+  vn: { left: "54%", top: "75%" },
+  au: { left: "42%", top: "58%" }
 };
 
-const usRegions = [
+const flagColumnCount = 12;
+const flagSvgViewBox = "0 0 120 80";
+
+function Star({ cx, cy, fill = "#fff", points = 5, outer = 6, inner = 2.5, rotate = -90 }) {
+  const path = Array.from({ length: points * 2 }).map((_, index) => {
+    const angle = ((Math.PI * 2 * index) / (points * 2)) + (rotate * Math.PI / 180);
+    const radius = index % 2 === 0 ? outer : inner;
+    return `${cx + Math.cos(angle) * radius},${cy + Math.sin(angle) * radius}`;
+  }).join(" ");
+
+  return <polygon points={path} fill={fill} />;
+}
+
+function UnionJack({ x = 0, y = 0, width = 120, height = 80 }) {
+  const cx = x + width / 2;
+  const cy = y + height / 2;
+
+  return (
+    <g>
+      <rect x={x} y={y} width={width} height={height} fill="#012169" />
+      <line x1={x} y1={y} x2={x + width} y2={y + height} stroke="#fff" strokeWidth={height * 0.18} />
+      <line x1={x + width} y1={y} x2={x} y2={y + height} stroke="#fff" strokeWidth={height * 0.18} />
+      <line x1={x} y1={y} x2={x + width} y2={y + height} stroke="#c8102e" strokeWidth={height * 0.08} />
+      <line x1={x + width} y1={y} x2={x} y2={y + height} stroke="#c8102e" strokeWidth={height * 0.08} />
+      <rect x={x} y={cy - height * 0.14} width={width} height={height * 0.28} fill="#fff" />
+      <rect x={cx - width * 0.09} y={y} width={width * 0.18} height={height} fill="#fff" />
+      <rect x={x} y={cy - height * 0.08} width={width} height={height * 0.16} fill="#c8102e" />
+      <rect x={cx - width * 0.055} y={y} width={width * 0.11} height={height} fill="#c8102e" />
+    </g>
+  );
+}
+
+function FlagArt({ countryId }) {
+  switch (countryId) {
+    case "us":
+      return (
+        <>
+          <rect width="120" height="80" fill="#fff" />
+          {Array.from({ length: 7 }).map((_, index) => (
+            <rect key={index} y={index * (80 / 13) * 2} width="120" height={80 / 13} fill="#b22234" />
+          ))}
+          <rect width="52" height={80 * 7 / 13} fill="#3c3b6e" />
+          {Array.from({ length: 5 }).map((_, row) => (
+            Array.from({ length: 6 }).map((__, col) => (
+              <circle key={`full-${row}-${col}`} cx={5 + col * 8} cy={5 + row * 8} r="1.15" fill="#fff" />
+            ))
+          ))}
+          {Array.from({ length: 4 }).map((_, row) => (
+            Array.from({ length: 5 }).map((__, col) => (
+              <circle key={`offset-${row}-${col}`} cx={9 + col * 8} cy={9 + row * 8} r="1.15" fill="#fff" />
+            ))
+          ))}
+        </>
+      );
+    case "gb":
+      return <UnionJack />;
+    case "es":
+      return (
+        <>
+          <rect width="120" height="80" fill="#aa151b" />
+          <rect y="20" width="120" height="40" fill="#f1bf00" />
+          <rect x="30" y="31" width="10" height="16" rx="1.5" fill="#c60b1e" />
+          <rect x="33" y="28" width="4" height="5" fill="#f1bf00" />
+        </>
+      );
+    case "ae":
+      return (
+        <>
+          <rect width="120" height="80" fill="#fff" />
+          <rect y="0" width="120" height="26.666" fill="#009739" />
+          <rect y="53.333" width="120" height="26.667" fill="#000" />
+          <rect width="30" height="80" fill="#ff0000" />
+        </>
+      );
+    case "cn":
+      return (
+        <>
+          <rect width="120" height="80" fill="#de2910" />
+          <Star cx={20} cy={19} outer={9} inner={3.8} fill="#ffde00" />
+          <Star cx={38} cy={10} outer={3.8} inner={1.5} fill="#ffde00" rotate={-30} />
+          <Star cx={47} cy={18} outer={3.8} inner={1.5} fill="#ffde00" rotate={-8} />
+          <Star cx={47} cy={31} outer={3.8} inner={1.5} fill="#ffde00" rotate={18} />
+          <Star cx={38} cy={39} outer={3.8} inner={1.5} fill="#ffde00" rotate={42} />
+        </>
+      );
+    case "kr":
+      return (
+        <>
+          <rect width="120" height="80" fill="#fff" />
+          <path d="M60 22a18 18 0 1 1 0 36a9 9 0 1 0 0-18a9 9 0 1 1 0-18Z" fill="#c60c30" />
+          <path d="M60 58a18 18 0 1 1 0-36a9 9 0 1 0 0 18a9 9 0 1 1 0 18Z" fill="#003478" />
+          <g stroke="#111" strokeWidth="3" strokeLinecap="square">
+            <line x1="22" y1="17" x2="36" y2="7" />
+            <line x1="26" y1="22" x2="40" y2="12" />
+            <line x1="30" y1="27" x2="44" y2="17" />
+            <line x1="84" y1="63" x2="98" y2="53" />
+            <line x1="80" y1="58" x2="94" y2="48" />
+            <line x1="76" y1="53" x2="90" y2="43" />
+            <line x1="84" y1="7" x2="98" y2="17" />
+            <line x1="80" y1="12" x2="94" y2="22" strokeDasharray="6 5" />
+            <line x1="76" y1="17" x2="90" y2="27" />
+            <line x1="22" y1="63" x2="36" y2="53" strokeDasharray="6 5" />
+            <line x1="26" y1="58" x2="40" y2="48" />
+            <line x1="30" y1="53" x2="44" y2="43" strokeDasharray="6 5" />
+          </g>
+        </>
+      );
+    case "vn":
+      return (
+        <>
+          <rect width="120" height="80" fill="#da251d" />
+          <Star cx={60} cy={40} outer={17} inner={6.7} fill="#ffde00" />
+        </>
+      );
+    case "au":
+      return (
+        <>
+          <rect width="120" height="80" fill="#012169" />
+          <UnionJack x={0} y={0} width={58} height={38} />
+          <Star cx={83} cy={44} outer={8} inner={3.2} points={7} fill="#fff" />
+          <Star cx={101} cy={18} outer={4.2} inner={1.8} points={7} fill="#fff" />
+          <Star cx={108} cy={34} outer={4.2} inner={1.8} points={7} fill="#fff" />
+          <Star cx={96} cy={57} outer={4.2} inner={1.8} points={7} fill="#fff" />
+          <Star cx={111} cy={65} outer={3.5} inner={1.5} points={5} fill="#fff" />
+        </>
+      );
+    default:
+      return (
+        <>
+          <rect width="120" height="80" fill="#fffaf1" />
+          <rect y="0" width="120" height="26.7" fill="#2f6f64" />
+          <rect y="53.3" width="120" height="26.7" fill="#171717" />
+        </>
+      );
+  }
+}
+
+function AnimatedFlag({ countryId, label }) {
+  return (
+    <span
+      aria-label={`${label} flag`}
+      className="mini-flag"
+      role="img"
+    >
+      {Array.from({ length: flagColumnCount }).map((_, index) => (
+        <span
+          aria-hidden="true"
+          className="mini-flag-column"
+          key={index}
+          style={{
+            "--column-index": index,
+            "--column-count": flagColumnCount,
+            "--column-offset": index
+          }}
+        >
+          <svg
+            aria-hidden="true"
+            className="mini-flag-art"
+            preserveAspectRatio="none"
+            viewBox={flagSvgViewBox}
+          >
+            <FlagArt countryId={countryId} />
+          </svg>
+        </span>
+      ))}
+    </span>
+  );
+}
+
+const usStates = [
   {
-    id: "west",
-    label: "West / Las Vegas",
-    summary: "Casino analytics, hospitality education, and gaming research concentrated in Nevada and the western U.S.",
+    id: "nevada",
+    label: "Nevada",
+    summary: "Casino analytics, teaching, consulting, and gaming research concentrated in Nevada.",
     work: [
       card({
-        name: "UNLV",
-        type: "Education",
-        blurb: "Taught, researched, and completed doctoral work in hospitality analytics.",
+        name: "UNLV hospitality analytics courses",
+        type: "Teaching",
+        blurb: "Taught and supported applied statistics, analytics, and hospitality coursework.",
         href: "/teaching",
         logo: "/assets/logos/unlv.png"
       }),
@@ -281,65 +439,71 @@ const usRegions = [
         name: "Wynn Las Vegas",
         type: "Consulting",
         blurb: "Supported analytics work tied to casino and hospitality operations.",
-        logo: "/assets/partner-logos/wynn-macau.png"
+        logo: "/assets/partner-logos/wynn_macau_logo.png"
       }),
       card({
         name: "Encore",
         type: "Consulting",
         blurb: "Worked with operator context for premium resort and gaming decisions.",
-        logo: "/assets/partner-logos/wynn-macau.png"
+        logo: "/assets/partner-logos/wynn_macau_logo.png"
       }),
       card({
         name: "WDTS",
         type: "Research",
-        blurb: "Explored gaming technology and data questions connected to operator workflows."
+        blurb: "Explored gaming technology and data questions connected to operator workflows.",
+        logo: "/assets/partner-logos/wdts_logo.png"
       }),
       card({
         name: "AXES",
         type: "Research",
-        blurb: "Connected casino payments and player behavior data to applied analytics questions."
+        blurb: "Connected casino payments and player behavior data to applied analytics questions.",
+        logo: "/assets/partner-logos/axes_logo.png"
       })
     ],
-    states: ["Arizona", "California", "Nevada", "Oregon", "Washington", "Idaho", "Utah", "New Mexico", "Colorado"]
+    state: "Nevada"
   },
   {
-    id: "central",
-    label: "Central / National",
-    summary: "Modeling, forecasting, and operator-facing analytics projects that travel across markets.",
+    id: "florida",
+    label: "Florida",
+    summary: "Casino and hospitality consulting work in South Florida.",
     work: [
+      card({
+        name: "Casino Miami",
+        type: "Consulting",
+        blurb: "Supported casino and hospitality consulting context connected to South Florida operations.",
+        logo: "/assets/partner-logos/casino_miami_logo.png"
+      })
+    ],
+    state: "Florida"
+  },
+  {
+    id: "new-jersey",
+    label: "New Jersey",
+    summary: "Atlantic City casino and operator-facing hospitality work.",
+    work: [
+      card({
+        name: "Bally's Atlantic City",
+        type: "Consulting",
+        blurb: "Supported casino and hospitality consulting context connected to Atlantic City operations."
+      }),
       card({
         name: "GMA Consulting",
         type: "Consulting",
         blurb: "Supported casino consulting work by turning analysis into operator-facing recommendations."
       }),
       card({
-        name: "Revenue strategy",
-        type: "Consulting",
-        blurb: "Built forecasting and pricing logic for casino and hospitality revenue decisions."
-      }),
-      card({
         name: "Machine learning",
         type: "Research",
         blurb: "Applied predictive models to casino, hotel, and guest behavior problems."
-      }),
-      card({
-        name: "Operator reporting",
-        type: "Consulting",
-        blurb: "Translated model outputs into recommendations that operators can actually use."
       })
     ],
-    states: ["Kansas", "Nebraska", "Oklahoma", "Texas", "Missouri", "Iowa", "Illinois", "Indiana", "Michigan", "Ohio"]
+    state: "New Jersey"
   },
   {
-    id: "east",
-    label: "East / Academic",
+    id: "north-carolina",
+    label: "North Carolina",
     summary: "Graduate statistics training, research methods, and academic collaborations across hospitality and data science.",
     work: [
-      card({
-        name: "NC State Statistics",
-        type: "Education",
-        blurb: "Built graduate-level statistical training that anchors my applied analytics work."
-      }),
       card({
         name: "Hospitality research",
         type: "Research",
@@ -348,18 +512,16 @@ const usRegions = [
       }),
       card({
         name: "Teaching",
-        type: "Education",
+        type: "Teaching",
         blurb: "Helped students build confidence with statistics, R, and applied data analysis.",
         href: "/teaching"
       })
     ],
-    states: ["North Carolina", "South Carolina", "Georgia", "Florida", "Virginia", "Maryland", "Pennsylvania", "New York", "Massachusetts", "Washington, DC"]
+    state: "North Carolina"
   }
 ];
 
-const usRegionByState = new Map(
-  usRegions.flatMap((region) => region.states.map((state) => [state, region.id]))
-);
+const usWorkByState = new Map(usStates.map((state) => [state.state, state.id]));
 const regionByCountry = new Map(
   globalRegions.flatMap((region) => region.countries.map((countryId) => [countryId, region.id]))
 );
@@ -372,7 +534,8 @@ export default function GlobalExperienceMap() {
   const [activeId, setActiveId] = useState("us");
   const [mapMode, setMapMode] = useState("regions");
   const [activeGlobalRegionId, setActiveGlobalRegionId] = useState("north-america");
-  const [activeRegionId, setActiveRegionId] = useState("west");
+  const [activeStateId, setActiveStateId] = useState("nevada");
+  const [selectedWorkIndex, setSelectedWorkIndex] = useState(null);
   const collaborationById = useMemo(
     () => new Map(collaborations.map((item) => [item.id, item])),
     []
@@ -381,8 +544,8 @@ export default function GlobalExperienceMap() {
     () => new Map(globalRegions.map((item) => [item.id, item])),
     []
   );
-  const regionById = useMemo(
-    () => new Map(usRegions.map((item) => [item.id, item])),
+  const stateById = useMemo(
+    () => new Map(usStates.map((item) => [item.id, item])),
     []
   );
   const activeGlobalRegion = globalRegionById.get(activeGlobalRegionId) || globalRegions[0];
@@ -390,6 +553,7 @@ export default function GlobalExperienceMap() {
   const activeRegionCountries = activeGlobalRegion.countries
     .map((countryId) => collaborationById.get(countryId))
     .filter(Boolean);
+  const activeRegionMapCountryIds = new Set(activeGlobalRegion.mapCountries || activeGlobalRegion.countries);
   const activeRegionOverview = {
     country: activeGlobalRegion.label,
     id: activeGlobalRegion.id,
@@ -401,7 +565,7 @@ export default function GlobalExperienceMap() {
     }))
   };
   const active = mapMode === "us"
-    ? regionById.get(activeRegionId) || usRegions[0]
+    ? stateById.get(activeStateId) || usStates[0]
     : mapMode === "regions"
       ? activeRegionOverview
       : activeCountry || {
@@ -413,6 +577,7 @@ export default function GlobalExperienceMap() {
   const activeCountryFloatPosition = activeCountry
     ? countryFloatPositions[activeCountry.id] || { left: "50%", top: "50%" }
     : null;
+  const selectedWork = selectedWorkIndex === null ? null : active.work[selectedWorkIndex] || null;
 
   function activateCountry(locationId) {
     const collaboration = collaborationById.get(locationId);
@@ -420,6 +585,7 @@ export default function GlobalExperienceMap() {
 
     setActiveId(locationId);
     setActiveGlobalRegionId(regionByCountry.get(locationId) || activeGlobalRegionId);
+    setSelectedWorkIndex(null);
   }
 
   function openCountry(locationId) {
@@ -428,9 +594,10 @@ export default function GlobalExperienceMap() {
 
     setActiveId(locationId);
     setActiveGlobalRegionId(regionByCountry.get(locationId) || activeGlobalRegionId);
+    setSelectedWorkIndex(null);
     if (collaboration.drilldown) {
       setMapMode("us");
-      setActiveRegionId("west");
+      setActiveStateId("nevada");
     } else {
       setMapMode("region");
     }
@@ -441,6 +608,7 @@ export default function GlobalExperienceMap() {
     if (!region) return;
 
     setActiveGlobalRegionId(regionId);
+    setSelectedWorkIndex(null);
     if (region.defaultCountry) {
       setActiveId(region.defaultCountry);
     }
@@ -451,6 +619,7 @@ export default function GlobalExperienceMap() {
     if (!region) return;
 
     setActiveGlobalRegionId(regionId);
+    setSelectedWorkIndex(null);
     if (region.defaultCountry) {
       setActiveId(region.defaultCountry);
     } else {
@@ -463,6 +632,7 @@ export default function GlobalExperienceMap() {
     setMapMode("region");
     setActiveGlobalRegionId("north-america");
     setActiveId("us");
+    setSelectedWorkIndex(null);
   }
 
   return (
@@ -486,21 +656,33 @@ export default function GlobalExperienceMap() {
                 <title id="us-region-title">United States regions with related clients, projects, and operators</title>
                 <g className="us-state-layer">
                   {usStateFeatures.map((state) => {
-                    const regionId = usRegionByState.get(state.properties.name);
-                    const region = regionById.get(regionId);
+                    const stateId = usWorkByState.get(state.properties.name);
+                    const stateWork = stateById.get(stateId);
 
                     return (
                       <path
-                        aria-label={region ? `${state.properties.name}: ${region.label}` : state.properties.name}
-                        className={region ? "us-state is-highlighted" : "us-state"}
+                        aria-label={stateWork ? `${state.properties.name}: ${stateWork.label}` : state.properties.name}
+                        className={stateWork ? "us-state is-highlighted" : "us-state"}
                         d={usPath(state)}
-                        data-active={regionId && activeRegionId === regionId ? "true" : "false"}
+                        data-active={stateId && activeStateId === stateId ? "true" : "false"}
                         key={state.properties.name}
-                        onClick={() => regionId && setActiveRegionId(regionId)}
-                        onFocus={() => regionId && setActiveRegionId(regionId)}
-                        onMouseEnter={() => regionId && setActiveRegionId(regionId)}
-                        role={region ? "button" : "presentation"}
-                        tabIndex={region ? 0 : -1}
+                        onClick={() => {
+                          if (!stateId) return;
+                          setActiveStateId(stateId);
+                          setSelectedWorkIndex(null);
+                        }}
+                        onFocus={() => {
+                          if (!stateId) return;
+                          setActiveStateId(stateId);
+                          setSelectedWorkIndex(null);
+                        }}
+                        onMouseEnter={() => {
+                          if (!stateId) return;
+                          setActiveStateId(stateId);
+                          setSelectedWorkIndex(null);
+                        }}
+                        role={stateWork ? "button" : "presentation"}
+                        tabIndex={stateWork ? 0 : -1}
                       />
                     );
                   })}
@@ -550,22 +732,13 @@ export default function GlobalExperienceMap() {
                   </div>
                 </div>
               ) : (
-                <div
-                  className="country-map-stage"
-                  style={{
-                    "--region-scale": activeGlobalRegion.zoom.scale,
-                    "--region-floater-scale": 1 / activeGlobalRegion.zoom.scale,
-                    "--region-origin-x": activeGlobalRegion.zoom.originX,
-                    "--region-origin-y": activeGlobalRegion.zoom.originY
-                  }}
-                >
-                  <div className="map-zoom-layer">
-                    <svg className="world-map" viewBox={worldMap.viewBox} role="img" aria-labelledby="world-map-title">
-                      <title id="world-map-title">{`${activeGlobalRegion.label} countries where Mana has worked or collaborated`}</title>
-                      {worldMap.locations.map((location) => {
+                <div className="country-map-stage">
+                  <svg className="world-map region-country-map" viewBox={activeGlobalRegion.viewBox || worldMap.viewBox} role="img" aria-labelledby="world-map-title">
+                    <title id="world-map-title">{`${activeGlobalRegion.label} countries where Mana has worked or collaborated`}</title>
+                    {worldMap.locations
+                      .filter((location) => activeRegionMapCountryIds.has(location.id))
+                      .map((location) => {
                         const collaboration = collaborationById.get(location.id);
-                        const globalRegionId = regionByCountry.get(location.id);
-                        const isActiveRegionCountry = globalRegionId === activeGlobalRegionId;
                         const isActiveCountry = activeId === location.id;
 
                         return (
@@ -573,74 +746,102 @@ export default function GlobalExperienceMap() {
                             aria-label={collaboration ? `${location.name}: ${collaboration.summary}` : location.name}
                             className={[
                               "map-country",
-                              isActiveRegionCountry ? "is-highlighted" : "is-muted"
+                              collaboration ? "is-highlighted" : "is-region-context"
                             ].filter(Boolean).join(" ")}
                             d={location.path}
                             key={location.id}
-                            onClick={() => isActiveRegionCountry && openCountry(location.id)}
-                            onFocus={() => isActiveRegionCountry && activateCountry(location.id)}
+                            onClick={() => collaboration && openCountry(location.id)}
+                            onFocus={() => collaboration && activateCountry(location.id)}
                             onKeyDown={(event) => {
-                              if ((event.key === "Enter" || event.key === " ") && isActiveRegionCountry) {
+                              if ((event.key === "Enter" || event.key === " ") && collaboration) {
                                 event.preventDefault();
                                 openCountry(location.id);
                               }
                             }}
-                            onMouseEnter={() => isActiveRegionCountry && activateCountry(location.id)}
-                            role={isActiveRegionCountry ? "button" : "presentation"}
-                            tabIndex={isActiveRegionCountry ? 0 : -1}
+                            onMouseEnter={() => collaboration && activateCountry(location.id)}
+                            role={collaboration ? "button" : "presentation"}
+                            tabIndex={collaboration ? 0 : -1}
                             data-active={isActiveCountry ? "true" : "false"}
                           />
                         );
                       })}
-                    </svg>
-                    {activeCountry && activeCountryFloatPosition ? (
-                      <button
-                        className="country-floater"
-                        onClick={() => openCountry(activeCountry.id)}
-                        style={{
-                          "--x": activeCountryFloatPosition.left,
-                          "--y": activeCountryFloatPosition.top
-                        }}
-                        type="button"
-                      >
-                        <span>{activeCountry.country}</span>
-                        <small>{activeCountry.drilldown ? "Open U.S. detail" : "View country projects"}</small>
-                      </button>
-                    ) : null}
-                  </div>
+                  </svg>
+                  {activeCountry && activeCountryFloatPosition ? (
+                    <button
+                      className="country-floater"
+                      onClick={() => openCountry(activeCountry.id)}
+                      style={{
+                        "--x": activeCountryFloatPosition.left,
+                        "--y": activeCountryFloatPosition.top
+                      }}
+                      type="button"
+                    >
+                      <AnimatedFlag countryId={activeCountry.id} label={activeCountry.country} />
+                      <span>{activeCountry.country}</span>
+                      <small>{activeCountry.drilldown ? "Open U.S. detail" : "View country projects"}</small>
+                    </button>
+                  ) : null}
                 </div>
               )}
             </div>
           )}
         </div>
 
-        <aside className="map-detail-card" aria-live="polite">
-          <span>{mapMode === "us" ? active.label : active.country}</span>
-          <h3>{active.summary}</h3>
+        <aside className="map-detail-card" key={`${mapMode}-${active.id}-${selectedWork?.name || "list"}`} aria-live="polite">
+          <h3>{mapMode === "us" ? active.label : active.country}</h3>
           <div className="collaboration-cards" aria-label={`${mapMode === "us" ? active.label : active.country} collaborations`}>
-            {active.work.length ? active.work.map((item) => (
-              <article className="collaboration-card" key={`${active.id}-${item.name}`}>
-                <div className="collaboration-logo" aria-label={item.name}>
-                  {item.logo ? (
-                    <img src={item.logo} alt="" />
-                  ) : (
-                    <span>{item.name}</span>
-                  )}
+            {active.work.length ? (
+              selectedWork ? (
+                <article className="collaboration-detail-card" key={`${active.id}-${selectedWork.name}-detail`}>
+                  <button className="map-back-button collaboration-detail-back" onClick={() => setSelectedWorkIndex(null)} type="button">
+                    Back
+                  </button>
+                  <div className="collaboration-detail-logo" aria-label={selectedWork.name}>
+                    {selectedWork.logo ? (
+                      <img src={selectedWork.logo} alt="" />
+                    ) : (
+                      <span>{selectedWork.name}</span>
+                    )}
+                  </div>
+                  <div>
+                    <span className={`work-tag ${selectedWork.type.toLowerCase()}`}>{selectedWork.type}</span>
+                    <h4>{selectedWork.name}</h4>
+                    <p>{selectedWork.blurb}</p>
+                    {selectedWork.href ? (
+                      <a className="case-link" href={selectedWork.href}>
+                        Read more
+                      </a>
+                    ) : (
+                      <span className="case-link disabled">Case note coming soon</span>
+                    )}
+                  </div>
+                </article>
+              ) : (
+                <div className="collaboration-tile-list" aria-label="Select a collaboration">
+                  {active.work.map((item, index) => (
+                    <button
+                      className="collaboration-tile"
+                      key={`${active.id}-${item.name}`}
+                      onClick={() => setSelectedWorkIndex(index)}
+                      style={{ "--tile-index": index }}
+                      type="button"
+                    >
+                      <span>
+                        <strong>{item.name}</strong>
+                        <small>{item.type}</small>
+                      </span>
+                      <span className="collaboration-tile-logo" aria-hidden="true">
+                        {item.logo ? (
+                          <img src={item.logo} alt="" />
+                        ) : (
+                          <span>{item.name}</span>
+                        )}
+                      </span>
+                    </button>
+                  ))}
                 </div>
-                <div>
-                  <span className={`work-tag ${item.type.toLowerCase()}`}>{item.type}</span>
-                  <h4>{item.name}</h4>
-                  <p>{item.blurb}</p>
-                  {item.href ? (
-                    <a className="case-link" href={item.href}>
-                      Read more
-                    </a>
-                  ) : (
-                    <span className="case-link disabled">Case note coming soon</span>
-                  )}
-                </div>
-              </article>
-            )) : (
+              )
+            ) : (
               <p className="map-empty-note">No public project cards here yet. This region is ready for future work.</p>
             )}
           </div>
@@ -669,6 +870,7 @@ export default function GlobalExperienceMap() {
               onClick={() => openCountry(item.id)}
               type="button"
             >
+              <AnimatedFlag countryId={item.id} label={item.country} />
               {item.drilldown ? `${item.country} +` : item.country}
             </button>
           ))}
