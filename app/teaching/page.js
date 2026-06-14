@@ -1,48 +1,88 @@
+import Link from "next/link";
+import StudentReviewCarousel from "./StudentReviewCarousel";
+import { courses } from "./courses";
+
 export const metadata = {
   title: "Teaching"
 };
 
-const interests = [
-  "Statistics and data analytics",
-  "Research methods",
-  "Revenue management and forecasting",
-  "Applied machine learning for hospitality students"
+const teachingValues = [
+  {
+    label: "Philosophy",
+    title: "Quantitative work should feel usable",
+    body:
+      "I want students to leave class believing that statistics, data science, and AI are tools they can use to answer real questions, not just formulas they survive for a grade."
+  },
+  {
+    label: "Style",
+    title: "Applied, direct, and student-centered",
+    body:
+      "My classes emphasize examples, guided practice, plain-language explanations, and repeated opportunities to connect technical ideas to hospitality, gaming, and business decisions."
+  },
+  {
+    label: "Classroom",
+    title: "Confidence comes from doing",
+    body:
+      "I care about lowering the intimidation factor around math and code while still holding students to a high standard of clear thinking and careful analysis."
+  }
+];
+
+const studentReviews = [
+  {
+    quote: "Selected student review will appear here once the review file is added.",
+    context: "Placeholder"
+  },
+  {
+    quote: "Add a review about Mana's clarity, support, teaching style, or classroom energy here.",
+    context: "Placeholder"
+  },
+  {
+    quote: "Add another selected review here; the carousel already supports auto-advance and next/previous controls.",
+    context: "Placeholder"
+  }
 ];
 
 export default function TeachingPage() {
   return (
-    <main className="page-shell">
-      <p className="eyebrow">Teaching</p>
-      <h1>Teaching</h1>
-      <p className="lede">
-        My teaching centers on helping students use quantitative tools with confidence. I have supported graduate hospitality statistics, entrepreneurship courses, guest lectures, tutoring, and student mentorship across hospitality, data science, mathematics, and business contexts.
-      </p>
-
-      <section className="article-list">
-        <article>
-          <span>UNLV Hospitality</span>
-          <h2>HOA 730 and HOA 732: Statistical Analysis for Hospitality</h2>
-          <p>Teaching assistant experience across online, hybrid, and in-person formats. Topics included R, RStudio, time series, regression, central limit theorem, t-tests, chi-square testing, random forest, and XGBoost.</p>
-        </article>
-        <article>
-          <span>UNLV Business</span>
-          <h2>MGT 709 and MGT 710: New venture feasibility and creation</h2>
-          <p>Helped design graduate-level course materials, Canvas pages, syllabi, schedules, and assignment support for entrepreneurship students.</p>
-        </article>
-        <article>
-          <span>Applied teaching</span>
-          <h2>Guest lectures, tutoring, and multilingual classroom work</h2>
-          <p>Guest lectures in hospitality analytics, data science, casino games, beverage management, and student success; private tutoring in statistics and math; substitute teaching in Barcelona in English and Spanish.</p>
-        </article>
+    <main className="page-shell teaching-page">
+      <section className="teaching-hero">
+        <div>
+          <p className="eyebrow">Teaching</p>
+          <h1>Teaching students to think with data</h1>
+        </div>
+        <p className="lede">
+          I teach statistics, analytics, hospitality, entrepreneurship, and applied data science with a focus on confidence, clarity, and real-world decision-making.
+        </p>
       </section>
 
-      <section className="callout">
-        <h2>Teaching interests</h2>
-        <ul>
-          {interests.map((interest) => (
-            <li key={interest}>{interest}</li>
+      <section className="teaching-values" aria-label="Teaching philosophy and style">
+        {teachingValues.map((item) => (
+          <article key={item.label}>
+            <span>{item.label}</span>
+            <h2>{item.title}</h2>
+            <p>{item.body}</p>
+          </article>
+        ))}
+      </section>
+
+      <StudentReviewCarousel reviews={studentReviews} />
+
+      <section className="course-link-section" aria-labelledby="course-link-title">
+        <div className="section-intro">
+          <p className="eyebrow">Courses</p>
+          <h2 id="course-link-title">Classes and teaching work</h2>
+        </div>
+
+        <div className="course-card-grid">
+          {courses.map((course) => (
+            <Link className="course-card" href={`/teaching/${course.slug}`} key={course.slug}>
+              <span>{course.label}</span>
+              <h3>{course.title}</h3>
+              <p>{course.summary}</p>
+              <strong>View course</strong>
+            </Link>
           ))}
-        </ul>
+        </div>
       </section>
     </main>
   );
