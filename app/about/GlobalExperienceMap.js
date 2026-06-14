@@ -6,12 +6,13 @@ import usAtlas from "us-atlas/states-albers-10m.json";
 import { feature, mesh } from "topojson-client";
 import { geoPath } from "d3-geo";
 
-const card = ({ name, type, blurb, href, logo }) => ({
+const card = ({ name, type, blurb, href, logo, countryId }) => ({
   name,
   type,
   blurb,
   href,
-  logo
+  logo,
+  countryId
 });
 
 const collaborations = [
@@ -170,7 +171,7 @@ const globalRegions = [
     countries: [],
     position: { left: "34%", top: "66%" },
     mapCountries: ["ar", "bo", "br", "cl", "co", "ec", "fk", "gf", "gy", "pe", "py", "sr", "uy", "ve"],
-    viewBox: "255 330 215 320"
+    viewBox: "195 300 285 380"
   },
   {
     id: "europe",
@@ -561,7 +562,8 @@ export default function GlobalExperienceMap() {
     work: activeRegionCountries.map((country) => card({
       name: country.country,
       type: country.drilldown ? "Drilldown" : "Projects",
-      blurb: country.summary
+      blurb: country.summary,
+      countryId: country.id
     }))
   };
   const active = mapMode === "us"
@@ -776,7 +778,6 @@ export default function GlobalExperienceMap() {
                       }}
                       type="button"
                     >
-                      <AnimatedFlag countryId={activeCountry.id} label={activeCountry.country} />
                       <span>{activeCountry.country}</span>
                       <small>{activeCountry.drilldown ? "Open U.S. detail" : "View country projects"}</small>
                     </button>
@@ -788,7 +789,14 @@ export default function GlobalExperienceMap() {
         </div>
 
         <aside className="map-detail-card" key={`${mapMode}-${active.id}-${selectedWork?.name || "list"}`} aria-live="polite">
-          <h3>{mapMode === "us" ? active.label : active.country}</h3>
+          <div className="map-detail-heading">
+            {mapMode === "region" && activeCountry ? (
+              <AnimatedFlag countryId={activeCountry.id} label={activeCountry.country} />
+            ) : mapMode === "us" ? (
+              <AnimatedFlag countryId="us" label="United States" />
+            ) : null}
+            <h3>{mapMode === "us" ? active.label : active.country}</h3>
+          </div>
           <div className="collaboration-cards" aria-label={`${mapMode === "us" ? active.label : active.country} collaborations`}>
             {active.work.length ? (
               selectedWork ? (
@@ -833,6 +841,8 @@ export default function GlobalExperienceMap() {
                       <span className="collaboration-tile-logo" aria-hidden="true">
                         {item.logo ? (
                           <img src={item.logo} alt="" />
+                        ) : item.countryId ? (
+                          <AnimatedFlag countryId={item.countryId} label={item.name} />
                         ) : (
                           <span>{item.name}</span>
                         )}
@@ -870,7 +880,6 @@ export default function GlobalExperienceMap() {
               onClick={() => openCountry(item.id)}
               type="button"
             >
-              <AnimatedFlag countryId={item.id} label={item.country} />
               {item.drilldown ? `${item.country} +` : item.country}
             </button>
           ))}

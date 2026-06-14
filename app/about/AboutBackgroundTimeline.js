@@ -8,12 +8,12 @@ const timelineItems = [
     image: "/assets/images/phd_pic.jpg",
     imageClass: "crop-left",
     alt: "Mana Azizsoltani speaking at UNLV commencement",
-    caption: "... to later complete doctoral work in hospitality and teach at the university level..."
+    caption: "... to later complete my PhD in hospitality and become a university professor..."
   },
   {
     image: "/assets/images/consultant_pic.jpeg",
     alt: "Mana Azizsoltani in Macau near integrated resort properties",
-    caption: "... to become a consultant helping casinos turn data and AI into better decisions."
+    caption: "... to become a consultant and help casinos better leverage data and AI."
   }
 ];
 
