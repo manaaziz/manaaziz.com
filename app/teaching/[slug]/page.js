@@ -60,9 +60,14 @@ export default function CoursePage({ params }) {
 
         <div className="course-material-list">
           {course.materials.map((material) => (
-            <article key={material}>
-              <h3>{material}</h3>
-              <p>Resource link or downloadable material can be added here.</p>
+            <article key={material.title}>
+              <h3>{material.title}</h3>
+              <p>{material.description}</p>
+              {material.href ? (
+                <Link className="case-link" href={material.href}>
+                  Open resource
+                </Link>
+              ) : null}
             </article>
           ))}
         </div>

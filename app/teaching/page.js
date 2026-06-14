@@ -1,6 +1,7 @@
 import Link from "next/link";
 import StudentReviewCarousel from "./StudentReviewCarousel";
 import { courses } from "./courses";
+import { studentReviews } from "./reviews";
 
 export const metadata = {
   title: "Teaching"
@@ -8,37 +9,22 @@ export const metadata = {
 
 const teachingValues = [
   {
-    label: "Philosophy",
-    title: "Quantitative work should feel usable",
+    label: "Whole person formation",
+    title: "Preparing students for more than the next assignment",
     body:
-      "I want students to leave class believing that statistics, data science, and AI are tools they can use to answer real questions, not just formulas they survive for a grade."
+      "I care about helping students build judgment, confidence, communication skills, and professional habits alongside the course material."
   },
   {
-    label: "Style",
-    title: "Applied, direct, and student-centered",
+    label: "Teaching through passion",
+    title: "Energy makes learning contagious",
     body:
-      "My classes emphasize examples, guided practice, plain-language explanations, and repeated opportunities to connect technical ideas to hospitality, gaming, and business decisions."
+      "The best teachers in my life transmitted their own passions. I try to bring that same energy to food, culture, statistics, hospitality, and data."
   },
   {
-    label: "Classroom",
-    title: "Confidence comes from doing",
+    label: "Agency and technology",
+    title: "Students should learn how to take the wheel",
     body:
-      "I care about lowering the intimidation factor around math and code while still holding students to a high standard of clear thinking and careful analysis."
-  }
-];
-
-const studentReviews = [
-  {
-    quote: "Selected student review will appear here once the review file is added.",
-    context: "Placeholder"
-  },
-  {
-    quote: "Add a review about Mana's clarity, support, teaching style, or classroom energy here.",
-    context: "Placeholder"
-  },
-  {
-    quote: "Add another selected review here; the carousel already supports auto-advance and next/previous controls.",
-    context: "Placeholder"
+      "I want students to see themselves as active learners who can use modern tools, including AI, responsibly and effectively rather than fall behind people who do."
   }
 ];
 
@@ -51,7 +37,7 @@ export default function TeachingPage() {
           <h1>Teaching students to think with data</h1>
         </div>
         <p className="lede">
-          I teach statistics, analytics, hospitality, entrepreneurship, and applied data science with a focus on confidence, clarity, and real-world decision-making.
+          I teach hospitality, culture, cuisine, statistics, analytics, and applied data science with a focus on whole-person formation, student agency, and real-world usefulness.
         </p>
       </section>
 
@@ -70,7 +56,7 @@ export default function TeachingPage() {
       <section className="course-link-section" aria-labelledby="course-link-title">
         <div className="section-intro">
           <p className="eyebrow">Courses</p>
-          <h2 id="course-link-title">Classes and teaching work</h2>
+          <h2 id="course-link-title">Courses Taught</h2>
         </div>
 
         <div className="course-card-grid">
