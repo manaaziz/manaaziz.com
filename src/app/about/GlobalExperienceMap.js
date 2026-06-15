@@ -27,18 +27,19 @@ const collaborations = [
         type: "Research",
         blurb: "Worked on applied gaming research connecting data, operations, and responsible innovation.",
         href: "/research",
-        logo: "/assets/images/logos/IGI-ConfLogo.jpg"
+        logo: "/assets/logos/unlv_igi_logo.jpeg"
       }),
       card({
         name: "Wynn Las Vegas",
         type: "Consulting",
         blurb: "Supported casino and hospitality analytics work for operator-facing decisions.",
-        logo: "/assets/partner-logos/wynn_macau_logo.png"
+        logo: "/assets/logos/Wynn_Las_Vegas_logo.svg.png"
       }),
       card({
         name: "GMA Consulting",
         type: "Consulting",
-        blurb: "Supported consulting work translating casino data into operational recommendations."
+        blurb: "Supported consulting work translating casino data into operational recommendations.",
+        logo: "/assets/logos/gma_logo.png.webp"
       })
     ]
   },
@@ -51,7 +52,8 @@ const collaborations = [
         name: "Shapley interaction networks",
         type: "Research",
         blurb: "Presented work on explaining the clinical course of gambling disorder at an AI conference in Granada.",
-        href: "/research"
+        href: "/research",
+        logo: "/assets/logos/cai_granada_logo.png"
       }),
       card({
         name: "Barcelona hospitality teaching",
@@ -63,7 +65,8 @@ const collaborations = [
         name: "Club de Convergentes",
         type: "Research",
         blurb: "Presented work on AI ethics and governance in the gambling sector in Madrid.",
-        href: "/research"
+        href: "/research",
+        logo: "/assets/logos/club_convergentes.png"
       })
     ]
   },
@@ -76,7 +79,8 @@ const collaborations = [
         name: "European Conference on Gambling Studies and Policy Issues",
         type: "Research",
         blurb: "Presented work on MG-CFA measurement invariance for the PGSI in Rome.",
-        href: "/research"
+        href: "/research",
+        logo: "/assets/logos/easg_rome_logo.png"
       })
     ]
   },
@@ -89,7 +93,8 @@ const collaborations = [
         name: "Webinar on Safer Gambling",
         type: "Research",
         blurb: "Presented machine learning work on detecting customer transaction decline.",
-        href: "/research"
+        href: "/research",
+        logo: "/assets/logos/sustaible_gambling_webinar.png"
       })
     ]
   },
@@ -101,13 +106,14 @@ const collaborations = [
       card({
         name: "Department of Trust",
         type: "Consulting",
-        blurb: "Explored trust, compliance, and gaming-related analytics questions."
+        blurb: "Explored trust, compliance, and gaming-related analytics questions.",
+        logo: "/assets/logos/department_trust_logo.jpeg"
       }),
       card({
         name: "Wynn Mayfair",
         type: "Consulting",
         blurb: "Tracked international luxury hospitality and gaming market context.",
-        logo: "/assets/partner-logos/wynn_mayfair_logo.png"
+        logo: "/assets/logos/wynn_mayfair_logo.png"
       })
     ]
   },
@@ -120,7 +126,7 @@ const collaborations = [
         name: "Wynn Al Marjan Island",
         type: "Consulting",
         blurb: "Followed emerging integrated resort strategy in a new gaming market.",
-        logo: "/assets/partner-logos/wynn_al_marjan_logo.png"
+        logo: "/assets/logos/wynn_al_marjan_logo.png"
       })
     ]
   },
@@ -133,7 +139,8 @@ const collaborations = [
         name: "EuroCHRIE Conference 2024",
         type: "Research",
         blurb: "Presented interpretable forecasting of hotel booking cancellations with stacked generalization.",
-        href: "/research"
+        href: "/research",
+        logo: "/assets/logos/eurochrie_2024_qatar.png"
       })
     ]
   },
@@ -146,20 +153,21 @@ const collaborations = [
         name: "International Conference on Culture, Tourism, and Hospitality",
         type: "Research",
         blurb: "Presented explainable machine learning work for hotel upselling in Portugal from Macau.",
-        href: "/research"
+        href: "/research",
+        logo: "/assets/logos/iccth_macau.png"
       }),
       card({
         name: "Wynn",
         type: "Consulting",
         blurb: "Worked with Wynn-related Macau context across premium integrated resort operations, casino hospitality, and market strategy.",
         href: "/blog/europe-2023",
-        logo: "/assets/partner-logos/wynn_macau_logo.png"
+        logo: "/assets/logos/wynn_macau_logo.png"
       }),
       card({
         name: "Melco",
         type: "Consulting",
         blurb: "Studied integrated resort positioning and casino hospitality operations across Melco's Macau portfolio.",
-        logo: "/assets/partner-logos/melco_logo.png"
+        logo: "/assets/logos/Melco_logo.png"
       })
     ]
   },
@@ -172,7 +180,7 @@ const collaborations = [
         name: "INSPIRE Resort Entertainment",
         type: "Consulting",
         blurb: "Worked on casino and resort analytics questions for an integrated entertainment resort.",
-        logo: "/assets/partner-logos/inspire_resort_logo.png"
+        logo: "/assets/logos/inspire_resort_logo.png"
       })
     ]
   },
@@ -185,7 +193,7 @@ const collaborations = [
         name: "Hoiana",
         type: "Consulting",
         blurb: "Reviewed integrated resort and casino hospitality context in Southeast Asia.",
-        logo: "/assets/partner-logos/hoiana_logo.png"
+        logo: "/assets/logos/hoiana_logo.png"
       })
     ]
   },
@@ -198,19 +206,20 @@ const collaborations = [
         name: "Technology, Risk and Gambling Early Career Researcher Showcase",
         type: "Research",
         blurb: "Presented work on clustering slot machine players using session-level transaction data.",
-        href: "/research"
+        href: "/research",
+        logo: "/assets/logos/usydney_logo.svg"
       }),
       card({
         name: "Crown Resorts",
         type: "Consulting",
         blurb: "Worked with gaming and hospitality context for Australian operator questions.",
-        logo: "/assets/partner-logos/crown_resorts_logo.png"
+        logo: "/assets/logos/crown_resorts_logo.png"
       }),
       card({
         name: "The Star Entertainment Group",
         type: "Consulting",
         blurb: "Tracked operator strategy and casino hospitality questions in Australia.",
-        logo: "/assets/partner-logos/the_star_logo.png"
+        logo: "/assets/logos/the_star_logo.png"
       })
     ]
   }
@@ -490,63 +499,66 @@ const usStates = [
         type: "Teaching",
         blurb: "Taught and supported applied statistics, analytics, and hospitality coursework.",
         href: "/teaching",
-        logo: "/assets/images/logos/unlvhospitality_logo.jpeg"
+        logo: "/assets/logos/unlvhospitality_logo.jpeg"
       }),
       card({
         name: "International Gaming Institute",
         type: "Research",
         blurb: "Worked on gaming research at the intersection of data, operations, and policy.",
         href: "/research",
-        logo: "/assets/images/logos/IGI-ConfLogo.jpg"
+        logo: "/assets/logos/unlv_igi_logo.jpeg"
       }),
       card({
         name: "Wynn Las Vegas",
         type: "Consulting",
         blurb: "Supported analytics work tied to casino and hospitality operations.",
-        logo: "/assets/partner-logos/wynn_macau_logo.png"
+        logo: "/assets/logos/Wynn_Las_Vegas_logo.svg.png"
       }),
       card({
         name: "Encore",
         type: "Consulting",
         blurb: "Worked with operator context for premium resort and gaming decisions.",
-        logo: "/assets/partner-logos/wynn_macau_logo.png"
+        logo: "/assets/logos/Wynn_Las_Vegas_logo.svg.png"
       }),
       card({
         name: "WDTS",
         type: "Consulting",
         blurb: "Explored gaming technology and data questions connected to operator workflows.",
-        logo: "/assets/partner-logos/wdts_logo.png"
+        logo: "/assets/logos/wdts_logo.png"
       }),
       card({
         name: "AXES",
         type: "Research",
         blurb: "Connected casino payments and player behavior data to applied analytics questions.",
-        logo: "/assets/partner-logos/axes_logo.png"
+        logo: "/assets/logos/axes_logo.png"
       }),
       card({
         name: "International Conference on Gambling & Risk Taking",
         type: "Research",
         blurb: "Presented work on baccarat luck quantification and declined gambling payment transactions in Las Vegas.",
-        href: "/research"
+        href: "/research",
+        logo: "/assets/logos/gambling_risk_taking_logo.jpg"
       }),
       card({
         name: "ICRG Conference on Gambling and Addiction",
         type: "Research",
         blurb: "Presented work on interpretable gambler clusters and slot-machine player clustering in Las Vegas.",
-        href: "/research"
+        href: "/research",
+        logo: "/assets/logos/icrg_conference.png"
       }),
       card({
         name: "GLI Regulator Roundtable",
         type: "Research",
         blurb: "Presented research characterizing UK online gamblers exceeding financial risk thresholds.",
-        href: "/research"
+        href: "/research",
+        logo: "/assets/logos/gli_regulator_roundtable.png"
       }),
       card({
         name: "UNLV research forums",
         type: "Research",
         blurb: "Presented open science in hospitality, teaching statistics in hospitality, and booking cancellation research.",
         href: "/research",
-        logo: "/assets/images/logos/unlvhospitality_logo.jpeg"
+        logo: "/assets/logos/unlvhospitality_logo.jpeg"
       })
     ],
     state: "Nevada"
@@ -560,13 +572,14 @@ const usStates = [
         name: "Casino Miami",
         type: "Consulting",
         blurb: "Supported casino and hospitality consulting context connected to South Florida operations.",
-        logo: "/assets/partner-logos/casino_miami_logo.png"
+        logo: "/assets/logos/casino_miami_logo.png"
       }),
       card({
         name: "Graduate Education & Graduate Student Research Conference",
         type: "Research",
         blurb: "Presented a scoping review on how hotel customers feel about AI service technologies in Miami.",
-        href: "/research"
+        href: "/research",
+        logo: "/assets/logos/IER_Logotype_RGB.png"
       })
     ],
     state: "Florida"
@@ -580,14 +593,15 @@ const usStates = [
         name: "RevME Hospitality Management and Analytics Conference",
         type: "Research",
         blurb: "Presented machine learning prediction of hotel room demand in Nashville.",
-        href: "/research"
+        href: "/research",
+        logo: "/assets/logos/revme_conf_logo.png"
       }),
       card({
         name: "Belmont University",
         type: "Teaching",
         blurb: "Delivered invited talks to Belmont students and professors about data, AI, and applied analytics.",
         href: "/teaching",
-        logo: "/assets/images/logos/belmont_university_logo.png"
+        logo: "/assets/logos/belmont_university_logo.png"
       })
     ],
     state: "Tennessee"
@@ -600,12 +614,14 @@ const usStates = [
       card({
         name: "Bally's Atlantic City",
         type: "Consulting",
-        blurb: "Supported casino and hospitality consulting context connected to Atlantic City operations."
+        blurb: "Supported casino and hospitality consulting context connected to Atlantic City operations.",
+        logo: "/assets/logos/Bally's_Corporation_logo.svg"
       }),
       card({
         name: "GMA Consulting",
         type: "Consulting",
-        blurb: "Supported casino consulting work by turning analysis into operator-facing recommendations."
+        blurb: "Supported casino consulting work by turning analysis into operator-facing recommendations.",
+        logo: "/assets/logos/gma_logo.png.webp"
       }),
       card({
         name: "Machine learning",

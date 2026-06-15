@@ -1,4 +1,5 @@
 import Link from "next/link";
+import LogoBounceField from "./LogoBounceField";
 
 export const metadata = {
   title: "Consulting"
@@ -44,17 +45,17 @@ const consultingAreas = [
 ];
 
 const clients = [
-  { name: "Wynn", logo: "/assets/partner-logos/wynn_macau_logo.png" },
-  { name: "Melco", logo: "/assets/partner-logos/melco_logo.png" },
-  { name: "Crown Resorts", logo: "/assets/partner-logos/crown_resorts_logo.png" },
-  { name: "The Star", logo: "/assets/partner-logos/the_star_logo.png" },
-  { name: "Hoiana", logo: "/assets/partner-logos/hoiana_logo.png" },
-  { name: "Inspire", logo: "/assets/partner-logos/inspire_resort_logo.png" },
-  { name: "Casino Miami", logo: "/assets/partner-logos/casino_miami_logo.png" },
-  { name: "WDTS", logo: "/assets/partner-logos/wdts_logo.png" },
-  { name: "AXES", logo: "/assets/partner-logos/axes_logo.png" },
-  { name: "Bally's", logo: "/assets/images/logos/Bally's_Corporation_logo.svg" },
-  { name: "GMA Consulting" }
+  { name: "Wynn", logo: "/assets/logos/wynn_macau_logo.png" },
+  { name: "Melco", logo: "/assets/logos/Melco_logo.png" },
+  { name: "Crown Resorts", logo: "/assets/logos/crown_resorts_logo.png" },
+  { name: "The Star", logo: "/assets/logos/the_star_logo.png" },
+  { name: "Hoiana", logo: "/assets/logos/hoiana_logo.png" },
+  { name: "Inspire", logo: "/assets/logos/inspire_resort_logo.png" },
+  { name: "Casino Miami", logo: "/assets/logos/casino_miami_logo.png" },
+  { name: "WDTS", logo: "/assets/logos/wdts_logo.png" },
+  { name: "AXES", logo: "/assets/logos/axes_logo.png" },
+  { name: "Bally's", logo: "/assets/logos/Bally's_Corporation_logo.svg" },
+  { name: "GMA Consulting", logo: "/assets/logos/gma_logo.png.webp" }
 ];
 
 const projectExamples = [
@@ -100,16 +101,7 @@ export default function ConsultingPage() {
           <h2 id="consulting-clients-title">Selected casino, hospitality, and gaming technology contexts</h2>
         </div>
 
-        <div className="consulting-client-grid">
-          {clients.map((client) => (
-            <article className="consulting-client-card" key={client.name}>
-              <div className="consulting-client-logo" aria-label={client.name}>
-                {client.logo ? <img src={client.logo} alt="" /> : <strong>{client.name}</strong>}
-              </div>
-              <span>{client.name}</span>
-            </article>
-          ))}
-        </div>
+        <LogoBounceField clients={clients} />
       </section>
 
       <section className="consulting-area-section" aria-labelledby="consulting-areas-title">

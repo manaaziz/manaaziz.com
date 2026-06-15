@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 const root = process.cwd();
-const contentRoot = path.join(root, "content", "blog");
+const contentRoot = path.join(root, "src", "content", "blog");
 
 export const seriesConfig = {
   "becoming-dr-mana": {

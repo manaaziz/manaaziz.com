@@ -101,84 +101,96 @@ const conferencePresentations = [
     type: "Paper",
     date: "May 27, 2026",
     venue: "19th International Conference on Gambling & Risk Taking",
-    location: "Las Vegas, Nevada"
+    location: "Las Vegas, Nevada",
+    logo: "/assets/logos/gambling_risk_taking_logo.jpg"
   },
   {
     title: "Shapley interaction networks for explaining the clinical course of gambling disorder",
     type: "Paper",
     date: "May 8-10, 2026",
     venue: "2026 IEEE International Conference on Artificial Intelligence",
-    location: "Granada, Spain"
+    location: "Granada, Spain",
+    logo: "/assets/logos/cai_granada_logo.png"
   },
   {
     title: "Open science in hospitality: A scoping review",
     type: "Poster",
     date: "March 6, 2026",
     venue: "UNLV Harrah College of Hospitality Research Forum",
-    location: "Las Vegas, Nevada"
+    location: "Las Vegas, Nevada",
+    logo: "/assets/logos/unlvhospitality_logo.jpeg"
   },
   {
     title: "Explainable machine learning for hotel upselling in Portugal",
     type: "Paper",
     date: "February 27, 2026",
     venue: "International Conference on Culture, Tourism, and Hospitality",
-    location: "Macau, China"
+    location: "Macau, China",
+    logo: "/assets/logos/iccth_macau.png"
   },
   {
     title: "Interpretable behavioral clusters of gamblers through unsupervised learning",
     type: "Poster",
     date: "October 6, 2025",
     venue: "26th ICRG Conference on Gambling and Addiction",
-    location: "Las Vegas, Nevada"
+    location: "Las Vegas, Nevada",
+    logo: "/assets/logos/icrg_conference.png"
   },
   {
     title: "Avanzando en la ética y la gobernanza de la IA en el sector del juego: Un piloto de traducción de investigación",
     type: "Paper",
     date: "October 2, 2025",
     venue: "Club de Convergentes",
-    location: "Madrid, Spain"
+    location: "Madrid, Spain",
+    logo: "/assets/logos/club_convergentes.png"
   },
   {
     title: "Characterizing UK online gamblers exceeding financial risk thresholds",
     type: "Paper",
     date: "April 17, 2025",
     venue: "2025 GLI Regulator Roundtable",
-    location: "Las Vegas, Nevada"
+    location: "Las Vegas, Nevada",
+    logo: "/assets/logos/gli_regulator_roundtable.png"
   },
   {
     title: "How do hotel customers feel about AI service technologies? A scoping review",
     type: "Paper",
     date: "January 5, 2025",
     venue: "The 30th Annual Graduate Education & Graduate Student Research Conference in Hospitality and Tourism",
-    location: "Miami, Florida"
+    location: "Miami, Florida",
+    logo: "/assets/logos/IER_Logotype_RGB.png"
   },
   {
     title: "Interpretable forecasting of booking cancellations with stacked generalization",
     type: "Paper",
     date: "November 4-7, 2024",
     venue: "EuroCHRIE Conference 2024",
-    location: "Qatar"
+    location: "Qatar",
+    logo: "/assets/logos/eurochrie_2024_qatar.png"
   },
   {
     title: "Clustering slot machine players using session-level transaction data",
     type: "Poster",
     date: "November 6, 2024",
     venue: "Technology, Risk and Gambling Early Career Researcher Showcase",
-    location: "Australia"
+    location: "Australia",
+    logo: "/assets/logos/usydney_logo.svg"
   },
   {
     title: "Clustering slot machine players using session-level transaction data",
     type: "Poster",
     date: "October 6-7, 2024",
     venue: "25th ICRG Conference on Gambling and Addiction",
-    location: "Las Vegas, Nevada"
+    location: "Las Vegas, Nevada",
+    logo: "/assets/logos/icrg_conference.png"
   },
   {
     title: "An ordinal categorical variable approach to assessing measurement invariance using the theta parameterization for MG-CFA",
     type: "Paper",
     date: "September 10-13, 2024",
     venue: "14th European Conference on Gambling Studies and Policy Issues",
-    location: "Rome, Italy"
+    location: "Rome, Italy",
+    logo: "/assets/logos/easg_rome_logo.png"
   },
   {
     title: "An assessment of the measurement invariance of the Problem Gambling Severity Index (PGSI)",
@@ -192,28 +204,32 @@ const conferencePresentations = [
     type: "Paper",
     date: "December 14, 2023",
     venue: "6th Annual RevME Hospitality Management and Analytics Conference",
-    location: "Nashville, Tennessee"
+    location: "Nashville, Tennessee",
+    logo: "/assets/logos/revme_conf_logo.png"
   },
   {
     title: "Detection of customer transaction decline using machine learning",
     type: "Paper",
     date: "June 13, 2023",
     venue: "Webinar on Safer Gambling: Insights from Leading Researchers & Applicability",
-    location: "Malta"
+    location: "Malta",
+    logo: "/assets/logos/sustaible_gambling_webinar.png"
   },
   {
     title: "Predicting declined transactions in gambling payments data",
     type: "Paper",
     date: "May 23-25, 2023",
     venue: "International Conference on Gambling & Risk Taking",
-    location: "Las Vegas, Nevada"
+    location: "Las Vegas, Nevada",
+    logo: "/assets/logos/gambling_risk_taking_logo.jpg"
   },
   {
     title: "Teaching statistics in hospitality",
     type: "Paper",
     date: "April 15, 2023",
     venue: "Graduate & Professional Student Research Forum",
-    location: "Las Vegas, Nevada"
+    location: "Las Vegas, Nevada",
+    logo: "/assets/logos/gpsa_research_forum.png"
   },
   {
     title: "Teaching statistics in hospitality using R",
@@ -227,7 +243,8 @@ const conferencePresentations = [
     type: "Poster",
     date: "February 18-19, 2023",
     venue: "2023 West Federation of Council on Hotel, Restaurant, and Institutional Education",
-    location: "Las Vegas, Nevada"
+    location: "Las Vegas, Nevada",
+    logo: "/assets/logos/west_chrie_2023.jpeg"
   }
 ];
 
@@ -260,6 +277,7 @@ export default function ResearchPage() {
             <article className="presentation-photo-card" key={`${presentation.date}-${presentation.title}`}>
               <div className="presentation-photo-surface">
                 <div className="presentation-photo-placeholder">
+                  {presentation.logo ? <img src={presentation.logo} alt="" /> : null}
                   <span>{presentation.location}</span>
                 </div>
                 <div className="presentation-photo-copy">

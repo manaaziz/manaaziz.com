@@ -403,6 +403,25 @@ h3 {
     transform: translateY(5px);
   }
 
+  .consulting-logo-arena {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    height: auto;
+    gap: 0.8rem;
+    overflow: visible;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    contain: none;
+  }
+
+  .consulting-logo-bouncer {
+    position: static;
+    width: auto;
+    transform: none !important;
+  }
+
   .reveal {
     animation: none;
   }
@@ -707,7 +726,7 @@ h3 {
   position: relative;
   display: grid;
   min-height: clamp(10.5rem, 15vw, 15rem);
-  place-items: end start;
+  place-items: center;
   padding: 0.78rem;
   background:
     linear-gradient(145deg, rgba(23, 23, 23, 0.18), rgba(23, 23, 23, 0.04)),
@@ -719,6 +738,17 @@ h3 {
     transform 260ms var(--ease-out-back);
 }
 
+.presentation-photo-placeholder img {
+  position: relative;
+  z-index: 1;
+  max-width: min(78%, 9.5rem);
+  max-height: 5.6rem;
+  object-fit: contain;
+  filter: drop-shadow(0 0.45rem 0.7rem rgba(23, 23, 23, 0.12));
+  user-select: none;
+  -webkit-user-select: none;
+}
+
 .presentation-photo-placeholder::before {
   position: absolute;
   inset: 1rem;
@@ -728,7 +758,9 @@ h3 {
 }
 
 .presentation-photo-placeholder span {
-  position: relative;
+  position: absolute;
+  bottom: 0.78rem;
+  left: 0.78rem;
   z-index: 1;
   width: fit-content;
   max-width: 100%;
@@ -2055,16 +2087,11 @@ h3 {
   margin-top: clamp(3rem, 7vw, 5rem);
 }
 
-.consulting-client-grid,
 .consulting-area-grid,
 .consulting-example-grid {
   display: grid;
   gap: 1rem;
   margin-top: 1.5rem;
-}
-
-.consulting-client-grid {
-  grid-template-columns: repeat(6, minmax(0, 1fr));
 }
 
 .consulting-area-grid {
@@ -2075,7 +2102,6 @@ h3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-.consulting-client-card,
 .consulting-area-card,
 .consulting-example-grid article {
   border: 1px solid var(--line);
@@ -2084,49 +2110,67 @@ h3 {
   box-shadow: var(--shadow);
 }
 
-.consulting-client-card {
-  display: grid;
-  gap: 0.7rem;
-  min-height: 9.5rem;
-  padding: 0.85rem;
-  transition:
-    border-color 160ms ease,
-    box-shadow 160ms ease,
-    transform 180ms var(--ease-out-back);
+.consulting-logo-arena {
+  position: relative;
+  overflow: hidden;
+  height: clamp(18rem, 34vw, 26rem);
+  margin-top: 1.5rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 18% 22%, rgba(47, 111, 100, 0.08), transparent 26%),
+    radial-gradient(circle at 78% 74%, rgba(23, 23, 23, 0.05), transparent 28%),
+    rgba(255, 250, 241, 0.5);
+  box-shadow: var(--shadow);
+  contain: layout paint;
 }
 
-.consulting-client-card:hover {
-  border-color: var(--line-strong);
-  box-shadow: var(--shadow-hover);
-  transform: translateY(-0.25rem);
+.consulting-logo-bouncer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  gap: 0.34rem;
+  width: clamp(5.85rem, 8vw, 7.5rem);
+  padding: 0.42rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 250, 241, 0.9);
+  box-shadow:
+    0 0.55rem 1.1rem rgba(23, 23, 23, 0.07),
+    0 0.16rem 0 rgba(0, 0, 0, 0.72);
+  will-change: transform;
+  user-select: none;
+  -webkit-user-select: none;
+  backface-visibility: hidden;
 }
 
 .consulting-client-logo {
   display: grid;
-  min-height: 5.6rem;
+  min-height: 3.2rem;
   place-items: center;
-  padding: 0.65rem;
+  padding: 0.35rem;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: rgba(255, 250, 241, 0.62);
+  background: rgba(255, 250, 241, 0.7);
 }
 
 .consulting-client-logo img {
   max-width: 100%;
-  max-height: 4rem;
+  max-height: 2.25rem;
   object-fit: contain;
 }
 
 .consulting-client-logo strong {
-  font-size: 0.9rem;
+  font-size: 0.68rem;
   line-height: 1.1;
   text-align: center;
 }
 
-.consulting-client-card span,
+.consulting-logo-bouncer span,
 .consulting-area-card span {
   color: var(--green);
-  font-size: 0.72rem;
+  font-size: 0.62rem;
   font-weight: 900;
   text-transform: uppercase;
 }
@@ -4821,7 +4865,6 @@ h3 {
   .course-card-grid,
   .course-outcome-grid,
   .course-material-list,
-  .consulting-client-grid,
   .consulting-area-grid,
   .consulting-example-grid,
   .presentation-gallery,
@@ -5086,10 +5129,17 @@ h3 {
     grid-template-columns: 1fr;
   }
 
-  .consulting-client-grid,
   .consulting-area-grid,
   .consulting-example-grid {
     grid-template-columns: 1fr;
+  }
+
+  .consulting-logo-arena {
+    height: 20rem;
+  }
+
+  .consulting-logo-bouncer {
+    width: 5.7rem;
   }
 
   .syllabus-table > div,
