@@ -1,0 +1,28 @@
+HOA 732 Spring 2026 Midterm Project
+
+1) The datafile All Greens Sales Data.csv shows the following variables:
+The data (X1, X2, X3, X4, X5, X6) are for each franchise store.
+Y= annual net sales/$1000
+X1 = number sq. ft./1000
+X2 = inventory/$1000
+X3 = amount spent on advertising/$1000
+X4 = size of sales district/1000 families
+X5 = number of competing stores in district
+
+(a) Fit an MLR model to Y as a function of the potential predictors in the datafile.
+
+(b) Fit Random Forest model to Y as a function of the potential predictors in the datafile.
+
+(c) Compare the two models.
+
+
+2) The datafile CBC.csv shows the following variables:
+Seq# ID# Gender M R F FirstPurch ChildBks             
+YouthBks CookBks DoltYBks RefBks ArtBks GeogBks ItalCook
+ItalHAtlas ItalArt Florence
+
+(a) Fit a logistic regression model for Florence as a function of the potential predictors in the datafile CBC.csv
+
+(b) Fit a Random Forest model for Florence as a function of the potential predictors in the datafile CBC.csv data.
+
+(c) Compare the two models.

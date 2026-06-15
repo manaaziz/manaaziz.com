@@ -48,9 +48,30 @@ export default function CoursePage({ params }) {
         <article className="course-detail-panel">
           <span>About the class</span>
           <h2>{course.shortTitle}</h2>
+          {course.catalogIntro ? (
+            <p>{course.catalogIntro}</p>
+          ) : null}
           <p>{course.description}</p>
         </article>
       </section>
+
+      {course.outcomes?.length ? (
+        <section className="course-outcomes" aria-labelledby="course-outcomes-title">
+          <div className="section-intro">
+            <p className="eyebrow">Focus</p>
+            <h2 id="course-outcomes-title">What students work on</h2>
+          </div>
+
+          <div className="course-outcome-grid">
+            {course.outcomes.map((outcome, index) => (
+              <article key={outcome}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <p>{outcome}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       <section className="course-materials" aria-labelledby="course-materials-title">
         <div className="section-intro">
@@ -61,12 +82,22 @@ export default function CoursePage({ params }) {
         <div className="course-material-list">
           {course.materials.map((material) => (
             <article key={material.title}>
+              {material.kind ? <span>{material.kind}</span> : null}
               <h3>{material.title}</h3>
               <p>{material.description}</p>
               {material.href ? (
                 <Link className="case-link" href={material.href}>
                   Open resource
                 </Link>
+              ) : null}
+              {material.links?.length ? (
+                <div className="course-resource-links">
+                  {material.links.map((link) => (
+                    <Link className="case-link" href={link.href} key={link.href}>
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
               ) : null}
             </article>
           ))}

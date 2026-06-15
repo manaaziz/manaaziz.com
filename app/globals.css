@@ -672,8 +672,8 @@ h3 {
 
 .presentation-gallery {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.75rem;
   margin-top: 1.5rem;
 }
 
@@ -706,9 +706,9 @@ h3 {
 .presentation-photo-placeholder {
   position: relative;
   display: grid;
-  min-height: clamp(14rem, 28vw, 22rem);
+  min-height: clamp(10.5rem, 15vw, 15rem);
   place-items: end start;
-  padding: 1rem;
+  padding: 0.78rem;
   background:
     linear-gradient(145deg, rgba(23, 23, 23, 0.18), rgba(23, 23, 23, 0.04)),
     radial-gradient(circle at 70% 25%, rgba(255, 250, 241, 0.48), transparent 20%),
@@ -773,12 +773,12 @@ h3 {
 }
 
 .presentation-photo-caption {
-  padding: 0.95rem 1rem 1rem;
+  padding: 0.75rem 0.82rem 0.85rem;
 }
 
 .presentation-photo-caption h3 {
   margin: 0;
-  font-size: clamp(1rem, 2vw, 1.35rem);
+  font-size: clamp(0.82rem, 1.2vw, 1.02rem);
   line-height: 1.12;
 }
 
@@ -987,6 +987,11 @@ h3 {
 
 .paper-mosaic-section {
   margin-top: clamp(3rem, 7vw, 5rem);
+}
+
+.paper-mosaic-section .section-intro,
+.paper-mosaic-section .section-intro h2 {
+  max-width: none;
 }
 
 .paper-mosaic-wrap {
@@ -1530,6 +1535,7 @@ h3 {
 
 .student-review-section,
 .course-link-section,
+.course-outcomes,
 .course-materials,
 .syllabus-section {
   margin-top: 4rem;
@@ -1983,9 +1989,186 @@ h3 {
   margin-top: 1.5rem;
 }
 
+.course-outcome-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.course-outcome-grid article {
+  display: grid;
+  gap: 0.75rem;
+  min-height: 11rem;
+  align-content: space-between;
+  padding: 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 15% 15%, rgba(47, 111, 100, 0.08), transparent 28%),
+    var(--surface-raised);
+  box-shadow: var(--shadow);
+}
+
+.course-outcome-grid span,
+.course-material-list span {
+  color: var(--green);
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.course-outcome-grid p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.08rem;
+  line-height: 1.42;
+}
+
 .course-material-list h3 {
   margin: 0 0 0.65rem;
   font-size: 1.1rem;
+}
+
+.course-resource-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem 0.65rem;
+  margin-top: 0.85rem;
+}
+
+.course-resource-links .case-link {
+  font-size: 0.82rem;
+}
+
+.consulting-page h1 {
+  max-width: 16ch;
+}
+
+.consulting-hero {
+  max-width: 68rem;
+}
+
+.consulting-client-section,
+.consulting-area-section,
+.consulting-example-section {
+  margin-top: clamp(3rem, 7vw, 5rem);
+}
+
+.consulting-client-grid,
+.consulting-area-grid,
+.consulting-example-grid {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.consulting-client-grid {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.consulting-area-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.consulting-example-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.consulting-client-card,
+.consulting-area-card,
+.consulting-example-grid article {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-raised);
+  box-shadow: var(--shadow);
+}
+
+.consulting-client-card {
+  display: grid;
+  gap: 0.7rem;
+  min-height: 9.5rem;
+  padding: 0.85rem;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 180ms var(--ease-out-back);
+}
+
+.consulting-client-card:hover {
+  border-color: var(--line-strong);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-0.25rem);
+}
+
+.consulting-client-logo {
+  display: grid;
+  min-height: 5.6rem;
+  place-items: center;
+  padding: 0.65rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 250, 241, 0.62);
+}
+
+.consulting-client-logo img {
+  max-width: 100%;
+  max-height: 4rem;
+  object-fit: contain;
+}
+
+.consulting-client-logo strong {
+  font-size: 0.9rem;
+  line-height: 1.1;
+  text-align: center;
+}
+
+.consulting-client-card span,
+.consulting-area-card span {
+  color: var(--green);
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.consulting-area-card,
+.consulting-example-grid article {
+  padding: 1.25rem;
+}
+
+.consulting-area-card {
+  display: grid;
+  gap: 0.85rem;
+  align-content: start;
+  background:
+    linear-gradient(145deg, rgba(47, 111, 100, 0.07), transparent 58%),
+    var(--surface-raised);
+}
+
+.consulting-area-card h3,
+.consulting-example-grid h3 {
+  margin: 0;
+  font-size: clamp(1.35rem, 2vw, 1.9rem);
+  line-height: 1.04;
+}
+
+.consulting-area-card p,
+.consulting-example-grid p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.48;
+}
+
+.consulting-area-card ul {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0.25rem 0 0;
+  padding-left: 1.1rem;
+  color: var(--muted);
+}
+
+.consulting-area-card li::marker {
+  color: var(--green);
 }
 
 .syllabus-page h1 {
@@ -4636,7 +4819,11 @@ h3 {
   .pathway-grid,
   .teaching-values,
   .course-card-grid,
+  .course-outcome-grid,
   .course-material-list,
+  .consulting-client-grid,
+  .consulting-area-grid,
+  .consulting-example-grid,
   .presentation-gallery,
   .paper-mosaic {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -4894,7 +5081,14 @@ h3 {
   .teaching-values,
   .syllabus-grid,
   .course-card-grid,
+  .course-outcome-grid,
   .course-material-list {
+    grid-template-columns: 1fr;
+  }
+
+  .consulting-client-grid,
+  .consulting-area-grid,
+  .consulting-example-grid {
     grid-template-columns: 1fr;
   }
 
