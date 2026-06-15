@@ -1,77 +1,89 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
-const pageSize = 3;
+const visibleOffsets = [-2, -1, 0, 1, 2];
+
+function wrapIndex(index, length) {
+  return (index + length) % length;
+}
 
 export default function ArchiveCarousel({ posts }) {
-  const [pageIndex, setPageIndex] = useState(0);
-  const [direction, setDirection] = useState("next");
-  const pages = useMemo(() => {
-    const chunks = [];
-    for (let index = 0; index < posts.length; index += pageSize) {
-      chunks.push(posts.slice(index, index + pageSize));
-    }
-    return chunks;
-  }, [posts]);
-  const pageCount = Math.max(pages.length, 1);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const visiblePosts = useMemo(() => (
+    visibleOffsets.map((offset) => ({
+      offset,
+      post: posts[wrapIndex(activeIndex + offset, posts.length)]
+    }))
+  ), [activeIndex, posts]);
 
-  function goToPage(nextIndex) {
-    const wrappedIndex = (nextIndex + pageCount) % pageCount;
-    const forwardDistance = (wrappedIndex - pageIndex + pageCount) % pageCount;
-    const backwardDistance = (pageIndex - wrappedIndex + pageCount) % pageCount;
+  useEffect(() => {
+    if (isPaused || posts.length < 2) return undefined;
 
-    setDirection(forwardDistance <= backwardDistance ? "next" : "previous");
-    setPageIndex(wrappedIndex);
+    const timer = window.setInterval(() => {
+      setActiveIndex((index) => wrapIndex(index + 1, posts.length));
+    }, 5200);
+
+    return () => window.clearInterval(timer);
+  }, [isPaused, posts.length]);
+
+  function goToPost(nextIndex) {
+    setActiveIndex(wrapIndex(nextIndex, posts.length));
   }
 
   return (
-    <section className="archive-carousel" aria-labelledby="archive-carousel-title">
+    <section
+      className="archive-carousel blog-panel-carousel"
+      aria-labelledby="archive-carousel-title"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
       <div className="archive-carousel-header">
         <div>
           <p className="eyebrow">Archive</p>
-          <h2 id="archive-carousel-title">Browse the archive</h2>
+          <h2 id="archive-carousel-title">Browse recent posts</h2>
         </div>
         <div className="archive-carousel-controls" aria-label="Archive carousel controls">
-          <button onClick={() => goToPage(pageIndex - 1)} type="button" aria-label="Previous archive page">
+          <button onClick={() => goToPost(activeIndex - 1)} type="button" aria-label="Previous post">
             ←
           </button>
-          <span>{pageIndex + 1} / {pageCount}</span>
-          <button onClick={() => goToPage(pageIndex + 1)} type="button" aria-label="Next archive page">
+          <span>{activeIndex + 1} / {posts.length}</span>
+          <button onClick={() => goToPost(activeIndex + 1)} type="button" aria-label="Next post">
             →
           </button>
         </div>
       </div>
 
-      <div className="archive-carousel-window">
-        <div
-          className="archive-carousel-track"
-          data-direction={direction}
-          style={{ transform: `translateX(-${pageIndex * 100}%)` }}
-        >
-          {pages.map((page, index) => (
-            <div className="archive-carousel-page" key={index} aria-hidden={index !== pageIndex}>
-              {page.map((post) => (
-                <Link className="archive-preview-card" href={post.href} key={post.href}>
-                  <span>{post.seriesTitle} · {post.date} · {post.readingMinutes} min read</span>
-                  <h3>{post.title}</h3>
-                  <p>{post.excerpt}</p>
-                </Link>
-              ))}
+      <div className="blog-panel-stage">
+        {visiblePosts.map(({ offset, post }) => (
+          <Link
+            aria-hidden={offset !== 0}
+            className="blog-panel-card"
+            data-offset={offset}
+            href={post.href}
+            key={`${post.href}-${offset}`}
+            tabIndex={offset === 0 ? 0 : -1}
+          >
+            <img src={post.cover || post.seriesCover} alt="" />
+            <div>
+              <span>{post.seriesTitle} · {post.date} · {post.readingMinutes} min read</span>
+              <h3>{post.title}</h3>
+              <p>{post.excerpt}</p>
             </div>
-          ))}
-        </div>
+          </Link>
+        ))}
       </div>
 
-      <div className="archive-carousel-dots" aria-label="Archive pages">
-        {pages.map((_, index) => (
+      <div className="archive-carousel-dots" aria-label="Archive posts">
+        {posts.map((post, index) => (
           <button
-            aria-label={`Go to archive page ${index + 1}`}
-            aria-pressed={index === pageIndex}
-            className={index === pageIndex ? "is-active" : ""}
-            key={index}
-            onClick={() => goToPage(index)}
+            aria-label={`Go to ${post.title}`}
+            aria-pressed={index === activeIndex}
+            className={index === activeIndex ? "is-active" : ""}
+            key={post.href}
+            onClick={() => goToPost(index)}
             type="button"
           />
         ))}

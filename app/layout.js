@@ -22,7 +22,8 @@ const navItems = [
   { href: "/about", label: "About" },
   { href: "/consulting", label: "Consulting" },
   { href: "/research", label: "Research" },
-  { href: "/teaching", label: "Teaching" }
+  { href: "/teaching", label: "Teaching" },
+  { href: "/blog", label: "Blog" }
 ];
 
 const footerGroups = [
