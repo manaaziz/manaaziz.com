@@ -102,13 +102,11 @@ export default function SyllabusPage({ params }) {
         <div className="syllabus-table weekly" role="table" aria-label="Weekly teaching schedule">
           <div role="row">
             <strong role="columnheader">Week</strong>
-            <strong role="columnheader">Date</strong>
             <strong role="columnheader">Topic</strong>
           </div>
           {syllabus.schedule.map((week) => (
-            <div role="row" key={`${week.week}-${week.date}`}>
+            <div role="row" key={`${week.week}-${week.topic}`}>
               <span role="cell">{week.week}</span>
-              <span role="cell">{week.date}</span>
               <span role="cell">{week.topic}</span>
             </div>
           ))}

@@ -1,7 +1,9 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import worldMap from "@svg-maps/world";
+import { useEffect, useMemo, useRef, useState } from "react";
+import mapboxgl from "mapbox-gl";
+
+const mapboxToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
 const lasVegas = {
   city: "Las Vegas",
@@ -11,13 +13,53 @@ const lasVegas = {
   longitude: -115.1391
 };
 
-const mapBounds = {
-  width: 1009,
-  height: 665
-};
+const lookupServices = [
+  {
+    url: "https://ipapi.co/json/",
+    parse(data) {
+      return {
+        city: data?.city,
+        region: data?.region,
+        country: data?.country_name,
+        latitude: Number(data?.latitude),
+        longitude: Number(data?.longitude)
+      };
+    }
+  },
+  {
+    url: "https://ipwho.is/",
+    parse(data) {
+      if (data?.success === false) return null;
+
+      return {
+        city: data?.city,
+        region: data?.region,
+        country: data?.country,
+        latitude: Number(data?.latitude),
+        longitude: Number(data?.longitude)
+      };
+    }
+  },
+  {
+    url: "https://freeipapi.com/api/json/",
+    parse(data) {
+      return {
+        city: data?.cityName,
+        region: data?.regionName,
+        country: data?.countryName,
+        latitude: Number(data?.latitude),
+        longitude: Number(data?.longitude)
+      };
+    }
+  }
+];
 
 function toRadians(degrees) {
   return degrees * Math.PI / 180;
+}
+
+function toDegrees(radians) {
+  return radians * 180 / Math.PI;
 }
 
 function haversineMiles(origin, destination) {
@@ -32,119 +74,323 @@ function haversineMiles(origin, destination) {
   return earthRadiusMiles * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
 
-function projectPoint({ latitude, longitude }) {
-  const clampedLatitude = Math.max(Math.min(latitude, 85), -85);
-  const latitudeRadians = toRadians(clampedLatitude);
-  const mercatorY = (1 - Math.log(Math.tan(latitudeRadians) + 1 / Math.cos(latitudeRadians)) / Math.PI) / 2;
-
-  return {
-    x: ((longitude + 180) / 360) * mapBounds.width,
-    y: mercatorY * mapBounds.height
-  };
-}
-
 function locationLabel(location) {
   return [location.city, location.region, location.country].filter(Boolean).join(", ");
 }
 
-function arcPath(origin, destination) {
-  const dx = destination.x - origin.x;
-  const controlX = origin.x + dx * 0.5;
-  const controlY = Math.min(origin.y, destination.y) - Math.max(70, Math.abs(dx) * 0.14);
+function midpoint(origin, destination) {
+  return [
+    (origin.longitude + destination.longitude) / 2,
+    (origin.latitude + destination.latitude) / 2
+  ];
+}
 
-  return `M ${origin.x} ${origin.y} Q ${controlX} ${controlY} ${destination.x} ${destination.y}`;
+function greatCirclePoint(origin, destination, fraction) {
+  const lat1 = toRadians(origin.latitude);
+  const lon1 = toRadians(origin.longitude);
+  const lat2 = toRadians(destination.latitude);
+  const lon2 = toRadians(destination.longitude);
+  const distance = 2 * Math.asin(Math.sqrt(
+    Math.sin((lat2 - lat1) / 2) ** 2 +
+    Math.cos(lat1) * Math.cos(lat2) * Math.sin((lon2 - lon1) / 2) ** 2
+  ));
+
+  if (distance === 0) return [origin.longitude, origin.latitude];
+
+  const a = Math.sin((1 - fraction) * distance) / Math.sin(distance);
+  const b = Math.sin(fraction * distance) / Math.sin(distance);
+  const x = a * Math.cos(lat1) * Math.cos(lon1) + b * Math.cos(lat2) * Math.cos(lon2);
+  const y = a * Math.cos(lat1) * Math.sin(lon1) + b * Math.cos(lat2) * Math.sin(lon2);
+  const z = a * Math.sin(lat1) + b * Math.sin(lat2);
+
+  return [toDegrees(Math.atan2(y, x)), toDegrees(Math.atan2(z, Math.sqrt(x * x + y * y)))];
+}
+
+function routeCoordinates(origin, destination, steps = 120) {
+  return Array.from({ length: steps + 1 }, (_, index) => greatCirclePoint(origin, destination, index / steps));
+}
+
+function makeMarker(className, label) {
+  const marker = document.createElement("div");
+  marker.className = className;
+  marker.textContent = label;
+  return marker;
+}
+
+function emptyRoute() {
+  return {
+    type: "Feature",
+    properties: {},
+    geometry: {
+      type: "LineString",
+      coordinates: []
+    }
+  };
+}
+
+function routeFeature(coordinates) {
+  return {
+    ...emptyRoute(),
+    geometry: {
+      type: "LineString",
+      coordinates
+    }
+  };
+}
+
+function normalizeLocation(location) {
+  if (!Number.isFinite(location?.latitude) || !Number.isFinite(location?.longitude)) {
+    return null;
+  }
+
+  return {
+    city: location.city,
+    region: location.region,
+    country: location.country,
+    latitude: location.latitude,
+    longitude: location.longitude
+  };
+}
+
+async function fetchJsonWithTimeout(url, signal) {
+  const timeoutController = new AbortController();
+  const timeout = window.setTimeout(() => timeoutController.abort(), 4500);
+
+  function abortTimeout() {
+    timeoutController.abort();
+  }
+
+  signal?.addEventListener("abort", abortTimeout, { once: true });
+
+  try {
+    const response = await fetch(url, {
+      cache: "no-store",
+      signal: timeoutController.signal
+    });
+
+    if (!response.ok) {
+      throw new Error("IP lookup unavailable");
+    }
+
+    return response.json();
+  } finally {
+    window.clearTimeout(timeout);
+    signal?.removeEventListener("abort", abortTimeout);
+  }
+}
+
+async function lookupVisitorLocation(signal) {
+  for (const service of lookupServices) {
+    try {
+      const data = await fetchJsonWithTimeout(service.url, signal);
+      const location = normalizeLocation(service.parse(data));
+
+      if (location) {
+        return location;
+      }
+    } catch (error) {
+      if (signal?.aborted) {
+        throw error;
+      }
+    }
+  }
+
+  throw new Error("All IP lookup services failed");
 }
 
 export default function AboutDistanceFromVegas() {
+  const mapNodeRef = useRef(null);
+  const mapRef = useRef(null);
+  const frameRef = useRef(null);
+  const timeoutRefs = useRef([]);
   const [visitorLocation, setVisitorLocation] = useState(null);
   const [status, setStatus] = useState("loading");
+  const [mapStatus, setMapStatus] = useState(mapboxToken ? "loading" : "missing-token");
 
   useEffect(() => {
-    let cancelled = false;
+    const controller = new AbortController();
 
-    fetch("https://ipapi.co/json/")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("IP lookup unavailable");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        if (cancelled) return;
-
-        const latitude = Number(data?.latitude);
-        const longitude = Number(data?.longitude);
-
-        if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) {
-          throw new Error("IP lookup missing coordinates");
-        }
-
-        setVisitorLocation({
-          city: data?.city,
-          region: data?.region,
-          country: data?.country_name,
-          latitude,
-          longitude
-        });
+    lookupVisitorLocation(controller.signal)
+      .then((location) => {
+        setVisitorLocation(location);
         setStatus("ready");
       })
       .catch(() => {
-        if (!cancelled) {
+        if (!controller.signal.aborted) {
           setStatus("unavailable");
+          setMapStatus((currentStatus) => currentStatus === "missing-token" ? currentStatus : "no-location");
         }
       });
 
     return () => {
-      cancelled = true;
+      controller.abort();
     };
   }, []);
 
-  const mapData = useMemo(() => {
-    const vegasPoint = projectPoint(lasVegas);
-    const visitorPoint = visitorLocation ? projectPoint(visitorLocation) : null;
+  const distance = useMemo(() => (
+    visitorLocation ? Math.round(haversineMiles(lasVegas, visitorLocation)) : null
+  ), [visitorLocation]);
 
-    return {
-      vegasPoint,
-      visitorPoint,
-      path: visitorPoint ? arcPath(visitorPoint, vegasPoint) : null,
-      miles: visitorLocation ? Math.round(haversineMiles(lasVegas, visitorLocation)) : null,
-      focusPoint: visitorPoint || vegasPoint
+  useEffect(() => {
+    if (!mapboxToken || !mapNodeRef.current || !visitorLocation) return undefined;
+
+    mapboxgl.accessToken = mapboxToken;
+
+    const visitorCenter = [visitorLocation.longitude, visitorLocation.latitude];
+    const vegasCenter = [lasVegas.longitude, lasVegas.latitude];
+    const overviewCenter = midpoint(visitorLocation, lasVegas);
+    const fullRoute = routeCoordinates(visitorLocation, lasVegas);
+    const startCenter = [
+      visitorLocation.longitude + 0.18,
+      visitorLocation.latitude + 0.12
+    ];
+
+    const map = new mapboxgl.Map({
+      center: startCenter,
+      container: mapNodeRef.current,
+      dragPan: false,
+      interactive: false,
+      pitch: 52,
+      projection: "globe",
+      scrollZoom: false,
+      style: "mapbox://styles/mapbox/dark-v11",
+      zoom: 8.8
+    });
+
+    mapRef.current = map;
+
+    map.on("style.load", () => {
+      map.setFog({
+        color: "rgb(17, 24, 32)",
+        "high-color": "rgb(62, 80, 101)",
+        "horizon-blend": 0.08,
+        "space-color": "rgb(10, 13, 17)",
+        "star-intensity": 0.18
+      });
+    });
+
+    map.on("load", () => {
+      setMapStatus("ready");
+
+      map.addSource("mana-route", {
+        type: "geojson",
+        data: emptyRoute()
+      });
+
+      map.addLayer({
+        id: "mana-route-glow",
+        type: "line",
+        source: "mana-route",
+        layout: {
+          "line-cap": "round",
+          "line-join": "round"
+        },
+        paint: {
+          "line-blur": 4,
+          "line-color": "#fffaf1",
+          "line-opacity": 0.28,
+          "line-width": 7
+        }
+      });
+
+      map.addLayer({
+        id: "mana-route-line",
+        type: "line",
+        source: "mana-route",
+        layout: {
+          "line-cap": "round",
+          "line-join": "round"
+        },
+        paint: {
+          "line-color": "#fffaf1",
+          "line-dasharray": [0.3, 1.4],
+          "line-opacity": 0.9,
+          "line-width": 3
+        }
+      });
+
+      const visitorMarker = new mapboxgl.Marker({
+        element: makeMarker("distance-map-marker visitor", "YOU")
+      })
+        .setLngLat(visitorCenter)
+        .addTo(map);
+
+      const vegasMarker = new mapboxgl.Marker({
+        element: makeMarker("distance-map-marker vegas", "LV")
+      })
+        .setLngLat(vegasCenter);
+
+      timeoutRefs.current.push(window.setTimeout(() => {
+        map.easeTo({
+          bearing: -18,
+          center: visitorCenter,
+          duration: 1500,
+          pitch: 62,
+          zoom: 12.2
+        });
+      }, 350));
+
+      timeoutRefs.current.push(window.setTimeout(() => {
+        map.flyTo({
+          bearing: -8,
+          center: overviewCenter,
+          curve: 1.45,
+          duration: 4300,
+          essential: true,
+          pitch: 0,
+          zoom: 1.25
+        });
+      }, 2050));
+
+      timeoutRefs.current.push(window.setTimeout(() => {
+        vegasMarker.addTo(map);
+        const source = map.getSource("mana-route");
+        const startTime = performance.now();
+        const duration = 1900;
+
+        function drawRoute(now) {
+          const progress = Math.min((now - startTime) / duration, 1);
+          const count = Math.max(2, Math.ceil(progress * fullRoute.length));
+          source.setData(routeFeature(fullRoute.slice(0, count)));
+
+          if (progress < 1) {
+            frameRef.current = window.requestAnimationFrame(drawRoute);
+          }
+        }
+
+        frameRef.current = window.requestAnimationFrame(drawRoute);
+      }, 6100));
+
+      map.once("remove", () => {
+        visitorMarker.remove();
+        vegasMarker.remove();
+      });
+    });
+
+    map.on("error", () => {
+      setMapStatus("error");
+    });
+
+    return () => {
+      if (frameRef.current) {
+        window.cancelAnimationFrame(frameRef.current);
+      }
+      timeoutRefs.current.forEach((timeout) => window.clearTimeout(timeout));
+      timeoutRefs.current = [];
+      map.remove();
+      mapRef.current = null;
     };
   }, [visitorLocation]);
 
   return (
-    <section className="about-distance-card" data-status={status} aria-labelledby="about-distance-title">
-      <div className="distance-map" aria-hidden="true">
-        <svg
-          className="distance-globe-svg"
-          style={{ transformOrigin: `${mapData.focusPoint.x}px ${mapData.focusPoint.y}px` }}
-          viewBox={`0 0 ${mapBounds.width} ${mapBounds.height}`}
-          role="img"
-        >
-          <g className="distance-map-countries">
-            {worldMap.locations.map((location) => (
-              <path d={location.path} key={location.id} />
-            ))}
-          </g>
-          {mapData.path ? (
-            <>
-              <path className="distance-route" d={mapData.path} pathLength="1" />
-              <circle className="distance-traveler-dot" r="6">
-                <animateMotion dur="4.8s" path={mapData.path} repeatCount="indefinite" />
-              </circle>
-            </>
-          ) : null}
-          <g className="distance-origin-marker" transform={`translate(${mapData.vegasPoint.x} ${mapData.vegasPoint.y})`}>
-            <circle r="14" />
-            <text x="0" y="4">LV</text>
-          </g>
-          {mapData.visitorPoint ? (
-            <g className="distance-pin" transform={`translate(${mapData.visitorPoint.x} ${mapData.visitorPoint.y})`}>
-              <path d="M0-30c17 0 29 12 29 28 0 21-29 48-29 48S-29 19-29-2c0-16 12-28 29-28Z" />
-              <circle r="10" />
-            </g>
-          ) : null}
-        </svg>
+    <section className="about-distance-card" data-map-status={mapStatus} data-status={status} aria-labelledby="about-distance-title">
+      <div className="distance-map mapbox-distance-map" aria-hidden="true">
+        <div className="distance-mapbox-canvas" ref={mapNodeRef} />
+        {mapStatus !== "ready" ? (
+          <div className="distance-map-fallback">
+            {mapStatus === "missing-token" ? "Mapbox token missing" : mapStatus === "no-location" ? "Location unavailable" : "Loading globe"}
+          </div>
+        ) : null}
       </div>
 
       <div className="distance-copy">
@@ -152,7 +398,7 @@ export default function AboutDistanceFromVegas() {
         <h2 id="about-distance-title">I&apos;m from Las Vegas, Nevada.</h2>
         {status === "ready" ? (
           <p>
-            That is roughly <strong>{mapData.miles.toLocaleString()} miles</strong> from {locationLabel(visitorLocation)}, according to your IP address.
+            That is roughly <strong>{distance.toLocaleString()} miles</strong> from {locationLabel(visitorLocation)}, according to your IP address.
           </p>
         ) : status === "loading" ? (
           <p>Checking how far Las Vegas is from your current location...</p>

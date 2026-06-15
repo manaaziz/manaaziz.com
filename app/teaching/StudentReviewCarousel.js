@@ -51,7 +51,7 @@ export default function StudentReviewCarousel({ reviews }) {
       return randomIndex === activeIndex ? (randomIndex + 1) % reviews.length : randomIndex;
     })();
     const forwardDistance = wrapIndex(targetIndex - activeIndex, reviews.length);
-    const totalSteps = reviews.length * 2 + forwardDistance;
+    const totalSteps = reviews.length + forwardDistance;
     let step = 0;
 
     setIsSpinning(true);
@@ -69,11 +69,11 @@ export default function StudentReviewCarousel({ reviews }) {
       }
 
       const progress = step / totalSteps;
-      const delay = 52 + progress * progress * 160;
+      const delay = 38 + progress * progress * 185;
       spinTimerRef.current = window.setTimeout(advance, delay);
     }
 
-    spinTimerRef.current = window.setTimeout(advance, 45);
+    spinTimerRef.current = window.setTimeout(advance, 38);
   }
 
   const visibleReviews = reelPositions.map(({ offset, position }) => {
@@ -104,11 +104,13 @@ export default function StudentReviewCarousel({ reviews }) {
             <article
               aria-hidden={position !== "active"}
               className={`student-review-card is-${position}`}
-              key={`${position}-${review.review}`}
+              key={`${review.courseNumber}-${review.semester}-${index}`}
               style={{ "--review-index": index }}
             >
               <blockquote>
-                <p>{review.review}</p>
+                <div className="review-quote">
+                  <p>{review.review}</p>
+                </div>
                 <footer>
                   <strong>{review.courseNumber}: {review.courseName}</strong>
                   <span>{review.semester}</span>
@@ -122,9 +124,6 @@ export default function StudentReviewCarousel({ reviews }) {
         <div className="student-review-controls" aria-label="Student review controls">
           <button className="review-arrow previous" onClick={controls.previous} type="button" aria-label="Previous student review">
             <span aria-hidden="true">←</span>
-          </button>
-          <button className="review-spin-button" disabled={isSpinning} onClick={spinReel} type="button">
-            {isSpinning ? "Spinning" : "Spin"}
           </button>
           <div className="review-dots" aria-label={`Review ${activeIndex + 1} of ${reviews.length}`}>
             {reviews.map((review, index) => (
@@ -141,6 +140,9 @@ export default function StudentReviewCarousel({ reviews }) {
           </div>
           <button className="review-arrow next" onClick={controls.next} type="button" aria-label="Next student review">
             <span aria-hidden="true">→</span>
+          </button>
+          <button className="review-spin-button" disabled={isSpinning} onClick={spinReel} type="button">
+            {isSpinning ? "Spinning" : "Spin"}
           </button>
         </div>
       </div>

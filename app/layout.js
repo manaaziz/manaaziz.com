@@ -1,4 +1,5 @@
 import "./globals.css";
+import "mapbox-gl/dist/mapbox-gl.css";
 import Link from "next/link";
 
 export const metadata = {

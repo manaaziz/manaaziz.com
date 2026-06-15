@@ -76,26 +76,26 @@ export const courses = [
         "Describe strategies for successful intercultural communication in foodservice operations."
       ],
       assessments: [
-        { task: "Picture and biography posted to Canvas", points: "50", due: "01/20/2026" },
-        { task: "Online quizzes", points: "100", due: "01/23/2026 to 04/03/2026" },
-        { task: "Mid-semester restaurant visit assignment", points: "100", due: "05/08/2026" },
-        { task: "Team presentation", points: "100", due: "Presentation weeks" }
+        { task: "Picture and biography posted to Canvas", points: "50", due: "Week 1" },
+        { task: "Online quizzes", points: "100", due: "Weeks 1-11" },
+        { task: "Mid-semester restaurant visit assignment", points: "100", due: "Week 14" },
+        { task: "Team presentation", points: "100", due: "Weeks 9-14" }
       ],
       schedule: [
-        { week: "1", date: "01/26/2026", topic: "Administration; introduction to culture, cuisine, and gastronomy" },
-        { week: "2", date: "02/02/2026", topic: "Evolution of food customs; street food; Turkish cuisine and culture" },
-        { week: "3", date: "02/09/2026", topic: "Migration, immigration, exploration, the Silk Road, and foods that changed the world" },
-        { week: "4", date: "02/16/2026", topic: "Presidents Day recess" },
-        { week: "5", date: "02/23/2026", topic: "Dining etiquette and culture around meals" },
-        { week: "6", date: "03/02/2026", topic: "Wine tasting and culture" },
-        { week: "7", date: "03/09/2026", topic: "Healthy eating, cheese and culture, diet within cultures, and plant-based foods" },
-        { week: "8", date: "03/16/2026", topic: "Spring Break recess" },
-        { week: "9", date: "03/23/2026", topic: "Group presentations: Peru and Brazil" },
-        { week: "10", date: "03/30/2026", topic: "Group presentations: Greece and South Korea" },
-        { week: "11", date: "04/06/2026", topic: "Group presentations: Mexico and Egypt" },
-        { week: "12", date: "04/13/2026", topic: "Group presentations: Thailand and Japan" },
-        { week: "13", date: "04/20/2026", topic: "Group presentations: Philippines and Ukraine" },
-        { week: "14", date: "04/27/2026", topic: "Group presentations: Colombia and Group 15" }
+        { week: "1", topic: "Administration; introduction to culture, cuisine, and gastronomy" },
+        { week: "2", topic: "Evolution of food customs; street food; Turkish cuisine and culture" },
+        { week: "3", topic: "Migration, immigration, exploration, the Silk Road, and foods that changed the world" },
+        { week: "4", topic: "Holiday or university recess week" },
+        { week: "5", topic: "Dining etiquette and culture around meals" },
+        { week: "6", topic: "Wine tasting and culture" },
+        { week: "7", topic: "Healthy eating, cheese and culture, diet within cultures, and plant-based foods" },
+        { week: "8", topic: "Spring Break or university recess week" },
+        { week: "9", topic: "Group presentations: Peru and Brazil" },
+        { week: "10", topic: "Group presentations: Greece and South Korea" },
+        { week: "11", topic: "Group presentations: Mexico and Egypt" },
+        { week: "12", topic: "Group presentations: Thailand and Japan" },
+        { week: "13", topic: "Group presentations: Philippines and Ukraine" },
+        { week: "14", topic: "Group presentations: Colombia and Group 15" }
       ]
     }
   },

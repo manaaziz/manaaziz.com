@@ -21,8 +21,7 @@ const workMix = [
     href: "/research",
     calloutSide: "left",
     title: "Data-driven, industry-relevant research",
-    body: "Predictive modeling, machine learning, revenue management, gaming analytics, and demand forecasting.",
-    wordCloud: ["machine learning", "forecasting", "casino analytics", "revenue management", "hospitality", "demand", "AI", "gaming", "patron behavior"]
+    body: "Predictive modeling, machine learning, revenue management, gaming analytics, and demand forecasting."
   },
   {
     id: "teaching",
@@ -86,20 +85,6 @@ export default function WorkMixChart() {
                 {active.progression.map((step) => (
                   <span key={step}>{step}</span>
                 ))}
-              </div>
-            ) : null}
-            {active.wordCloud ? (
-              <div className="research-word-cloud" aria-label="Research topic word chart placeholder">
-                {active.wordCloud.map((word, index) => {
-                  const size = 0.74 + (index % 4) * 0.13;
-                  const opacity = 0.58 + (index % 5) * 0.08;
-
-                  return (
-                    <span key={word} style={{ "--word-size": `${size}rem`, "--word-opacity": opacity }}>
-                      {word}
-                    </span>
-                  );
-                })}
               </div>
             ) : null}
             <p>{active.body}</p>

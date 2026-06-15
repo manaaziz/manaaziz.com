@@ -1,3 +1,5 @@
+import ResearchWordGraph from "./ResearchWordGraph";
+
 export const metadata = {
   title: "Research"
 };
@@ -135,6 +137,8 @@ export default function ResearchPage() {
       <p className="lede">
         My research uses statistics, machine learning, and applied analytics to study hospitality, tourism, gaming, and education. Recent work focuses on hotel demand forecasting, booking cancellations, revenue management, gambling behavior, and quantitative methods for hospitality students.
       </p>
+
+      <ResearchWordGraph />
 
       <section className="article-list">
         <article>
