@@ -7,7 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "node scripts/validate-site.mjs"
   },
   "dependencies": {
     "@svg-maps/world": "^2.0.0",

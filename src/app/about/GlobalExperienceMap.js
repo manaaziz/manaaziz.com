@@ -615,7 +615,7 @@ const usStates = [
         name: "Bally's Atlantic City",
         type: "Consulting",
         blurb: "Supported casino and hospitality consulting context connected to Atlantic City operations.",
-        logo: "/assets/logos/Bally's_Corporation_logo.svg"
+        logo: "/assets/logos/ballys_corporation_logo.svg"
       }),
       card({
         name: "GMA Consulting",
