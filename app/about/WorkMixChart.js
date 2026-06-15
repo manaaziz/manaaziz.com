@@ -11,8 +11,7 @@ const workMix = [
     href: "/consulting",
     calloutSide: "right",
     title: "Helping companies leverage data and AI",
-    body: "Marketing personalization, surveillance analytics, operational optimization, patron lifecycle modeling, churn prediction, offer sensitivity, and real-time AI-driven loss offers.",
-    progression: ["Segmentation", "Micro-segmentation", "Individual personalization"]
+    body: "Marketing personalization, surveillance analytics, operational optimization, patron lifecycle modeling, churn prediction, offer sensitivity, and real-time AI-driven loss offers."
   },
   {
     id: "research",
@@ -80,13 +79,6 @@ export default function WorkMixChart() {
           <article className={`work-mix-card ${active.id} ${active.calloutSide}`} key={active.id}>
             <span>{active.label}</span>
             <h3>{active.title}</h3>
-            {active.progression ? (
-              <div className="work-progression" aria-label="Marketing evolution">
-                {active.progression.map((step) => (
-                  <span key={step}>{step}</span>
-                ))}
-              </div>
-            ) : null}
             <p>{active.body}</p>
             <Link className="button" href={active.href}>
               Explore {active.label}

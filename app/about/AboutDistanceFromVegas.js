@@ -62,8 +62,8 @@ function toDegrees(radians) {
   return radians * 180 / Math.PI;
 }
 
-function haversineMiles(origin, destination) {
-  const earthRadiusMiles = 3958.8;
+function haversineKilometers(origin, destination) {
+  const earthRadiusKilometers = 6371;
   const deltaLatitude = toRadians(destination.latitude - origin.latitude);
   const deltaLongitude = toRadians(destination.longitude - origin.longitude);
   const originLatitude = toRadians(origin.latitude);
@@ -71,11 +71,17 @@ function haversineMiles(origin, destination) {
   const a = Math.sin(deltaLatitude / 2) ** 2 +
     Math.cos(originLatitude) * Math.cos(destinationLatitude) * Math.sin(deltaLongitude / 2) ** 2;
 
-  return earthRadiusMiles * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return earthRadiusKilometers * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
 
-function locationLabel(location) {
-  return [location.city, location.region, location.country].filter(Boolean).join(", ");
+function overviewZoomForDistance(distanceKilometers) {
+  if (distanceKilometers < 120) return 7.2;
+  if (distanceKilometers < 450) return 5.8;
+  if (distanceKilometers < 900) return 5;
+  if (distanceKilometers < 1800) return 4.1;
+  if (distanceKilometers < 3200) return 3.2;
+  if (distanceKilometers < 6500) return 2.15;
+  return 1.05;
 }
 
 function midpoint(origin, destination) {
@@ -228,7 +234,7 @@ export default function AboutDistanceFromVegas() {
   }, []);
 
   const distance = useMemo(() => (
-    visitorLocation ? Math.round(haversineMiles(lasVegas, visitorLocation)) : null
+    visitorLocation ? Math.round(haversineKilometers(lasVegas, visitorLocation)) : null
   ), [visitorLocation]);
 
   useEffect(() => {
@@ -239,22 +245,19 @@ export default function AboutDistanceFromVegas() {
     const visitorCenter = [visitorLocation.longitude, visitorLocation.latitude];
     const vegasCenter = [lasVegas.longitude, lasVegas.latitude];
     const overviewCenter = midpoint(visitorLocation, lasVegas);
+    const finalZoom = overviewZoomForDistance(haversineKilometers(visitorLocation, lasVegas));
     const fullRoute = routeCoordinates(visitorLocation, lasVegas);
-    const startCenter = [
-      visitorLocation.longitude + 0.18,
-      visitorLocation.latitude + 0.12
-    ];
 
     const map = new mapboxgl.Map({
-      center: startCenter,
+      center: visitorCenter,
       container: mapNodeRef.current,
       dragPan: false,
       interactive: false,
-      pitch: 52,
+      pitch: 58,
       projection: "globe",
       scrollZoom: false,
       style: "mapbox://styles/mapbox/dark-v11",
-      zoom: 8.8
+      zoom: 10.8
     });
 
     mapRef.current = map;
@@ -321,26 +324,16 @@ export default function AboutDistanceFromVegas() {
         .setLngLat(vegasCenter);
 
       timeoutRefs.current.push(window.setTimeout(() => {
-        map.easeTo({
-          bearing: -18,
-          center: visitorCenter,
-          duration: 1500,
-          pitch: 62,
-          zoom: 12.2
-        });
-      }, 350));
-
-      timeoutRefs.current.push(window.setTimeout(() => {
         map.flyTo({
           bearing: -8,
           center: overviewCenter,
           curve: 1.45,
-          duration: 4300,
+          duration: 4800,
           essential: true,
           pitch: 0,
-          zoom: 1.25
+          zoom: finalZoom
         });
-      }, 2050));
+      }, 650));
 
       timeoutRefs.current.push(window.setTimeout(() => {
         vegasMarker.addTo(map);
@@ -359,7 +352,7 @@ export default function AboutDistanceFromVegas() {
         }
 
         frameRef.current = window.requestAnimationFrame(drawRoute);
-      }, 6100));
+      }, 5250));
 
       map.once("remove", () => {
         visitorMarker.remove();
@@ -398,7 +391,7 @@ export default function AboutDistanceFromVegas() {
         <h2 id="about-distance-title">I&apos;m from Las Vegas, Nevada.</h2>
         {status === "ready" ? (
           <p>
-            That is roughly <strong>{distance.toLocaleString()} miles</strong> from {locationLabel(visitorLocation)}, according to your IP address.
+            That is roughly <strong>{distance.toLocaleString()} km</strong> from where you are based on your IP address.
           </p>
         ) : status === "loading" ? (
           <p>Checking how far Las Vegas is from your current location...</p>

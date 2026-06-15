@@ -27,7 +27,7 @@ const collaborations = [
         type: "Research",
         blurb: "Worked on applied gaming research connecting data, operations, and responsible innovation.",
         href: "/research",
-        logo: "/assets/logos/igi.png"
+        logo: "/assets/images/logos/IGI-ConfLogo.jpg"
       }),
       card({
         name: "Wynn Las Vegas",
@@ -48,10 +48,48 @@ const collaborations = [
     summary: "Academic, cultural, and community ties from time spent studying and working in Barcelona.",
     work: [
       card({
+        name: "Shapley interaction networks",
+        type: "Research",
+        blurb: "Presented work on explaining the clinical course of gambling disorder at an AI conference in Granada.",
+        href: "/research"
+      }),
+      card({
         name: "Barcelona hospitality teaching",
         type: "Teaching",
         blurb: "Connected classroom experience with hospitality, culture, and international student development.",
         href: "/blog/barcelona"
+      }),
+      card({
+        name: "Club de Convergentes",
+        type: "Research",
+        blurb: "Presented work on AI ethics and governance in the gambling sector in Madrid.",
+        href: "/research"
+      })
+    ]
+  },
+  {
+    country: "Italy",
+    id: "it",
+    summary: "Gambling studies and responsible gambling research presentations in Italy.",
+    work: [
+      card({
+        name: "European Conference on Gambling Studies and Policy Issues",
+        type: "Research",
+        blurb: "Presented work on MG-CFA measurement invariance for the PGSI in Rome.",
+        href: "/research"
+      })
+    ]
+  },
+  {
+    country: "Malta",
+    id: "mt",
+    summary: "Safer gambling research presentations connected to Malta.",
+    work: [
+      card({
+        name: "Webinar on Safer Gambling",
+        type: "Research",
+        blurb: "Presented machine learning work on detecting customer transaction decline.",
+        href: "/research"
       })
     ]
   },
@@ -87,10 +125,29 @@ const collaborations = [
     ]
   },
   {
+    country: "Qatar",
+    id: "qa",
+    summary: "Hospitality and tourism research presentations in Qatar.",
+    work: [
+      card({
+        name: "EuroCHRIE Conference 2024",
+        type: "Research",
+        blurb: "Presented interpretable forecasting of hotel booking cancellations with stacked generalization.",
+        href: "/research"
+      })
+    ]
+  },
+  {
     country: "China",
     id: "cn",
     summary: "Integrated resort and casino hospitality work across China and Macau.",
     work: [
+      card({
+        name: "International Conference on Culture, Tourism, and Hospitality",
+        type: "Research",
+        blurb: "Presented explainable machine learning work for hotel upselling in Portugal from Macau.",
+        href: "/research"
+      }),
       card({
         name: "Wynn",
         type: "Consulting",
@@ -138,6 +195,12 @@ const collaborations = [
     summary: "Gaming and hospitality industry connections in Australia.",
     work: [
       card({
+        name: "Technology, Risk and Gambling Early Career Researcher Showcase",
+        type: "Research",
+        blurb: "Presented work on clustering slot machine players using session-level transaction data.",
+        href: "/research"
+      }),
+      card({
         name: "Crown Resorts",
         type: "Consulting",
         blurb: "Worked with gaming and hospitality context for Australian operator questions.",
@@ -177,7 +240,7 @@ const globalRegions = [
     id: "europe",
     label: "Europe",
     summary: "Academic, trust, hospitality, and gaming connections across Europe.",
-    countries: ["gb", "es"],
+    countries: ["gb", "es", "it", "mt"],
     defaultCountry: "gb",
     position: { left: "49%", top: "32%" },
     mapCountries: [
@@ -205,7 +268,7 @@ const globalRegions = [
     id: "middle-east",
     label: "Middle East",
     summary: "Emerging integrated resort and gaming analytics work in the Gulf region.",
-    countries: ["ae"],
+    countries: ["ae", "qa"],
     defaultCountry: "ae",
     position: { left: "60%", top: "48%" },
     mapCountries: ["ae", "bh", "cy", "il", "iq", "jo", "kw", "lb", "om", "ps", "qa", "sa", "sy", "tr", "ye"],
@@ -427,14 +490,14 @@ const usStates = [
         type: "Teaching",
         blurb: "Taught and supported applied statistics, analytics, and hospitality coursework.",
         href: "/teaching",
-        logo: "/assets/logos/unlv.png"
+        logo: "/assets/images/logos/unlvhospitality_logo.jpeg"
       }),
       card({
         name: "International Gaming Institute",
         type: "Research",
         blurb: "Worked on gaming research at the intersection of data, operations, and policy.",
         href: "/research",
-        logo: "/assets/logos/igi.png"
+        logo: "/assets/images/logos/IGI-ConfLogo.jpg"
       }),
       card({
         name: "Wynn Las Vegas",
@@ -450,7 +513,7 @@ const usStates = [
       }),
       card({
         name: "WDTS",
-        type: "Research",
+        type: "Consulting",
         blurb: "Explored gaming technology and data questions connected to operator workflows.",
         logo: "/assets/partner-logos/wdts_logo.png"
       }),
@@ -459,6 +522,31 @@ const usStates = [
         type: "Research",
         blurb: "Connected casino payments and player behavior data to applied analytics questions.",
         logo: "/assets/partner-logos/axes_logo.png"
+      }),
+      card({
+        name: "International Conference on Gambling & Risk Taking",
+        type: "Research",
+        blurb: "Presented work on baccarat luck quantification and declined gambling payment transactions in Las Vegas.",
+        href: "/research"
+      }),
+      card({
+        name: "ICRG Conference on Gambling and Addiction",
+        type: "Research",
+        blurb: "Presented work on interpretable gambler clusters and slot-machine player clustering in Las Vegas.",
+        href: "/research"
+      }),
+      card({
+        name: "GLI Regulator Roundtable",
+        type: "Research",
+        blurb: "Presented research characterizing UK online gamblers exceeding financial risk thresholds.",
+        href: "/research"
+      }),
+      card({
+        name: "UNLV research forums",
+        type: "Research",
+        blurb: "Presented open science in hospitality, teaching statistics in hospitality, and booking cancellation research.",
+        href: "/research",
+        logo: "/assets/images/logos/unlvhospitality_logo.jpeg"
       })
     ],
     state: "Nevada"
@@ -473,9 +561,36 @@ const usStates = [
         type: "Consulting",
         blurb: "Supported casino and hospitality consulting context connected to South Florida operations.",
         logo: "/assets/partner-logos/casino_miami_logo.png"
+      }),
+      card({
+        name: "Graduate Education & Graduate Student Research Conference",
+        type: "Research",
+        blurb: "Presented a scoping review on how hotel customers feel about AI service technologies in Miami.",
+        href: "/research"
       })
     ],
     state: "Florida"
+  },
+  {
+    id: "tennessee",
+    label: "Tennessee",
+    summary: "Hospitality analytics, research presentations, and invited teaching talks in Nashville.",
+    work: [
+      card({
+        name: "RevME Hospitality Management and Analytics Conference",
+        type: "Research",
+        blurb: "Presented machine learning prediction of hotel room demand in Nashville.",
+        href: "/research"
+      }),
+      card({
+        name: "Belmont University",
+        type: "Teaching",
+        blurb: "Delivered invited talks to Belmont students and professors about data, AI, and applied analytics.",
+        href: "/teaching",
+        logo: "/assets/images/logos/belmont_university_logo.png"
+      })
+    ],
+    state: "Tennessee"
   },
   {
     id: "new-jersey",

@@ -64,40 +64,40 @@ export const studentReviews = [
       "I had the best time ever in Spain with Professor Mana. He is the best professor I have ever had. Class felt like he was just sharing his own passion for Spanish culture and cuisine."
   },
   {
-    courseNumber: "HOA 732",
-    courseName: "Advanced Statistical Analysis for Hospitality",
+    courseNumber: "HOA 730",
+    courseName: "Statistical Analysis for Hospitality",
     university: "UNLV",
     semester: "Spring 2026",
     review:
       "Despite such a sudden change for both us and Dr. Azizsoltani, the instructions were given in a timely manner, and the instructor went beyond what we were expecting. He was also kind enough to offer weekly office hours."
   },
   {
-    courseNumber: "HOA 732",
-    courseName: "Advanced Statistical Analysis for Hospitality",
+    courseNumber: "HOA 730",
+    courseName: "Statistical Analysis for Hospitality",
     university: "UNLV",
     semester: "Spring 2026",
     review:
       "Professor Azizsoltani is very thorough in his explanation. If you ask, he will dedicate the time you need to succeed. He will even help students with one-on-one sessions during his office hours."
   },
   {
-    courseNumber: "HOA 732",
-    courseName: "Advanced Statistical Analysis for Hospitality",
+    courseNumber: "HOA 730",
+    courseName: "Statistical Analysis for Hospitality",
     university: "UNLV",
     semester: "Spring 2026",
     review:
       "Given the circumstances of the mid-semester transition, Dr. Mana made a strong effort to take over the course and maintain continuity. He showed clear commitment to helping us complete the course objectives."
   },
   {
-    courseNumber: "HOA 732",
-    courseName: "Advanced Statistical Analysis for Hospitality",
+    courseNumber: "HOA 730",
+    courseName: "Statistical Analysis for Hospitality",
     university: "UNLV",
     semester: "Spring 2026",
     review:
       "He is very organized, which helped me a lot. He was consistently available and always kind and helpful to students."
   },
   {
-    courseNumber: "HOA 732",
-    courseName: "Advanced Statistical Analysis for Hospitality",
+    courseNumber: "HOA 730",
+    courseName: "Statistical Analysis for Hospitality",
     university: "UNLV",
     semester: "Spring 2026",
     review:
