@@ -102,7 +102,9 @@ export default function ResearchWordGraph() {
   ), []);
 
   function repelNearbyNodes(current, id, nextPosition) {
-    const repulsionRadius = 18;
+    const nudgeRadius = 10.5;
+    const collisionRadius = 5.25;
+    const maxNudge = 2.15;
     const next = {
       ...current,
       [id]: nextPosition
@@ -116,9 +118,12 @@ export default function ResearchWordGraph() {
       const dy = position.y - nextPosition.y;
       const distance = Math.max(Math.sqrt(dx * dx + dy * dy), 0.001);
 
-      if (distance > repulsionRadius) return;
+      if (distance > nudgeRadius) return;
 
-      const push = ((repulsionRadius - distance) / repulsionRadius) * 7.5;
+      const proximity = (nudgeRadius - distance) / nudgeRadius;
+      const softNudge = proximity * proximity * maxNudge;
+      const collisionTap = distance < collisionRadius ? (collisionRadius - distance) * 0.42 : 0;
+      const push = softNudge + collisionTap;
       next[topic.id] = {
         x: clamp(position.x + (dx / distance) * push, 8, 92),
         y: clamp(position.y + (dy / distance) * push, 12, 88)
