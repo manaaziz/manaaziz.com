@@ -245,7 +245,7 @@ export default function ResearchPage() {
       <section className="paper-mosaic-section" aria-labelledby="paper-mosaic-title">
         <div className="section-intro">
           <p className="eyebrow">Papers</p>
-          <h2 id="paper-mosaic-title">Selected research papers</h2>
+          <h2 id="paper-mosaic-title">I have published in leading journals across multiple disciplines</h2>
         </div>
         <PaperMosaic papers={papers} />
       </section>

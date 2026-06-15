@@ -83,12 +83,12 @@ export default function PaperMosaic({ papers }) {
             <small>{activePaper.venue}</small>
             <div className="paper-focus-actions">
               {activePaper.doi ? (
-                <a href={`https://doi.org/${activePaper.doi}`} target="_blank" rel="noreferrer">
-                  View DOI
+                <a className="button paper-focus-button" href={`https://doi.org/${activePaper.doi}`} target="_blank" rel="noreferrer">
+                  DOI
                 </a>
               ) : null}
               {activePaper.blogHref ? (
-                <a href={activePaper.blogHref}>
+                <a className="button paper-focus-button" href={activePaper.blogHref}>
                   Blog post
                 </a>
               ) : null}
