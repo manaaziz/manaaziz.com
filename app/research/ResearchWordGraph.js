@@ -9,12 +9,32 @@ const topics = [
   { id: "gaming", label: "gaming analytics", x: 18, y: 52, size: "medium" },
   { id: "forecasting", label: "forecasting", x: 72, y: 58, size: "medium" },
   { id: "revenue", label: "revenue management", x: 54, y: 70, size: "medium" },
+  { id: "open-banking", label: "open banking", x: 12, y: 42, size: "medium" },
   { id: "interpretable", label: "interpretable AI", x: 34, y: 62, size: "small" },
-  { id: "measurement", label: "measurement", x: 20, y: 72, size: "small" },
+  { id: "measurement", label: "measurement invariance", x: 20, y: 72, size: "small" },
   { id: "cancellations", label: "booking cancellations", x: 84, y: 44, size: "small" },
   { id: "demand", label: "hotel demand", x: 82, y: 76, size: "small" },
   { id: "statistics", label: "statistics", x: 46, y: 22, size: "small" },
-  { id: "responsible", label: "responsible gambling", x: 14, y: 24, size: "small" }
+  { id: "responsible", label: "responsible gambling", x: 14, y: 24, size: "small" },
+  { id: "hotel-upselling", label: "hotel upselling", x: 88, y: 60, size: "small" },
+  { id: "open-science", label: "open science", x: 58, y: 84, size: "small" },
+  { id: "baccarat", label: "baccarat", x: 34, y: 48, size: "small" },
+  { id: "dual-pathology", label: "dual pathology", x: 10, y: 62, size: "small" },
+  { id: "behavioral-clusters", label: "behavioral clusters", x: 38, y: 78, size: "small" },
+  { id: "operations-research", label: "operations research", x: 64, y: 48, size: "small" },
+  { id: "casino-management", label: "casino management", x: 24, y: 44, size: "small" },
+  { id: "marketing-analytics", label: "marketing analytics", x: 42, y: 30, size: "small" },
+  { id: "reinvestment", label: "reinvestment efficiency", x: 58, y: 30, size: "small" },
+  { id: "surveillance", label: "surveillance", x: 18, y: 14, size: "small" },
+  { id: "behavioral-analysis", label: "behavioral analysis", x: 28, y: 84, size: "small" },
+  { id: "problem-gambling", label: "problem gambling", x: 9, y: 34, size: "small" },
+  { id: "gambling-disorder", label: "gambling disorder", x: 11, y: 76, size: "small" },
+  { id: "risk-thresholds", label: "financial risk thresholds", x: 22, y: 86, size: "small" },
+  { id: "payments", label: "gambling payments", x: 12, y: 52, size: "small" },
+  { id: "patron-lifecycle", label: "patron lifecycle", x: 48, y: 14, size: "small" },
+  { id: "hotel-occupancy", label: "hotel occupancy", x: 86, y: 28, size: "small" },
+  { id: "service-technology", label: "AI service technology", x: 88, y: 70, size: "small" },
+  { id: "revenue-forecasting", label: "revenue forecasting", x: 70, y: 84, size: "small" }
 ];
 
 const links = [
@@ -24,15 +44,46 @@ const links = [
   ["machine-learning", "interpretable"],
   ["machine-learning", "cancellations"],
   ["machine-learning", "gambling"],
+  ["machine-learning", "open-banking"],
+  ["machine-learning", "dual-pathology"],
   ["gaming", "gambling"],
   ["gaming", "responsible"],
   ["gaming", "measurement"],
+  ["gaming", "baccarat"],
+  ["gaming", "behavioral-clusters"],
   ["hospitality", "revenue"],
   ["hospitality", "forecasting"],
+  ["hospitality", "hotel-upselling"],
+  ["hospitality", "open-science"],
   ["forecasting", "demand"],
   ["revenue", "demand"],
   ["statistics", "measurement"],
-  ["statistics", "machine-learning"]
+  ["statistics", "machine-learning"],
+  ["machine-learning", "operations-research"],
+  ["machine-learning", "surveillance"],
+  ["machine-learning", "behavioral-analysis"],
+  ["machine-learning", "service-technology"],
+  ["gambling", "casino-management"],
+  ["gambling", "problem-gambling"],
+  ["gambling", "gambling-disorder"],
+  ["gambling", "payments"],
+  ["gambling", "baccarat"],
+  ["open-banking", "risk-thresholds"],
+  ["open-banking", "payments"],
+  ["responsible", "problem-gambling"],
+  ["dual-pathology", "gambling-disorder"],
+  ["behavioral-clusters", "behavioral-analysis"],
+  ["hospitality", "casino-management"],
+  ["hospitality", "operations-research"],
+  ["hospitality", "hotel-occupancy"],
+  ["hospitality", "service-technology"],
+  ["revenue", "revenue-forecasting"],
+  ["revenue", "reinvestment"],
+  ["forecasting", "hotel-occupancy"],
+  ["forecasting", "revenue-forecasting"],
+  ["gaming", "marketing-analytics"],
+  ["marketing-analytics", "reinvestment"],
+  ["marketing-analytics", "patron-lifecycle"]
 ];
 
 function clamp(value, min, max) {
@@ -50,6 +101,33 @@ export default function ResearchWordGraph() {
     Object.fromEntries(topics.map((topic) => [topic.id, topic]))
   ), []);
 
+  function repelNearbyNodes(current, id, nextPosition) {
+    const repulsionRadius = 18;
+    const next = {
+      ...current,
+      [id]: nextPosition
+    };
+
+    topics.forEach((topic) => {
+      if (topic.id === id) return;
+
+      const position = current[topic.id];
+      const dx = position.x - nextPosition.x;
+      const dy = position.y - nextPosition.y;
+      const distance = Math.max(Math.sqrt(dx * dx + dy * dy), 0.001);
+
+      if (distance > repulsionRadius) return;
+
+      const push = ((repulsionRadius - distance) / repulsionRadius) * 7.5;
+      next[topic.id] = {
+        x: clamp(position.x + (dx / distance) * push, 8, 92),
+        y: clamp(position.y + (dy / distance) * push, 12, 88)
+      };
+    });
+
+    return next;
+  }
+
   function moveTopic(event, id) {
     const bounds = graphRef.current?.getBoundingClientRect();
     if (!bounds) return;
@@ -57,12 +135,9 @@ export default function ResearchWordGraph() {
     const x = ((event.clientX - bounds.left) / bounds.width) * 100;
     const y = ((event.clientY - bounds.top) / bounds.height) * 100;
 
-    setPositions((current) => ({
-      ...current,
-      [id]: {
-        x: clamp(x, 8, 92),
-        y: clamp(y, 12, 88)
-      }
+    setPositions((current) => repelNearbyNodes(current, id, {
+      x: clamp(x, 8, 92),
+      y: clamp(y, 12, 88)
     }));
   }
 
@@ -97,6 +172,7 @@ export default function ResearchWordGraph() {
           return (
             <button
               className={`research-word-node ${topic.size}`}
+              data-dragging={draggingId === topic.id ? "true" : "false"}
               key={topic.id}
               onPointerCancel={() => setDraggingId(null)}
               onPointerDown={(event) => {
