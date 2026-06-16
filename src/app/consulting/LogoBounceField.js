@@ -10,7 +10,6 @@ export default function LogoBounceField({ clients }) {
   const arenaRef = useRef(null);
   const logoRefs = useRef([]);
   const bodiesRef = useRef([]);
-  const wanderRef = useRef(0);
 
   useEffect(() => {
     const arena = arenaRef.current;
@@ -33,10 +32,9 @@ export default function LogoBounceField({ clients }) {
 
         return {
           height,
-          radius: Math.max(width, height) * 0.48,
           spin: index % 2 === 0 ? 1 : -1,
           width,
-          wobble: Math.random() * Math.PI * 2,
+          wobble: ((index * 47 + 19) % 360) * (Math.PI / 180),
           x,
           y,
           vx: Math.cos(angle) * speed,
@@ -80,24 +78,17 @@ export default function LogoBounceField({ clients }) {
           const ay = a.y + a.height / 2;
           const bx = b.x + b.width / 2;
           const by = b.y + b.height / 2;
-          let dx = bx - ax;
-          let dy = by - ay;
-          let distance = Math.hypot(dx, dy);
-          const minDistance = a.radius + b.radius + 10;
+          const dx = bx - ax;
+          const dy = by - ay;
+          const overlapX = (a.width + b.width) / 2 - Math.abs(dx);
+          const overlapY = (a.height + b.height) / 2 - Math.abs(dy);
 
-          if (distance >= minDistance) continue;
+          if (overlapX <= 0 || overlapY <= 0) continue;
 
-          if (distance < 0.001) {
-            const angle = ((i * 67 + j * 31) % 360) * (Math.PI / 180);
-            dx = Math.cos(angle);
-            dy = Math.sin(angle);
-            distance = 1;
-          }
-
-          const nx = dx / distance;
-          const ny = dy / distance;
-          const overlap = minDistance - distance;
-          const separateBy = overlap * 0.52;
+          const resolveX = overlapX < overlapY;
+          const nx = resolveX ? Math.sign(dx || 1) : 0;
+          const ny = resolveX ? 0 : Math.sign(dy || 1);
+          const separateBy = (resolveX ? overlapX : overlapY) * 0.52;
 
           a.x -= nx * separateBy;
           a.y -= ny * separateBy;
@@ -105,7 +96,7 @@ export default function LogoBounceField({ clients }) {
           b.y += ny * separateBy;
 
           const relativeSpeed = (b.vx - a.vx) * nx + (b.vy - a.vy) * ny;
-          const impulse = Math.max(0, 24 - relativeSpeed) * 0.42;
+          const impulse = Math.max(0, 28 - relativeSpeed) * 0.5;
           a.vx -= nx * impulse;
           a.vy -= ny * impulse;
           b.vx += nx * impulse;
@@ -124,14 +115,8 @@ export default function LogoBounceField({ clients }) {
       const bounds = arena.getBoundingClientRect();
       const delta = Math.min((now - lastTime) / 1000, 0.032);
       lastTime = now;
-      wanderRef.current += delta;
 
-      bodiesRef.current.forEach((body, index) => {
-        const wiggle = wanderRef.current * (0.9 + index * 0.07) + body.wobble;
-        body.vx += Math.cos(wiggle) * 7 * delta + (Math.random() - 0.5) * 0.28;
-        body.vy += Math.sin(wiggle * 1.13) * 7 * delta + (Math.random() - 0.5) * 0.28;
-        body.vx *= 0.999;
-        body.vy *= 0.999;
+      bodiesRef.current.forEach((body) => {
         clampSpeed(body);
 
         body.x += body.vx * delta;
@@ -140,24 +125,20 @@ export default function LogoBounceField({ clients }) {
         if (body.x <= 0) {
           body.x = 0;
           body.vx = Math.abs(body.vx) + 3;
-          body.vy += (Math.random() - 0.5) * 8;
           body.spin *= -1;
         } else if (body.x + body.width >= bounds.width) {
           body.x = bounds.width - body.width;
           body.vx = -Math.abs(body.vx) - 3;
-          body.vy += (Math.random() - 0.5) * 8;
           body.spin *= -1;
         }
 
         if (body.y <= 0) {
           body.y = 0;
           body.vy = Math.abs(body.vy) + 3;
-          body.vx += (Math.random() - 0.5) * 8;
           body.spin *= -1;
         } else if (body.y + body.height >= bounds.height) {
           body.y = bounds.height - body.height;
           body.vy = -Math.abs(body.vy) - 3;
-          body.vx += (Math.random() - 0.5) * 8;
           body.spin *= -1;
         }
       });
@@ -167,7 +148,7 @@ export default function LogoBounceField({ clients }) {
       bodiesRef.current.forEach((body, index) => {
         const node = logoRefs.current[index];
         if (!node) return;
-        const tilt = Math.max(-4, Math.min(4, body.vx * 0.08)) + Math.sin(wanderRef.current * 1.4 + body.wobble) * 1.6;
+        const tilt = Math.max(-4, Math.min(4, body.vx * 0.08)) + Math.sin(now * 0.0014 + body.wobble) * 1.2;
         node.style.transform = `translate3d(${body.x}px, ${body.y}px, 0) rotate(${tilt * body.spin}deg)`;
       });
 
