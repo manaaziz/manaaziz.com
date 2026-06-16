@@ -14,10 +14,23 @@ export const courses = [
       "A travel-based version of Culture and Cuisine, built around Spanish foodways, regional identity, markets, restaurants, cultural observation, and reflection. The course treats place as the classroom and asks students to connect cuisine with history, geography, hospitality, and everyday life.",
     description:
       "This course used Spain as the classroom. Students explored Spanish culture and cuisine through discussion, observation, shared experiences, and reflection on how food, place, history, and identity connect.",
+    catalogHref: "https://catalog.unlv.edu/search_advanced.php?search=FAB%20333",
     outcomes: [
       "Connect Spanish cuisine with regional history, geography, and cultural identity.",
       "Practice cultural observation through restaurants, markets, shared meals, and travel experiences.",
       "Reflect on how food communicates values, belonging, memory, and hospitality."
+    ],
+    gradingComponents: [
+      { task: "Field participation and engagement", percent: "25%" },
+      { task: "Cultural observation reflections", percent: "25%" },
+      { task: "Group presentation", percent: "25%" },
+      { task: "Final travel learning portfolio", percent: "25%" }
+    ],
+    schedule: [
+      { week: "1", topic: "Program orientation; culture, cuisine, and travel learning" },
+      { week: "2", topic: "Spanish foodways, regional identity, markets, and hospitality contexts" },
+      { week: "3", topic: "Field observation, restaurant reflection, and guided cultural analysis" },
+      { week: "4", topic: "Student presentations, portfolio synthesis, and final reflection" }
     ],
     materials: [
       {
@@ -58,6 +71,7 @@ export const courses = [
       "A study of how food habits, production, preservation, preparation, beliefs, and dining behavior vary across cultures and change over time. Students examine geography, history, technology, religion, migration, exploration, etiquette, and sustainability through the lens of cuisine.",
     description:
       "Students study how geography, history, technology, religion, migration, exploration, and major historical events shape food-related behavior. The class emphasizes discussion, cultural openness, group learning, tasting, and applied observation.",
+    catalogHref: "https://catalog.unlv.edu/search_advanced.php?search=FAB%20333",
     outcomes: [
       "Explain how culture, migration, religion, and history shape food behavior.",
       "Compare global cuisines through etiquette, sustainability, sensory experience, and hospitality practice.",
@@ -139,10 +153,10 @@ export const courses = [
         "Describe strategies for successful intercultural communication in foodservice operations."
       ],
       assessments: [
-        { task: "Picture and biography posted to Canvas", points: "50", due: "Week 1" },
-        { task: "Online quizzes", points: "100", due: "Weeks 1-11" },
-        { task: "Mid-semester restaurant visit assignment", points: "100", due: "Week 14" },
-        { task: "Team presentation", points: "100", due: "Weeks 9-14" }
+        { task: "Picture and biography posted to Canvas", points: "50", percent: "14%", due: "Week 1" },
+        { task: "Online quizzes", points: "100", percent: "29%", due: "Weeks 1-11" },
+        { task: "Mid-semester restaurant visit assignment", points: "100", percent: "29%", due: "Week 14" },
+        { task: "Team presentation", points: "100", percent: "29%", due: "Weeks 9-14" }
       ],
       schedule: [
         { week: "1", topic: "Administration; introduction to culture, cuisine, and gastronomy" },
@@ -177,10 +191,26 @@ export const courses = [
       "A graduate-level applied statistics course for hospitality students. The course focuses on statistical reasoning, interpreting quantitative evidence, and using data analysis to support hospitality research and managerial decisions.",
     description:
       "This course introduces hospitality students to statistical thinking and applied analysis. The course page can later include the syllabus, modules, assignments, and examples of course materials.",
+    catalogHref: "https://catalog.unlv.edu/search_advanced.php?search=HOA%20730",
     outcomes: [
       "Build confidence reading, interpreting, and communicating statistical results.",
       "Apply statistical methods to hospitality, tourism, and gaming examples.",
       "Use data tools to move from analysis output to defensible decisions."
+    ],
+    gradingComponents: [
+      { task: "Homework and applied practice", percent: "30%" },
+      { task: "Midterm project", percent: "25%" },
+      { task: "Final project", percent: "35%" },
+      { task: "Participation and professional engagement", percent: "10%" }
+    ],
+    schedule: [
+      { week: "1", topic: "Statistical thinking, data types, and hospitality research questions" },
+      { week: "2", topic: "Descriptive statistics, visualization, and summarizing hospitality data" },
+      { week: "3", topic: "Sampling, uncertainty, confidence intervals, and hypothesis testing" },
+      { week: "4", topic: "Comparing groups, t-tests, chi-square tests, and ANOVA" },
+      { week: "5", topic: "Correlation, ordinary least squares, and model interpretation" },
+      { week: "6", topic: "Multiple regression, assumptions, diagnostics, and applied reporting" },
+      { week: "7", topic: "Project workshops, communication, and final analysis presentations" }
     ],
     materials: [
       {
@@ -258,10 +288,26 @@ export const courses = [
       "An advanced statistics course for hospitality graduate students, emphasizing applied modeling, interpretation, and quantitative methods that support hospitality research. The course builds toward more independent analysis and clearer communication of technical findings.",
     description:
       "This course builds on statistical analysis for hospitality students and emphasizes clear explanation, applied examples, model interpretation, and student support.",
+    catalogHref: "https://catalog.unlv.edu/search_advanced.php?search=HOA%20732",
     outcomes: [
       "Use advanced statistical models in hospitality and tourism contexts.",
       "Interpret model results with attention to assumptions, limitations, and managerial meaning.",
       "Translate technical analysis into clear explanations for research and practice."
+    ],
+    gradingComponents: [
+      { task: "Written-in-class activities", percent: "20%" },
+      { task: "Midterm modeling project", percent: "30%" },
+      { task: "Final applied modeling project", percent: "40%" },
+      { task: "Participation and technical preparation", percent: "10%" }
+    ],
+    schedule: [
+      { week: "1", topic: "Advanced modeling review, research design, and applied hospitality examples" },
+      { week: "2", topic: "Decision trees, model splits, validation, and interpretation" },
+      { week: "3", topic: "Random forests, ensemble logic, and variable importance" },
+      { week: "4", topic: "Classification, prediction, and evaluating model performance" },
+      { week: "5", topic: "Model explanation, communication, and methodological limitations" },
+      { week: "6", topic: "Midterm and final project workshops" },
+      { week: "7", topic: "Final presentations and applied model reporting" }
     ],
     materials: [
       {

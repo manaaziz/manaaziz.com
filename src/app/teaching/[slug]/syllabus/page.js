@@ -8,8 +8,9 @@ export function generateStaticParams() {
     .map((course) => ({ slug: course.slug }));
 }
 
-export function generateMetadata({ params }) {
-  const course = getCourse(params.slug);
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
+  const course = getCourse(slug);
 
   if (!course?.syllabus) {
     return {
@@ -22,8 +23,9 @@ export function generateMetadata({ params }) {
   };
 }
 
-export default function SyllabusPage({ params }) {
-  const course = getCourse(params.slug);
+export default async function SyllabusPage({ params }) {
+  const { slug } = await params;
+  const course = getCourse(slug);
 
   if (!course?.syllabus) {
     notFound();
@@ -33,7 +35,7 @@ export default function SyllabusPage({ params }) {
 
   return (
     <main className="page-shell course-page syllabus-page">
-      <Link className="case-link" href={`/teaching/${course.slug}`}>
+      <Link className="button course-back-button" href={`/teaching/${course.slug}`}>
         Back to course
       </Link>
 
@@ -84,12 +86,14 @@ export default function SyllabusPage({ params }) {
           <div role="row">
             <strong role="columnheader">Task</strong>
             <strong role="columnheader">Points</strong>
+            <strong role="columnheader">Weight</strong>
             <strong role="columnheader">Due</strong>
           </div>
           {syllabus.assessments.map((assessment) => (
             <div role="row" key={assessment.task}>
               <span role="cell">{assessment.task}</span>
               <span role="cell">{assessment.points}</span>
+              <span role="cell">{assessment.percent || "TBD"}</span>
               <span role="cell">{assessment.due}</span>
             </div>
           ))}
