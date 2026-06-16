@@ -38,7 +38,7 @@ const collaborations = [
       card({
         name: "GMA Consulting",
         type: "Consulting",
-        blurb: "Supported consulting work translating casino data into operational recommendations.",
+        blurb: "Supported Denver-based consulting work translating casino data into operational recommendations.",
         logo: "/assets/logos/gma_logo.png.webp"
       })
     ]
@@ -67,6 +67,19 @@ const collaborations = [
         blurb: "Presented work on AI ethics and governance in the gambling sector in Madrid.",
         href: "/research",
         logo: "/assets/logos/club_convergentes.png"
+      })
+    ]
+  },
+  {
+    country: "Netherlands",
+    id: "nl",
+    summary: "Invited academic guest experience with Breda University of Applied Sciences.",
+    work: [
+      card({
+        name: "Breda University of Applied Sciences",
+        type: "Teaching",
+        blurb: "Visited as an invited guest connected to hospitality, tourism, gaming, and applied research conversations.",
+        href: "https://pure.buas.nl/en/activities/mana-azizsoltani/"
       })
     ]
   },
@@ -198,6 +211,18 @@ const collaborations = [
     ]
   },
   {
+    country: "Argentina",
+    id: "ar",
+    summary: "Invited guest experience with the University of Buenos Aires.",
+    work: [
+      card({
+        name: "University of Buenos Aires",
+        type: "Teaching",
+        blurb: "Visited as an invited guest for international academic exchange and applied analytics conversation."
+      })
+    ]
+  },
+  {
     country: "Australia",
     id: "au",
     summary: "Gaming and hospitality industry connections in Australia.",
@@ -239,8 +264,9 @@ const globalRegions = [
   {
     id: "south-america",
     label: "South America",
-    summary: "Future collaborations in South America will live here as the project list grows.",
-    countries: [],
+    summary: "Invited academic exchange and applied analytics conversations in Argentina.",
+    countries: ["ar"],
+    defaultCountry: "ar",
     position: { left: "34%", top: "66%" },
     mapCountries: ["ar", "bo", "br", "cl", "co", "ec", "fk", "gf", "gy", "pe", "py", "sr", "uy", "ve"],
     viewBox: "195 300 285 380"
@@ -249,7 +275,7 @@ const globalRegions = [
     id: "europe",
     label: "Europe",
     summary: "Academic, trust, hospitality, and gaming connections across Europe.",
-    countries: ["gb", "es", "it", "mt"],
+    countries: ["gb", "es", "nl", "it", "mt"],
     defaultCountry: "gb",
     position: { left: "49%", top: "32%" },
     mapCountries: [
@@ -312,6 +338,11 @@ const countryFloatPositions = {
   us: { left: "45%", top: "48%" },
   gb: { left: "41%", top: "42%" },
   es: { left: "38%", top: "68%" },
+  nl: { left: "48%", top: "36%" },
+  it: { left: "54%", top: "71%" },
+  mt: { left: "58%", top: "82%" },
+  qa: { left: "54%", top: "62%" },
+  ar: { left: "52%", top: "70%" },
   ae: { left: "58%", top: "60%" },
   cn: { left: "54%", top: "60%" },
   kr: { left: "66%", top: "48%" },
@@ -384,6 +415,33 @@ function FlagArt({ countryId }) {
           <rect x="33" y="28" width="4" height="5" fill="#f1bf00" />
         </>
       );
+    case "nl":
+      return (
+        <>
+          <rect width="120" height="80" fill="#fff" />
+          <rect width="120" height="26.666" fill="#ae1c28" />
+          <rect y="53.333" width="120" height="26.667" fill="#21468b" />
+        </>
+      );
+    case "it":
+      return (
+        <>
+          <rect width="40" height="80" fill="#009246" />
+          <rect x="40" width="40" height="80" fill="#fff" />
+          <rect x="80" width="40" height="80" fill="#ce2b37" />
+        </>
+      );
+    case "mt":
+      return (
+        <>
+          <rect width="60" height="80" fill="#fff" />
+          <rect x="60" width="60" height="80" fill="#cf142b" />
+          <g transform="translate(13 10)">
+            <path d="M0 5h6V0h8v5h6v8h-6v6H6v-6H0Z" fill="#b7b7b7" stroke="#777" strokeWidth="1.4" />
+            <path d="M6 5h8v8H6Z" fill="#fff" opacity="0.5" />
+          </g>
+        </>
+      );
     case "ae":
       return (
         <>
@@ -408,22 +466,55 @@ function FlagArt({ countryId }) {
       return (
         <>
           <rect width="120" height="80" fill="#fff" />
-          <path d="M60 22a18 18 0 1 1 0 36a9 9 0 1 0 0-18a9 9 0 1 1 0-18Z" fill="#c60c30" />
-          <path d="M60 58a18 18 0 1 1 0-36a9 9 0 1 0 0 18a9 9 0 1 1 0 18Z" fill="#003478" />
-          <g stroke="#111" strokeWidth="3" strokeLinecap="square">
-            <line x1="22" y1="17" x2="36" y2="7" />
-            <line x1="26" y1="22" x2="40" y2="12" />
-            <line x1="30" y1="27" x2="44" y2="17" />
-            <line x1="84" y1="63" x2="98" y2="53" />
-            <line x1="80" y1="58" x2="94" y2="48" />
-            <line x1="76" y1="53" x2="90" y2="43" />
-            <line x1="84" y1="7" x2="98" y2="17" />
-            <line x1="80" y1="12" x2="94" y2="22" strokeDasharray="6 5" />
-            <line x1="76" y1="17" x2="90" y2="27" />
-            <line x1="22" y1="63" x2="36" y2="53" strokeDasharray="6 5" />
-            <line x1="26" y1="58" x2="40" y2="48" />
-            <line x1="30" y1="53" x2="44" y2="43" strokeDasharray="6 5" />
+          <g transform="translate(60 40) rotate(-32)">
+            <path d="M0 -18a18 18 0 0 1 0 36a9 9 0 0 1 0 -18a9 9 0 0 0 0 -18Z" fill="#c60c30" />
+            <path d="M0 -18a18 18 0 0 0 0 36a9 9 0 0 0 0 -18a9 9 0 0 1 0 -18Z" fill="#003478" />
           </g>
+          <g stroke="#111" strokeWidth="3.2" strokeLinecap="butt">
+            <g transform="translate(27 18) rotate(-32)">
+              <line x1="-9" y1="-7" x2="9" y2="-7" />
+              <line x1="-9" y1="0" x2="9" y2="0" />
+              <line x1="-9" y1="7" x2="9" y2="7" />
+            </g>
+            <g transform="translate(93 62) rotate(-32)">
+              <line x1="-9" y1="-7" x2="-2" y2="-7" />
+              <line x1="2" y1="-7" x2="9" y2="-7" />
+              <line x1="-9" y1="0" x2="9" y2="0" />
+              <line x1="-9" y1="7" x2="-2" y2="7" />
+              <line x1="2" y1="7" x2="9" y2="7" />
+            </g>
+            <g transform="translate(93 18) rotate(32)">
+              <line x1="-9" y1="-7" x2="9" y2="-7" />
+              <line x1="-9" y1="0" x2="-2" y2="0" />
+              <line x1="2" y1="0" x2="9" y2="0" />
+              <line x1="-9" y1="7" x2="9" y2="7" />
+            </g>
+            <g transform="translate(27 62) rotate(32)">
+              <line x1="-9" y1="-7" x2="-2" y2="-7" />
+              <line x1="2" y1="-7" x2="9" y2="-7" />
+              <line x1="-9" y1="0" x2="-2" y2="0" />
+              <line x1="2" y1="0" x2="9" y2="0" />
+              <line x1="-9" y1="7" x2="-2" y2="7" />
+              <line x1="2" y1="7" x2="9" y2="7" />
+            </g>
+          </g>
+        </>
+      );
+    case "qa":
+      return (
+        <>
+          <rect width="120" height="80" fill="#8a1538" />
+          <rect width="34" height="80" fill="#fff" />
+          <path d="M34 0l12 4.444l-12 4.445l12 4.444l-12 4.445l12 4.444l-12 4.445l12 4.444l-12 4.445l12 4.444l-12 4.445l12 4.444l-12 4.445l12 4.444l-12 4.445l12 4.444l-12 4.445l12 4.444l-12 4.445V0Z" fill="#fff" />
+        </>
+      );
+    case "ar":
+      return (
+        <>
+          <rect width="120" height="80" fill="#75aadb" />
+          <rect y="26.666" width="120" height="26.667" fill="#fff" />
+          <circle cx="60" cy="40" r="7" fill="#f6b40e" />
+          <circle cx="60" cy="40" r="3.2" fill="#8b5a1c" />
         </>
       );
     case "vn":
@@ -607,6 +698,20 @@ const usStates = [
     state: "Tennessee"
   },
   {
+    id: "colorado",
+    label: "Colorado",
+    summary: "Denver-based consulting work with GMA Consulting.",
+    work: [
+      card({
+        name: "GMA Consulting",
+        type: "Consulting",
+        blurb: "Supported Denver-based casino consulting work by turning analysis into operator-facing recommendations.",
+        logo: "/assets/logos/gma_logo.png.webp"
+      })
+    ],
+    state: "Colorado"
+  },
+  {
     id: "new-jersey",
     label: "New Jersey",
     summary: "Atlantic City casino and operator-facing hospitality work.",
@@ -616,12 +721,6 @@ const usStates = [
         type: "Consulting",
         blurb: "Supported casino and hospitality consulting context connected to Atlantic City operations.",
         logo: "/assets/logos/ballys_corporation_logo.svg"
-      }),
-      card({
-        name: "GMA Consulting",
-        type: "Consulting",
-        blurb: "Supported casino consulting work by turning analysis into operator-facing recommendations.",
-        logo: "/assets/logos/gma_logo.png.webp"
       }),
       card({
         name: "Machine learning",
@@ -637,10 +736,14 @@ const usStates = [
     summary: "Graduate statistics training, research methods, and academic collaborations across hospitality and data science.",
     work: [
       card({
-        name: "Hospitality research",
-        type: "Research",
-        blurb: "Studied forecasting, measurement, and quantitative methods in hospitality contexts.",
-        href: "/research"
+        name: "Master's degree",
+        type: "Education",
+        blurb: "Earned a master's degree in North Carolina before continuing into doctoral research and applied analytics."
+      }),
+      card({
+        name: "Student statistical consultant",
+        type: "Consulting",
+        blurb: "Served as a student statistical consultant, supporting applied quantitative research and analysis projects."
       }),
       card({
         name: "Teaching",
