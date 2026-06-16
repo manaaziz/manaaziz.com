@@ -157,8 +157,7 @@ const conferencePresentations = [
     type: "Paper",
     date: "January 5, 2025",
     venue: "The 30th Annual Graduate Education & Graduate Student Research Conference in Hospitality and Tourism",
-    location: "Miami, Florida",
-    logo: "/assets/logos/IER_Logotype_RGB.png"
+    location: "Miami, Florida"
   },
   {
     title: "Interpretable forecasting of booking cancellations with stacked generalization",
@@ -256,7 +255,7 @@ export default function ResearchPage() {
   return (
     <main className="page-shell">
       <p className="eyebrow">Research</p>
-      <h1>Research</h1>
+      <h1>A voracious appetite for high-impact research</h1>
       <p className="lede">
         My research uses statistics, machine learning, and applied analytics to study hospitality, tourism, gaming, and education. Recent work focuses on hotel demand forecasting, booking cancellations, revenue management, gambling behavior, and quantitative methods for hospitality students.
       </p>

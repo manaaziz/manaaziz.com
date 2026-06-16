@@ -4,6 +4,11 @@ import { useEffect, useState } from "react";
 
 export default function PaperMosaic({ papers }) {
   const [activePaper, setActivePaper] = useState(null);
+  const [paperOrigin, setPaperOrigin] = useState({
+    x: "0px",
+    y: "0px",
+    scale: 0.42
+  });
 
   useEffect(() => {
     if (!activePaper) return undefined;
@@ -18,14 +23,33 @@ export default function PaperMosaic({ papers }) {
     return () => window.removeEventListener("keydown", closeOnEscape);
   }, [activePaper]);
 
-  function openPaper(paper) {
+  function openPaper(paper, element) {
+    if (element) {
+      const tileBounds = element.getBoundingClientRect();
+      const wrapBounds = element.closest(".paper-mosaic-wrap")?.getBoundingClientRect();
+
+      if (wrapBounds) {
+        const focusWidth = Math.min(wrapBounds.width - 32, 736);
+        const tileCenterX = tileBounds.left + tileBounds.width / 2;
+        const tileCenterY = tileBounds.top + tileBounds.height / 2;
+        const wrapCenterX = wrapBounds.left + wrapBounds.width / 2;
+        const wrapCenterY = wrapBounds.top + wrapBounds.height / 2;
+
+        setPaperOrigin({
+          x: `${tileCenterX - wrapCenterX}px`,
+          y: `${tileCenterY - wrapCenterY}px`,
+          scale: Math.max(0.24, Math.min(0.58, tileBounds.width / focusWidth))
+        });
+      }
+    }
+
     setActivePaper(paper);
   }
 
   function paperKeyDown(event, paper) {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
-      openPaper(paper);
+      openPaper(paper, event.currentTarget);
     }
   }
 
@@ -43,7 +67,7 @@ export default function PaperMosaic({ papers }) {
             data-active={activePaper?.title === paper.title ? "true" : "false"}
             data-size={index % 7 === 0 ? "wide" : index % 5 === 0 ? "tall" : "standard"}
             key={paper.title}
-            onClick={() => openPaper(paper)}
+            onClick={(event) => openPaper(paper, event.currentTarget)}
             onKeyDown={(event) => paperKeyDown(event, paper)}
             role="button"
             tabIndex={0}
@@ -73,7 +97,16 @@ export default function PaperMosaic({ papers }) {
       </div>
 
       {activePaper ? (
-        <div className="paper-focus-layer" role="presentation" onClick={() => setActivePaper(null)}>
+        <div
+          className="paper-focus-layer"
+          role="presentation"
+          onClick={() => setActivePaper(null)}
+          style={{
+            "--paper-origin-x": paperOrigin.x,
+            "--paper-origin-y": paperOrigin.y,
+            "--paper-origin-scale": paperOrigin.scale
+          }}
+        >
           <article className="paper-focus-card" role="dialog" aria-modal="true" aria-labelledby="paper-focus-title" onClick={(event) => event.stopPropagation()}>
             <button className="paper-focus-back" onClick={() => setActivePaper(null)} type="button">
               Back

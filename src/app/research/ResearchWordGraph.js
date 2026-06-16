@@ -102,6 +102,62 @@ export default function ResearchWordGraph() {
     Object.fromEntries(topics.map((topic) => [topic.id, topic]))
   ), []);
 
+  function releaseRepel(current, id) {
+    const droppedPosition = current[id];
+    if (!droppedPosition) return current;
+
+    const releaseRadius = 20;
+    const collisionRadius = 7.5;
+    const maxPush = 4.2;
+    const next = { ...current };
+
+    topics.forEach((topic) => {
+      if (topic.id === id) return;
+
+      const position = current[topic.id];
+      const dx = position.x - droppedPosition.x;
+      const dy = position.y - droppedPosition.y;
+      const distance = Math.max(Math.sqrt(dx * dx + dy * dy), 0.001);
+
+      if (distance > releaseRadius) return;
+
+      const proximity = (releaseRadius - distance) / releaseRadius;
+      const pulse = proximity * proximity * maxPush;
+      const collisionPulse = distance < collisionRadius ? (collisionRadius - distance) * 0.42 : 0;
+      const originPull = {
+        x: (topic.x - position.x) * 0.015,
+        y: (topic.y - position.y) * 0.015
+      };
+
+      next[topic.id] = {
+        x: clamp(position.x + (dx / distance) * (pulse + collisionPulse) + originPull.x, 8, 92),
+        y: clamp(position.y + (dy / distance) * (pulse + collisionPulse) + originPull.y, 12, 88)
+      };
+    });
+
+    return next;
+  }
+
+  function settleAfterRelease(id) {
+    window.setTimeout(() => {
+      setPositions((current) => {
+        const next = { ...current };
+
+        topics.forEach((topic) => {
+          if (topic.id === id) return;
+
+          const position = current[topic.id];
+          next[topic.id] = {
+            x: clamp(position.x + (topic.x - position.x) * 0.035, 8, 92),
+            y: clamp(position.y + (topic.y - position.y) * 0.035, 12, 88)
+          };
+        });
+
+        return next;
+      });
+    }, 180);
+  }
+
   function repelNearbyNodes(current, id, nextPosition) {
     const previousDrag = current[id] || nextPosition;
     const dragVector = {
@@ -148,25 +204,19 @@ export default function ResearchWordGraph() {
     const x = ((event.clientX - bounds.left) / bounds.width) * 100;
     const y = ((event.clientY - bounds.top) / bounds.height) * 100;
 
-    setPositions((current) => {
-      const next = repelNearbyNodes(current, id, {
-        x: clamp(x, 8, 92),
-        y: clamp(y, 12, 88)
-      });
+    setPositions((current) => repelNearbyNodes(current, id, {
+      x: clamp(x, 8, 92),
+      y: clamp(y, 12, 88)
+    }));
+  }
 
-      topics.forEach((topic) => {
-        if (topic.id === id) return;
+  function endDrag(id) {
+    if (draggingIdRef.current !== id) return;
 
-        const position = next[topic.id];
-        const origin = { x: topic.x, y: topic.y };
-        next[topic.id] = {
-          x: clamp(position.x + (origin.x - position.x) * 0.025, 8, 92),
-          y: clamp(position.y + (origin.y - position.y) * 0.025, 12, 88)
-        };
-      });
-
-      return next;
-    });
+    draggingIdRef.current = null;
+    setDraggingId(null);
+    setPositions((current) => releaseRepel(current, id));
+    settleAfterRelease(id);
   }
 
   return (
@@ -202,7 +252,7 @@ export default function ResearchWordGraph() {
               className={`research-word-node ${topic.size}`}
               data-dragging={draggingId === topic.id ? "true" : "false"}
               key={topic.id}
-              onPointerCancel={() => setDraggingId(null)}
+              onPointerCancel={() => endDrag(topic.id)}
               onPointerDown={(event) => {
                 event.currentTarget.setPointerCapture(event.pointerId);
                 draggingIdRef.current = topic.id;
@@ -210,8 +260,9 @@ export default function ResearchWordGraph() {
                 moveTopic(event, topic.id);
               }}
               onLostPointerCapture={() => {
-                draggingIdRef.current = null;
-                setDraggingId(null);
+                if (draggingIdRef.current === topic.id) {
+                  endDrag(topic.id);
+                }
               }}
               onPointerMove={(event) => {
                 if (draggingIdRef.current === topic.id) {
@@ -220,8 +271,7 @@ export default function ResearchWordGraph() {
               }}
               onPointerUp={(event) => {
                 event.currentTarget.releasePointerCapture(event.pointerId);
-                draggingIdRef.current = null;
-                setDraggingId(null);
+                endDrag(topic.id);
               }}
               style={{ left: `${position.x}%`, top: `${position.y}%` }}
               type="button"
