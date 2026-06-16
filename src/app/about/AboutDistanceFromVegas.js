@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
-import worldMap from "@svg-maps/world";
 
 const mapboxToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
@@ -264,26 +263,29 @@ export default function AboutDistanceFromVegas() {
   ), [visitorLocation]);
 
   useEffect(() => {
-    if (!mapboxToken || !mapNodeRef.current || !visitorLocation) return undefined;
+    const showHomeFallback = status === "unavailable";
+
+    if (!mapboxToken || !mapNodeRef.current || (!visitorLocation && !showHomeFallback)) return undefined;
 
     mapboxgl.accessToken = mapboxToken;
 
-    const visitorCenter = [visitorLocation.longitude, visitorLocation.latitude];
+    const hasVisitorLocation = Boolean(visitorLocation);
+    const visitorCenter = hasVisitorLocation ? [visitorLocation.longitude, visitorLocation.latitude] : null;
     const vegasCenter = [lasVegas.longitude, lasVegas.latitude];
-    const overviewCenter = midpoint(visitorLocation, lasVegas);
-    const finalZoom = overviewZoomForDistance(haversineKilometers(visitorLocation, lasVegas));
-    const fullRoute = routeCoordinates(visitorLocation, lasVegas);
+    const overviewCenter = hasVisitorLocation ? midpoint(visitorLocation, lasVegas) : vegasCenter;
+    const finalZoom = hasVisitorLocation ? overviewZoomForDistance(haversineKilometers(visitorLocation, lasVegas)) : 1.35;
+    const fullRoute = hasVisitorLocation ? routeCoordinates(visitorLocation, lasVegas) : [];
 
     const map = new mapboxgl.Map({
-      center: visitorCenter,
+      center: hasVisitorLocation ? visitorCenter : vegasCenter,
       container: mapNodeRef.current,
       dragPan: false,
       interactive: false,
-      pitch: 58,
+      pitch: hasVisitorLocation ? 58 : 0,
       projection: "globe",
       scrollZoom: false,
       style: "mapbox://styles/mapbox/dark-v11",
-      zoom: 10.8
+      zoom: hasVisitorLocation ? 10.8 : finalZoom
     });
 
     mapRef.current = map;
@@ -300,6 +302,25 @@ export default function AboutDistanceFromVegas() {
 
     map.on("load", () => {
       setMapStatus("ready");
+
+      const vegasMarker = new mapboxgl.Marker({
+        anchor: "bottom",
+        element: makeMarker({
+          className: hasVisitorLocation ? "distance-map-marker vegas avatar" : "distance-map-marker vegas avatar searching",
+          imageSrc: hasVisitorLocation ? lasVegasAvatarSrc : lasVegasSearchingAvatarSrc
+        })
+      })
+        .setLngLat(vegasCenter);
+
+      if (!hasVisitorLocation) {
+        vegasMarker.addTo(map);
+
+        map.once("remove", () => {
+          vegasMarker.remove();
+        });
+
+        return;
+      }
 
       map.addSource("mana-route", {
         type: "geojson",
@@ -382,15 +403,6 @@ export default function AboutDistanceFromVegas() {
         }
       });
 
-      const vegasMarker = new mapboxgl.Marker({
-        anchor: "bottom",
-        element: makeMarker({
-          className: "distance-map-marker vegas avatar",
-          imageSrc: lasVegasAvatarSrc
-        })
-      })
-        .setLngLat(vegasCenter);
-
       timeoutRefs.current.push(window.setTimeout(() => {
         map.flyTo({
           bearing: -8,
@@ -440,7 +452,7 @@ export default function AboutDistanceFromVegas() {
       map.remove();
       mapRef.current = null;
     };
-  }, [visitorLocation]);
+  }, [status, visitorLocation]);
 
   return (
     <section className="about-distance-card" data-map-status={mapStatus} data-status={status} aria-labelledby="about-distance-title">
@@ -448,21 +460,7 @@ export default function AboutDistanceFromVegas() {
         <div className="distance-mapbox-canvas" ref={mapNodeRef} />
         {mapStatus !== "ready" ? (
           <div className="distance-map-fallback">
-            {mapStatus === "no-location" ? (
-              <div className="distance-search-fallback">
-                <div className="distance-search-globe">
-                  <svg className="distance-search-world-map" viewBox={worldMap.viewBox} aria-hidden="true">
-                    {worldMap.locations.map((location) => (
-                      <path d={location.path} key={location.id} />
-                    ))}
-                  </svg>
-                  <span className="distance-search-vegas-dot" />
-                  <img src={lasVegasSearchingAvatarSrc} alt="" />
-                </div>
-              </div>
-            ) : (
-              mapStatus === "missing-token" ? "Mapbox token missing" : "Loading globe"
-            )}
+            {mapStatus === "missing-token" ? "Mapbox token missing" : "Loading globe"}
           </div>
         ) : null}
       </div>

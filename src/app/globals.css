@@ -2666,6 +2666,11 @@ h3 {
   -webkit-user-select: none;
 }
 
+.distance-map-marker.avatar.searching {
+  width: clamp(1.3rem, 2.65vw, 2rem);
+  height: clamp(2.65rem, 4.65vw, 3.9rem);
+}
+
 .distance-value {
   color: var(--green);
   font-weight: 950;
