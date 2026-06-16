@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
+import worldMap from "@svg-maps/world";
 
 const mapboxToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
@@ -13,7 +14,8 @@ const lasVegas = {
   longitude: -115.1391
 };
 
-const lasVegasAvatarSrc = "/assets/images/bitmoji_casual_marker.png";
+const lasVegasAvatarSrc = "/assets/images/bitmoji_waving_marker.png";
+const lasVegasSearchingAvatarSrc = "/assets/images/bitmoji_searching_marker.png";
 
 const lookupServices = [
   {
@@ -446,7 +448,21 @@ export default function AboutDistanceFromVegas() {
         <div className="distance-mapbox-canvas" ref={mapNodeRef} />
         {mapStatus !== "ready" ? (
           <div className="distance-map-fallback">
-            {mapStatus === "missing-token" ? "Mapbox token missing" : mapStatus === "no-location" ? "Location unavailable" : "Loading globe"}
+            {mapStatus === "no-location" ? (
+              <div className="distance-search-fallback">
+                <div className="distance-search-globe">
+                  <svg className="distance-search-world-map" viewBox={worldMap.viewBox} aria-hidden="true">
+                    {worldMap.locations.map((location) => (
+                      <path d={location.path} key={location.id} />
+                    ))}
+                  </svg>
+                  <span className="distance-search-vegas-dot" />
+                  <img src={lasVegasSearchingAvatarSrc} alt="" />
+                </div>
+              </div>
+            ) : (
+              mapStatus === "missing-token" ? "Mapbox token missing" : "Loading globe"
+            )}
           </div>
         ) : null}
       </div>
@@ -460,7 +476,7 @@ export default function AboutDistanceFromVegas() {
         ) : status === "loading" ? (
           <p>Checking how far Las Vegas is from your current location...</p>
         ) : (
-          <p>Your current location could not be estimated, but Las Vegas is still home base.</p>
+          <p>I couldn&apos;t find you based on your IP address, but I am looking for you from home.</p>
         )}
       </div>
     </section>

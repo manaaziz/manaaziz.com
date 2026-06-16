@@ -23,23 +23,125 @@ const collaborations = [
     drilldown: true,
     work: [
       card({
+        name: "UNLV hospitality analytics courses",
+        type: "Teaching",
+        blurb: "Taught and supported applied statistics, analytics, and hospitality coursework.",
+        href: "/teaching",
+        logo: "/assets/logos/unlvhospitality_logo.jpeg"
+      }),
+      card({
         name: "International Gaming Institute",
         type: "Research",
-        blurb: "Worked on applied gaming research connecting data, operations, and responsible innovation.",
+        blurb: "Worked on gaming research at the intersection of data, operations, and policy.",
         href: "/research",
         logo: "/assets/logos/unlv_igi_logo.jpeg"
       }),
       card({
         name: "Wynn Las Vegas",
         type: "Consulting",
-        blurb: "Supported casino and hospitality analytics work for operator-facing decisions.",
+        blurb: "Supported analytics work tied to casino and hospitality operations.",
         logo: "/assets/logos/Wynn_Las_Vegas_logo.svg.png"
+      }),
+      card({
+        name: "Encore",
+        type: "Consulting",
+        blurb: "Worked with operator context for premium resort and gaming decisions.",
+        logo: "/assets/logos/Wynn_Las_Vegas_logo.svg.png"
+      }),
+      card({
+        name: "WDTS",
+        type: "Consulting",
+        blurb: "Explored gaming technology and data questions connected to operator workflows.",
+        logo: "/assets/logos/wdts_logo.png"
+      }),
+      card({
+        name: "AXES",
+        type: "Research",
+        blurb: "Connected casino payments and player behavior data to applied analytics questions.",
+        logo: "/assets/logos/axes_logo.png"
+      }),
+      card({
+        name: "International Conference on Gambling & Risk Taking",
+        type: "Research",
+        blurb: "Presented work on baccarat luck quantification and declined gambling payment transactions in Las Vegas.",
+        href: "/research",
+        logo: "/assets/logos/gambling_risk_taking_logo.jpg"
+      }),
+      card({
+        name: "ICRG Conference on Gambling and Addiction",
+        type: "Research",
+        blurb: "Presented work on interpretable gambler clusters and slot-machine player clustering in Las Vegas.",
+        href: "/research",
+        logo: "/assets/logos/icrg_conference.png"
+      }),
+      card({
+        name: "GLI Regulator Roundtable",
+        type: "Research",
+        blurb: "Presented research characterizing UK online gamblers exceeding financial risk thresholds.",
+        href: "/research",
+        logo: "/assets/logos/gli_regulator_roundtable.png"
+      }),
+      card({
+        name: "UNLV research forums",
+        type: "Research",
+        blurb: "Presented open science in hospitality, teaching statistics in hospitality, and booking cancellation research.",
+        href: "/research",
+        logo: "/assets/logos/unlvhospitality_logo.jpeg"
+      }),
+      card({
+        name: "Casino Miami",
+        type: "Consulting",
+        blurb: "Supported casino and hospitality consulting context connected to South Florida operations.",
+        logo: "/assets/logos/casino_miami_logo.png"
+      }),
+      card({
+        name: "Graduate Education & Graduate Student Research Conference",
+        type: "Research",
+        blurb: "Presented a scoping review on how hotel customers feel about AI service technologies in Miami.",
+        href: "/research"
+      }),
+      card({
+        name: "RevME Hospitality Management and Analytics Conference",
+        type: "Research",
+        blurb: "Presented machine learning prediction of hotel room demand in Nashville.",
+        href: "/research",
+        logo: "/assets/logos/revme_conf_logo.png"
+      }),
+      card({
+        name: "Belmont University",
+        type: "Teaching",
+        blurb: "Delivered invited talks to Belmont students and professors about data, AI, and applied analytics.",
+        href: "/teaching",
+        logo: "/assets/logos/belmont_university_logo.png"
       }),
       card({
         name: "GMA Consulting",
         type: "Consulting",
         blurb: "Supported Denver-based consulting work translating casino data into operational recommendations.",
         logo: "/assets/logos/gma_logo.png.webp"
+      }),
+      card({
+        name: "Bally's Atlantic City",
+        type: "Consulting",
+        blurb: "Supported casino and hospitality consulting context connected to Atlantic City operations.",
+        logo: "/assets/logos/ballys_corporation_logo.svg"
+      }),
+      card({
+        name: "Machine learning",
+        type: "Research",
+        blurb: "Applied predictive models to casino, hotel, and guest behavior problems."
+      }),
+      card({
+        name: "Master's degree",
+        type: "Education",
+        blurb: "Earned a master's degree in North Carolina before continuing into doctoral research and applied analytics.",
+        logo: "/assets/logos/nc_state_logo.svg"
+      }),
+      card({
+        name: "Student statistical consultant",
+        type: "Consulting",
+        blurb: "Served as a student statistical consultant, supporting applied quantitative research and analysis projects.",
+        logo: "/assets/logos/nc_state_logo.svg"
       })
     ]
   },
@@ -79,7 +181,8 @@ const collaborations = [
         name: "Breda University of Applied Sciences",
         type: "Teaching",
         blurb: "Visited as an invited guest connected to hospitality, tourism, gaming, and applied research conversations.",
-        href: "https://pure.buas.nl/en/activities/mana-azizsoltani/"
+        href: "https://pure.buas.nl/en/activities/mana-azizsoltani/",
+        logo: "/assets/logos/buas_logo.png"
       })
     ]
   },
@@ -118,7 +221,7 @@ const collaborations = [
     work: [
       card({
         name: "Department of Trust",
-        type: "Consulting",
+        type: "Research",
         blurb: "Explored trust, compliance, and gaming-related analytics questions.",
         logo: "/assets/logos/department_trust_logo.jpeg"
       }),
@@ -218,7 +321,8 @@ const collaborations = [
       card({
         name: "University of Buenos Aires",
         type: "Teaching",
-        blurb: "Visited as an invited guest for international academic exchange and applied analytics conversation."
+        blurb: "Visited as an invited guest for international academic exchange and applied analytics conversation.",
+        logo: "/assets/logos/uba_logo.svg"
       })
     ]
   },
@@ -669,8 +773,7 @@ const usStates = [
         name: "Graduate Education & Graduate Student Research Conference",
         type: "Research",
         blurb: "Presented a scoping review on how hotel customers feel about AI service technologies in Miami.",
-        href: "/research",
-        logo: "/assets/logos/IER_Logotype_RGB.png"
+        href: "/research"
       })
     ],
     state: "Florida"
@@ -738,18 +841,14 @@ const usStates = [
       card({
         name: "Master's degree",
         type: "Education",
-        blurb: "Earned a master's degree in North Carolina before continuing into doctoral research and applied analytics."
+        blurb: "Earned a master's degree in North Carolina before continuing into doctoral research and applied analytics.",
+        logo: "/assets/logos/nc_state_logo.svg"
       }),
       card({
         name: "Student statistical consultant",
         type: "Consulting",
-        blurb: "Served as a student statistical consultant, supporting applied quantitative research and analysis projects."
-      }),
-      card({
-        name: "Teaching",
-        type: "Teaching",
-        blurb: "Helped students build confidence with statistics, R, and applied data analysis.",
-        href: "/teaching"
+        blurb: "Served as a student statistical consultant, supporting applied quantitative research and analysis projects.",
+        logo: "/assets/logos/nc_state_logo.svg"
       })
     ],
     state: "North Carolina"
@@ -862,6 +961,15 @@ export default function GlobalExperienceMap() {
       setActiveId("");
     }
     setMapMode("region");
+  }
+
+  function selectWorkItem(item, index) {
+    if (mapMode === "regions" && item.countryId) {
+      openCountry(item.countryId);
+      return;
+    }
+
+    setSelectedWorkIndex(index);
   }
 
   function backToRegionMap() {
@@ -1064,7 +1172,7 @@ export default function GlobalExperienceMap() {
                     <button
                       className="collaboration-tile"
                       key={`${active.id}-${item.name}`}
-                      onClick={() => setSelectedWorkIndex(index)}
+                      onClick={() => selectWorkItem(item, index)}
                       style={{ "--tile-index": index }}
                       type="button"
                     >
