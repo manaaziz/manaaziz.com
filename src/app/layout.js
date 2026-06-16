@@ -40,7 +40,7 @@ const footerGroups = [
     links: [
       { href: "/about", label: "About Mana" },
       { href: "/blog", label: "Blog" },
-      { href: "mailto:azizsm1@unlv.nevada.edu", label: "Contact" }
+      { href: "mailto:manaazizsoltani@gmail.com", label: "Contact" }
     ]
   }
 ];

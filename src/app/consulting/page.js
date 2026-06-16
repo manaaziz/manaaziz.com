@@ -86,7 +86,7 @@ export default function ConsultingPage() {
           I help casino and hospitality teams turn data science, forecasting, machine learning, and AI into clearer decisions across marketing, surveillance, and operational optimization.
         </p>
         <div className="button-row">
-          <a className="button" href="mailto:azizsm1@unlv.nevada.edu">
+          <a className="button" href="mailto:manaazizsoltani@gmail.com">
             Start a conversation
           </a>
           <Link className="button" href="/about">

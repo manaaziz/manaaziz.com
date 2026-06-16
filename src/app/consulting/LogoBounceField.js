@@ -22,10 +22,10 @@ export default function LogoBounceField({ clients }) {
     function buildBodies() {
       const bounds = arena.getBoundingClientRect();
       bodiesRef.current = logoRefs.current.map((node, index) => {
-        const width = node?.offsetWidth || 112;
-        const height = node?.offsetHeight || 78;
+        const width = node?.offsetWidth || 92;
+        const height = node?.offsetHeight || 56;
         const angle = (index * 79 + 23) * (Math.PI / 180);
-        const speed = 18 + (index % 4) * 2.5;
+        const speed = 42 + (index % 5) * 4;
         const maxX = Math.max(0, bounds.width - width);
         const maxY = Math.max(0, bounds.height - height);
         const x = (maxX * ((index * 37) % 100)) / 100;
@@ -33,6 +33,7 @@ export default function LogoBounceField({ clients }) {
 
         return {
           height,
+          radius: Math.max(width, height) * 0.48,
           spin: index % 2 === 0 ? 1 : -1,
           width,
           wobble: Math.random() * Math.PI * 2,
@@ -46,8 +47,8 @@ export default function LogoBounceField({ clients }) {
 
     function clampSpeed(body) {
       const speed = Math.hypot(body.vx, body.vy);
-      const minSpeed = 12;
-      const maxSpeed = 46;
+      const minSpeed = 34;
+      const maxSpeed = 68;
 
       if (speed < minSpeed) {
         const angle = body.wobble || Math.random() * Math.PI * 2;
@@ -62,40 +63,57 @@ export default function LogoBounceField({ clients }) {
       }
     }
 
-    function resolveCollisions() {
+    function keepInBounds(body, bounds) {
+      body.x = Math.max(0, Math.min(body.x, bounds.width - body.width));
+      body.y = Math.max(0, Math.min(body.y, bounds.height - body.height));
+    }
+
+    function resolveCollisions(bounds) {
       const bodies = bodiesRef.current;
 
       for (let i = 0; i < bodies.length; i += 1) {
         for (let j = i + 1; j < bodies.length; j += 1) {
           const a = bodies[i];
           const b = bodies[j];
-          const overlapX = Math.min(a.x + a.width, b.x + b.width) - Math.max(a.x, b.x);
-          const overlapY = Math.min(a.y + a.height, b.y + b.height) - Math.max(a.y, b.y);
 
-          if (overlapX <= 0 || overlapY <= 0) continue;
+          const ax = a.x + a.width / 2;
+          const ay = a.y + a.height / 2;
+          const bx = b.x + b.width / 2;
+          const by = b.y + b.height / 2;
+          let dx = bx - ax;
+          let dy = by - ay;
+          let distance = Math.hypot(dx, dy);
+          const minDistance = a.radius + b.radius + 10;
 
-          if (overlapX < overlapY) {
-            const direction = a.x < b.x ? -1 : 1;
-            a.x += direction * overlapX * 0.56;
-            b.x -= direction * overlapX * 0.56;
-            const average = Math.max((Math.abs(a.vx) + Math.abs(b.vx)) / 2, 18);
-            a.vx = -direction * average;
-            b.vx = direction * average;
-            a.vy += (Math.random() - 0.5) * 9;
-            b.vy += (Math.random() - 0.5) * 9;
-          } else {
-            const direction = a.y < b.y ? -1 : 1;
-            a.y += direction * overlapY * 0.56;
-            b.y -= direction * overlapY * 0.56;
-            const average = Math.max((Math.abs(a.vy) + Math.abs(b.vy)) / 2, 18);
-            a.vy = -direction * average;
-            b.vy = direction * average;
-            a.vx += (Math.random() - 0.5) * 9;
-            b.vx += (Math.random() - 0.5) * 9;
+          if (distance >= minDistance) continue;
+
+          if (distance < 0.001) {
+            const angle = ((i * 67 + j * 31) % 360) * (Math.PI / 180);
+            dx = Math.cos(angle);
+            dy = Math.sin(angle);
+            distance = 1;
           }
 
-          a.spin *= -1;
-          b.spin *= -1;
+          const nx = dx / distance;
+          const ny = dy / distance;
+          const overlap = minDistance - distance;
+          const separateBy = overlap * 0.52;
+
+          a.x -= nx * separateBy;
+          a.y -= ny * separateBy;
+          b.x += nx * separateBy;
+          b.y += ny * separateBy;
+
+          const relativeSpeed = (b.vx - a.vx) * nx + (b.vy - a.vy) * ny;
+          const impulse = Math.max(0, 24 - relativeSpeed) * 0.42;
+          a.vx -= nx * impulse;
+          a.vy -= ny * impulse;
+          b.vx += nx * impulse;
+          b.vy += ny * impulse;
+          a.spin = nx > 0 ? -1 : 1;
+          b.spin = nx > 0 ? 1 : -1;
+          keepInBounds(a, bounds);
+          keepInBounds(b, bounds);
           clampSpeed(a);
           clampSpeed(b);
         }
@@ -110,10 +128,10 @@ export default function LogoBounceField({ clients }) {
 
       bodiesRef.current.forEach((body, index) => {
         const wiggle = wanderRef.current * (0.9 + index * 0.07) + body.wobble;
-        body.vx += Math.cos(wiggle) * 11 * delta + (Math.random() - 0.5) * 3.2;
-        body.vy += Math.sin(wiggle * 1.13) * 11 * delta + (Math.random() - 0.5) * 3.2;
-        body.vx *= 0.996;
-        body.vy *= 0.996;
+        body.vx += Math.cos(wiggle) * 7 * delta + (Math.random() - 0.5) * 0.28;
+        body.vy += Math.sin(wiggle * 1.13) * 7 * delta + (Math.random() - 0.5) * 0.28;
+        body.vx *= 0.999;
+        body.vy *= 0.999;
         clampSpeed(body);
 
         body.x += body.vx * delta;
@@ -121,30 +139,30 @@ export default function LogoBounceField({ clients }) {
 
         if (body.x <= 0) {
           body.x = 0;
-          body.vx = Math.abs(body.vx) + 4;
-          body.vy += (Math.random() - 0.5) * 10;
+          body.vx = Math.abs(body.vx) + 3;
+          body.vy += (Math.random() - 0.5) * 8;
           body.spin *= -1;
         } else if (body.x + body.width >= bounds.width) {
           body.x = bounds.width - body.width;
-          body.vx = -Math.abs(body.vx) - 4;
-          body.vy += (Math.random() - 0.5) * 10;
+          body.vx = -Math.abs(body.vx) - 3;
+          body.vy += (Math.random() - 0.5) * 8;
           body.spin *= -1;
         }
 
         if (body.y <= 0) {
           body.y = 0;
-          body.vy = Math.abs(body.vy) + 4;
-          body.vx += (Math.random() - 0.5) * 10;
+          body.vy = Math.abs(body.vy) + 3;
+          body.vx += (Math.random() - 0.5) * 8;
           body.spin *= -1;
         } else if (body.y + body.height >= bounds.height) {
           body.y = bounds.height - body.height;
-          body.vy = -Math.abs(body.vy) - 4;
-          body.vx += (Math.random() - 0.5) * 10;
+          body.vy = -Math.abs(body.vy) - 3;
+          body.vx += (Math.random() - 0.5) * 8;
           body.spin *= -1;
         }
       });
 
-      resolveCollisions();
+      resolveCollisions(bounds);
 
       bodiesRef.current.forEach((body, index) => {
         const node = logoRefs.current[index];
@@ -181,7 +199,6 @@ export default function LogoBounceField({ clients }) {
           <div className="consulting-client-logo" aria-label={client.name}>
             {client.logo ? <img src={client.logo} alt="" /> : <strong>{client.name}</strong>}
           </div>
-          <span>{client.name}</span>
         </article>
       ))}
     </div>
