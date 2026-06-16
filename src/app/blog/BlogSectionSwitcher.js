@@ -2,25 +2,14 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { newsItems } from "../news/items";
+import { podcasts } from "../podcast/shows";
 
 const sections = [
   { id: "blog", label: "Blog" },
   { id: "podcasts", label: "Podcasts" },
   { id: "news", label: "In the News" },
   { id: "gallery", label: "Gallery" }
-];
-
-const podcasts = [
-  {
-    title: "The Rebel Revolution",
-    description: "A UNLV-centered show about ideas, people, scholarship, and the work moving through the university.",
-    href: "https://open.spotify.com/show/3HrzYII7QOj8CyYYj19r3o?si=4a3605a137fa4173"
-  },
-  {
-    title: "The Job Forum",
-    description: "A show about college, work, early career transitions, and the stories people carry into their professional lives.",
-    href: "https://open.spotify.com/show/1xfePE5KeTYJFdoz0PDV0T?si=ac2fa720a41943a0"
-  }
 ];
 
 function PostCard({ post, featured = false }) {
@@ -90,28 +79,22 @@ export default function BlogSectionSwitcher({ posts }) {
 
             <section
               aria-labelledby="blog-tab-podcasts"
-              className="blog-switcher-panel split"
+              className="blog-switcher-panel podcasts"
               id="blog-panel-podcasts"
               role="tabpanel"
             >
-              <article className="blog-text-panel">
-                <span>Podcasts</span>
-                <h2>Two shows, two kinds of conversation</h2>
-                <p>
-                  The podcast archive is focused on The Rebel Revolution and The Job Forum, with both shows available on Spotify.
-                </p>
-                <Link className="button" href="/podcast">
-                  Open podcast page
-                </Link>
-              </article>
+              <div className="blog-podcast-heading">
+                <p className="eyebrow">Podcasts</p>
+                <h2>Two shows</h2>
+              </div>
               <div className="blog-podcast-list">
                 {podcasts.map((podcast) => (
-                  <a className="blog-podcast-card" href={podcast.href} key={podcast.title} rel="noreferrer" target="_blank">
-                    <span>Spotify show</span>
+                  <Link className="blog-podcast-card" href={`/podcast/${podcast.slug}`} key={podcast.title}>
+                    <span>{podcast.eyebrow}</span>
                     <h3>{podcast.title}</h3>
                     <p>{podcast.description}</p>
-                    <strong>Listen on Spotify</strong>
-                  </a>
+                    <strong>Open show page</strong>
+                  </Link>
                 ))}
               </div>
             </section>
@@ -124,18 +107,20 @@ export default function BlogSectionSwitcher({ posts }) {
             >
               <article className="blog-text-panel">
                 <span>News</span>
-                <h2>Media mentions and public-facing work</h2>
-                <p>
-                  A future home for interviews, conference coverage, press mentions, and public writing connected to gaming, hospitality, analytics, and education.
-                </p>
+                <h2>In the News</h2>
+                <p>Currently featuring one article on baccarat data and casino operator decision-making.</p>
                 <Link className="button" href="/news">
                   Open news
                 </Link>
               </article>
-              <div className="blog-note-stack" aria-hidden="true">
-                <span>Conference notes</span>
-                <span>Media mentions</span>
-                <span>Public scholarship</span>
+              <div className="blog-news-list">
+                {newsItems.map((item) => (
+                  <a className="blog-news-card" href={item.href} key={item.href} rel="noreferrer" target="_blank">
+                    <span>{item.outlet} · {item.date}</span>
+                    <h3>{item.title}</h3>
+                    <strong>Read article</strong>
+                  </a>
+                ))}
               </div>
             </section>
 

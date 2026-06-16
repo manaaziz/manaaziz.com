@@ -109,10 +109,10 @@ export default function Home() {
               <p>{post.excerpt}</p>
             </Link>
           ))}
-          <Link className="post-list-item home-media-card" href="/podcast">
+          <Link className="post-list-item home-media-card" href="/podcast/the-job-forum">
             <span>Podcast</span>
             <h2>Recent graduates, careers, and the transition into work.</h2>
-            <p>A place for the podcast archive and future media appearances to live alongside the writing.</p>
+            <p>The Job Forum is one of two podcast projects highlighted in the media section.</p>
           </Link>
         </div>
       </section>
