@@ -18,6 +18,7 @@ export default function StudentReviewCarousel({ reviews }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [isSpinning, setIsSpinning] = useState(false);
+  const [chipFlips, setChipFlips] = useState({ previous: 0, next: 0 });
   const spinTimerRef = useRef(null);
   const activeReview = reviews[activeIndex];
 
@@ -76,6 +77,16 @@ export default function StudentReviewCarousel({ reviews }) {
     spinTimerRef.current = window.setTimeout(advance, 38);
   }
 
+  function moveReview(direction) {
+    if (isSpinning) return;
+
+    setChipFlips((current) => ({
+      ...current,
+      [direction]: current[direction] + 1
+    }));
+    controls[direction]();
+  }
+
   const visibleReviews = reelPositions.map(({ offset, position }) => {
     const index = wrapIndex(activeIndex + offset, reviews.length);
     return {
@@ -122,7 +133,15 @@ export default function StudentReviewCarousel({ reviews }) {
         </div>
 
         <div className="student-review-controls" aria-label="Student review controls">
-          <button className="review-arrow previous" onClick={controls.previous} type="button" aria-label="Previous student review">
+          <button
+            className="review-arrow casino-chip previous"
+            data-flips={chipFlips.previous}
+            key={`review-previous-${chipFlips.previous}`}
+            onClick={() => moveReview("previous")}
+            type="button"
+            aria-label="Previous student review"
+          >
+            <img className="casino-chip-face" src="/assets/images/black_casino_chip.png" alt="" aria-hidden="true" />
             <span aria-hidden="true">←</span>
           </button>
           <div className="review-dots" aria-label={`Review ${activeIndex + 1} of ${reviews.length}`}>
@@ -138,7 +157,15 @@ export default function StudentReviewCarousel({ reviews }) {
               />
             ))}
           </div>
-          <button className="review-arrow next" onClick={controls.next} type="button" aria-label="Next student review">
+          <button
+            className="review-arrow casino-chip next"
+            data-flips={chipFlips.next}
+            key={`review-next-${chipFlips.next}`}
+            onClick={() => moveReview("next")}
+            type="button"
+            aria-label="Next student review"
+          >
+            <img className="casino-chip-face" src="/assets/images/black_casino_chip.png" alt="" aria-hidden="true" />
             <span aria-hidden="true">→</span>
           </button>
           <button className="review-spin-button" disabled={isSpinning} onClick={spinReel} type="button">

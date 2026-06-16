@@ -65,7 +65,7 @@ export default function TeachingPage() {
               <span>{course.label}</span>
               <h3>{course.title}</h3>
               <p>{course.summary}</p>
-              <strong>View course</strong>
+              <strong>Open course home</strong>
             </Link>
           ))}
         </div>

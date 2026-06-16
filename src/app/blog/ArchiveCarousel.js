@@ -12,6 +12,7 @@ function wrapIndex(index, length) {
 export default function ArchiveCarousel({ posts }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [chipFlips, setChipFlips] = useState({ previous: 0, next: 0 });
   const visiblePosts = useMemo(() => (
     visibleOffsets.map((offset) => ({
       offset,
@@ -33,6 +34,14 @@ export default function ArchiveCarousel({ posts }) {
     setActiveIndex(wrapIndex(nextIndex, posts.length));
   }
 
+  function movePost(direction) {
+    setChipFlips((current) => ({
+      ...current,
+      [direction]: current[direction] + 1
+    }));
+    goToPost(direction === "previous" ? activeIndex - 1 : activeIndex + 1);
+  }
+
   return (
     <section
       className="archive-carousel blog-panel-carousel"
@@ -46,12 +55,28 @@ export default function ArchiveCarousel({ posts }) {
           <h2 id="archive-carousel-title">Browse recent posts</h2>
         </div>
         <div className="archive-carousel-controls" aria-label="Archive carousel controls">
-          <button onClick={() => goToPost(activeIndex - 1)} type="button" aria-label="Previous post">
-            ←
+          <button
+            className="casino-chip previous"
+            data-flips={chipFlips.previous}
+            key={`archive-previous-${chipFlips.previous}`}
+            onClick={() => movePost("previous")}
+            type="button"
+            aria-label="Previous post"
+          >
+            <img className="casino-chip-face" src="/assets/images/black_casino_chip.png" alt="" aria-hidden="true" />
+            <span aria-hidden="true">←</span>
           </button>
           <span>{activeIndex + 1} / {posts.length}</span>
-          <button onClick={() => goToPost(activeIndex + 1)} type="button" aria-label="Next post">
-            →
+          <button
+            className="casino-chip next"
+            data-flips={chipFlips.next}
+            key={`archive-next-${chipFlips.next}`}
+            onClick={() => movePost("next")}
+            type="button"
+            aria-label="Next post"
+          >
+            <img className="casino-chip-face" src="/assets/images/black_casino_chip.png" alt="" aria-hidden="true" />
+            <span aria-hidden="true">→</span>
           </button>
         </div>
       </div>
