@@ -247,10 +247,6 @@ const conferencePresentations = [
   }
 ];
 
-function presentationTypeLabel(type) {
-  return `${type} presentation`;
-}
-
 export default function ResearchPage() {
   return (
     <main className="page-shell">
@@ -284,10 +280,7 @@ export default function ResearchPage() {
                   <span>{presentation.location}</span>
                 </div>
                 <div className="presentation-photo-copy">
-                  <span className="presentation-type">
-                    {presentationTypeLabel(presentation.type)}
-                  </span>
-                  <h3>{presentation.title}</h3>
+                  <span>{presentation.location}</span>
                   <time>{presentation.date}</time>
                   <p>{presentation.venue}</p>
                   <a href="/blog">Blog post</a>

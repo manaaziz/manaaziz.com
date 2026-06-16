@@ -1,3 +1,5 @@
+import GalleryStack from "@/components/GallerySection";
+
 export const metadata = {
   title: "Gallery"
 };
@@ -41,22 +43,7 @@ export default function GalleryPage() {
         A visual archive from research presentations, teaching, student leadership, travel, wine, hospitality, and community work.
       </p>
 
-      <section className="gallery-stack">
-        {galleries.map((gallery) => (
-          <article className="gallery-section" key={gallery.title}>
-            <div>
-              <span>{gallery.title}</span>
-              <h2>{gallery.title}</h2>
-              <p>{gallery.body}</p>
-            </div>
-            <div className="gallery-strip">
-              {gallery.images.map((image) => (
-                <img src={image} alt="" key={image} />
-              ))}
-            </div>
-          </article>
-        ))}
-      </section>
+      <GalleryStack galleries={galleries} />
     </main>
   );
 }

@@ -784,14 +784,16 @@ h3 {
   inset: auto 0 0;
   z-index: 2;
   display: grid;
-  gap: 0.48rem;
-  padding: 1rem;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.42rem 0.65rem;
+  align-items: center;
+  padding: 0.72rem 0.78rem;
   background:
-    linear-gradient(180deg, transparent, rgba(23, 23, 23, 0.88) 18%),
-    rgba(23, 23, 23, 0.72);
+    linear-gradient(180deg, transparent, rgba(23, 23, 23, 0.86) 10%),
+    rgba(23, 23, 23, 0.76);
   color: var(--cream);
   opacity: 0;
-  transform: translateY(72%);
+  transform: translateY(100%);
   transition:
     opacity 180ms ease,
     transform 260ms cubic-bezier(0.2, 0.9, 0.32, 1);
@@ -809,11 +811,15 @@ h3 {
   transform: scale(1.035);
 }
 
-.presentation-photo-copy h3 {
-  margin: 0;
+.presentation-photo-copy > span {
+  overflow: hidden;
   color: var(--cream);
-  font-size: clamp(0.86rem, 1.2vw, 1.05rem);
-  line-height: 1.12;
+  font-size: 0.7rem;
+  font-weight: 900;
+  line-height: 1;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .presentation-photo-caption {
@@ -827,28 +833,35 @@ h3 {
 }
 
 .presentation-photo-copy p {
+  grid-column: 1 / -1;
   margin: 0;
   color: rgba(255, 250, 241, 0.82);
-  font-size: 0.92rem;
-  line-height: 1.32;
+  display: -webkit-box;
+  overflow: hidden;
+  font-size: 0.76rem;
+  font-weight: 800;
+  line-height: 1.22;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .presentation-photo-copy time {
   color: rgba(255, 250, 241, 0.74);
-  font-size: 0.82rem;
+  font-size: 0.7rem;
   font-weight: 900;
   text-transform: uppercase;
 }
 
 .presentation-photo-copy a {
+  justify-self: end;
   width: fit-content;
   border: 1px solid rgba(255, 250, 241, 0.56);
   border-radius: 999px;
   color: var(--cream);
-  font-size: 0.72rem;
+  font-size: 0.66rem;
   font-weight: 900;
   line-height: 1;
-  padding: 0.44rem 0.68rem;
+  padding: 0.38rem 0.55rem;
   text-decoration: none;
   text-transform: uppercase;
   transition:
@@ -902,27 +915,6 @@ h3 {
 .presentation-card .case-link {
   grid-column: 2 / 4;
   margin-top: 0;
-}
-
-.presentation-type {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: fit-content;
-  padding: 0.28rem 0.5rem;
-  border: 1px solid rgba(23, 23, 23, 0.15);
-  border-radius: 999px;
-  background: rgba(255, 250, 241, 0.96);
-  color: var(--ink);
-  font-size: 0.62rem;
-  font-weight: 900;
-  line-height: 1;
-  text-transform: uppercase;
-}
-
-.presentation-type.poster {
-  background: rgba(255, 250, 241, 0.96);
-  color: var(--ink);
 }
 
 .article-list {
@@ -992,8 +984,8 @@ h3 {
   transition:
     background 160ms ease,
     box-shadow 160ms ease,
-    left 70ms linear,
-    top 70ms linear,
+    left 360ms cubic-bezier(0.12, 0.86, 0.16, 1),
+    top 360ms cubic-bezier(0.12, 0.86, 0.16, 1),
     transform 180ms var(--ease-out-back);
 }
 
@@ -1030,6 +1022,10 @@ h3 {
     left 0ms linear,
     top 0ms linear,
     transform 120ms ease;
+}
+
+.research-word-node[data-bumped="true"] {
+  animation: research-word-bump 360ms cubic-bezier(0.12, 0.86, 0.16, 1) both;
 }
 
 .paper-mosaic-section {
@@ -3784,6 +3780,24 @@ h3 {
   }
 }
 
+@keyframes research-word-bump {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  26% {
+    transform: translate(-50%, calc(-50% - 0.2rem)) scale(1.075);
+  }
+
+  58% {
+    transform: translate(-50%, calc(-50% - 0.06rem)) scale(1.025);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
 @keyframes paper-focus-flip {
   0% {
     opacity: 0;
@@ -5392,12 +5406,14 @@ h3 {
   text-transform: uppercase;
 }
 
+.standard-gallery-stack,
 .gallery-stack {
   display: grid;
   gap: 1rem;
   margin-top: 2rem;
 }
 
+.standard-gallery-section,
 .gallery-section {
   display: grid;
   grid-template-columns: minmax(0, 0.45fr) minmax(0, 0.55fr);
@@ -5405,12 +5421,14 @@ h3 {
   padding: 1rem;
 }
 
+.standard-gallery-strip,
 .gallery-strip {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.6rem;
 }
 
+.standard-gallery-strip img,
 .gallery-strip img {
   width: 100%;
   aspect-ratio: 1;
