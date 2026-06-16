@@ -2,25 +2,37 @@ export const metadata = {
   title: "Podcast"
 };
 
+const podcasts = [
+  {
+    title: "The Rebel Revolution",
+    description: "A UNLV-centered show about ideas, people, scholarship, and the work moving through the university.",
+    href: "https://open.spotify.com/show/3HrzYII7QOj8CyYYj19r3o?si=4a3605a137fa4173"
+  },
+  {
+    title: "The Job Forum",
+    description: "A show about college, work, early career transitions, and the stories people carry into their professional lives.",
+    href: "https://open.spotify.com/show/1xfePE5KeTYJFdoz0PDV0T?si=ac2fa720a41943a0"
+  }
+];
+
 export default function PodcastPage() {
   return (
-    <main className="page-shell">
+    <main className="page-shell podcast-page">
       <p className="eyebrow">Podcast</p>
-      <h1>Podcast</h1>
+      <h1>Podcast work</h1>
       <p className="lede">
-        Podcast work has been part of the broader archive, including The Rebel Revolution and The Job Forum. This page is reserved for selected episodes, show notes, and media links.
+        Two audio projects: The Rebel Revolution and The Job Forum. Both shows live on Spotify, with room here for selected episodes, show notes, and future embeds.
       </p>
-      <section className="article-list">
-        <article>
-          <span>The Rebel Revolution</span>
-          <h2>Innovation and scholarship at UNLV</h2>
-          <p>A podcast project highlighting the work, people, and ideas moving through UNLV.</p>
-        </article>
-        <article>
-          <span>The Job Forum</span>
-          <h2>College, work, and early career stories</h2>
-          <p>A show about recent graduates' journeys through college and into the workforce.</p>
-        </article>
+
+      <section className="podcast-show-grid" aria-label="Podcast shows">
+        {podcasts.map((podcast) => (
+          <a className="podcast-show-card" href={podcast.href} key={podcast.title} rel="noreferrer" target="_blank">
+            <span>Spotify show</span>
+            <h2>{podcast.title}</h2>
+            <p>{podcast.description}</p>
+            <strong>Listen on Spotify</strong>
+          </a>
+        ))}
       </section>
     </main>
   );

@@ -4,10 +4,23 @@ import Link from "next/link";
 import { useState } from "react";
 
 const sections = [
-  { id: "writing", label: "Writing" },
-  { id: "series", label: "Series" },
-  { id: "podcast", label: "Podcast" },
-  { id: "news", label: "In the News" }
+  { id: "blog", label: "Blog" },
+  { id: "podcasts", label: "Podcasts" },
+  { id: "news", label: "In the News" },
+  { id: "gallery", label: "Gallery" }
+];
+
+const podcasts = [
+  {
+    title: "The Rebel Revolution",
+    description: "A UNLV-centered show about ideas, people, scholarship, and the work moving through the university.",
+    href: "https://open.spotify.com/show/3HrzYII7QOj8CyYYj19r3o?si=4a3605a137fa4173"
+  },
+  {
+    title: "The Job Forum",
+    description: "A show about college, work, early career transitions, and the stories people carry into their professional lives.",
+    href: "https://open.spotify.com/show/1xfePE5KeTYJFdoz0PDV0T?si=ac2fa720a41943a0"
+  }
 ];
 
 function PostCard({ post, featured = false }) {
@@ -23,7 +36,7 @@ function PostCard({ post, featured = false }) {
   );
 }
 
-export default function BlogSectionSwitcher({ posts, series }) {
+export default function BlogSectionSwitcher({ posts }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const activeSection = sections[activeIndex];
   const featuredPost = posts[0];
@@ -32,13 +45,8 @@ export default function BlogSectionSwitcher({ posts, series }) {
   return (
     <section className="blog-desk" aria-labelledby="blog-desk-title">
       <div className="blog-desk-topline">
-        <div>
-          <p className="eyebrow">Media desk</p>
-          <h1 id="blog-desk-title">Writing, field notes, and public work</h1>
-        </div>
-        <p>
-          A cleaner home for essays, travel archives, podcast work, media mentions, and the professional life around hospitality, gaming, analytics, research, and teaching.
-        </p>
+        <p className="eyebrow">Media</p>
+        <h1 id="blog-desk-title">Media</h1>
       </div>
 
       <div
@@ -48,7 +56,7 @@ export default function BlogSectionSwitcher({ posts, series }) {
           "--section-count": sections.length
         }}
       >
-        <div className="blog-switcher-bar" role="tablist" aria-label="Blog sections">
+        <div className="blog-switcher-bar" role="tablist" aria-label="Media sections">
           {sections.map((section, index) => (
             <button
               aria-controls={`blog-panel-${section.id}`}
@@ -67,9 +75,9 @@ export default function BlogSectionSwitcher({ posts, series }) {
         <div className="blog-switcher-window">
           <div className="blog-switcher-track">
             <section
-              aria-labelledby="blog-tab-writing"
+              aria-labelledby="blog-tab-blog"
               className="blog-switcher-panel writing"
-              id="blog-panel-writing"
+              id="blog-panel-blog"
               role="tabpanel"
             >
               {featuredPost ? <PostCard post={featuredPost} featured /> : null}
@@ -81,45 +89,30 @@ export default function BlogSectionSwitcher({ posts, series }) {
             </section>
 
             <section
-              aria-labelledby="blog-tab-series"
-              className="blog-switcher-panel"
-              id="blog-panel-series"
-              role="tabpanel"
-            >
-              <div className="blog-series-clean-grid">
-                {series.map((item) => (
-                  <Link className="blog-series-clean-card" href={`/blog/${item.seriesSlug}`} key={item.title}>
-                    <img src={item.cover} alt="" />
-                    <div>
-                      <span>{item.posts.length} posts</span>
-                      <h3>{item.title}</h3>
-                      <p>{item.description}</p>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </section>
-
-            <section
-              aria-labelledby="blog-tab-podcast"
+              aria-labelledby="blog-tab-podcasts"
               className="blog-switcher-panel split"
-              id="blog-panel-podcast"
+              id="blog-panel-podcasts"
               role="tabpanel"
             >
               <article className="blog-text-panel">
-                <span>Podcast</span>
-                <h2>Recent graduates, real transitions</h2>
+                <span>Podcasts</span>
+                <h2>Two shows, two kinds of conversation</h2>
                 <p>
-                  A home for conversations about school, work, identity, hospitality, and the weird middle space between being a student and becoming a professional.
+                  The podcast archive is focused on The Rebel Revolution and The Job Forum, with both shows available on Spotify.
                 </p>
                 <Link className="button" href="/podcast">
-                  Open podcast
+                  Open podcast page
                 </Link>
               </article>
-              <div className="blog-note-stack" aria-hidden="true">
-                <span>Interviews</span>
-                <span>Career stories</span>
-                <span>Audio archive</span>
+              <div className="blog-podcast-list">
+                {podcasts.map((podcast) => (
+                  <a className="blog-podcast-card" href={podcast.href} key={podcast.title} rel="noreferrer" target="_blank">
+                    <span>Spotify show</span>
+                    <h3>{podcast.title}</h3>
+                    <p>{podcast.description}</p>
+                    <strong>Listen on Spotify</strong>
+                  </a>
+                ))}
               </div>
             </section>
 
@@ -143,6 +136,29 @@ export default function BlogSectionSwitcher({ posts, series }) {
                 <span>Conference notes</span>
                 <span>Media mentions</span>
                 <span>Public scholarship</span>
+              </div>
+            </section>
+
+            <section
+              aria-labelledby="blog-tab-gallery"
+              className="blog-switcher-panel split"
+              id="blog-panel-gallery"
+              role="tabpanel"
+            >
+              <article className="blog-text-panel">
+                <span>Gallery</span>
+                <h2>Visual archive</h2>
+                <p>
+                  A visual home for research presentations, teaching, student leadership, travel, wine, hospitality, and community work.
+                </p>
+                <Link className="button" href="/gallery">
+                  Open gallery
+                </Link>
+              </article>
+              <div className="blog-note-stack" aria-hidden="true">
+                <span>Research</span>
+                <span>Teaching</span>
+                <span>Travel</span>
               </div>
             </section>
           </div>

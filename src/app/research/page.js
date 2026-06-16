@@ -12,7 +12,7 @@ const papers = [
     venue: "Public Health",
     year: "2026",
     doi: "10.1016/j.puhe.2025.106080",
-    blogHref: "/blog",
+    blogHref: "/media",
     blurb: "A retrospective analysis of open banking data to understand financial risk signals among online gamblers.",
     detail: "This paper studies online gamblers who exceed financial risk thresholds using open banking data. It connects gambling behavior, financial signals, and public-health-oriented risk identification."
   },
@@ -22,7 +22,7 @@ const papers = [
     venue: "European Journal of Tourism, Hospitality and Recreation",
     year: "2025",
     doi: "10.2478/ejthr-2025-0022",
-    blogHref: "/blog",
+    blogHref: "/media",
     blurb: "A review of how machine learning methods are used across hotel revenue management research.",
     detail: "This systematic review maps how machine learning has been used in hotel revenue management. It highlights model families, common prediction tasks, and gaps for future hospitality analytics research."
   },
@@ -32,7 +32,7 @@ const papers = [
     venue: "Journal of Gambling Studies",
     year: "2025",
     doi: "10.1007/s10899-025-10419-6",
-    blogHref: "/blog",
+    blogHref: "/media",
     blurb: "An open banking view of gambling behavior, spending patterns, and risk-relevant financial activity.",
     detail: "This study uses open banking data to characterize gambling activity through a financial lens. It helps connect player behavior, spending patterns, and broader questions about gambling-related harm."
   },
@@ -42,7 +42,7 @@ const papers = [
     venue: "International Gambling Studies",
     year: "2025",
     doi: "10.1080/14459795.2025.2529177",
-    blogHref: "/blog",
+    blogHref: "/media",
     blurb: "A measurement study testing whether the PGSI behaves consistently across sociodemographics and gambling modalities.",
     detail: "This paper evaluates whether the Problem Gambling Severity Index measures the same construct across different groups and gambling modalities. The work is about making sure comparisons across people are statistically defensible."
   },
@@ -52,7 +52,7 @@ const papers = [
     venue: "Engineering Applications of Artificial Intelligence",
     year: "2025",
     doi: "10.1016/j.engappai.2025.110664",
-    blogHref: "/blog",
+    blogHref: "/media",
     blurb: "A study of efficient perturbation-based explanations for machine learning models.",
     detail: "This paper contributes to explainable AI by studying efficient perturbation-based explanations. The focus is on making complex machine learning predictions more interpretable without unnecessary computational cost."
   },
@@ -62,7 +62,7 @@ const papers = [
     venue: "IEEE Access",
     year: "2025",
     doi: "10.1109/ACCESS.2025.3536094",
-    blogHref: "/blog",
+    blogHref: "/media",
     blurb: "An interpretable machine learning approach to forecasting hotel booking cancellations.",
     detail: "This paper applies machine learning to predict hotel booking cancellations while keeping model interpretation central. It sits at the intersection of forecasting, hospitality operations, and practical decision support."
   },
@@ -71,7 +71,7 @@ const papers = [
     status: "Under review",
     venue: "Journal of Hospitality and Tourism Technology",
     year: "2025",
-    blogHref: "/blog",
+    blogHref: "/media",
     blurb: "A forecasting study using stacked generalization and explainable methods for hotel occupancy.",
     detail: "This project studies hotel occupancy forecasting using stacked generalization. It emphasizes predictive accuracy while using explainability tools to make the forecasts more useful for hospitality managers."
   },
@@ -80,7 +80,7 @@ const papers = [
     status: "Published",
     venue: "Acta Psychologica",
     year: "2025",
-    blogHref: "/blog",
+    blogHref: "/media",
     blurb: "An unsupervised learning project identifying behaviorally meaningful gambler clusters.",
     detail: "This study uses unsupervised learning to identify behavioral clusters among gamblers. The goal is to find interpretable subgroups that can support research on gambling behavior and risk."
   },
@@ -89,7 +89,7 @@ const papers = [
     status: "Under review",
     venue: "Journal of Hospitality and Tourism Education",
     year: "2025",
-    blogHref: "/blog",
+    blogHref: "/media",
     blurb: "A conceptual paper about teaching statistics in hospitality contexts.",
     detail: "This conceptual paper focuses on how statistics can be taught more effectively to hospitality students. It frames quantitative education around usefulness, confidence, and discipline-specific examples."
   }
@@ -280,10 +280,11 @@ export default function ResearchPage() {
                   <span>{presentation.location}</span>
                 </div>
                 <div className="presentation-photo-copy">
-                  <span>{presentation.location}</span>
-                  <time>{presentation.date}</time>
+                  <div className="presentation-hover-meta">
+                    <span>{presentation.location}</span>
+                    <time>{presentation.date}</time>
+                  </div>
                   <p>{presentation.venue}</p>
-                  <a href="/blog">Blog post</a>
                 </div>
               </div>
               <div className="presentation-photo-caption">

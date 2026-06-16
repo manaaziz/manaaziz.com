@@ -88,7 +88,7 @@ export default function PaperMosaic({ papers }) {
               ) : null}
               {paper.blogHref ? (
                 <a href={paper.blogHref}>
-                  Blog
+                  Media
                 </a>
               ) : null}
             </div>
@@ -123,7 +123,7 @@ export default function PaperMosaic({ papers }) {
               ) : null}
               {activePaper.blogHref ? (
                 <a className="button paper-focus-button" href={activePaper.blogHref}>
-                  Blog post
+                  Media
                 </a>
               ) : null}
             </div>

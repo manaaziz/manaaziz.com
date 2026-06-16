@@ -3,10 +3,10 @@ import ArchiveCarousel from "./ArchiveCarousel";
 import BlogSectionSwitcher from "./BlogSectionSwitcher";
 
 export const metadata = {
-  title: "Blog"
+  title: "Media"
 };
 
-export default function BlogPage() {
+export default function MediaPage() {
   const series = getSeriesSummaries();
   const recentPosts = getRecentPosts(12).map((post) => {
     const seriesInfo = series.find((item) => item.seriesSlug === post.seriesSlug);
@@ -16,8 +16,8 @@ export default function BlogPage() {
     };
   });
   return (
-    <main className="blog-page">
-      <BlogSectionSwitcher posts={recentPosts} series={series} />
+    <main className="page-shell blog-page">
+      <BlogSectionSwitcher posts={recentPosts} />
 
       <section className="blog-archive-section" id="blog-archive">
         <ArchiveCarousel posts={recentPosts} />

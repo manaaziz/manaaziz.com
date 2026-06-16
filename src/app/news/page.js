@@ -18,7 +18,7 @@ export default function NewsPage() {
         <p>
           This section is ready for links to articles, interviews, videos, and other public features.
         </p>
-        <Link className="button" href="/blog">
+        <Link className="button" href="/media">
           Back to media hub
         </Link>
       </section>
