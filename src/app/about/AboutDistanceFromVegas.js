@@ -13,6 +13,8 @@ const lasVegas = {
   longitude: -115.1391
 };
 
+const lasVegasAvatarSrc = "/assets/images/bitmoji_casual_marker.png";
+
 const lookupServices = [
   {
     url: "https://ipapi.co/json/",
@@ -116,10 +118,21 @@ function routeCoordinates(origin, destination, steps = 120) {
   return Array.from({ length: steps + 1 }, (_, index) => greatCirclePoint(origin, destination, index / steps));
 }
 
-function makeMarker(className, label) {
+function makeMarker({ className, imageSrc, label }) {
   const marker = document.createElement("div");
   marker.className = className;
-  marker.textContent = label;
+
+  if (imageSrc) {
+    const image = document.createElement("img");
+    image.alt = "";
+    image.decoding = "async";
+    image.draggable = false;
+    image.src = imageSrc;
+    marker.appendChild(image);
+  } else {
+    marker.textContent = label;
+  }
+
   return marker;
 }
 
@@ -313,13 +326,20 @@ export default function AboutDistanceFromVegas() {
       });
 
       const visitorMarker = new mapboxgl.Marker({
-        element: makeMarker("distance-map-marker visitor", "YOU")
+        element: makeMarker({
+          className: "distance-map-marker visitor",
+          label: "YOU"
+        })
       })
         .setLngLat(visitorCenter)
         .addTo(map);
 
       const vegasMarker = new mapboxgl.Marker({
-        element: makeMarker("distance-map-marker vegas", "LV")
+        anchor: "bottom",
+        element: makeMarker({
+          className: "distance-map-marker vegas avatar",
+          imageSrc: lasVegasAvatarSrc
+        })
       })
         .setLngLat(vegasCenter);
 
