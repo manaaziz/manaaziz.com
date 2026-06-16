@@ -7,7 +7,7 @@ const workMix = [
   {
     id: "consulting",
     label: "Consulting",
-    value: 60,
+    value: 70,
     href: "/consulting",
     calloutSide: "right",
     title: "Helping companies leverage data and AI",
@@ -16,7 +16,7 @@ const workMix = [
   {
     id: "research",
     label: "Research",
-    value: 25,
+    value: 15,
     href: "/research",
     calloutSide: "left",
     title: "Data-driven, industry-relevant research",
@@ -41,13 +41,13 @@ export default function WorkMixChart() {
     <section className="work-mix-section" aria-labelledby="work-mix-title">
       <div className="section-intro">
         <p className="eyebrow">Work mix</p>
-        <h2 id="work-mix-title">How my work is currently split</h2>
+        <h2 id="work-mix-title">I am principally a consultant, but am passionate about research and teaching</h2>
       </div>
 
       <div className="work-mix-layout">
         <div className="work-pie-wrap" aria-label="Clickable work mix pie chart">
           <svg className="work-pie-chart" viewBox="0 0 42 42" role="img" aria-labelledby="work-pie-title">
-            <title id="work-pie-title">Consulting 60 percent, research 25 percent, teaching 15 percent</title>
+            <title id="work-pie-title">Consulting 70 percent, research 15 percent, teaching 15 percent</title>
             <circle className="work-pie-base" cx="21" cy="21" r="15.9155" />
             {workMix.map((item, index) => {
               const offset = workMix.slice(0, index).reduce((total, slice) => total + slice.value, 0);

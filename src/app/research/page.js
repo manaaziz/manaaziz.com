@@ -77,7 +77,7 @@ const papers = [
   },
   {
     title: "Interpretable behavioral clusters of gamblers through unsupervised learning",
-    status: "Under review",
+    status: "Published",
     venue: "Acta Psychologica",
     year: "2025",
     blogHref: "/blog",
@@ -248,6 +248,10 @@ const conferencePresentations = [
   }
 ];
 
+function presentationTypeLabel(type) {
+  return `${type} presentation`;
+}
+
 export default function ResearchPage() {
   return (
     <main className="page-shell">
@@ -281,9 +285,10 @@ export default function ResearchPage() {
                   <span>{presentation.location}</span>
                 </div>
                 <div className="presentation-photo-copy">
-                  <span className={presentation.type === "Poster" ? "presentation-type poster" : "presentation-type"}>
-                    {presentation.type}
+                  <span className="presentation-type">
+                    {presentationTypeLabel(presentation.type)}
                   </span>
+                  <h3>{presentation.title}</h3>
                   <time>{presentation.date}</time>
                   <p>{presentation.venue}</p>
                   <a href="/blog">Blog post</a>

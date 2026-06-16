@@ -40,6 +40,7 @@ export default function PaperMosaic({ papers }) {
           <article
             aria-label={`Open details for ${paper.title}`}
             className="paper-tile"
+            data-active={activePaper?.title === paper.title ? "true" : "false"}
             data-size={index % 7 === 0 ? "wide" : index % 5 === 0 ? "tall" : "standard"}
             key={paper.title}
             onClick={() => openPaper(paper)}

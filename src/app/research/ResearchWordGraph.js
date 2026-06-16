@@ -92,6 +92,7 @@ function clamp(value, min, max) {
 
 export default function ResearchWordGraph() {
   const graphRef = useRef(null);
+  const draggingIdRef = useRef(null);
   const [positions, setPositions] = useState(() => (
     Object.fromEntries(topics.map((topic) => [topic.id, { x: topic.x, y: topic.y }]))
   ));
@@ -102,9 +103,15 @@ export default function ResearchWordGraph() {
   ), []);
 
   function repelNearbyNodes(current, id, nextPosition) {
-    const nudgeRadius = 10.5;
-    const collisionRadius = 5.25;
-    const maxNudge = 2.15;
+    const previousDrag = current[id] || nextPosition;
+    const dragVector = {
+      x: nextPosition.x - previousDrag.x,
+      y: nextPosition.y - previousDrag.y
+    };
+    const dragSpeed = Math.min(Math.sqrt(dragVector.x * dragVector.x + dragVector.y * dragVector.y), 8);
+    const nudgeRadius = 18;
+    const collisionRadius = 7.25;
+    const maxNudge = 1.7 + dragSpeed * 0.14;
     const next = {
       ...current,
       [id]: nextPosition
@@ -122,11 +129,12 @@ export default function ResearchWordGraph() {
 
       const proximity = (nudgeRadius - distance) / nudgeRadius;
       const softNudge = proximity * proximity * maxNudge;
-      const collisionTap = distance < collisionRadius ? (collisionRadius - distance) * 0.42 : 0;
+      const collisionTap = distance < collisionRadius ? (collisionRadius - distance) * 0.36 : 0;
+      const movingWake = dragSpeed > 0.15 ? proximity * dragSpeed * 0.08 : 0;
       const push = softNudge + collisionTap;
       next[topic.id] = {
-        x: clamp(position.x + (dx / distance) * push, 8, 92),
-        y: clamp(position.y + (dy / distance) * push, 12, 88)
+        x: clamp(position.x + (dx / distance) * (push + movingWake), 8, 92),
+        y: clamp(position.y + (dy / distance) * (push + movingWake), 12, 88)
       };
     });
 
@@ -140,10 +148,25 @@ export default function ResearchWordGraph() {
     const x = ((event.clientX - bounds.left) / bounds.width) * 100;
     const y = ((event.clientY - bounds.top) / bounds.height) * 100;
 
-    setPositions((current) => repelNearbyNodes(current, id, {
-      x: clamp(x, 8, 92),
-      y: clamp(y, 12, 88)
-    }));
+    setPositions((current) => {
+      const next = repelNearbyNodes(current, id, {
+        x: clamp(x, 8, 92),
+        y: clamp(y, 12, 88)
+      });
+
+      topics.forEach((topic) => {
+        if (topic.id === id) return;
+
+        const position = next[topic.id];
+        const origin = { x: topic.x, y: topic.y };
+        next[topic.id] = {
+          x: clamp(position.x + (origin.x - position.x) * 0.025, 8, 92),
+          y: clamp(position.y + (origin.y - position.y) * 0.025, 12, 88)
+        };
+      });
+
+      return next;
+    });
   }
 
   return (
@@ -182,16 +205,22 @@ export default function ResearchWordGraph() {
               onPointerCancel={() => setDraggingId(null)}
               onPointerDown={(event) => {
                 event.currentTarget.setPointerCapture(event.pointerId);
+                draggingIdRef.current = topic.id;
                 setDraggingId(topic.id);
                 moveTopic(event, topic.id);
               }}
+              onLostPointerCapture={() => {
+                draggingIdRef.current = null;
+                setDraggingId(null);
+              }}
               onPointerMove={(event) => {
-                if (draggingId === topic.id) {
+                if (draggingIdRef.current === topic.id) {
                   moveTopic(event, topic.id);
                 }
               }}
               onPointerUp={(event) => {
                 event.currentTarget.releasePointerCapture(event.pointerId);
+                draggingIdRef.current = null;
                 setDraggingId(null);
               }}
               style={{ left: `${position.x}%`, top: `${position.y}%` }}

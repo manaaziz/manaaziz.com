@@ -147,6 +147,17 @@ function emptyRoute() {
   };
 }
 
+function pointFeature(coordinates) {
+  return {
+    type: "Feature",
+    properties: {},
+    geometry: {
+      type: "Point",
+      coordinates
+    }
+  };
+}
+
 function routeFeature(coordinates) {
   return {
     ...emptyRoute(),
@@ -293,6 +304,50 @@ export default function AboutDistanceFromVegas() {
         data: emptyRoute()
       });
 
+      map.addSource("visitor-point", {
+        type: "geojson",
+        data: pointFeature(visitorCenter)
+      });
+
+      map.addLayer({
+        id: "visitor-point-halo",
+        type: "circle",
+        source: "visitor-point",
+        paint: {
+          "circle-color": "#fffaf1",
+          "circle-opacity": 0.16,
+          "circle-radius": 18,
+          "circle-stroke-color": "rgba(255, 250, 241, 0.22)",
+          "circle-stroke-width": 2
+        }
+      });
+
+      map.addLayer({
+        id: "visitor-point-dot",
+        type: "circle",
+        source: "visitor-point",
+        paint: {
+          "circle-color": "#5f6b78",
+          "circle-radius": 11,
+          "circle-stroke-color": "#fffaf1",
+          "circle-stroke-width": 2
+        }
+      });
+
+      map.addLayer({
+        id: "visitor-point-label",
+        type: "symbol",
+        source: "visitor-point",
+        layout: {
+          "text-field": "YOU",
+          "text-font": ["Open Sans Bold", "Arial Unicode MS Bold"],
+          "text-size": 9
+        },
+        paint: {
+          "text-color": "#fffaf1"
+        }
+      });
+
       map.addLayer({
         id: "mana-route-glow",
         type: "line",
@@ -324,15 +379,6 @@ export default function AboutDistanceFromVegas() {
           "line-width": 3
         }
       });
-
-      const visitorMarker = new mapboxgl.Marker({
-        element: makeMarker({
-          className: "distance-map-marker visitor",
-          label: "YOU"
-        })
-      })
-        .setLngLat(visitorCenter)
-        .addTo(map);
 
       const vegasMarker = new mapboxgl.Marker({
         anchor: "bottom",
@@ -375,7 +421,6 @@ export default function AboutDistanceFromVegas() {
       }, 5250));
 
       map.once("remove", () => {
-        visitorMarker.remove();
         vegasMarker.remove();
       });
     });
@@ -407,11 +452,10 @@ export default function AboutDistanceFromVegas() {
       </div>
 
       <div className="distance-copy">
-        <p className="eyebrow">Location</p>
         <h2 id="about-distance-title">I&apos;m from Las Vegas, Nevada.</h2>
         {status === "ready" ? (
           <p>
-            That is roughly <strong>{distance.toLocaleString()} km</strong> from where you are based on your IP address.
+            That is roughly <strong className="distance-value">{distance.toLocaleString()} km</strong> from where you are based on your IP address.
           </p>
         ) : status === "loading" ? (
           <p>Checking how far Las Vegas is from your current location...</p>
