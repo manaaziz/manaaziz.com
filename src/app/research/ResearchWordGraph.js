@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 const topics = [
   { id: "machine-learning", label: "machine learning", x: 50, y: 44, size: "large" },
@@ -93,6 +93,9 @@ function clamp(value, min, max) {
 export default function ResearchWordGraph() {
   const graphRef = useRef(null);
   const draggingIdRef = useRef(null);
+  const frameRef = useRef(null);
+  const lastPointerRef = useRef(null);
+  const velocitiesRef = useRef(Object.fromEntries(topics.map((topic) => [topic.id, { vx: 0, vy: 0 }])));
   const [positions, setPositions] = useState(() => (
     Object.fromEntries(topics.map((topic) => [topic.id, { x: topic.x, y: topic.y }]))
   ));
@@ -102,14 +105,85 @@ export default function ResearchWordGraph() {
     Object.fromEntries(topics.map((topic) => [topic.id, topic]))
   ), []);
 
+  useEffect(() => () => {
+    if (frameRef.current) {
+      window.cancelAnimationFrame(frameRef.current);
+    }
+  }, []);
+
+  function addVelocity(id, vx, vy) {
+    const velocity = velocitiesRef.current[id] || { vx: 0, vy: 0 };
+    velocitiesRef.current[id] = {
+      vx: clamp(velocity.vx + vx, -1.8, 1.8),
+      vy: clamp(velocity.vy + vy, -1.8, 1.8)
+    };
+  }
+
+  function hasGlideVelocity() {
+    return topics.some((topic) => {
+      const velocity = velocitiesRef.current[topic.id] || { vx: 0, vy: 0 };
+      return Math.hypot(velocity.vx, velocity.vy) > 0.015;
+    });
+  }
+
+  function startGlide() {
+    if (frameRef.current) return;
+
+    function tick() {
+      frameRef.current = null;
+
+      setPositions((current) => {
+        const next = { ...current };
+
+        topics.forEach((topic) => {
+          if (topic.id === draggingIdRef.current) return;
+
+          const velocity = velocitiesRef.current[topic.id] || { vx: 0, vy: 0 };
+          let x = current[topic.id].x + velocity.vx;
+          let y = current[topic.id].y + velocity.vy;
+
+          if (x <= 8 || x >= 92) {
+            x = clamp(x, 8, 92);
+            velocity.vx *= -0.7;
+          }
+
+          if (y <= 12 || y >= 88) {
+            y = clamp(y, 12, 88);
+            velocity.vy *= -0.7;
+          }
+
+          velocity.vx = velocity.vx * 0.965 + (topic.x - x) * 0.0009;
+          velocity.vy = velocity.vy * 0.965 + (topic.y - y) * 0.0009;
+
+          if (Math.hypot(velocity.vx, velocity.vy) < 0.015) {
+            velocity.vx = 0;
+            velocity.vy = 0;
+          }
+
+          velocitiesRef.current[topic.id] = velocity;
+          next[topic.id] = { x, y };
+        });
+
+        return next;
+      });
+
+      if (hasGlideVelocity()) {
+        frameRef.current = window.requestAnimationFrame(tick);
+      }
+    }
+
+    frameRef.current = window.requestAnimationFrame(tick);
+  }
+
   function releaseRepel(current, id) {
     const droppedPosition = current[id];
     if (!droppedPosition) return current;
 
-    const releaseRadius = 20;
+    const releaseRadius = 22;
     const collisionRadius = 7.5;
-    const maxPush = 4.2;
+    const maxPush = 3.2;
     const next = { ...current };
+    const droppedVelocity = velocitiesRef.current[id] || { vx: 0, vy: 0 };
 
     topics.forEach((topic) => {
       if (topic.id === id) return;
@@ -124,15 +198,21 @@ export default function ResearchWordGraph() {
       const proximity = (releaseRadius - distance) / releaseRadius;
       const pulse = proximity * proximity * maxPush;
       const collisionPulse = distance < collisionRadius ? (collisionRadius - distance) * 0.42 : 0;
+      const push = pulse + collisionPulse;
       const originPull = {
-        x: (topic.x - position.x) * 0.015,
-        y: (topic.y - position.y) * 0.015
+        x: (topic.x - position.x) * 0.004,
+        y: (topic.y - position.y) * 0.004
       };
 
       next[topic.id] = {
-        x: clamp(position.x + (dx / distance) * (pulse + collisionPulse) + originPull.x, 8, 92),
-        y: clamp(position.y + (dy / distance) * (pulse + collisionPulse) + originPull.y, 12, 88)
+        x: clamp(position.x + (dx / distance) * push * 0.45 + originPull.x, 8, 92),
+        y: clamp(position.y + (dy / distance) * push * 0.45 + originPull.y, 12, 88)
       };
+      addVelocity(
+        topic.id,
+        (dx / distance) * push * 0.08 + droppedVelocity.vx * proximity * 0.16,
+        (dy / distance) * push * 0.08 + droppedVelocity.vy * proximity * 0.16
+      );
     });
 
     return next;
@@ -148,26 +228,23 @@ export default function ResearchWordGraph() {
 
           const position = current[topic.id];
           next[topic.id] = {
-            x: clamp(position.x + (topic.x - position.x) * 0.035, 8, 92),
-            y: clamp(position.y + (topic.y - position.y) * 0.035, 12, 88)
+            x: clamp(position.x + (topic.x - position.x) * 0.012, 8, 92),
+            y: clamp(position.y + (topic.y - position.y) * 0.012, 12, 88)
           };
         });
 
         return next;
       });
-    }, 180);
+      startGlide();
+    }, 140);
   }
 
-  function repelNearbyNodes(current, id, nextPosition) {
+  function repelNearbyNodes(current, id, nextPosition, dragVector) {
     const previousDrag = current[id] || nextPosition;
-    const dragVector = {
-      x: nextPosition.x - previousDrag.x,
-      y: nextPosition.y - previousDrag.y
-    };
     const dragSpeed = Math.min(Math.sqrt(dragVector.x * dragVector.x + dragVector.y * dragVector.y), 8);
-    const nudgeRadius = 18;
+    const nudgeRadius = 20;
     const collisionRadius = 7.25;
-    const maxNudge = 1.7 + dragSpeed * 0.14;
+    const maxNudge = 1.15 + dragSpeed * 0.09;
     const next = {
       ...current,
       [id]: nextPosition
@@ -189,9 +266,10 @@ export default function ResearchWordGraph() {
       const movingWake = dragSpeed > 0.15 ? proximity * dragSpeed * 0.08 : 0;
       const push = softNudge + collisionTap;
       next[topic.id] = {
-        x: clamp(position.x + (dx / distance) * (push + movingWake), 8, 92),
-        y: clamp(position.y + (dy / distance) * (push + movingWake), 12, 88)
+        x: clamp(position.x + (dx / distance) * (push + movingWake) * 0.55, 8, 92),
+        y: clamp(position.y + (dy / distance) * (push + movingWake) * 0.55, 12, 88)
       };
+      addVelocity(topic.id, (dx / distance) * push * 0.035, (dy / distance) * push * 0.035);
     });
 
     return next;
@@ -203,11 +281,25 @@ export default function ResearchWordGraph() {
 
     const x = ((event.clientX - bounds.left) / bounds.width) * 100;
     const y = ((event.clientY - bounds.top) / bounds.height) * 100;
+    const now = performance.now();
+    const lastPointer = lastPointerRef.current;
+    const dragVector = lastPointer && lastPointer.id === id
+      ? {
+        x: (x - lastPointer.x) / Math.max((now - lastPointer.time) / 16.67, 0.6),
+        y: (y - lastPointer.y) / Math.max((now - lastPointer.time) / 16.67, 0.6)
+      }
+      : { x: 0, y: 0 };
+
+    lastPointerRef.current = { id, time: now, x, y };
+    velocitiesRef.current[id] = {
+      vx: clamp(dragVector.x * 0.8, -2.1, 2.1),
+      vy: clamp(dragVector.y * 0.8, -2.1, 2.1)
+    };
 
     setPositions((current) => repelNearbyNodes(current, id, {
       x: clamp(x, 8, 92),
       y: clamp(y, 12, 88)
-    }));
+    }, dragVector));
   }
 
   function endDrag(id) {
@@ -215,8 +307,10 @@ export default function ResearchWordGraph() {
 
     draggingIdRef.current = null;
     setDraggingId(null);
+    lastPointerRef.current = null;
     setPositions((current) => releaseRepel(current, id));
     settleAfterRelease(id);
+    startGlide();
   }
 
   return (
