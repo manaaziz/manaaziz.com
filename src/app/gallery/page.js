@@ -6,30 +6,66 @@ export const metadata = {
 
 const galleries = [
   {
-    title: "Research and conferences",
-    body: "Presentations, posters, and professional travel.",
+    title: "Sports Innovation Summit",
+    body: "Las Vegas, Nevada. A sports, hospitality, and innovation event connected to the wider ecosystem around gaming, venues, and experiential business.",
     images: [
-      "/assets/gallery/assets/images/ICGRT1.jpg",
-      "/assets/gallery/assets/images/WCHRIE23-1.jpg",
-      "/assets/gallery/assets/images/gradforum1.jpg"
+      "/assets/gallery/sports2.jpg"
     ]
   },
   {
-    title: "Teaching and student life",
-    body: "Mentorship, events, organizations, and campus work.",
+    title: "RIMS Gala",
+    body: "Las Vegas, Nevada. A hospitality and student community event from the UNLV orbit, part of the teaching and mentorship side of the archive.",
     images: [
-      "/assets/gallery/assets/images/mentor1.jpg",
-      "/assets/gallery/assets/images/soccerclub1.jpg",
-      "/assets/gallery/assets/images/CDF23-1.jpg"
+      "/assets/gallery/RIMSgala1.jpg"
     ]
   },
   {
-    title: "Travel and hospitality",
-    body: "Universities, wineries, and the wider world around the work.",
+    title: "Menus",
+    body: "Hospitality, food, and beverage notes from the places where teaching, travel, and professional curiosity overlap.",
     images: [
-      "/assets/gallery/assets/images/bordeaux1.jpg",
-      "/assets/gallery/assets/images/sardinia1.jpg",
-      "/assets/gallery/assets/images/italy1.jpg"
+      "/assets/gallery/menus22_3.jpg"
+    ]
+  },
+  {
+    title: "Teaching Statistics in Hospitality",
+    body: "Las Vegas, Nevada. A Graduate & Professional Student Research Forum presentation on teaching statistics in hospitality.",
+    images: [
+      "/assets/gallery/gradforum1.jpg"
+    ]
+  },
+  {
+    title: "Conference on Statistical Practice",
+    body: "Sacramento, California. A statistics practice conference focused on applied methods, communication, and professional statistical work.",
+    images: [
+      "/assets/gallery/csp_2020.jpeg"
+    ]
+  },
+  {
+    title: "GLI Regulator Roundtable",
+    body: "Las Vegas, Nevada. A gaming regulation and responsible innovation forum connected to casino analytics, public policy, and industry practice.",
+    images: [
+      "/assets/gallery/gli_regulator_roundtable.JPG"
+    ]
+  },
+  {
+    title: "Club de Convergentes",
+    body: "Madrid, Spain. A gaming and AI governance presentation connected to translating research into industry conversation.",
+    images: [
+      "/assets/gallery/CEOE_2025.jpg"
+    ]
+  },
+  {
+    title: "Cultural Diversity Foundation Educational Taste of Excellence",
+    body: "Las Vegas, Nevada. A community and education event highlighting hospitality, culture, mentorship, and local connection.",
+    images: [
+      "/assets/gallery/CDF23-2.jpg"
+    ]
+  },
+  {
+    title: "West Federation CHRIE",
+    body: "A hospitality education and research conference connected to teaching, scholarship, and the CHRIE community.",
+    images: [
+      "/assets/gallery/wfchrie_2023.jpeg"
     ]
   }
 ];

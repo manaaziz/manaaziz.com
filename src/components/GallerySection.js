@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export function GallerySection({ body, images, title }) {
   return (
     <article className="standard-gallery-section gallery-section">
@@ -6,9 +8,16 @@ export function GallerySection({ body, images, title }) {
         <h2>{title}</h2>
         <p>{body}</p>
       </div>
-      <div className="standard-gallery-strip gallery-strip">
+      <div className={`standard-gallery-strip gallery-strip${images.length === 1 ? " single" : ""}`}>
         {images.map((image) => (
-          <img src={image.src || image} alt={image.alt || ""} key={image.src || image} />
+          <span className="gallery-image-frame" key={image.src || image}>
+            <Image
+              src={image.src || image}
+              alt={image.alt || ""}
+              fill
+              sizes="(max-width: 920px) 100vw, 48vw"
+            />
+          </span>
         ))}
       </div>
     </article>

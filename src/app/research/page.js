@@ -1,3 +1,4 @@
+import Image from "next/image";
 import PaperMosaic from "./PaperMosaic";
 import ResearchWordGraph from "./ResearchWordGraph";
 
@@ -12,7 +13,7 @@ const papers = [
     venue: "Public Health",
     year: "2026",
     doi: "10.1016/j.puhe.2025.106080",
-    blogHref: "/media",
+    blogHref: "/manalogue",
     blurb: "A retrospective analysis of open banking data to understand financial risk signals among online gamblers.",
     detail: "This paper studies online gamblers who exceed financial risk thresholds using open banking data. It connects gambling behavior, financial signals, and public-health-oriented risk identification."
   },
@@ -22,7 +23,7 @@ const papers = [
     venue: "European Journal of Tourism, Hospitality and Recreation",
     year: "2025",
     doi: "10.2478/ejthr-2025-0022",
-    blogHref: "/media",
+    blogHref: "/manalogue",
     blurb: "A review of how machine learning methods are used across hotel revenue management research.",
     detail: "This systematic review maps how machine learning has been used in hotel revenue management. It highlights model families, common prediction tasks, and gaps for future hospitality analytics research."
   },
@@ -32,7 +33,7 @@ const papers = [
     venue: "Journal of Gambling Studies",
     year: "2025",
     doi: "10.1007/s10899-025-10419-6",
-    blogHref: "/media",
+    blogHref: "/manalogue",
     blurb: "An open banking view of gambling behavior, spending patterns, and risk-relevant financial activity.",
     detail: "This study uses open banking data to characterize gambling activity through a financial lens. It helps connect player behavior, spending patterns, and broader questions about gambling-related harm."
   },
@@ -42,7 +43,7 @@ const papers = [
     venue: "International Gambling Studies",
     year: "2025",
     doi: "10.1080/14459795.2025.2529177",
-    blogHref: "/media",
+    blogHref: "/manalogue",
     blurb: "A measurement study testing whether the PGSI behaves consistently across sociodemographics and gambling modalities.",
     detail: "This paper evaluates whether the Problem Gambling Severity Index measures the same construct across different groups and gambling modalities. The work is about making sure comparisons across people are statistically defensible."
   },
@@ -52,7 +53,7 @@ const papers = [
     venue: "Engineering Applications of Artificial Intelligence",
     year: "2025",
     doi: "10.1016/j.engappai.2025.110664",
-    blogHref: "/media",
+    blogHref: "/manalogue",
     blurb: "A study of efficient perturbation-based explanations for machine learning models.",
     detail: "This paper contributes to explainable AI by studying efficient perturbation-based explanations. The focus is on making complex machine learning predictions more interpretable without unnecessary computational cost."
   },
@@ -62,7 +63,7 @@ const papers = [
     venue: "IEEE Access",
     year: "2025",
     doi: "10.1109/ACCESS.2025.3536094",
-    blogHref: "/media",
+    blogHref: "/manalogue",
     blurb: "An interpretable machine learning approach to forecasting hotel booking cancellations.",
     detail: "This paper applies machine learning to predict hotel booking cancellations while keeping model interpretation central. It sits at the intersection of forecasting, hospitality operations, and practical decision support."
   },
@@ -71,7 +72,7 @@ const papers = [
     status: "Under review",
     venue: "Journal of Hospitality and Tourism Technology",
     year: "2025",
-    blogHref: "/media",
+    blogHref: "/manalogue",
     blurb: "A forecasting study using stacked generalization and explainable methods for hotel occupancy.",
     detail: "This project studies hotel occupancy forecasting using stacked generalization. It emphasizes predictive accuracy while using explainability tools to make the forecasts more useful for hospitality managers."
   },
@@ -80,7 +81,7 @@ const papers = [
     status: "Published",
     venue: "Acta Psychologica",
     year: "2025",
-    blogHref: "/media",
+    blogHref: "/manalogue",
     blurb: "An unsupervised learning project identifying behaviorally meaningful gambler clusters.",
     detail: "This study uses unsupervised learning to identify behavioral clusters among gamblers. The goal is to find interpretable subgroups that can support research on gambling behavior and risk."
   },
@@ -89,7 +90,7 @@ const papers = [
     status: "Under review",
     venue: "Journal of Hospitality and Tourism Education",
     year: "2025",
-    blogHref: "/media",
+    blogHref: "/manalogue",
     blurb: "A conceptual paper about teaching statistics in hospitality contexts.",
     detail: "This conceptual paper focuses on how statistics can be taught more effectively to hospitality students. It frames quantitative education around usefulness, confidence, and discipline-specific examples."
   }
@@ -102,7 +103,9 @@ const conferencePresentations = [
     date: "May 27, 2026",
     venue: "19th International Conference on Gambling & Risk Taking",
     location: "Las Vegas, Nevada",
-    logo: "/assets/logos/gambling_risk_taking_logo.jpg"
+    logo: "/assets/gallery/conf_gambling_risk_2026.jpeg",
+    photo: true,
+    tile: "wide"
   },
   {
     title: "Shapley interaction networks for explaining the clinical course of gambling disorder",
@@ -134,7 +137,9 @@ const conferencePresentations = [
     date: "October 6, 2025",
     venue: "26th ICRG Conference on Gambling and Addiction",
     location: "Las Vegas, Nevada",
-    logo: "/assets/logos/icrg_conference.png"
+    logo: "/assets/gallery/ICRG_2025.jpeg",
+    photo: true,
+    tile: "wide"
   },
   {
     title: "Avanzando en la ética y la gobernanza de la IA en el sector del juego: Un piloto de traducción de investigación",
@@ -142,7 +147,9 @@ const conferencePresentations = [
     date: "October 2, 2025",
     venue: "Club de Convergentes",
     location: "Madrid, Spain",
-    logo: "/assets/logos/club_convergentes.png"
+    logo: "/assets/gallery/CEOE_2025.jpg",
+    photo: true,
+    tile: "wide"
   },
   {
     title: "Characterizing UK online gamblers exceeding financial risk thresholds",
@@ -150,7 +157,9 @@ const conferencePresentations = [
     date: "April 17, 2025",
     venue: "2025 GLI Regulator Roundtable",
     location: "Las Vegas, Nevada",
-    logo: "/assets/logos/gli_regulator_roundtable.png"
+    logo: "/assets/gallery/gli_regulator_roundtable.JPG",
+    photo: true,
+    tile: "wide"
   },
   {
     title: "How do hotel customers feel about AI service technologies? A scoping review",
@@ -165,7 +174,9 @@ const conferencePresentations = [
     date: "November 4-7, 2024",
     venue: "EuroCHRIE Conference 2024",
     location: "Qatar",
-    logo: "/assets/logos/eurochrie_2024_qatar.png"
+    logo: "/assets/gallery/eurochrie_qatar.jpeg",
+    photo: true,
+    tile: "wide"
   },
   {
     title: "Clustering slot machine players using session-level transaction data",
@@ -181,7 +192,9 @@ const conferencePresentations = [
     date: "October 6-7, 2024",
     venue: "25th ICRG Conference on Gambling and Addiction",
     location: "Las Vegas, Nevada",
-    logo: "/assets/logos/icrg_conference.png"
+    logo: "/assets/gallery/ICRG_2024.JPG",
+    photo: true,
+    tile: "tall"
   },
   {
     title: "An ordinal categorical variable approach to assessing measurement invariance using the theta parameterization for MG-CFA",
@@ -189,14 +202,19 @@ const conferencePresentations = [
     date: "September 10-13, 2024",
     venue: "14th European Conference on Gambling Studies and Policy Issues",
     location: "Rome, Italy",
-    logo: "/assets/logos/easg_rome_logo.png"
+    logo: "/assets/gallery/EASG_2024.JPG",
+    photo: true,
+    tile: "tall"
   },
   {
     title: "An assessment of the measurement invariance of the Problem Gambling Severity Index (PGSI)",
     type: "Paper",
     date: "May 23-24, 2024",
     venue: "Nevada Annual State Conference on Problem Gambling",
-    location: "Nevada"
+    location: "Nevada",
+    logo: "/assets/gallery/nvcpg_2024.jpeg",
+    photo: true,
+    tile: "wide"
   },
   {
     title: "Machine learning prediction of hotel room demand",
@@ -204,7 +222,9 @@ const conferencePresentations = [
     date: "December 14, 2023",
     venue: "6th Annual RevME Hospitality Management and Analytics Conference",
     location: "Nashville, Tennessee",
-    logo: "/assets/logos/revme_conf_logo.png"
+    logo: "/assets/gallery/revme_nashville.JPG",
+    photo: true,
+    tile: "wide"
   },
   {
     title: "Detection of customer transaction decline using machine learning",
@@ -228,14 +248,19 @@ const conferencePresentations = [
     date: "April 15, 2023",
     venue: "Graduate & Professional Student Research Forum",
     location: "Las Vegas, Nevada",
-    logo: "/assets/logos/gpsa_research_forum.png"
+    logo: "/assets/gallery/gradforum1.jpg",
+    photo: true,
+    tile: "tall"
   },
   {
     title: "Teaching statistics in hospitality using R",
     type: "Paper",
     date: "March 17, 2023",
     venue: "2023 Hawkes Learning Innovative Educators Summit",
-    location: "Virtual"
+    location: "Virtual",
+    logo: "/assets/gallery/hawkes3.jpg",
+    photo: true,
+    tile: "tall"
   },
   {
     title: "Predicting cancellations in bookings using machine learning",
@@ -243,7 +268,8 @@ const conferencePresentations = [
     date: "February 18-19, 2023",
     venue: "2023 West Federation of Council on Hotel, Restaurant, and Institutional Education",
     location: "Las Vegas, Nevada",
-    logo: "/assets/logos/west_chrie_2023.jpeg"
+    logo: "/assets/gallery/wfchrie_2023.jpeg",
+    photo: true
   }
 ];
 
@@ -273,10 +299,21 @@ export default function ResearchPage() {
         </div>
         <div className="presentation-gallery">
           {conferencePresentations.map((presentation) => (
-            <article className="presentation-photo-card" key={`${presentation.date}-${presentation.title}`}>
+            <article
+              className={`presentation-photo-card presentation-tile-${presentation.tile || "standard"}`}
+              key={`${presentation.date}-${presentation.title}`}
+            >
               <div className="presentation-photo-surface">
-                <div className="presentation-photo-placeholder">
-                  {presentation.logo ? <img src={presentation.logo} alt="" /> : null}
+                <div className={`presentation-photo-placeholder${presentation.photo ? " has-photo" : ""}`}>
+                  {presentation.logo ? (
+                    <Image
+                      className={`presentation-photo-image${presentation.photo ? " is-photo" : ""}`}
+                      src={presentation.logo}
+                      alt=""
+                      fill
+                      sizes={presentation.tile === "wide" ? "(max-width: 920px) 100vw, 40vw" : "(max-width: 920px) 100vw, 24vw"}
+                    />
+                  ) : null}
                   <span>{presentation.location}</span>
                 </div>
                 <div className="presentation-photo-copy">
