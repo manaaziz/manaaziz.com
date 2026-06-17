@@ -25,7 +25,7 @@ export default async function PodcastShowPage({ params }) {
 
   return (
     <main className="page-shell podcast-show-page">
-      <Link className="button course-back-button" href="/media">
+      <Link className="button course-back-button" href="/manalogue">
         Back to media
       </Link>
 

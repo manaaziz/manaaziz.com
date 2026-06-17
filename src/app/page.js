@@ -41,8 +41,8 @@ export default function Home() {
             <Link className="button primary" href="/about">
               About
             </Link>
-            <Link className="button" href="/media">
-              Media
+            <Link className="button" href="/manalogue">
+              The Manalogue
             </Link>
             <a className="button" href="/assets/Azizsoltani_CV.pdf">
               CV
@@ -97,8 +97,8 @@ export default function Home() {
         <div>
           <p className="eyebrow">Latest</p>
           <h2>Writing, podcasts, and field notes.</h2>
-          <Link className="button" href="/media">
-            Browse media
+          <Link className="button" href="/manalogue">
+            Open The Manalogue
           </Link>
         </div>
         <div className="home-stream-list">

@@ -6,42 +6,37 @@ import { newsItems } from "../news/items";
 import { podcasts } from "../podcast/shows";
 
 const sections = [
-  { id: "blog", label: "Blog" },
+  { id: "manalogue", label: "The Manalogue" },
   { id: "podcasts", label: "Podcasts" },
-  { id: "news", label: "In the News" },
   { id: "gallery", label: "Gallery" }
 ];
 
-function PostCard({ post, featured = false }) {
-  return (
-    <Link className={featured ? "blog-desk-card featured" : "blog-desk-card"} href={post.href}>
-      <img src={post.cover || post.seriesCover} alt="" />
-      <div>
-        <span>{post.seriesTitle} · {post.date} · {post.readingMinutes} min</span>
-        <h3>{post.title}</h3>
-        <p>{post.excerpt}</p>
-      </div>
-    </Link>
-  );
-}
+const panelHeights = {
+  manalogue: "clamp(35rem, 50vw, 47rem)",
+  podcasts: "clamp(26rem, 33vw, 31rem)",
+  gallery: "clamp(24rem, 31vw, 29rem)"
+};
 
 export default function BlogSectionSwitcher({ posts }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const activeSection = sections[activeIndex];
   const featuredPost = posts[0];
-  const recentPosts = posts.slice(1, 7);
+  const frontPagePosts = posts.slice(1, 4);
 
   return (
-    <section className="blog-desk" aria-labelledby="blog-desk-title">
-      <div className="blog-desk-topline">
-        <p className="eyebrow">Media</p>
-        <h1 id="blog-desk-title">Media</h1>
+    <section className="blog-desk manalogue-desk" aria-labelledby="blog-desk-title">
+      <div className="newspaper-masthead manalogue-masthead">
+        <div className="newspaper-kicker">
+          <span>Wednesday, June 17, 2026</span>
+        </div>
+        <h1 id="blog-desk-title">The Manalogue</h1>
       </div>
 
       <div
         className="blog-switcher"
         style={{
           "--active-index": activeIndex,
+          "--active-panel-height": panelHeights[activeSection.id],
           "--section-count": sections.length
         }}
       >
@@ -64,16 +59,53 @@ export default function BlogSectionSwitcher({ posts }) {
         <div className="blog-switcher-window">
           <div className="blog-switcher-track">
             <section
-              aria-labelledby="blog-tab-blog"
-              className="blog-switcher-panel writing"
-              id="blog-panel-blog"
+              aria-labelledby="blog-tab-manalogue"
+              className="blog-switcher-panel newspaper-panel manalogue-panel"
+              id="blog-panel-manalogue"
               role="tabpanel"
             >
-              {featuredPost ? <PostCard post={featuredPost} featured /> : null}
-              <div className="blog-desk-list">
-                {recentPosts.map((post) => (
-                  <PostCard key={post.href} post={post} />
-                ))}
+              <div className="media-newspaper newspaper-page">
+                <section className="newspaper-front-page" aria-label="The Manalogue front page">
+                  <div className="newspaper-edition-strip">
+                    <span>Blog</span>
+                    <span>In the News</span>
+                    <span>Gaming</span>
+                    <span>Analytics</span>
+                    <span>Field Notes</span>
+                  </div>
+
+                  <div className="manalogue-grid">
+                    {featuredPost ? (
+                      <Link className="newspaper-article lead" href={featuredPost.href}>
+                        <span>{featuredPost.seriesTitle} · {featuredPost.date}</span>
+                        <img src={featuredPost.cover || featuredPost.seriesCover} alt="" />
+                        <h2>{featuredPost.title}</h2>
+                        <p>{featuredPost.excerpt}</p>
+                        <strong>Read column</strong>
+                      </Link>
+                    ) : null}
+
+                    <aside className="newspaper-rail" aria-label="The Manalogue rail">
+                      {newsItems.map((item) => (
+                        <a href={item.href} key={item.href} rel="noreferrer" target="_blank">
+                          <span>{item.outlet} · {item.date}</span>
+                          <h2>{item.title}</h2>
+                          <p>{item.description}</p>
+                          <strong>Read article</strong>
+                        </a>
+                      ))}
+                    </aside>
+
+                    <div className="manalogue-briefs" aria-label="Recent Manalogue posts">
+                      {frontPagePosts.map((post) => (
+                        <Link href={post.href} key={post.href}>
+                          <span>{post.seriesTitle} · {post.readingMinutes} min</span>
+                          <h3>{post.title}</h3>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </section>
               </div>
             </section>
 
@@ -95,31 +127,6 @@ export default function BlogSectionSwitcher({ posts }) {
                     <p>{podcast.description}</p>
                     <strong>Open show page</strong>
                   </Link>
-                ))}
-              </div>
-            </section>
-
-            <section
-              aria-labelledby="blog-tab-news"
-              className="blog-switcher-panel split"
-              id="blog-panel-news"
-              role="tabpanel"
-            >
-              <article className="blog-text-panel">
-                <span>News</span>
-                <h2>In the News</h2>
-                <p>Currently featuring one article on baccarat data and casino operator decision-making.</p>
-                <Link className="button" href="/news">
-                  Open news
-                </Link>
-              </article>
-              <div className="blog-news-list">
-                {newsItems.map((item) => (
-                  <a className="blog-news-card" href={item.href} key={item.href} rel="noreferrer" target="_blank">
-                    <span>{item.outlet} · {item.date}</span>
-                    <h3>{item.title}</h3>
-                    <strong>Read article</strong>
-                  </a>
                 ))}
               </div>
             </section>

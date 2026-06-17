@@ -1,1 +1,5 @@
-export { metadata, default } from "../blog/page";
+import { redirect } from "next/navigation";
+
+export default function MediaRedirectPage() {
+  redirect("/manalogue");
+}

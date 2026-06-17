@@ -1,9 +1,8 @@
 import { getRecentPosts, getSeriesSummaries } from "@/lib/posts";
-import ArchiveCarousel from "./ArchiveCarousel";
 import BlogSectionSwitcher from "./BlogSectionSwitcher";
 
 export const metadata = {
-  title: "Media"
+  title: "The Manalogue"
 };
 
 export default function MediaPage() {
@@ -18,10 +17,6 @@ export default function MediaPage() {
   return (
     <main className="page-shell blog-page">
       <BlogSectionSwitcher posts={recentPosts} />
-
-      <section className="blog-archive-section" id="blog-archive">
-        <ArchiveCarousel posts={recentPosts} />
-      </section>
     </main>
   );
 }

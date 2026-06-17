@@ -23,7 +23,7 @@ const navItems = [
   { href: "/consulting", label: "Consulting" },
   { href: "/research", label: "Research" },
   { href: "/teaching", label: "Teaching" },
-  { href: "/media", label: "Media" }
+  { href: "/manalogue", label: "The Manalogue" }
 ];
 
 const footerGroups = [
@@ -39,7 +39,7 @@ const footerGroups = [
     title: "General",
     links: [
       { href: "/about", label: "About Mana" },
-      { href: "/media", label: "Media" },
+      { href: "/manalogue", label: "The Manalogue" },
       { href: "mailto:manaazizsoltani@gmail.com", label: "Contact" }
     ]
   }
