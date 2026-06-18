@@ -1,6 +1,5 @@
 import Link from "next/link";
 import LocalizedHello from "@/components/LocalizedHello";
-import { getRecentPosts } from "@/lib/posts";
 
 const workAreas = [
   {
@@ -23,9 +22,28 @@ const workAreas = [
   }
 ];
 
-export default function Home() {
-  const recentPosts = getRecentPosts(4);
+const manalogueHighlights = [
+  {
+    href: "/manalogue",
+    label: "The Manalogue",
+    title: "A home for writing, media, podcasts, and visual archives.",
+    body: "The current desk for essays, analytics notes, teaching material, podcast projects, and gallery-style archives."
+  },
+  {
+    href: "/podcast/the-job-forum",
+    label: "Podcast",
+    title: "The Job Forum",
+    body: "Recent graduates, careers, and the transition into work."
+  },
+  {
+    href: "/research",
+    label: "Research",
+    title: "Published work and conference presentations.",
+    body: "Papers, methods, presentation archives, and the research questions connecting hospitality, gaming, and analytics."
+  }
+];
 
+export default function Home() {
   return (
     <main>
       <section className="hero hero-home" aria-label="Mana Azizsoltani introduction">
@@ -95,25 +113,20 @@ export default function Home() {
 
       <section className="home-stream reveal">
         <div>
-          <p className="eyebrow">Latest</p>
-          <h2>Writing, podcasts, and field notes.</h2>
+          <p className="eyebrow">Media</p>
+          <h2>The Manalogue is the home for current writing, podcasts, and archives.</h2>
           <Link className="button" href="/manalogue">
             Open The Manalogue
           </Link>
         </div>
         <div className="home-stream-list">
-          {recentPosts.map((post) => (
-            <Link className="post-list-item" href={post.href} key={post.href}>
-              <span>{post.seriesTitle} - {post.date} - {post.readingMinutes} min read</span>
-              <h2>{post.title}</h2>
-              <p>{post.excerpt}</p>
+          {manalogueHighlights.map((item) => (
+            <Link className="post-list-item" href={item.href} key={item.href}>
+              <span>{item.label}</span>
+              <h2>{item.title}</h2>
+              <p>{item.body}</p>
             </Link>
           ))}
-          <Link className="post-list-item home-media-card" href="/podcast/the-job-forum">
-            <span>Podcast</span>
-            <h2>Recent graduates, careers, and the transition into work.</h2>
-            <p>The Job Forum is one of two podcast projects highlighted in the media section.</p>
-          </Link>
         </div>
       </section>
     </main>

@@ -140,39 +140,37 @@ main {
   display: grid;
   place-items: center;
   overflow: hidden;
-  border: 1px solid rgba(23, 23, 23, 0.32);
+  border: 2px solid #630519;
   border-radius: 50%;
   background:
-    radial-gradient(circle at center, #f8efe2 0 45%, transparent 46%),
-    radial-gradient(circle at center, transparent 0 58%, rgba(92, 5, 28, 0.68) 59% 61%, transparent 62%),
-    radial-gradient(circle at center, transparent 0 77%, rgba(92, 5, 28, 0.58) 78% 80%, transparent 81%),
+    radial-gradient(circle at center, #ffffff 0 44%, transparent 45%),
+    radial-gradient(circle at center, transparent 0 55%, #b52a4a 56% 59%, transparent 60%),
+    radial-gradient(circle at center, transparent 0 72%, #6f071f 73% 76%, transparent 77%),
     repeating-conic-gradient(
       from 12deg,
-      #8e0b2d 0deg 29deg,
-      #eadfd2 29deg 37deg,
-      #8e0b2d 37deg 72deg
+      #a91438 0deg 29deg,
+      #fff2e6 29deg 37deg,
+      #a91438 37deg 72deg
     ),
-    #8e0b2d;
+    #a91438;
   box-shadow:
-    inset 0 0 0 0.14rem rgba(255, 255, 255, 0.28),
-    inset 0 0 0 0.18rem rgba(69, 3, 21, 0.3),
-    inset 0 0 0 0.36rem rgba(255, 255, 255, 0.07),
-    inset 0 -0.25rem 0.4rem rgba(69, 3, 21, 0.32),
-    inset 0 0.18rem 0.36rem rgba(255, 255, 255, 0.24),
-    0 0.16rem 0 #4e0417,
-    0 0.42rem 0.9rem rgba(23, 23, 23, 0.18);
+    inset 0 0 0 0.16rem rgba(255, 255, 255, 0.24),
+    inset 0 -0.18rem 0 #75071f,
+    inset 0 0.14rem 0 rgba(255, 255, 255, 0.22),
+    0 0.16rem 0 #5f0518,
+    0 0.42rem 0.9rem rgba(23, 23, 23, 0.16);
   backface-visibility: hidden;
 }
 
 .brand-chip-face::before {
   position: absolute;
-  inset: 0.36rem;
+  inset: 0.34rem;
   content: "";
-  border: 1px solid rgba(255, 250, 241, 0.45);
+  border: 2px solid rgba(255, 250, 241, 0.72);
   border-radius: 50%;
   box-shadow:
-    0 0 0 0.1rem rgba(79, 4, 24, 0.28),
-    inset 0 0 0 1px rgba(79, 4, 24, 0.5);
+    0 0 0 0.09rem rgba(99, 5, 25, 0.42),
+    inset 0 0 0 0.08rem rgba(164, 20, 56, 0.45);
   pointer-events: none;
 }
 
@@ -182,11 +180,11 @@ main {
   content: "";
   border-radius: 50%;
   background:
-    radial-gradient(circle at 38% 28%, rgba(255, 255, 255, 0.45), transparent 0.45rem),
-    #f8efe2;
+    radial-gradient(circle at 37% 28%, rgba(255, 255, 255, 0.7), transparent 0.38rem),
+    #ffffff;
   box-shadow:
-    inset 0 0 0 1px rgba(79, 4, 24, 0.35),
-    inset 0 -0.12rem 0.18rem rgba(79, 4, 24, 0.18);
+    inset 0 0 0 2px rgba(99, 5, 25, 0.32),
+    inset 0 -0.08rem 0 rgba(99, 5, 25, 0.12);
   pointer-events: none;
 }
 
@@ -237,21 +235,21 @@ main {
   position: relative;
   z-index: 3;
   display: grid;
-  width: 1.68rem;
-  height: 1.68rem;
+  width: 1.86rem;
+  height: 1.86rem;
   place-items: center;
   overflow: hidden;
   border-radius: 50%;
-  background: #f8efe2;
+  background: #ffffff;
 }
 
 .brand-chip-avatar img {
-  width: 110%;
-  height: 110%;
+  width: 98%;
+  height: 98%;
   max-width: none;
-  object-fit: cover;
+  object-fit: contain;
   object-position: 50% 50%;
-  transform: translateX(0.025rem);
+  transform: translate(-0.025rem, -0.055rem);
 }
 
 .brand-name {
@@ -4696,6 +4694,10 @@ h3 {
   padding: clamp(1rem, 3vw, 1.5rem);
 }
 
+.blog-switcher-panel.manalogue-panel-photo-mosaic {
+  overflow-y: auto;
+}
+
 .blog-switcher-panel.writing {
   display: grid;
   grid-template-columns: minmax(20rem, 1.15fr) minmax(18rem, 0.85fr);
@@ -5061,6 +5063,24 @@ h3 {
 
 .manalogue-topic-grid[data-count="1"] .manalogue-topic-card {
   grid-column: 1 / -1;
+}
+
+.manalogue-photo-mosaic {
+  align-content: start;
+  margin-top: 0;
+}
+
+.manalogue-photo-mosaic .presentation-photo-card {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.manalogue-photo-mosaic .presentation-photo-placeholder {
+  min-height: clamp(9rem, 13vw, 13rem);
+}
+
+.manalogue-photo-mosaic .presentation-photo-caption {
+  min-height: 4rem;
 }
 
 .manalogue-topic-grid[data-layout="front"] {

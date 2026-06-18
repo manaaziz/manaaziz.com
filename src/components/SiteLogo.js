@@ -23,7 +23,7 @@ export default function SiteLogo() {
         <span className="brand-chip-inner">
           <span className="brand-chip-face brand-chip-front" aria-hidden="true">
             <span className="brand-chip-avatar">
-              <img alt="" src="/assets/images/bitmoji_head_logo.png" />
+              <img alt="" src="/assets/images/bitmoji_head_logo_cutout.png" />
             </span>
           </span>
           <span className="brand-chip-face brand-chip-back" aria-hidden="true">

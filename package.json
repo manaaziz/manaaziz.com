@@ -7,7 +7,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "node scripts/validate-site.mjs"
+    "lint": "node scripts/validate-site.mjs",
+    "audit:assets": "node scripts/audit-assets.mjs",
+    "optimize:assets": "node scripts/optimize-public-images.mjs",
+    "optimize:assets:write": "node scripts/optimize-public-images.mjs --write"
   },
   "dependencies": {
     "@svg-maps/world": "^2.0.0",

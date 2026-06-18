@@ -17,6 +17,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN: ${{ vars.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || secrets.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -24,7 +26,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version: 22
           cache: npm
 
       - name: Setup Pages
@@ -33,8 +35,23 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Validate source references
+        run: npm run lint
+
+      - name: Audit image weight
+        run: npm run audit:assets
+
+      - name: Optimize deploy image assets
+        run: npm run optimize:assets:write
+
       - name: Build static site
         run: npm run build
+
+      - name: Remove local metadata from export
+        run: find out -name ".DS_Store" -delete
+
+      - name: Verify custom domain file
+        run: test "$(cat out/CNAME)" = "manaaziz.com"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

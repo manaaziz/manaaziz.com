@@ -180,7 +180,7 @@ export default function RootLayout({ children }) {
 
                 <div className="footer-socials" aria-label="Social links">
                   {socialLinks.map((link) => (
-                    <a aria-label={link.label} href={link.href} key={link.label}>
+                    <a aria-label={link.label} href={link.href} key={link.label} rel="noreferrer" target="_blank">
                       <SocialIcon icon={link.icon} />
                     </a>
                   ))}

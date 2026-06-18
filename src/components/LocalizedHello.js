@@ -3,52 +3,101 @@
 import { useEffect, useState } from "react";
 
 const greetingsByLanguage = {
+  af: "Hallo",
+  ak: "Maakye",
+  am: "ሰላም",
   ar: "مرحبا",
+  az: "Salam",
+  be: "Вітаю",
   bg: "Здравей",
+  bn: "নমস্কার",
+  bs: "Zdravo",
+  ca: "Hola",
+  cs: "Ahoj",
+  cy: "Helo",
+  da: "Hej",
   de: "Hallo",
+  dz: "ཀུ་ཟུ་ཟང་པོ",
   el: "Γεια",
   en: "Hello",
   es: "Hola",
+  et: "Tere",
+  eu: "Kaixo",
   fa: "سلام",
+  fi: "Hei",
+  fil: "Kumusta",
   fr: "Bonjour",
+  ga: "Dia dhuit",
+  gl: "Ola",
+  gu: "નમસ્તે",
+  ha: "Sannu",
+  he: "שלום",
   hi: "नमस्ते",
+  hr: "Bok",
+  hu: "Szia",
+  hy: "Բարեւ",
+  id: "Halo",
+  ig: "Ndewo",
+  is: "Halló",
   it: "Ciao",
   ja: "こんにちは",
+  ka: "გამარჯობა",
+  kk: "Сәлем",
+  km: "សួស្តី",
+  kn: "ನಮಸ್ಕಾರ",
   ko: "안녕하세요",
+  ky: "Салам",
+  lo: "ສະບາຍດີ",
+  lt: "Labas",
+  lv: "Sveiki",
+  mg: "Salama",
+  mi: "Kia ora",
+  mk: "Здраво",
+  ml: "നമസ്കാരം",
+  mn: "Сайн байна уу",
+  mr: "नमस्कार",
+  ms: "Halo",
+  mt: "Bongu",
+  my: "မင်္ဂလာပါ",
+  ne: "नमस्ते",
   nl: "Hallo",
+  no: "Hei",
+  pa: "ਸਤ ਸ੍ਰੀ ਅਕਾਲ",
+  pl: "Cześć",
+  ps: "سلام",
   pt: "Olá",
+  ro: "Bună",
   ru: "Привет",
+  si: "ආයුබෝවන්",
+  sk: "Ahoj",
+  sl: "Živjo",
+  so: "Salaan",
+  sq: "Përshëndetje",
+  sr: "Здраво",
+  sv: "Hej",
+  sw: "Habari",
+  ta: "வணக்கம்",
+  te: "నమస్కారం",
+  th: "สวัสดี",
+  tk: "Salam",
   tr: "Merhaba",
+  uk: "Привіт",
+  ur: "السلام علیکم",
+  uz: "Salom",
+  vi: "Xin chào",
+  xh: "Molo",
+  yo: "Ẹ n lẹ",
+  zu: "Sawubona",
   zh: "你好"
-};
-
-const greetingsByCountry = {
-  AE: "مرحبا",
-  BG: "Здравей",
-  BR: "Olá",
-  CA: "Hello",
-  CN: "你好",
-  DE: "Hallo",
-  ES: "Hola",
-  FR: "Bonjour",
-  GB: "Hello",
-  GR: "Γεια",
-  IN: "नमस्ते",
-  IR: "سلام",
-  IT: "Ciao",
-  JP: "こんにちは",
-  KR: "안녕하세요",
-  MX: "Hola",
-  NL: "Hallo",
-  PT: "Olá",
-  RU: "Привет",
-  TR: "Merhaba",
-  US: "Hello"
 };
 
 function greetingFromLocale(locale) {
   const language = locale?.split("-")?.[0]?.toLowerCase();
-  return greetingsByLanguage[language] || greetingsByLanguage.en;
+  return greetingsByLanguage[language];
+}
+
+function firstGreetingFromLocales(locales) {
+  return locales.map(greetingFromLocale).find(Boolean);
 }
 
 export default function LocalizedHello() {
@@ -56,9 +105,6 @@ export default function LocalizedHello() {
 
   useEffect(() => {
     let cancelled = false;
-    const browserGreeting = greetingFromLocale(navigator.languages?.[0] || navigator.language);
-
-    setGreeting(browserGreeting);
 
     fetch("https://ipapi.co/json/")
       .then((response) => {
@@ -72,13 +118,12 @@ export default function LocalizedHello() {
           return;
         }
 
-        const countryGreeting = greetingsByCountry[data?.country_code];
-        const languageGreeting = greetingFromLocale(data?.languages?.split(",")?.[0]);
-        setGreeting(countryGreeting || languageGreeting || browserGreeting);
+        const languageGreeting = firstGreetingFromLocales(data?.languages?.split(",") || []);
+        setGreeting(languageGreeting || greetingsByLanguage.en);
       })
       .catch(() => {
         if (!cancelled) {
-          setGreeting(browserGreeting);
+          setGreeting(greetingsByLanguage.en);
         }
       });
 
