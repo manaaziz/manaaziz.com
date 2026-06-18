@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 220" role="img" aria-labelledby="title desc">
+  <title id="title">Conference on Statistical Practice 2020</title>
+  <desc id="desc">Text logo for the 2020 Conference on Statistical Practice</desc>
+  <rect width="640" height="220" rx="22" fill="#fffaf1"/>
+  <rect x="18" y="18" width="604" height="184" rx="18" fill="none" stroke="#2f6f64" stroke-width="8"/>
+  <g fill="#171717" font-family="Arial, Helvetica, sans-serif" font-weight="900">
+    <text x="50" y="86" font-size="42">Conference on</text>
+    <text x="50" y="136" font-size="50">Statistical Practice</text>
+  </g>
+  <g fill="#2f6f64" font-family="Arial, Helvetica, sans-serif" font-weight="900">
+    <text x="50" y="176" font-size="26">Sacramento, California</text>
+    <text x="520" y="176" font-size="34" text-anchor="middle">2020</text>
+  </g>
+  <g transform="translate(490 50)" fill="none" stroke="#2f6f64" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M0 86 34 52 63 70 112 12"/>
+    <path d="M112 12h-36"/>
+    <path d="M112 12v36"/>
+  </g>
+</svg>

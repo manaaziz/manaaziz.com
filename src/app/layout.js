@@ -1,6 +1,7 @@
 import "./globals.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Link from "next/link";
+import SiteLogo from "@/components/SiteLogo";
 
 export const metadata = {
   title: {
@@ -125,10 +126,7 @@ export default function RootLayout({ children }) {
     <html lang="en" data-scroll-behavior="smooth">
       <body>
         <header className="site-header">
-          <Link className="brand" href="/" aria-label="Mana Azizsoltani home">
-            <span>MA</span>
-            <strong>Mana Azizsoltani</strong>
-          </Link>
+          <SiteLogo />
           <nav className="nav-links" aria-label="Main navigation">
             {navItems.map((item) => (
               <Link key={item.href} href={item.href}>
