@@ -232,7 +232,8 @@ const conferencePresentations = [
     date: "June 13, 2023",
     venue: "Webinar on Safer Gambling: Insights from Leading Researchers & Applicability",
     location: "Malta",
-    logo: "/assets/logos/sustaible_gambling_webinar.png"
+    logo: "/assets/logos/sgcertified_logo.jpeg",
+    showInMosaic: true
   },
   {
     title: "Predicting declined transactions in gambling payments data",
@@ -240,7 +241,9 @@ const conferencePresentations = [
     date: "May 23-25, 2023",
     venue: "International Conference on Gambling & Risk Taking",
     location: "Las Vegas, Nevada",
-    logo: "/assets/logos/gambling_risk_taking_logo.jpg"
+    logo: "/assets/gallery/ICGRT_2023.jpeg",
+    photo: true,
+    tile: "wide"
   },
   {
     title: "Teaching statistics in hospitality",
@@ -298,7 +301,7 @@ export default function ResearchPage() {
           <h2>Conference presentations</h2>
         </div>
         <div className="presentation-gallery">
-          {conferencePresentations.map((presentation) => (
+          {conferencePresentations.filter((presentation) => presentation.photo || presentation.showInMosaic).map((presentation) => (
             <article
               className={`presentation-photo-card presentation-tile-${presentation.tile || "standard"}`}
               key={`${presentation.date}-${presentation.title}`}
