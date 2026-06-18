@@ -15,6 +15,15 @@ const card = ({ name, type, blurb, href, logo, countryId }) => ({
   countryId
 });
 
+const tileInitials = (name) =>
+  name
+    .split(/[\s&]+/)
+    .filter(Boolean)
+    .slice(0, 3)
+    .map((word) => word[0])
+    .join("")
+    .toUpperCase();
+
 const collaborations = [
   {
     country: "United States",
@@ -37,16 +46,16 @@ const collaborations = [
         logo: "/assets/logos/unlv_igi_logo.jpeg"
       }),
       card({
-        name: "Wynn Las Vegas",
+        name: "Wynn Resorts",
         type: "Consulting",
-        blurb: "Supported analytics work tied to casino and hospitality operations.",
+        blurb: "Supported analytics work tied to Wynn and Encore casino and hospitality operations.",
         logo: "/assets/logos/Wynn_Las_Vegas_logo.svg.png"
       }),
       card({
-        name: "Encore",
+        name: "Resorts World Las Vegas",
         type: "Consulting",
-        blurb: "Worked with operator context for premium resort and gaming decisions.",
-        logo: "/assets/logos/Wynn_Las_Vegas_logo.svg.png"
+        blurb: "Supported integrated resort and casino hospitality analytics context in Las Vegas.",
+        logo: "/assets/logos/resorts_world_LV_logo_transparent.png"
       }),
       card({
         name: "WDTS",
@@ -95,10 +104,30 @@ const collaborations = [
         logo: "/assets/logos/casino_miami_logo.png"
       }),
       card({
+        name: "Gilley's Kansas City",
+        type: "Consulting",
+        blurb: "Supported hospitality and entertainment consulting context connected to Kansas City.",
+        logo: "/assets/logos/gilleys_logo_transparent.png"
+      }),
+      card({
+        name: "Oakmont",
+        type: "Consulting",
+        blurb: "Supported consulting work connected to Texas hospitality and entertainment operations.",
+        logo: "/assets/logos/oakmont_logo_transparent.png"
+      }),
+      card({
         name: "Graduate Education & Graduate Student Research Conference",
         type: "Research",
         blurb: "Presented a scoping review on how hotel customers feel about AI service technologies in Miami.",
-        href: "/research"
+        href: "/research",
+        logo: "/assets/logos/west_chrie_2023.jpeg"
+      }),
+      card({
+        name: "Conference on Statistical Practice",
+        type: "Research",
+        blurb: "Attended the 2020 Conference on Statistical Practice in Sacramento, California.",
+        href: "/research",
+        logo: "/assets/logos/csp_2020_logo.svg"
       }),
       card({
         name: "RevME Hospitality Management and Analytics Conference",
@@ -127,11 +156,6 @@ const collaborations = [
         logo: "/assets/logos/ballys_corporation_logo.svg"
       }),
       card({
-        name: "Machine learning",
-        type: "Research",
-        blurb: "Applied predictive models to casino, hotel, and guest behavior problems."
-      }),
-      card({
         name: "Master's degree",
         type: "Education",
         blurb: "Earned a master's degree in North Carolina before continuing into doctoral research and applied analytics.",
@@ -151,17 +175,11 @@ const collaborations = [
     summary: "Academic, cultural, and community ties from time spent studying and working in Barcelona.",
     work: [
       card({
-        name: "Shapley interaction networks",
+        name: "IEEE Conference on Artificial Intelligence",
         type: "Research",
-        blurb: "Presented work on explaining the clinical course of gambling disorder at an AI conference in Granada.",
+        blurb: "Presented Shapley interaction networks work on explaining the clinical course of gambling disorder in Granada.",
         href: "/research",
         logo: "/assets/logos/cai_granada_logo.png"
-      }),
-      card({
-        name: "Barcelona hospitality teaching",
-        type: "Teaching",
-        blurb: "Connected classroom experience with hospitality, culture, and international student development.",
-        href: "/blog/barcelona"
       }),
       card({
         name: "Club de Convergentes",
@@ -169,6 +187,12 @@ const collaborations = [
         blurb: "Presented work on AI ethics and governance in the gambling sector in Madrid.",
         href: "/research",
         logo: "/assets/logos/club_convergentes.png"
+      }),
+      card({
+        name: "Fundacion Patologia Dual",
+        type: "Consulting",
+        blurb: "Supported consulting context connected to dual pathology work in Madrid.",
+        logo: "/assets/logos/fund_path_dual_transparent.png"
       })
     ]
   },
@@ -210,7 +234,7 @@ const collaborations = [
         type: "Research",
         blurb: "Presented machine learning work on detecting customer transaction decline.",
         href: "/research",
-        logo: "/assets/logos/sustaible_gambling_webinar.png"
+        logo: "/assets/logos/sgcertified_logo.jpeg"
       })
     ]
   },
@@ -310,6 +334,19 @@ const collaborations = [
         type: "Consulting",
         blurb: "Reviewed integrated resort and casino hospitality context in Southeast Asia.",
         logo: "/assets/logos/hoiana_logo.png"
+      })
+    ]
+  },
+  {
+    country: "Singapore",
+    id: "sg",
+    summary: "Integrated resort and hospitality consulting connections in Singapore.",
+    work: [
+      card({
+        name: "Resorts World Sentosa",
+        type: "Consulting",
+        blurb: "Supported integrated resort and casino hospitality analytics context in Singapore.",
+        logo: "/assets/logos/resorts_world_singapore_logo_transparent.png"
       })
     ]
   },
@@ -417,7 +454,7 @@ const globalRegions = [
     id: "asia",
     label: "Asia",
     summary: "Integrated resort, casino, and hospitality analytics work across East and Southeast Asia.",
-    countries: ["cn", "kr", "vn"],
+    countries: ["cn", "kr", "vn", "sg"],
     defaultCountry: "cn",
     position: { left: "73%", top: "43%" },
     mapCountries: [
@@ -451,6 +488,7 @@ const countryFloatPositions = {
   cn: { left: "54%", top: "60%" },
   kr: { left: "66%", top: "48%" },
   vn: { left: "54%", top: "75%" },
+  sg: { left: "49%", top: "86%" },
   au: { left: "42%", top: "58%" }
 };
 
@@ -628,6 +666,30 @@ function FlagArt({ countryId }) {
           <Star cx={60} cy={40} outer={17} inner={6.7} fill="#ffde00" />
         </>
       );
+    case "sg":
+      return (
+        <>
+          <rect width="120" height="40" fill="#ef3340" />
+          <rect y="40" width="120" height="40" fill="#fff" />
+          <circle cx="25" cy="20" r="13" fill="#fff" />
+          <circle cx="31" cy="20" r="11" fill="#ef3340" />
+          <g transform="translate(43 20)">
+            {Array.from({ length: 5 }).map((_, index) => {
+              const angle = (-90 + index * 72) * Math.PI / 180;
+              return (
+                <Star
+                  cx={Math.cos(angle) * 8}
+                  cy={Math.sin(angle) * 8}
+                  fill="#fff"
+                  inner={1}
+                  key={index}
+                  outer={2.6}
+                />
+              );
+            })}
+          </g>
+        </>
+      );
     case "au":
       return (
         <>
@@ -704,16 +766,16 @@ const usStates = [
         logo: "/assets/logos/unlv_igi_logo.jpeg"
       }),
       card({
-        name: "Wynn Las Vegas",
+        name: "Wynn Resorts",
         type: "Consulting",
-        blurb: "Supported analytics work tied to casino and hospitality operations.",
+        blurb: "Supported analytics work tied to Wynn and Encore casino and hospitality operations.",
         logo: "/assets/logos/Wynn_Las_Vegas_logo.svg.png"
       }),
       card({
-        name: "Encore",
+        name: "Resorts World Las Vegas",
         type: "Consulting",
-        blurb: "Worked with operator context for premium resort and gaming decisions.",
-        logo: "/assets/logos/Wynn_Las_Vegas_logo.svg.png"
+        blurb: "Supported integrated resort and casino hospitality analytics context in Las Vegas.",
+        logo: "/assets/logos/resorts_world_LV_logo_transparent.png"
       }),
       card({
         name: "WDTS",
@@ -773,10 +835,26 @@ const usStates = [
         name: "Graduate Education & Graduate Student Research Conference",
         type: "Research",
         blurb: "Presented a scoping review on how hotel customers feel about AI service technologies in Miami.",
-        href: "/research"
+        href: "/research",
+        logo: "/assets/logos/west_chrie_2023.jpeg"
       })
     ],
     state: "Florida"
+  },
+  {
+    id: "california",
+    label: "California",
+    summary: "Applied statistics and professional practice conference experience in Sacramento.",
+    work: [
+      card({
+        name: "Conference on Statistical Practice",
+        type: "Research",
+        blurb: "Attended the 2020 Conference on Statistical Practice in Sacramento, California.",
+        href: "/research",
+        logo: "/assets/logos/csp_2020_logo.svg"
+      })
+    ],
+    state: "California"
   },
   {
     id: "tennessee",
@@ -824,14 +902,37 @@ const usStates = [
         type: "Consulting",
         blurb: "Supported casino and hospitality consulting context connected to Atlantic City operations.",
         logo: "/assets/logos/ballys_corporation_logo.svg"
-      }),
-      card({
-        name: "Machine learning",
-        type: "Research",
-        blurb: "Applied predictive models to casino, hotel, and guest behavior problems."
       })
     ],
     state: "New Jersey"
+  },
+  {
+    id: "kansas",
+    label: "Kansas",
+    summary: "Hospitality and entertainment consulting context connected to Kansas City.",
+    work: [
+      card({
+        name: "Gilley's Kansas City",
+        type: "Consulting",
+        blurb: "Supported hospitality and entertainment consulting context connected to Kansas City.",
+        logo: "/assets/logos/gilleys_logo_transparent.png"
+      })
+    ],
+    state: "Kansas"
+  },
+  {
+    id: "texas",
+    label: "Texas",
+    summary: "Hospitality and entertainment consulting work in Texas.",
+    work: [
+      card({
+        name: "Oakmont",
+        type: "Consulting",
+        blurb: "Supported consulting work connected to Texas hospitality and entertainment operations.",
+        logo: "/assets/logos/oakmont_logo_transparent.png"
+      })
+    ],
+    state: "Texas"
   },
   {
     id: "north-carolina",
@@ -901,14 +1002,9 @@ export default function GlobalExperienceMap() {
   };
   const active = mapMode === "us"
     ? stateById.get(activeStateId) || usStates[0]
-    : mapMode === "regions"
+    : mapMode === "regions" || !activeCountry
       ? activeRegionOverview
-      : activeCountry || {
-        country: activeGlobalRegion.label,
-        id: activeGlobalRegion.id,
-        summary: activeGlobalRegion.summary,
-        work: []
-      };
+      : activeCountry;
   const activeCountryFloatPosition = activeCountry
     ? countryFloatPositions[activeCountry.id] || { left: "50%", top: "50%" }
     : null;
@@ -955,16 +1051,12 @@ export default function GlobalExperienceMap() {
 
     setActiveGlobalRegionId(regionId);
     setSelectedWorkIndex(null);
-    if (region.defaultCountry) {
-      setActiveId(region.defaultCountry);
-    } else {
-      setActiveId("");
-    }
+    setActiveId("");
     setMapMode("region");
   }
 
   function selectWorkItem(item, index) {
-    if (mapMode === "regions" && item.countryId) {
+    if ((mapMode === "regions" || mapMode === "region") && item.countryId) {
       openCountry(item.countryId);
       return;
     }
@@ -1186,7 +1278,7 @@ export default function GlobalExperienceMap() {
                         ) : item.countryId ? (
                           <AnimatedFlag countryId={item.countryId} label={item.name} />
                         ) : (
-                          <span>{item.name}</span>
+                          <span>{tileInitials(item.name)}</span>
                         )}
                       </span>
                     </button>

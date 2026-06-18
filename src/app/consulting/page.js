@@ -45,15 +45,20 @@ const consultingAreas = [
 ];
 
 const clients = [
-  { name: "Wynn", logo: "/assets/logos/wynn_macau_logo.png" },
+  { name: "Wynn Resorts", logo: "/assets/logos/Wynn_Las_Vegas_logo.svg.png" },
   { name: "Melco", logo: "/assets/logos/Melco_logo.png" },
   { name: "Crown Resorts", logo: "/assets/logos/crown_resorts_logo.png" },
   { name: "The Star", logo: "/assets/logos/the_star_logo.png" },
   { name: "Hoiana", logo: "/assets/logos/hoiana_logo.png" },
   { name: "Inspire", logo: "/assets/logos/inspire_resort_logo.png" },
+  { name: "Resorts World Las Vegas", logo: "/assets/logos/resorts_world_LV_logo_transparent.png" },
+  { name: "Resorts World Sentosa", logo: "/assets/logos/resorts_world_singapore_logo_transparent.png" },
   { name: "Casino Miami", logo: "/assets/logos/casino_miami_logo.png" },
+  { name: "Gilley's Kansas City", logo: "/assets/logos/gilleys_logo_transparent.png" },
+  { name: "Oakmont", logo: "/assets/logos/oakmont_logo_transparent.png" },
   { name: "WDTS", logo: "/assets/logos/wdts_logo.png" },
   { name: "AXES", logo: "/assets/logos/axes_logo.png" },
+  { name: "Fundacion Patologia Dual", logo: "/assets/logos/fund_path_dual_transparent.png" },
   { name: "Bally's", logo: "/assets/logos/ballys_corporation_logo.svg" },
   { name: "GMA Consulting", logo: "/assets/logos/gma_logo.png.webp" }
 ];
