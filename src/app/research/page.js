@@ -106,7 +106,8 @@ const conferencePresentations = [
     location: "Las Vegas, Nevada",
     logo: "/assets/gallery/conf_gambling_risk_2026.jpeg",
     photo: true,
-    tile: "wide"
+    tile: "wide",
+    focus: "center 42%"
   },
   {
     title: "Shapley interaction networks for explaining the clinical course of gambling disorder",
@@ -140,7 +141,8 @@ const conferencePresentations = [
     location: "Las Vegas, Nevada",
     logo: "/assets/gallery/ICRG_2025.jpeg",
     photo: true,
-    tile: "wide"
+    tile: "wide",
+    focus: "center 40%"
   },
   {
     title: "Avanzando en la ética y la gobernanza de la IA en el sector del juego: Un piloto de traducción de investigación",
@@ -150,7 +152,8 @@ const conferencePresentations = [
     location: "Madrid, Spain",
     logo: "/assets/gallery/CEOE_2025.jpg",
     photo: true,
-    tile: "wide"
+    tile: "wide",
+    focus: "center 38%"
   },
   {
     title: "Characterizing UK online gamblers exceeding financial risk thresholds",
@@ -160,7 +163,8 @@ const conferencePresentations = [
     location: "Las Vegas, Nevada",
     logo: "/assets/gallery/gli_regulator_roundtable.JPG",
     photo: true,
-    tile: "wide"
+    tile: "wide",
+    focus: "center 42%"
   },
   {
     title: "How do hotel customers feel about AI service technologies? A scoping review",
@@ -177,7 +181,8 @@ const conferencePresentations = [
     location: "Qatar",
     logo: "/assets/gallery/eurochrie_qatar.jpeg",
     photo: true,
-    tile: "wide"
+    tile: "wide",
+    focus: "center 42%"
   },
   {
     title: "Clustering slot machine players using session-level transaction data",
@@ -195,7 +200,8 @@ const conferencePresentations = [
     location: "Las Vegas, Nevada",
     logo: "/assets/gallery/ICRG_2024.JPG",
     photo: true,
-    tile: "tall"
+    tile: "tall",
+    focus: "center 38%"
   },
   {
     title: "An ordinal categorical variable approach to assessing measurement invariance using the theta parameterization for MG-CFA",
@@ -205,7 +211,8 @@ const conferencePresentations = [
     location: "Rome, Italy",
     logo: "/assets/gallery/EASG_2024.JPG",
     photo: true,
-    tile: "tall"
+    tile: "tall",
+    focus: "center 42%"
   },
   {
     title: "An assessment of the measurement invariance of the Problem Gambling Severity Index (PGSI)",
@@ -215,7 +222,8 @@ const conferencePresentations = [
     location: "Nevada",
     logo: "/assets/gallery/nvcpg_2024.jpeg",
     photo: true,
-    tile: "wide"
+    tile: "wide",
+    focus: "center 40%"
   },
   {
     title: "Machine learning prediction of hotel room demand",
@@ -225,7 +233,8 @@ const conferencePresentations = [
     location: "Nashville, Tennessee",
     logo: "/assets/gallery/revme_nashville.JPG",
     photo: true,
-    tile: "wide"
+    tile: "wide",
+    focus: "center 43%"
   },
   {
     title: "Detection of customer transaction decline using machine learning",
@@ -236,7 +245,8 @@ const conferencePresentations = [
     logo: "/assets/gallery/sustainable_gambling_photo.jpeg",
     photo: true,
     tile: "wide",
-    showInMosaic: true
+    showInMosaic: true,
+    focus: "center 45%"
   },
   {
     title: "Predicting declined transactions in gambling payments data",
@@ -246,7 +256,8 @@ const conferencePresentations = [
     location: "Las Vegas, Nevada",
     logo: "/assets/gallery/ICGRT_2023.jpeg",
     photo: true,
-    tile: "wide"
+    tile: "wide",
+    focus: "center 42%"
   },
   {
     title: "Teaching statistics in hospitality",
@@ -256,7 +267,8 @@ const conferencePresentations = [
     location: "Las Vegas, Nevada",
     logo: "/assets/gallery/gradforum1.jpg",
     photo: true,
-    tile: "tall"
+    tile: "tall",
+    focus: "center 38%"
   },
   {
     title: "Teaching statistics in hospitality using R",
@@ -266,7 +278,8 @@ const conferencePresentations = [
     location: "Virtual",
     logo: "/assets/gallery/hawkes3.jpg",
     photo: true,
-    tile: "tall"
+    tile: "tall",
+    focus: "center 36%"
   },
   {
     title: "Predicting cancellations in bookings using machine learning",
@@ -280,6 +293,12 @@ const conferencePresentations = [
 ];
 
 export default function ResearchPage() {
+  const mosaicPresentations = conferencePresentations.filter((presentation) => presentation.photo || presentation.showInMosaic);
+  const presentationColumns = Array.from({ length: 3 }, () => []);
+  mosaicPresentations.forEach((presentation, index) => {
+    presentationColumns[index % presentationColumns.length].push(presentation);
+  });
+
   return (
     <main className="page-shell">
       <p className="eyebrow">Research</p>
@@ -303,36 +322,41 @@ export default function ResearchPage() {
           <p className="eyebrow">Research</p>
           <h2>Conference presentations</h2>
         </div>
-        <div className="presentation-gallery">
-          {conferencePresentations.filter((presentation) => presentation.photo || presentation.showInMosaic).map((presentation) => (
-            <article
-              className={`presentation-photo-card presentation-tile-${presentation.tile || "standard"}`}
-              key={`${presentation.date}-${presentation.title}`}
-            >
-              <div className="presentation-photo-surface">
-                <div className={`presentation-photo-placeholder${presentation.photo ? " has-photo" : ""}`}>
-                  {presentation.logo ? (
-                    <Image
-                      className={`presentation-photo-image${presentation.photo ? " is-photo" : ""}`}
-                      src={presentation.logo}
-                      alt=""
-                      fill
-                      sizes={presentation.tile === "wide" ? "(max-width: 920px) 100vw, 40vw" : "(max-width: 920px) 100vw, 24vw"}
-                    />
-                  ) : null}
-                </div>
-                <div className="presentation-photo-copy">
-                  <p>{presentation.venue}</p>
-                </div>
-              </div>
-              <div className="presentation-photo-caption">
-                <div className="presentation-card-meta">
-                  <span>{presentation.location}</span>
-                  <time>{presentation.date}</time>
-                </div>
-                <h3>{presentation.title}</h3>
-              </div>
-            </article>
+        <div className="presentation-gallery research-presentation-gallery">
+          {presentationColumns.map((column, columnIndex) => (
+            <div className="research-presentation-column" key={`presentation-column-${columnIndex}`}>
+              {column.map((presentation) => (
+                <article
+                  className={`presentation-photo-card presentation-tile-${presentation.tile || "standard"}`}
+                  key={`${presentation.date}-${presentation.title}`}
+                  style={{ "--presentation-focus": presentation.focus || "center" }}
+                >
+                  <div className="presentation-photo-surface">
+                    <div className={`presentation-photo-placeholder${presentation.photo ? " has-photo" : ""}`}>
+                      {presentation.logo ? (
+                        <Image
+                          className={`presentation-photo-image${presentation.photo ? " is-photo" : ""}`}
+                          src={presentation.logo}
+                          alt=""
+                          fill
+                          sizes={presentation.tile === "wide" ? "(max-width: 920px) 100vw, 40vw" : "(max-width: 920px) 100vw, 24vw"}
+                        />
+                      ) : null}
+                    </div>
+                    <div className="presentation-photo-copy">
+                      <p>{presentation.venue}</p>
+                    </div>
+                  </div>
+                  <div className="presentation-photo-caption">
+                    <div className="presentation-card-meta">
+                      <span>{presentation.location}</span>
+                      <time>{presentation.date}</time>
+                    </div>
+                    <h3>{presentation.title}</h3>
+                  </div>
+                </article>
+              ))}
+            </div>
           ))}
         </div>
       </section>

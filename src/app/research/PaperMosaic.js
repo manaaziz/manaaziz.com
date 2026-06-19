@@ -57,43 +57,54 @@ export default function PaperMosaic({ papers }) {
     event.stopPropagation();
   }
 
+  const paperRows = [];
+  for (let index = 0; index < papers.length;) {
+    const rowSize = paperRows.length % 2 === 0 ? 4 : 3;
+    paperRows.push(papers.slice(index, index + rowSize));
+    index += rowSize;
+  }
+
   return (
     <div className="paper-mosaic-wrap">
       <div className="paper-mosaic" data-expanded={activePaper ? "true" : "false"}>
-        {papers.map((paper) => (
-          <article
-            aria-label={`Open details for ${paper.title}`}
-            className="paper-tile"
-            data-active={activePaper?.title === paper.title ? "true" : "false"}
-            key={paper.title}
-            onClick={(event) => openPaper(paper, event.currentTarget)}
-            onKeyDown={(event) => paperKeyDown(event, paper)}
-            role="button"
-            tabIndex={0}
-          >
-            <div className="paper-tile-inner">
-              <div>
-                <span>{paper.status} · {paper.year}</span>
-                <h3>{paper.title}</h3>
-              </div>
-              <div className="paper-tile-detail">
-                <p>{paper.blurb}</p>
-                <small>{paper.venue}</small>
-              </div>
-              <div className="paper-tile-actions" onClick={stopTileOpen}>
-                {paper.doi ? (
-                  <a href={`https://doi.org/${paper.doi}`} target="_blank" rel="noreferrer">
-                    DOI
-                  </a>
-                ) : null}
-                {paper.blogHref ? (
-                  <a href={paper.blogHref}>
-                    Manalogue
-                  </a>
-                ) : null}
-              </div>
-            </div>
-          </article>
+        {paperRows.map((row, rowIndex) => (
+          <div className="paper-mosaic-row" data-row={rowIndex % 2 === 0 ? "full" : "offset"} key={`paper-row-${rowIndex}`}>
+            {row.map((paper) => (
+              <article
+                aria-label={`Open details for ${paper.title}`}
+                className="paper-tile"
+                data-active={activePaper?.title === paper.title ? "true" : "false"}
+                key={paper.title}
+                onClick={(event) => openPaper(paper, event.currentTarget)}
+                onKeyDown={(event) => paperKeyDown(event, paper)}
+                role="button"
+                tabIndex={0}
+              >
+                <div className="paper-tile-inner">
+                  <div>
+                    <span>{paper.status === "Published" ? "Published paper" : "Paper"}</span>
+                    <h3>{paper.title}</h3>
+                  </div>
+                  <div className="paper-tile-detail">
+                    <p>{paper.blurb}</p>
+                    <small>{paper.venue}</small>
+                  </div>
+                  <div className="paper-tile-actions" onClick={stopTileOpen}>
+                    {paper.doi ? (
+                      <a href={`https://doi.org/${paper.doi}`} target="_blank" rel="noreferrer">
+                        DOI
+                      </a>
+                    ) : null}
+                    {paper.blogHref ? (
+                      <a href={paper.blogHref}>
+                        Manalogue
+                      </a>
+                    ) : null}
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
         ))}
       </div>
 
