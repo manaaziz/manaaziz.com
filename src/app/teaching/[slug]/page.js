@@ -37,6 +37,56 @@ function materialMatches(material, kinds) {
   return kinds.includes(material.kind);
 }
 
+function parseNumericValue(value) {
+  if (!value) return null;
+  const parsed = Number.parseFloat(String(value).replace("%", ""));
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+function roundWeightsToTotal(weights, decimals = 1) {
+  const multiplier = 10 ** decimals;
+  const rounded = weights.map((weight) => Math.floor(weight * multiplier) / multiplier);
+  let remainder = Math.round((100 - rounded.reduce((sum, weight) => sum + weight, 0)) * multiplier);
+  const order = weights
+    .map((weight, index) => ({ index, fraction: weight * multiplier - Math.floor(weight * multiplier) }))
+    .sort((first, second) => second.fraction - first.fraction);
+
+  for (let index = 0; index < Math.abs(remainder); index += 1) {
+    const target = order[index % order.length]?.index ?? 0;
+    rounded[target] += Math.sign(remainder) / multiplier;
+  }
+
+  return rounded;
+}
+
+function buildAssessmentItems(components) {
+  const pointValues = components.map((item) => parseNumericValue(item.points));
+  const canUsePoints = pointValues.length > 0 && pointValues.every((value) => value !== null);
+  const rawWeights = canUsePoints
+    ? pointValues.map((points) => (points / pointValues.reduce((sum, value) => sum + value, 0)) * 100)
+    : components.map((item) => parseNumericValue(item.percent) ?? 0);
+  const weights = roundWeightsToTotal(rawWeights);
+
+  return components.map((item, index) => ({
+    ...item,
+    weight: weights[index],
+    weightLabel: `${weights[index].toFixed(1).replace(".0", "")}%`
+  }));
+}
+
+function buildAssessmentGradient(items) {
+  const colors = ["#2f6f64", "#8a1538", "#171717", "#b6c7bd", "#70685f", "#d7c7ad"];
+  let start = 0;
+  const stops = items.map((item, index) => {
+    const end = start + item.weight;
+    const stop = `${colors[index % colors.length]} ${start}% ${end}%`;
+    start = end;
+    return stop;
+  });
+
+  return `conic-gradient(from -90deg, ${stops.join(", ")})`;
+}
+
 function MaterialCard({ material }) {
   return (
     <article>
@@ -90,6 +140,8 @@ export default async function CoursePage({ params }) {
 
   const objectives = course.syllabus?.objectives || course.outcomes || [];
   const gradingComponents = course.syllabus?.assessments || course.gradingComponents || [];
+  const assessmentItems = buildAssessmentItems(gradingComponents);
+  const assessmentGradient = buildAssessmentGradient(assessmentItems);
   const weeklySchedule = course.syllabus?.schedule || course.schedule || [];
   const photoSlots = course.photos?.length
     ? course.photos
@@ -168,7 +220,7 @@ export default async function CoursePage({ params }) {
           </div>
 
           <div className="course-outcome-grid">
-            {objectives.map((outcome, index) => (
+            {objectives.slice(0, 8).map((outcome, index) => (
               <article key={outcome}>
                 <span>{String(index + 1).padStart(2, "0")}</span>
                 <p>{outcome}</p>
@@ -184,30 +236,31 @@ export default async function CoursePage({ params }) {
           <h2 id="course-grading-title">Assignments, grading, and scale</h2>
         </div>
         <div className="course-grading-grid">
-          <div className="syllabus-table course-grade-table" role="table" aria-label="Assignments and grading weights">
-            <div role="row">
-              <strong role="columnheader">Component</strong>
-              <strong role="columnheader">Weight</strong>
-              <strong role="columnheader">Due</strong>
-            </div>
-            {gradingComponents.map((item) => (
-              <div role="row" key={item.task}>
-                <span role="cell">{item.task}</span>
-                <span role="cell">{item.percent || item.points || "TBD"}</span>
-                <span role="cell">{item.due || "TBD"}</span>
+          <div className="course-assessment-panel" aria-label="Assignments and grading weights">
+            <div className="course-assessment-chart-card">
+              <div className="course-assessment-chart" style={{ "--assessment-chart": assessmentGradient }}>
+                <strong>100%</strong>
+                <span>Final grade</span>
               </div>
-            ))}
+            </div>
+            <div className="course-assessment-list">
+              {assessmentItems.map((item) => (
+                <article className="course-assessment-item" key={item.task}>
+                  <strong>{item.weightLabel}</strong>
+                  <div>
+                    <h3>{item.task}</h3>
+                    <p>{item.due || "Due date TBD"}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
 
-          <div className="syllabus-table course-scale-table" role="table" aria-label="Grading scale">
-            <div role="row">
-              <strong role="columnheader">Grade</strong>
-              <strong role="columnheader">Range</strong>
-            </div>
+          <div className="course-scale-panel" aria-label="Grading scale">
             {defaultGradingScale.map((item) => (
-              <div role="row" key={item.grade}>
-                <span role="cell">{item.grade}</span>
-                <span role="cell">{item.range}</span>
+              <div className="course-scale-pill" key={item.grade}>
+                <strong>{item.grade}</strong>
+                <span>{item.range}</span>
               </div>
             ))}
           </div>

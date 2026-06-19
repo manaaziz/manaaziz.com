@@ -1158,7 +1158,7 @@ h3 {
 
 .presentation-photo-placeholder .presentation-photo-image.is-photo {
   inset: 0 !important;
-  object-fit: cover;
+  object-fit: var(--presentation-fit, cover);
   object-position: var(--presentation-focus, center);
   filter: saturate(0.86) contrast(1.04);
 }
@@ -1468,16 +1468,22 @@ h3 {
 
 .paper-mosaic-wrap {
   position: relative;
+  overflow: hidden;
   margin-top: 1.25rem;
 }
 
 .paper-mosaic {
-  --paper-hex-row-offset: clamp(3.4rem, 6.8vw, 5.4rem);
+  --paper-hex-gap: clamp(0.62rem, 0.95vw, 0.88rem);
+  --paper-hex-width: calc((100% - (var(--paper-hex-gap) * 3)) / 4);
+  --paper-hex-row-overlap: calc(var(--paper-hex-width) * 0.288675134);
+  --paper-chip-runway: clamp(2.1rem, 4vw, 3.6rem);
+  position: relative;
+  z-index: 1;
   display: grid;
   gap: 0;
   width: 100%;
   margin-inline: auto;
-  padding: 0.25rem 0 var(--paper-hex-row-offset);
+  padding: var(--paper-chip-runway) 0 var(--paper-hex-row-overlap);
   perspective: 1200px;
   transition:
     filter 220ms ease,
@@ -1501,7 +1507,7 @@ h3 {
 .paper-mosaic-row {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0;
+  gap: var(--paper-hex-gap);
   width: 100%;
 }
 
@@ -1512,7 +1518,31 @@ h3 {
 }
 
 .paper-mosaic-row + .paper-mosaic-row {
-  margin-top: calc(var(--paper-hex-row-offset) * -1);
+  margin-top: calc((var(--paper-hex-row-overlap) * -1) + var(--paper-hex-gap));
+}
+
+.paper-chip-drop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.paper-chip-drop span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: clamp(0.98rem, 1.32vw, 1.18rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #fff url("/assets/images/black_casino_chip.png") center / 112% 112% no-repeat;
+  box-shadow: 0 0.08rem 0.16rem rgba(23, 23, 23, 0.22);
+  filter: none;
+  opacity: 0.96;
+  transform: translate3d(0, -4rem, 0) rotate(0deg);
+  transform-origin: center;
+  will-change: transform;
 }
 
 .paper-tile {
@@ -1538,8 +1568,8 @@ h3 {
   inset: 0;
   display: grid;
   align-content: center;
-  gap: 0.32rem;
-  padding: clamp(1.35rem, 3vw, 2rem) clamp(1.05rem, 2.25vw, 1.55rem);
+  gap: 0.42rem;
+  padding: clamp(1.7rem, 3.7vw, 2.55rem) clamp(1.2rem, 2.6vw, 1.85rem);
   border: 1px solid var(--line);
   background:
     radial-gradient(circle at 20% 18%, rgba(47, 111, 100, 0.08), transparent 26%),
@@ -1562,10 +1592,10 @@ h3 {
 .paper-tile h3 {
   display: -webkit-box;
   overflow: hidden;
-  margin: 0.22rem 0 0;
+  margin: 0;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
-  font-size: clamp(0.68rem, 0.9vw, 0.88rem);
+  font-size: clamp(0.82rem, 1.1vw, 1.08rem);
   line-height: 1.03;
 }
 
@@ -1586,7 +1616,7 @@ h3 {
   margin: 0;
   display: -webkit-box;
   overflow: hidden;
-  font-size: clamp(0.58rem, 0.72vw, 0.68rem);
+  font-size: clamp(0.64rem, 0.82vw, 0.78rem);
   line-height: 1.2;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
@@ -2586,7 +2616,7 @@ h3 {
 
 .course-outcome-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1rem;
   margin-top: 1.5rem;
 }
@@ -2595,7 +2625,7 @@ h3 {
   display: grid;
   gap: 0.75rem;
   min-height: 11rem;
-  align-content: space-between;
+  align-content: start;
   padding: 1.25rem;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -2761,17 +2791,142 @@ h3 {
 
 .course-grading-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(18rem, 0.75fr);
+  grid-template-columns: minmax(0, 1.18fr) minmax(18rem, 0.82fr);
   gap: 1rem;
   margin-top: 1.5rem;
 }
 
-.course-grade-table > div {
-  grid-template-columns: minmax(0, 1.4fr) minmax(6rem, 0.34fr) minmax(8rem, 0.5fr);
+.course-assessment-panel,
+.course-scale-panel {
+  display: grid;
+  gap: 0.65rem;
 }
 
-.course-scale-table > div {
-  grid-template-columns: 5rem minmax(0, 1fr);
+.course-assessment-panel {
+  grid-template-columns: minmax(10rem, 0.38fr) minmax(0, 0.62fr);
+}
+
+.course-assessment-list {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.course-assessment-chart-card {
+  display: grid;
+  place-items: center;
+  min-height: 100%;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-raised);
+  box-shadow: var(--shadow);
+}
+
+.course-assessment-item,
+.course-scale-pill {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-raised);
+  box-shadow: var(--shadow);
+}
+
+.course-assessment-item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.65rem;
+  align-items: start;
+  padding: 0.72rem;
+}
+
+.course-assessment-chart {
+  position: relative;
+  display: grid;
+  width: min(100%, 10.75rem);
+  aspect-ratio: 1;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--assessment-chart);
+  box-shadow: inset 0 0 0 1px rgba(23, 23, 23, 0.12);
+}
+
+.course-assessment-chart::before {
+  position: absolute;
+  inset: 26%;
+  border-radius: inherit;
+  background: var(--surface-raised);
+  box-shadow: inset 0 0 0 1px var(--line);
+  content: "";
+}
+
+.course-assessment-chart strong,
+.course-assessment-chart span {
+  position: relative;
+  z-index: 1;
+}
+
+.course-assessment-chart strong {
+  align-self: end;
+  font-size: clamp(1.25rem, 2vw, 1.8rem);
+  line-height: 1;
+}
+
+.course-assessment-chart span {
+  align-self: start;
+  margin-top: 0.18rem;
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.course-assessment-item > strong {
+  display: inline-grid;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--green);
+  color: var(--cream);
+  font-size: 0.74rem;
+  font-weight: 900;
+}
+
+.course-assessment-item h3 {
+  margin: 0;
+  font-size: clamp(0.9rem, 1.1vw, 1.05rem);
+  line-height: 1.12;
+}
+
+.course-assessment-item p {
+  margin: 0.32rem 0 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.course-scale-panel {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.course-scale-pill {
+  display: flex;
+  gap: 0.7rem;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 3rem;
+  padding: 0.62rem 0.75rem;
+}
+
+.course-scale-pill strong {
+  font-size: 1rem;
+}
+
+.course-scale-pill span {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-align: right;
 }
 
 .course-material-group {
@@ -6925,7 +7080,7 @@ h3 {
   }
 
   .paper-mosaic {
-    --paper-hex-row-offset: clamp(2.6rem, 8vw, 4.1rem);
+    --paper-hex-width: calc((100% - var(--paper-hex-gap)) / 2);
   }
 
   .paper-mosaic-row,
@@ -6977,8 +7132,13 @@ h3 {
   .work-mix-layout,
   .global-map-shell,
   .teaching-hero,
-  .course-detail-grid {
+  .course-detail-grid,
+  .course-grading-grid {
     grid-template-columns: 1fr;
+  }
+
+  .course-assessment-panel {
+    grid-template-columns: minmax(0, 0.42fr) minmax(0, 0.58fr);
   }
 
   .world-map-panel {
@@ -7102,7 +7262,6 @@ h3 {
   }
 
   .paper-mosaic {
-    --paper-hex-row-offset: 0rem;
     gap: 0.75rem;
     padding-bottom: 0;
   }
@@ -7362,6 +7521,11 @@ h3 {
   .course-card-grid,
   .course-outcome-grid,
   .course-material-list {
+    grid-template-columns: 1fr;
+  }
+
+  .course-assessment-panel,
+  .course-scale-panel {
     grid-template-columns: 1fr;
   }
 
@@ -7804,7 +7968,40 @@ h3 {
   }
 }
 
+@keyframes paper-chip-drop-roll {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -4rem, 0) rotate(0deg);
+  }
+
+  8% {
+    opacity: 0.7;
+  }
+
+  28% {
+    transform: translate3d(calc(var(--chip-drift) * 0.28), 34%, 0) rotate(210deg);
+  }
+
+  48% {
+    transform: translate3d(calc(var(--chip-drift) * -0.18), 60%, 0) rotate(510deg);
+  }
+
+  72% {
+    opacity: 0.72;
+    transform: translate3d(calc(var(--chip-drift) * 0.34), 92%, 0) rotate(830deg);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--chip-drift), 132%, 0) rotate(1120deg);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .paper-chip-drop {
+    display: none;
+  }
+
   .timeline-arrow::before,
   .timeline-arrow::after,
   .timeline-arrow span,
@@ -7827,6 +8024,7 @@ h3 {
   .collaboration-tile,
   .collaboration-detail-card,
   .casino-chip,
+  .paper-chip-drop span,
   .region-country-map,
   .global-map-shell[data-mode="region"] .world-map-panel,
   .global-map-shell[data-mode="us"] .world-map-panel {

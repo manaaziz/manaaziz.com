@@ -20,6 +20,32 @@ export const courses = [
       "Practice cultural observation through restaurants, markets, shared meals, and travel experiences.",
       "Reflect on how food communicates values, belonging, memory, and hospitality."
     ],
+    photos: [
+      {
+        label: "FAB 333 reunion",
+        note: "A group moment connected to the broader FAB 333 travel and cuisine archive.",
+        src: "/assets/gallery/fab333_reunion_group.jpg",
+        alt: "FAB 333 reunion group photo"
+      },
+      {
+        label: "Spain connection",
+        note: "A travel and culture memory tied to the study-abroad version of FAB 333.",
+        src: "/assets/gallery/fab333_reunion_manaflag.jpeg",
+        alt: "Mana with a flag during a FAB 333 reunion moment"
+      },
+      {
+        label: "Course community",
+        note: "Personal and student-facing moments from the FAB 333 extended classroom.",
+        src: "/assets/gallery/fab333_reunion_mark.jpg",
+        alt: "FAB 333 reunion photo"
+      },
+      {
+        label: "UNLV abroad",
+        note: "A study-abroad visual archive for the Spain-focused FAB 333 course home.",
+        src: "/assets/gallery/fab333_reunion_unlvflag.jpeg",
+        alt: "UNLV flag photo connected to FAB 333 Summer Studies in Spain"
+      }
+    ],
     gradingComponents: [
       { task: "Field participation and engagement", percent: "25%" },
       { task: "Cultural observation reflections", percent: "25%" },
@@ -77,6 +103,26 @@ export const courses = [
       "Compare global cuisines through etiquette, sustainability, sensory experience, and hospitality practice.",
       "Use presentations, discussion, and observation to practice intercultural communication."
     ],
+    photos: [
+      {
+        label: "Culture and Cuisine",
+        note: "A Spring 2026 classroom moment from FAB 333.",
+        src: "/assets/gallery/fab333_2026_2.jpeg",
+        alt: "FAB 333 Culture and Cuisine classroom moment"
+      },
+      {
+        label: "Tea and tasting",
+        note: "A tasting-centered class moment from Culture and Cuisine.",
+        src: "/assets/gallery/fab333_2026_tea.jpeg",
+        alt: "FAB 333 Culture and Cuisine tea tasting moment"
+      },
+      {
+        label: "Paella",
+        note: "A cuisine-focused class moment connected to Spanish foodways and shared meals.",
+        src: "/assets/gallery/fab333_paella.jpeg",
+        alt: "Paella prepared for FAB 333 Culture and Cuisine"
+      }
+    ],
     materials: [
       {
         title: "HTML syllabus",
@@ -108,22 +154,12 @@ export const courses = [
       {
         title: "How we taste lab",
         kind: "Slides",
-        description: "A sensory learning activity about taste and food perception.",
-        href: "/assets/course-materials/fab-333-culture-and-cuisine/how_we_taste_lab.pptx"
+        description: "A sensory learning activity about taste and food perception. PDF slides will be linked once exported."
       },
       {
         title: "Culture and cuisine slide collection",
         kind: "Slides",
-        description: "Sample topics include street food, Turkish cuisine, the Silk Road, food history, etiquette, wine, and slow food.",
-        links: [
-          { label: "Street food", href: "/assets/course-materials/fab-333-culture-and-cuisine/street_food_around_world.pptx" },
-          { label: "Turkish cuisine", href: "/assets/course-materials/fab-333-culture-and-cuisine/turkish_culture_cuisine.pptx" },
-          { label: "Silk Road", href: "/assets/course-materials/fab-333-culture-and-cuisine/silk_road.pptx" },
-          { label: "Foods that changed the world", href: "/assets/course-materials/fab-333-culture-and-cuisine/foods_that_changed_world.pptx" },
-          { label: "Table etiquette", href: "/assets/course-materials/fab-333-culture-and-cuisine/table_etiquette.pptx" },
-          { label: "Wine tasting", href: "/assets/course-materials/fab-333-culture-and-cuisine/wine_tasting_presentation.pptx" },
-          { label: "Slow foods", href: "/assets/course-materials/fab-333-culture-and-cuisine/slow_foods.pptx" }
-        ]
+        description: "Sample topics include street food, Turkish cuisine, the Silk Road, food history, etiquette, wine, and slow food. PDF versions will be linked here after export."
       },
       {
         title: "Wine tasting scorecard",

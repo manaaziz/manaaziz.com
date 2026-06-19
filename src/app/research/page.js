@@ -276,10 +276,11 @@ const conferencePresentations = [
     date: "March 17, 2023",
     venue: "2023 Hawkes Learning Innovative Educators Summit",
     location: "Virtual",
-    logo: "/assets/gallery/hawkes3.jpg",
+    logo: "/assets/gallery/hawkes3-cropped.jpg",
     photo: true,
-    tile: "tall",
-    focus: "center 36%"
+    tile: "wide",
+    fit: "contain",
+    focus: "center"
   },
   {
     title: "Predicting cancellations in bookings using machine learning",
@@ -288,7 +289,8 @@ const conferencePresentations = [
     venue: "2023 West Federation of Council on Hotel, Restaurant, and Institutional Education",
     location: "Las Vegas, Nevada",
     logo: "/assets/gallery/wfchrie_2023.jpeg",
-    photo: true
+    photo: true,
+    focus: "center 26%"
   }
 ];
 
@@ -314,7 +316,7 @@ export default function ResearchPage() {
           <p className="eyebrow">Papers</p>
           <h2 id="paper-mosaic-title">I have published in leading journals across multiple disciplines</h2>
         </div>
-        <PaperMosaic papers={papers} />
+        <PaperMosaic papers={papers.filter((paper) => paper.status === "Published")} />
       </section>
 
       <section className="presentation-section">
@@ -329,7 +331,10 @@ export default function ResearchPage() {
                 <article
                   className={`presentation-photo-card presentation-tile-${presentation.tile || "standard"}`}
                   key={`${presentation.date}-${presentation.title}`}
-                  style={{ "--presentation-focus": presentation.focus || "center" }}
+                  style={{
+                    "--presentation-fit": presentation.fit || "cover",
+                    "--presentation-focus": presentation.focus || "center"
+                  }}
                 >
                   <div className="presentation-photo-surface">
                     <div className={`presentation-photo-placeholder${presentation.photo ? " has-photo" : ""}`}>
