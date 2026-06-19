@@ -60,37 +60,38 @@ export default function PaperMosaic({ papers }) {
   return (
     <div className="paper-mosaic-wrap">
       <div className="paper-mosaic" data-expanded={activePaper ? "true" : "false"}>
-        {papers.map((paper, index) => (
+        {papers.map((paper) => (
           <article
             aria-label={`Open details for ${paper.title}`}
             className="paper-tile"
             data-active={activePaper?.title === paper.title ? "true" : "false"}
-            data-size={index % 7 === 0 ? "wide" : index % 5 === 0 ? "tall" : "standard"}
             key={paper.title}
             onClick={(event) => openPaper(paper, event.currentTarget)}
             onKeyDown={(event) => paperKeyDown(event, paper)}
             role="button"
             tabIndex={0}
           >
-            <div>
-              <span>{paper.status} · {paper.year}</span>
-              <h3>{paper.title}</h3>
-            </div>
-            <div className="paper-tile-detail">
-              <p>{paper.blurb}</p>
-              <small>{paper.venue}</small>
-            </div>
-            <div className="paper-tile-actions" onClick={stopTileOpen}>
-              {paper.doi ? (
-                <a href={`https://doi.org/${paper.doi}`} target="_blank" rel="noreferrer">
-                  DOI
-                </a>
-              ) : null}
-              {paper.blogHref ? (
-                <a href={paper.blogHref}>
-                  Manalogue
-                </a>
-              ) : null}
+            <div className="paper-tile-inner">
+              <div>
+                <span>{paper.status} · {paper.year}</span>
+                <h3>{paper.title}</h3>
+              </div>
+              <div className="paper-tile-detail">
+                <p>{paper.blurb}</p>
+                <small>{paper.venue}</small>
+              </div>
+              <div className="paper-tile-actions" onClick={stopTileOpen}>
+                {paper.doi ? (
+                  <a href={`https://doi.org/${paper.doi}`} target="_blank" rel="noreferrer">
+                    DOI
+                  </a>
+                ) : null}
+                {paper.blogHref ? (
+                  <a href={paper.blogHref}>
+                    Manalogue
+                  </a>
+                ) : null}
+              </div>
             </div>
           </article>
         ))}

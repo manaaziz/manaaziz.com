@@ -255,7 +255,7 @@ export default function ResearchWordGraph() {
     <section className="research-word-graph-section" aria-labelledby="research-word-graph-title">
       <div className="section-intro">
         <p className="eyebrow">Research map</p>
-        <h2 id="research-word-graph-title">Drag the ideas around</h2>
+        <h2 id="research-word-graph-title">My research applies AI and data science to hospitality and gaming contexts</h2>
       </div>
 
       <div className="research-word-graph" ref={graphRef}>

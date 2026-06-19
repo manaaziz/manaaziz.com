@@ -18,6 +18,16 @@ const papers = [
     detail: "This paper studies online gamblers who exceed financial risk thresholds using open banking data. It connects gambling behavior, financial signals, and public-health-oriented risk identification."
   },
   {
+    title: "Interpretable behavioral clusters of gamblers through unsupervised learning",
+    status: "Published",
+    venue: "Acta Psychologica",
+    year: "2026",
+    doi: "10.1016/j.actpsy.2026.106947",
+    blogHref: "/manalogue",
+    blurb: "An unsupervised learning project identifying behaviorally meaningful gambler clusters.",
+    detail: "This study uses unsupervised learning to identify behavioral clusters among gamblers. The goal is to find interpretable subgroups that can support research on gambling behavior and risk."
+  },
+  {
     title: "A systematic review of machine learning methodologies in hotel revenue management",
     status: "Published",
     venue: "European Journal of Tourism, Hospitality and Recreation",
@@ -75,15 +85,6 @@ const papers = [
     blogHref: "/manalogue",
     blurb: "A forecasting study using stacked generalization and explainable methods for hotel occupancy.",
     detail: "This project studies hotel occupancy forecasting using stacked generalization. It emphasizes predictive accuracy while using explainability tools to make the forecasts more useful for hospitality managers."
-  },
-  {
-    title: "Interpretable behavioral clusters of gamblers through unsupervised learning",
-    status: "Published",
-    venue: "Acta Psychologica",
-    year: "2025",
-    blogHref: "/manalogue",
-    blurb: "An unsupervised learning project identifying behaviorally meaningful gambler clusters.",
-    detail: "This study uses unsupervised learning to identify behavioral clusters among gamblers. The goal is to find interpretable subgroups that can support research on gambling behavior and risk."
   },
   {
     title: "Teaching statistics to hospitality students: A theoretical perspective",
@@ -232,7 +233,9 @@ const conferencePresentations = [
     date: "June 13, 2023",
     venue: "Webinar on Safer Gambling: Insights from Leading Researchers & Applicability",
     location: "Malta",
-    logo: "/assets/logos/sgcertified_logo.jpeg",
+    logo: "/assets/gallery/sustainable_gambling_photo.jpeg",
+    photo: true,
+    tile: "wide",
     showInMosaic: true
   },
   {
@@ -317,17 +320,16 @@ export default function ResearchPage() {
                       sizes={presentation.tile === "wide" ? "(max-width: 920px) 100vw, 40vw" : "(max-width: 920px) 100vw, 24vw"}
                     />
                   ) : null}
-                  <span>{presentation.location}</span>
                 </div>
                 <div className="presentation-photo-copy">
-                  <div className="presentation-hover-meta">
-                    <span>{presentation.location}</span>
-                    <time>{presentation.date}</time>
-                  </div>
                   <p>{presentation.venue}</p>
                 </div>
               </div>
               <div className="presentation-photo-caption">
+                <div className="presentation-card-meta">
+                  <span>{presentation.location}</span>
+                  <time>{presentation.date}</time>
+                </div>
                 <h3>{presentation.title}</h3>
               </div>
             </article>

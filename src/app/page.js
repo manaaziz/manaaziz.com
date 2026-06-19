@@ -1,5 +1,7 @@
 import Link from "next/link";
 import LocalizedHello from "@/components/LocalizedHello";
+import { getRecentPosts, getSeriesSummaries } from "@/lib/posts";
+import HomeLatestPostsCarousel from "./HomeLatestPostsCarousel";
 
 const workAreas = [
   {
@@ -22,28 +24,16 @@ const workAreas = [
   }
 ];
 
-const manalogueHighlights = [
-  {
-    href: "/manalogue",
-    label: "The Manalogue",
-    title: "A home for writing, media, podcasts, and visual archives.",
-    body: "The current desk for essays, analytics notes, teaching material, podcast projects, and gallery-style archives."
-  },
-  {
-    href: "/podcast/the-job-forum",
-    label: "Podcast",
-    title: "The Job Forum",
-    body: "Recent graduates, careers, and the transition into work."
-  },
-  {
-    href: "/research",
-    label: "Research",
-    title: "Published work and conference presentations.",
-    body: "Papers, methods, presentation archives, and the research questions connecting hospitality, gaming, and analytics."
-  }
-];
-
 export default function Home() {
+  const series = getSeriesSummaries();
+  const recentPosts = getRecentPosts(8).map((post) => {
+    const seriesInfo = series.find((item) => item.seriesSlug === post.seriesSlug);
+    return {
+      ...post,
+      seriesCover: seriesInfo?.cover || "/assets/images/phdblog-cover.jpg"
+    };
+  });
+
   return (
     <main>
       <section className="hero hero-home" aria-label="Mana Azizsoltani introduction">
@@ -71,8 +61,8 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="portrait-panel portrait-placeholder" aria-label="Portrait placeholder">
-          <span>Portrait coming soon</span>
+        <div className="portrait-panel" aria-label="Portrait of Mana Azizsoltani">
+          <img className="home-portrait" src="/assets/images/mana_home_portrait_bw_cutout.png" alt="Mana Azizsoltani" />
         </div>
 
         <a className="scroll-cue" href="#selected-areas">
@@ -119,15 +109,7 @@ export default function Home() {
             Open The Manalogue
           </Link>
         </div>
-        <div className="home-stream-list">
-          {manalogueHighlights.map((item) => (
-            <Link className="post-list-item" href={item.href} key={item.href}>
-              <span>{item.label}</span>
-              <h2>{item.title}</h2>
-              <p>{item.body}</p>
-            </Link>
-          ))}
-        </div>
+        <HomeLatestPostsCarousel posts={recentPosts} />
       </section>
     </main>
   );
