@@ -143,6 +143,7 @@ export default async function CoursePage({ params }) {
   const assessmentItems = buildAssessmentItems(gradingComponents);
   const assessmentGradient = buildAssessmentGradient(assessmentItems);
   const weeklySchedule = course.syllabus?.schedule || course.schedule || [];
+  const semesterCalendar = course.syllabus?.calendar || course.calendar || [];
   const photoSlots = course.photos?.length
     ? course.photos
     : [
@@ -271,20 +272,64 @@ export default async function CoursePage({ params }) {
         <section className="course-schedule-section" aria-labelledby="course-schedule-title">
           <div className="section-intro">
             <p className="eyebrow">Schedule</p>
-            <h2 id="course-schedule-title">Weekly schedule</h2>
+            <h2 id="course-schedule-title">{semesterCalendar.length ? "Semester calendar" : "Weekly schedule"}</h2>
           </div>
-          <div className="syllabus-table weekly" role="table" aria-label="Weekly course schedule">
-            <div role="row">
-              <strong role="columnheader">Week</strong>
-              <strong role="columnheader">Topic</strong>
+          {semesterCalendar.length ? (
+            <div className="course-calendar-grid" aria-label="Semester calendar with weekly topics and university dates">
+              {semesterCalendar.map((month) => (
+                <article className="course-calendar-month" key={`${month.month}-${month.year}`}>
+                  <div className="course-calendar-month-header">
+                    <h3>{month.month}</h3>
+                    <span>{month.year}</span>
+                  </div>
+                  {month.notes?.length ? (
+                    <div className="course-calendar-notes" aria-label={`${month.month} university dates`}>
+                      {month.notes.map((note) => (
+                        <details className="course-calendar-note" key={`${note.date}-${note.title}`}>
+                          <summary>
+                            <span>{note.date}</span>
+                            {note.title}
+                          </summary>
+                          <p>{note.description}</p>
+                        </details>
+                      ))}
+                    </div>
+                  ) : null}
+                  <div className="course-calendar-weeks">
+                    {month.weeks.map((week) => (
+                      <section className={`course-calendar-week${week.blocked ? " is-blocked" : ""}`} key={`${month.month}-${week.week}`}>
+                        <div>
+                          <span>{week.date}</span>
+                          <strong>{/^\d+$/.test(String(week.week)) ? `Week ${week.week}` : week.week}</strong>
+                        </div>
+                        <p>{week.topic}</p>
+                        {week.due?.length ? (
+                          <ul>
+                            {week.due.map((item) => (
+                              <li key={item}>{item}</li>
+                            ))}
+                          </ul>
+                        ) : null}
+                      </section>
+                    ))}
+                  </div>
+                </article>
+              ))}
             </div>
-            {weeklySchedule.map((week) => (
-              <div role="row" key={`${week.week}-${week.topic}`}>
-                <span role="cell">{week.week}</span>
-                <span role="cell">{week.topic}</span>
+          ) : (
+            <div className="syllabus-table weekly" role="table" aria-label="Weekly course schedule">
+              <div role="row">
+                <strong role="columnheader">Week</strong>
+                <strong role="columnheader">Topic</strong>
               </div>
-            ))}
-          </div>
+              {weeklySchedule.map((week) => (
+                <div role="row" key={`${week.week}-${week.topic}`}>
+                  <span role="cell">{week.week}</span>
+                  <span role="cell">{week.topic}</span>
+                </div>
+              ))}
+            </div>
+          )}
         </section>
       ) : null}
 

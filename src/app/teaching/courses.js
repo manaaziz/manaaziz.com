@@ -209,6 +209,219 @@ export const courses = [
         { week: "12", topic: "Group presentations: Thailand and Japan" },
         { week: "13", topic: "Group presentations: Philippines and Ukraine" },
         { week: "14", topic: "Group presentations: Colombia and Group 15" }
+      ],
+      calendar: [
+        {
+          month: "January",
+          year: "2026",
+          notes: [
+            {
+              date: "Jan 19",
+              title: "MLK Jr. Day recess",
+              description: "UNLV campus closed. Classes begin the following day."
+            },
+            {
+              date: "Jan 20",
+              title: "Classes begin",
+              description: "Spring 2026 instruction begins at UNLV."
+            },
+            {
+              date: "Jan 26",
+              title: "Add/drop and payment deadline",
+              description: "Last day to add classes online, drop for a 100% refund, and pay without late penalties."
+            }
+          ],
+          weeks: [
+            {
+              week: "1",
+              date: "Jan 26",
+              topic: "Administration; introduction to culture, cuisine, and gastronomy",
+              due: ["Canvas picture and biography"]
+            }
+          ]
+        },
+        {
+          month: "February",
+          year: "2026",
+          notes: [
+            {
+              date: "Feb 6",
+              title: "Department permission deadline",
+              description: "Last day to add classes with department permission."
+            },
+            {
+              date: "Feb 16",
+              title: "Presidents' Day recess",
+              description: "UNLV campus closed. Monday class does not meet."
+            },
+            {
+              date: "Feb 27",
+              title: "50% withdrawal refund deadline",
+              description: "Last day to completely withdraw from all classes and receive a 50% refund if the account is paid in full."
+            }
+          ],
+          weeks: [
+            {
+              week: "2",
+              date: "Feb 2",
+              topic: "Evolution of food customs; street food; Turkish cuisine and culture",
+              due: ["Online quiz"]
+            },
+            {
+              week: "3",
+              date: "Feb 9",
+              topic: "Migration, immigration, exploration, the Silk Road, and foods that changed the world",
+              due: ["Online quiz"]
+            },
+            {
+              week: "4",
+              date: "Feb 16",
+              topic: "University recess week",
+              blocked: true
+            },
+            {
+              week: "5",
+              date: "Feb 23",
+              topic: "Dining etiquette and culture around meals",
+              due: ["Online quiz"]
+            }
+          ]
+        },
+        {
+          month: "March",
+          year: "2026",
+          notes: [
+            {
+              date: "Mar 1",
+              title: "May degree application deadline",
+              description: "Last day for undergraduates to apply for May 2026 degree conferral."
+            },
+            {
+              date: "Mar 2",
+              title: "Summer registration begins",
+              description: "Summer 2026 registration opens."
+            },
+            {
+              date: "Mar 16-22",
+              title: "Spring break recess",
+              description: "Classes are not held for spring break and resume Monday, March 23."
+            }
+          ],
+          weeks: [
+            {
+              week: "6",
+              date: "Mar 2",
+              topic: "Wine tasting and culture",
+              due: ["Online quiz"]
+            },
+            {
+              week: "7",
+              date: "Mar 9",
+              topic: "Healthy eating, cheese and culture, diet within cultures, and plant-based foods",
+              due: ["Online quiz"]
+            },
+            {
+              week: "8",
+              date: "Mar 16",
+              topic: "Spring break",
+              blocked: true
+            },
+            {
+              week: "9",
+              date: "Mar 23",
+              topic: "Group presentations: Peru and Brazil",
+              due: ["Online quiz", "Team presentations begin"]
+            },
+            {
+              week: "10",
+              date: "Mar 30",
+              topic: "Group presentations: Greece and South Korea",
+              due: ["Online quiz", "Team presentations"]
+            }
+          ]
+        },
+        {
+          month: "April",
+          year: "2026",
+          notes: [
+            {
+              date: "Apr 3",
+              title: "Drop/audit deadline",
+              description: "Last day to drop classes without a refund or change from credit to audit."
+            },
+            {
+              date: "Apr 13",
+              title: "Fall registration begins",
+              description: "Fall 2026 registration opens."
+            }
+          ],
+          weeks: [
+            {
+              week: "11",
+              date: "Apr 6",
+              topic: "Group presentations: Mexico and Egypt",
+              due: ["Final online quiz", "Team presentations"]
+            },
+            {
+              week: "12",
+              date: "Apr 13",
+              topic: "Group presentations: Thailand and Japan",
+              due: ["Team presentations"]
+            },
+            {
+              week: "13",
+              date: "Apr 20",
+              topic: "Group presentations: Philippines and Ukraine",
+              due: ["Team presentations"]
+            },
+            {
+              week: "14",
+              date: "Apr 27",
+              topic: "Group presentations: Colombia and Group 15",
+              due: ["Restaurant visit assignment", "Team presentations wrap"]
+            }
+          ]
+        },
+        {
+          month: "May",
+          year: "2026",
+          notes: [
+            {
+              date: "May 4",
+              title: "Study week begins",
+              description: "Classes are scheduled, but major written exams are not given."
+            },
+            {
+              date: "May 9",
+              title: "Instruction ends",
+              description: "Spring 2026 instruction ends."
+            },
+            {
+              date: "May 11",
+              title: "Final examinations begin",
+              description: "Final examinations begin and are scheduled to be two hours long."
+            },
+            {
+              date: "May 16",
+              title: "Semester ends",
+              description: "Spring semester ends, undergraduate commencement takes place, and degrees are conferred."
+            }
+          ],
+          weeks: [
+            {
+              week: "15",
+              date: "May 4",
+              topic: "Study week",
+              due: ["No major written exams"]
+            },
+            {
+              week: "Finals",
+              date: "May 11-16",
+              topic: "Final examination period",
+              due: ["Check final exam schedule"]
+            }
+          ]
+        }
       ]
     }
   },

@@ -2707,6 +2707,154 @@ h3 {
   margin-top: clamp(3rem, 7vw, 5rem);
 }
 
+.course-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.course-calendar-month {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  min-height: 100%;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 14% 14%, rgba(47, 111, 100, 0.08), transparent 28%),
+    var(--surface-raised);
+  box-shadow: var(--shadow);
+}
+
+.course-calendar-month-header {
+  display: flex;
+  gap: 1rem;
+  align-items: end;
+  justify-content: space-between;
+  padding-bottom: 0.55rem;
+  border-bottom: 2px solid var(--ink);
+}
+
+.course-calendar-month-header h3 {
+  margin: 0;
+  font-size: clamp(1.25rem, 2vw, 1.8rem);
+  line-height: 0.95;
+}
+
+.course-calendar-month-header span,
+.course-calendar-week > div span,
+.course-calendar-note summary span {
+  color: var(--green);
+  font-size: 0.68rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.course-calendar-notes,
+.course-calendar-weeks {
+  display: grid;
+  gap: 0.48rem;
+}
+
+.course-calendar-note {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+}
+
+.course-calendar-note summary {
+  display: flex;
+  gap: 0.55rem;
+  align-items: center;
+  padding: 0.52rem 0.62rem;
+  cursor: pointer;
+  font-size: 0.76rem;
+  font-weight: 900;
+  line-height: 1.15;
+  list-style: none;
+}
+
+.course-calendar-note summary::-webkit-details-marker {
+  display: none;
+}
+
+.course-calendar-note summary::after {
+  margin-left: auto;
+  color: var(--muted);
+  content: "+";
+}
+
+.course-calendar-note[open] summary::after {
+  content: "-";
+}
+
+.course-calendar-note p {
+  margin: 0;
+  padding: 0 0.62rem 0.62rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.36;
+}
+
+.course-calendar-week {
+  display: grid;
+  gap: 0.42rem;
+  padding: 0.68rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 250, 241, 0.72);
+}
+
+.course-calendar-week.is-blocked {
+  background:
+    repeating-linear-gradient(135deg, rgba(138, 21, 56, 0.1) 0 0.55rem, transparent 0.55rem 1.1rem),
+    rgba(255, 250, 241, 0.8);
+}
+
+.course-calendar-week > div {
+  display: flex;
+  gap: 0.65rem;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.course-calendar-week > div strong {
+  font-size: 0.82rem;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.course-calendar-week p {
+  margin: 0;
+  color: var(--ink);
+  font-size: 0.82rem;
+  font-weight: 850;
+  line-height: 1.18;
+}
+
+.course-calendar-week ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.course-calendar-week li {
+  padding: 0.28rem 0.45rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface-raised);
+  color: var(--muted);
+  font-size: 0.66rem;
+  font-weight: 900;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
 .course-photo-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -7094,6 +7242,10 @@ h3 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .course-calendar-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .research-presentation-gallery {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -7525,7 +7677,8 @@ h3 {
   }
 
   .course-assessment-panel,
-  .course-scale-panel {
+  .course-scale-panel,
+  .course-calendar-grid {
     grid-template-columns: 1fr;
   }
 
