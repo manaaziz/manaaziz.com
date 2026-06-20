@@ -2951,23 +2951,61 @@ h3 {
 }
 
 .course-assessment-panel {
-  grid-template-columns: minmax(10rem, 0.38fr) minmax(0, 0.62fr);
-}
-
-.course-assessment-list {
-  display: grid;
-  gap: 0.65rem;
+  grid-template-columns: 1fr;
 }
 
 .course-assessment-chart-card {
+  position: relative;
+  isolation: isolate;
+  overflow: visible;
   display: grid;
   place-items: center;
-  min-height: 100%;
+  min-height: clamp(17rem, 24vw, 21rem);
   padding: 1rem;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--surface-raised);
   box-shadow: var(--shadow);
+  outline: none;
+}
+
+.course-assessment-chart-card:hover,
+.course-assessment-chart-card:focus-visible,
+.course-assessment-chart-card:focus-within {
+  border-color: var(--line-strong);
+  box-shadow: var(--shadow-hover);
+}
+
+.course-assessment-flyout {
+  position: absolute;
+  inset: 0.75rem;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+  align-content: space-between;
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.96) translateY(0.35rem);
+  transition:
+    opacity 180ms ease,
+    transform 220ms var(--ease-out-back);
+}
+
+.course-assessment-chart-card:hover .course-assessment-flyout,
+.course-assessment-chart-card:focus-visible .course-assessment-flyout,
+.course-assessment-chart-card:focus-within .course-assessment-flyout {
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+}
+
+.course-assessment-chart-card:hover .course-assessment-chart,
+.course-assessment-chart-card:focus-visible .course-assessment-chart,
+.course-assessment-chart-card:focus-within .course-assessment-chart {
+  filter: saturate(0.85);
+  opacity: 0.2;
+  transform: scale(0.86);
 }
 
 .course-assessment-item,
@@ -2984,17 +3022,25 @@ h3 {
   gap: 0.65rem;
   align-items: start;
   padding: 0.72rem;
+  background:
+    radial-gradient(circle at 12% 16%, rgba(47, 111, 100, 0.08), transparent 28%),
+    rgba(255, 250, 241, 0.92);
+  backdrop-filter: blur(8px);
 }
 
 .course-assessment-chart {
   position: relative;
   display: grid;
-  width: min(100%, 10.75rem);
+  width: min(72%, 12rem);
   aspect-ratio: 1;
   place-items: center;
   border-radius: 999px;
   background: var(--assessment-chart);
   box-shadow: inset 0 0 0 1px rgba(23, 23, 23, 0.12);
+  transition:
+    filter 180ms ease,
+    opacity 180ms ease,
+    transform 220ms var(--ease-out-back);
 }
 
 .course-assessment-chart::before {
@@ -7290,7 +7336,7 @@ h3 {
   }
 
   .course-assessment-panel {
-    grid-template-columns: minmax(0, 0.42fr) minmax(0, 0.58fr);
+    grid-template-columns: 1fr;
   }
 
   .world-map-panel {
@@ -7680,6 +7726,27 @@ h3 {
   .course-scale-panel,
   .course-calendar-grid {
     grid-template-columns: 1fr;
+  }
+
+  .course-assessment-chart-card {
+    min-height: auto;
+  }
+
+  .course-assessment-flyout {
+    position: static;
+    grid-template-columns: 1fr;
+    width: 100%;
+    margin-top: 0.85rem;
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+  }
+
+  .course-assessment-chart-card:hover .course-assessment-chart,
+  .course-assessment-chart-card:focus-visible .course-assessment-chart,
+  .course-assessment-chart-card:focus-within .course-assessment-chart {
+    opacity: 1;
+    transform: none;
   }
 
   .consulting-area-grid,
