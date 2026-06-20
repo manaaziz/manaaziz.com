@@ -189,10 +189,11 @@ export const courses = [
         "Describe strategies for successful intercultural communication in foodservice operations."
       ],
       assessments: [
-        { task: "Picture and biography posted to Canvas", points: "50", percent: "14%", due: "Week 1" },
-        { task: "Online quizzes", points: "100", percent: "29%", due: "Weeks 1-11" },
-        { task: "Mid-semester restaurant visit assignment", points: "100", percent: "29%", due: "Week 14" },
-        { task: "Team presentation", points: "100", percent: "29%", due: "Weeks 9-14" }
+        { task: "Picture and biography posted to Canvas", percent: "10%", due: "Week 1" },
+        { task: "Online quizzes", percent: "20%", due: "Weeks 1-11" },
+        { task: "Discussions", percent: "15%", due: "Weekly" },
+        { task: "Mid-semester restaurant visit assignment", percent: "25%", due: "Week 14" },
+        { task: "Final presentation", percent: "30%", due: "Weeks 9-14" }
       ],
       schedule: [
         { week: "1", topic: "Administration; introduction to culture, cuisine, and gastronomy" },
