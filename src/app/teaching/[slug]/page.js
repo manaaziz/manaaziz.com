@@ -238,22 +238,26 @@ export default async function CoursePage({ params }) {
         </div>
         <div className="course-grading-grid">
           <div className="course-assessment-panel" aria-label="Assignments and grading weights">
-            <div className="course-assessment-chart-card">
+            <div
+              className="course-assessment-chart-card"
+              tabIndex={0}
+              aria-label="Final grade pie chart. Hover or focus to view the assignment breakdown."
+            >
               <div className="course-assessment-chart" style={{ "--assessment-chart": assessmentGradient }}>
                 <strong>100%</strong>
                 <span>Final grade</span>
               </div>
-            </div>
-            <div className="course-assessment-list">
-              {assessmentItems.map((item) => (
-                <article className="course-assessment-item" key={item.task}>
-                  <strong>{item.weightLabel}</strong>
-                  <div>
-                    <h3>{item.task}</h3>
-                    <p>{item.due || "Due date TBD"}</p>
-                  </div>
-                </article>
-              ))}
+              <div className="course-assessment-flyout" aria-label="Assignment weight breakdown">
+                {assessmentItems.map((item) => (
+                  <article className="course-assessment-item" key={item.task}>
+                    <strong>{item.weightLabel}</strong>
+                    <div>
+                      <h3>{item.task}</h3>
+                      <p>{item.due || "Due date TBD"}</p>
+                    </div>
+                  </article>
+                ))}
+              </div>
             </div>
           </div>
 
