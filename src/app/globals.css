@@ -2709,12 +2709,13 @@ h3 {
 
 .course-calendar-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 1rem;
   margin-top: 1.5rem;
 }
 
 .course-calendar-month {
+  grid-column: span 2;
   display: grid;
   gap: 0.8rem;
   align-content: start;
@@ -2726,6 +2727,14 @@ h3 {
     radial-gradient(circle at 14% 14%, rgba(47, 111, 100, 0.08), transparent 28%),
     var(--surface-raised);
   box-shadow: var(--shadow);
+}
+
+.course-calendar-month:nth-child(4) {
+  grid-column: 2 / span 2;
+}
+
+.course-calendar-month:nth-child(5) {
+  grid-column: 4 / span 2;
 }
 
 .course-calendar-month-header {
@@ -2744,97 +2753,198 @@ h3 {
 }
 
 .course-calendar-month-header span,
-.course-calendar-week > div span,
-.course-calendar-note summary span {
+.course-calendar-weekday-row span {
   color: var(--green);
   font-size: 0.68rem;
   font-weight: 900;
   text-transform: uppercase;
 }
 
-.course-calendar-notes,
-.course-calendar-weeks {
+.course-month-calendar {
   display: grid;
-  gap: 0.48rem;
+  gap: 0.38rem;
+}
+
+.course-calendar-weekday-row,
+.course-calendar-row {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.24rem;
+}
+
+.course-calendar-weekday-row {
+  align-items: center;
+  padding-inline: 0.1rem;
+  text-align: center;
+}
+
+.course-calendar-row {
+  position: relative;
+  align-items: stretch;
+  border-radius: 8px;
+  outline: none;
+}
+
+.course-calendar-row.has-course-week::after {
+  position: absolute;
+  inset: -0.1rem;
+  z-index: 1;
+  border: 1px solid rgba(47, 111, 100, 0.22);
+  border-radius: 8px;
+  background: rgba(47, 111, 100, 0.025);
+  content: "";
+  opacity: 0.72;
+  pointer-events: none;
+  transition:
+    opacity 160ms ease,
+    transform 180ms var(--ease-out-back),
+    box-shadow 180ms ease;
+}
+
+.course-calendar-row.has-course-week:hover::after,
+.course-calendar-row.has-course-week:focus-visible::after,
+.course-calendar-row.has-course-week:focus-within::after {
+  opacity: 1;
+  box-shadow: 0 13px 28px rgba(23, 23, 23, 0.1);
+  transform: translateY(-2px);
+}
+
+.course-calendar-row.is-blocked::after {
+  border-color: rgba(138, 21, 56, 0.26);
+  background:
+    repeating-linear-gradient(135deg, rgba(138, 21, 56, 0.08) 0 0.42rem, transparent 0.42rem 0.84rem),
+    rgba(255, 250, 241, 0.22);
+}
+
+.course-calendar-day {
+  position: relative;
+  z-index: 0;
+  display: grid;
+  gap: 0.24rem;
+  align-content: start;
+  min-height: 3.05rem;
+  padding: 0.34rem;
+  border: 1px solid rgba(23, 23, 23, 0.08);
+  border-radius: 6px;
+  background: rgba(255, 250, 241, 0.64);
+}
+
+.course-calendar-day.is-muted {
+  opacity: 0.34;
+}
+
+.course-calendar-day > span {
+  color: var(--ink);
+  font-size: 0.72rem;
+  font-weight: 900;
+  line-height: 1;
 }
 
 .course-calendar-note {
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--panel);
+  position: relative;
+  min-width: 0;
 }
 
 .course-calendar-note summary {
-  display: flex;
-  gap: 0.55rem;
-  align-items: center;
-  padding: 0.52rem 0.62rem;
+  display: block;
+  overflow: hidden;
+  padding: 0.2rem 0.25rem;
+  border-radius: 4px;
+  background: rgba(47, 111, 100, 0.12);
+  color: var(--green);
   cursor: pointer;
-  font-size: 0.76rem;
+  font-size: 0.54rem;
   font-weight: 900;
-  line-height: 1.15;
+  line-height: 1.08;
   list-style: none;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .course-calendar-note summary::-webkit-details-marker {
   display: none;
 }
 
-.course-calendar-note summary::after {
-  margin-left: auto;
-  color: var(--muted);
-  content: "+";
-}
-
-.course-calendar-note[open] summary::after {
-  content: "-";
-}
-
 .course-calendar-note p {
-  margin: 0;
-  padding: 0 0.62rem 0.62rem;
+  position: absolute;
+  z-index: 5;
+  width: min(16rem, 72vw);
+  margin: 0.2rem 0 0;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  background: var(--surface-raised);
+  box-shadow: var(--shadow-hover);
   color: var(--muted);
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   line-height: 1.36;
 }
 
-.course-calendar-week {
+.course-calendar-week-popover {
+  position: absolute;
+  inset: 0.18rem;
+  z-index: 4;
   display: grid;
   gap: 0.42rem;
-  padding: 0.68rem;
-  border: 1px solid var(--line);
+  align-content: center;
+  padding: 0.62rem 0.72rem;
+  border: 1px solid var(--line-strong);
   border-radius: 8px;
-  background: rgba(255, 250, 241, 0.72);
+  background: rgba(255, 250, 241, 0.96);
+  box-shadow:
+    0 15px 34px rgba(23, 23, 23, 0.14),
+    0 0.3rem 0 #000;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(0.35rem) scale(0.985);
+  transition:
+    opacity 170ms ease,
+    transform 210ms var(--ease-out-back);
 }
 
-.course-calendar-week.is-blocked {
+.course-calendar-row:hover .course-calendar-week-popover,
+.course-calendar-row:focus-visible .course-calendar-week-popover,
+.course-calendar-row:focus-within .course-calendar-week-popover {
+  opacity: 1;
+  transform: translateY(-0.12rem) scale(1);
+}
+
+.course-calendar-row.is-blocked .course-calendar-week-popover {
   background:
-    repeating-linear-gradient(135deg, rgba(138, 21, 56, 0.1) 0 0.55rem, transparent 0.55rem 1.1rem),
-    rgba(255, 250, 241, 0.8);
+    repeating-linear-gradient(135deg, rgba(138, 21, 56, 0.08) 0 0.5rem, transparent 0.5rem 1rem),
+    rgba(255, 250, 241, 0.96);
 }
 
-.course-calendar-week > div {
+.course-calendar-week-popover > div {
   display: flex;
   gap: 0.65rem;
   align-items: baseline;
   justify-content: space-between;
 }
 
-.course-calendar-week > div strong {
+.course-calendar-week-popover > div span {
+  color: var(--green);
+  font-size: 0.68rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.course-calendar-week-popover > div strong {
   font-size: 0.82rem;
   line-height: 1;
   text-transform: uppercase;
 }
 
-.course-calendar-week p {
+.course-calendar-week-popover p {
   margin: 0;
   color: var(--ink);
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 850;
   line-height: 1.18;
 }
 
-.course-calendar-week ul {
+.course-calendar-week-popover ul {
   display: flex;
   flex-wrap: wrap;
   gap: 0.35rem;
@@ -2843,7 +2953,7 @@ h3 {
   list-style: none;
 }
 
-.course-calendar-week li {
+.course-calendar-week-popover li {
   padding: 0.28rem 0.45rem;
   border: 1px solid var(--line);
   border-radius: 999px;
@@ -2959,53 +3069,15 @@ h3 {
   isolation: isolate;
   overflow: visible;
   display: grid;
+  gap: 1rem;
   place-items: center;
-  min-height: clamp(17rem, 24vw, 21rem);
+  min-height: clamp(27rem, 38vw, 32.5rem);
   padding: 1rem;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--surface-raised);
   box-shadow: var(--shadow);
   outline: none;
-}
-
-.course-assessment-chart-card:hover,
-.course-assessment-chart-card:focus-visible,
-.course-assessment-chart-card:focus-within {
-  border-color: var(--line-strong);
-  box-shadow: var(--shadow-hover);
-}
-
-.course-assessment-flyout {
-  position: absolute;
-  inset: 0.75rem;
-  z-index: 2;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.55rem;
-  align-content: space-between;
-  opacity: 0;
-  pointer-events: none;
-  transform: scale(0.96) translateY(0.35rem);
-  transition:
-    opacity 180ms ease,
-    transform 220ms var(--ease-out-back);
-}
-
-.course-assessment-chart-card:hover .course-assessment-flyout,
-.course-assessment-chart-card:focus-visible .course-assessment-flyout,
-.course-assessment-chart-card:focus-within .course-assessment-flyout {
-  opacity: 1;
-  pointer-events: auto;
-  transform: none;
-}
-
-.course-assessment-chart-card:hover .course-assessment-chart,
-.course-assessment-chart-card:focus-visible .course-assessment-chart,
-.course-assessment-chart-card:focus-within .course-assessment-chart {
-  filter: saturate(0.85);
-  opacity: 0.2;
-  transform: scale(0.86);
 }
 
 .course-assessment-item,
@@ -3028,49 +3100,88 @@ h3 {
   backdrop-filter: blur(8px);
 }
 
-.course-assessment-chart {
+.course-assessment-pie-wrap {
   position: relative;
   display: grid;
-  width: min(72%, 12rem);
-  aspect-ratio: 1;
+  width: min(100%, 26.5rem);
   place-items: center;
-  border-radius: 999px;
-  background: var(--assessment-chart);
-  box-shadow: inset 0 0 0 1px rgba(23, 23, 23, 0.12);
+}
+
+.course-assessment-pie {
+  width: min(100%, 24.5rem);
+  aspect-ratio: 1;
+  overflow: visible;
+  transform: rotate(-90deg);
+}
+
+.course-assessment-pie-base,
+.course-assessment-pie-slice {
+  fill: none;
+  stroke-width: 9.8;
+}
+
+.course-assessment-pie-base {
+  stroke: rgba(23, 23, 23, 0.07);
+}
+
+.course-assessment-pie-slice {
+  cursor: pointer;
+  outline: none;
+  stroke: var(--assessment-slice);
+  transform-box: fill-box;
+  transform-origin: center;
   transition:
     filter 180ms ease,
     opacity 180ms ease,
-    transform 220ms var(--ease-out-back);
+    stroke-width 180ms var(--ease-out-back),
+    transform 180ms var(--ease-out-back);
 }
 
-.course-assessment-chart::before {
+.course-assessment-pie-slice:not([data-active="true"]) {
+  opacity: 0.28;
+}
+
+.course-assessment-pie-slice:hover,
+.course-assessment-pie-slice:focus,
+.course-assessment-pie-slice[data-active="true"] {
+  filter: drop-shadow(0 12px 13px rgba(23, 23, 23, 0.18));
+  opacity: 1;
+  stroke-width: 11;
+  transform: translateY(-0.35px) scale(1.025);
+}
+
+.course-assessment-pie-center {
   position: absolute;
-  inset: 26%;
-  border-radius: inherit;
-  background: var(--surface-raised);
-  box-shadow: inset 0 0 0 1px var(--line);
-  content: "";
+  display: grid;
+  width: clamp(9.6rem, 18vw, 12.2rem);
+  height: clamp(9.6rem, 18vw, 12.2rem);
+  place-items: center;
+  align-content: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: rgba(255, 250, 241, 0.86);
+  box-shadow: inset 0 0 0 0.72rem rgba(255, 250, 241, 0.32);
+  text-align: center;
+  backdrop-filter: blur(7px);
 }
 
-.course-assessment-chart strong,
-.course-assessment-chart span {
-  position: relative;
-  z-index: 1;
-}
-
-.course-assessment-chart strong {
-  align-self: end;
-  font-size: clamp(1.25rem, 2vw, 1.8rem);
+.course-assessment-pie-center strong {
+  color: var(--ink);
+  font-size: clamp(1.45rem, 3.5vw, 2.3rem);
   line-height: 1;
 }
 
-.course-assessment-chart span {
-  align-self: start;
-  margin-top: 0.18rem;
+.course-assessment-pie-center span {
+  display: -webkit-box;
+  max-width: 16ch;
+  overflow: hidden;
   color: var(--muted);
-  font-size: 0.68rem;
+  font-size: clamp(0.68rem, 1vw, 0.8rem);
   font-weight: 900;
+  line-height: 1.06;
   text-transform: uppercase;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 .course-assessment-item > strong {
@@ -3099,17 +3210,122 @@ h3 {
   text-transform: uppercase;
 }
 
+.course-assessment-active-card {
+  position: absolute;
+  display: grid;
+  width: min(18rem, 38%);
+  gap: 0.35rem;
+  padding: 0.95rem 1rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  background: rgba(255, 250, 241, 0.94);
+  box-shadow:
+    0 13px 28px rgba(23, 23, 23, 0.12),
+    0 0.35rem 0 #000;
+  animation: work-mix-card-pop 260ms cubic-bezier(0.32, 0.72, 0, 1) both;
+}
+
+.course-assessment-active-card.top-right {
+  top: clamp(1rem, 2vw, 1.4rem);
+  right: clamp(1rem, 2vw, 1.4rem);
+}
+
+.course-assessment-active-card.bottom-right {
+  right: clamp(1rem, 2vw, 1.4rem);
+  bottom: clamp(1rem, 2vw, 1.4rem);
+}
+
+.course-assessment-active-card.bottom-left {
+  bottom: clamp(1rem, 2vw, 1.4rem);
+  left: clamp(1rem, 2vw, 1.4rem);
+}
+
+.course-assessment-active-card.top-left {
+  top: clamp(1rem, 2vw, 1.4rem);
+  left: clamp(1rem, 2vw, 1.4rem);
+}
+
+.course-assessment-active-card span {
+  color: var(--green);
+  font-size: 0.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.course-assessment-active-card h3 {
+  margin: 0;
+  font-size: clamp(1rem, 1.5vw, 1.35rem);
+  line-height: 1.08;
+}
+
+.course-assessment-active-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
 .course-scale-panel {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  position: relative;
+  display: block;
+  min-height: 30.25rem;
+  padding-block: 0.35rem;
+}
+
+.course-scale-panel::before {
+  position: absolute;
+  top: 0.9rem;
+  bottom: 0.9rem;
+  left: 50%;
+  width: 0.22rem;
+  border-radius: 999px;
+  background:
+    linear-gradient(var(--green), var(--green)) padding-box,
+    var(--surface-raised);
+  box-shadow: inset 0 0 0 1px rgba(23, 23, 23, 0.08);
+  content: "";
+  transform: translateX(-50%);
 }
 
 .course-scale-pill {
+  position: absolute;
+  z-index: 1;
   display: flex;
   gap: 0.7rem;
   align-items: center;
   justify-content: space-between;
+  top: calc(var(--ladder-step) * 2.9rem);
+  width: calc(50% - 1.9rem);
   min-height: 3rem;
-  padding: 0.62rem 0.75rem;
+  padding: 0.62rem 0.8rem;
+}
+
+.course-scale-pill:nth-child(odd) {
+  left: 0;
+}
+
+.course-scale-pill:nth-child(even) {
+  right: 0;
+}
+
+.course-scale-pill::before {
+  position: absolute;
+  top: 50%;
+  width: 0.9rem;
+  height: 0.18rem;
+  border-radius: 999px;
+  background: var(--green);
+  content: "";
+  transform: translateY(-50%);
+}
+
+.course-scale-pill:nth-child(odd)::before {
+  right: -0.9rem;
+}
+
+.course-scale-pill:nth-child(even)::before {
+  left: -0.9rem;
 }
 
 .course-scale-pill strong {
@@ -7292,6 +7508,12 @@ h3 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .course-calendar-month,
+  .course-calendar-month:nth-child(4),
+  .course-calendar-month:nth-child(5) {
+    grid-column: auto;
+  }
+
   .research-presentation-gallery {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -7728,25 +7950,51 @@ h3 {
     grid-template-columns: 1fr;
   }
 
+  .course-calendar-month,
+  .course-calendar-month:nth-child(4),
+  .course-calendar-month:nth-child(5) {
+    grid-column: auto;
+  }
+
+  .course-scale-panel {
+    display: grid;
+    min-height: auto;
+    padding-left: 1.1rem;
+  }
+
+  .course-scale-panel::before {
+    left: 0.18rem;
+    transform: none;
+  }
+
+  .course-scale-pill:nth-child(odd),
+  .course-scale-pill:nth-child(even) {
+    position: relative;
+    top: auto;
+    right: auto;
+    left: auto;
+    width: 100%;
+  }
+
+  .course-scale-pill:nth-child(odd)::before,
+  .course-scale-pill:nth-child(even)::before {
+    right: auto;
+    left: -1.1rem;
+    width: 1.1rem;
+  }
+
   .course-assessment-chart-card {
     min-height: auto;
   }
 
-  .course-assessment-flyout {
-    position: static;
-    grid-template-columns: 1fr;
-    width: 100%;
-    margin-top: 0.85rem;
-    opacity: 1;
-    pointer-events: auto;
+  .course-assessment-pie-wrap {
+    width: min(100%, 15rem);
     transform: none;
   }
 
-  .course-assessment-chart-card:hover .course-assessment-chart,
-  .course-assessment-chart-card:focus-visible .course-assessment-chart,
-  .course-assessment-chart-card:focus-within .course-assessment-chart {
-    opacity: 1;
-    transform: none;
+  .course-assessment-active-card {
+    position: static;
+    width: min(100%, 28rem);
   }
 
   .consulting-area-grid,

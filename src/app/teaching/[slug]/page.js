@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { courses, getCourse } from "../courses";
+import CourseAssessmentChart from "./CourseAssessmentChart";
 
 const kindGroups = [
   {
@@ -32,6 +33,34 @@ const defaultGradingScale = [
   { grade: "D", range: "60% to 69.9%" },
   { grade: "F", range: "Below 60%" }
 ];
+
+const calendarWeekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const monthIndexes = {
+  jan: 0,
+  january: 0,
+  feb: 1,
+  february: 1,
+  mar: 2,
+  march: 2,
+  apr: 3,
+  april: 3,
+  may: 4,
+  jun: 5,
+  june: 5,
+  jul: 6,
+  july: 6,
+  aug: 7,
+  august: 7,
+  sep: 8,
+  sept: 8,
+  september: 8,
+  oct: 9,
+  october: 9,
+  nov: 10,
+  november: 10,
+  dec: 11,
+  december: 11
+};
 
 function materialMatches(material, kinds) {
   return kinds.includes(material.kind);
@@ -74,17 +103,76 @@ function buildAssessmentItems(components) {
   }));
 }
 
-function buildAssessmentGradient(items) {
-  const colors = ["#2f6f64", "#8a1538", "#171717", "#b6c7bd", "#70685f", "#d7c7ad"];
-  let start = 0;
-  const stops = items.map((item, index) => {
-    const end = start + item.weight;
-    const stop = `${colors[index % colors.length]} ${start}% ${end}%`;
-    start = end;
-    return stop;
+function parseCalendarDate(dateText, fallbackMonth, fallbackYear) {
+  if (!dateText) return null;
+  const fallbackMonthIndex = monthIndexes[String(fallbackMonth).toLowerCase()];
+  const monthMatch = String(dateText).match(/^([A-Za-z]+)\.?\s+(\d{1,2})/);
+  const dayOnlyMatch = String(dateText).match(/^(\d{1,2})/);
+  const monthIndex = monthMatch ? monthIndexes[monthMatch[1].toLowerCase()] : fallbackMonthIndex;
+  const day = monthMatch ? Number(monthMatch[2]) : dayOnlyMatch ? Number(dayOnlyMatch[1]) : null;
+  const year = Number(fallbackYear);
+
+  if (!Number.isInteger(monthIndex) || !day || !year) {
+    return null;
+  }
+
+  return new Date(year, monthIndex, day);
+}
+
+function dateKey(date) {
+  return [date.getFullYear(), date.getMonth(), date.getDate()].join("-");
+}
+
+function buildMonthCalendar(month) {
+  const monthIndex = monthIndexes[String(month.month).toLowerCase()];
+  const year = Number(month.year);
+
+  if (!Number.isInteger(monthIndex) || !year) {
+    return [];
+  }
+
+  const firstDay = new Date(year, monthIndex, 1);
+  const lastDay = new Date(year, monthIndex + 1, 0);
+  const cursor = new Date(firstDay);
+  cursor.setDate(firstDay.getDate() - firstDay.getDay());
+  const end = new Date(lastDay);
+  end.setDate(lastDay.getDate() + (6 - lastDay.getDay()));
+
+  const notesByDate = new Map();
+  (month.notes || []).forEach((note) => {
+    const noteDate = parseCalendarDate(note.date, month.month, month.year);
+    if (!noteDate) return;
+    const key = dateKey(noteDate);
+    notesByDate.set(key, [...(notesByDate.get(key) || []), note]);
   });
 
-  return `conic-gradient(from -90deg, ${stops.join(", ")})`;
+  const weeks = (month.weeks || []).map((week) => ({
+    ...week,
+    startDate: parseCalendarDate(week.date, month.month, month.year)
+  }));
+
+  const rows = [];
+  while (cursor <= end) {
+    const rowStart = new Date(cursor);
+    const days = [];
+
+    for (let index = 0; index < 7; index += 1) {
+      const current = new Date(cursor);
+      days.push({
+        date: current,
+        isCurrentMonth: current.getMonth() === monthIndex,
+        notes: notesByDate.get(dateKey(current)) || []
+      });
+      cursor.setDate(cursor.getDate() + 1);
+    }
+
+    const rowEnd = new Date(rowStart);
+    rowEnd.setDate(rowStart.getDate() + 6);
+    const courseWeek = weeks.find((week) => week.startDate && week.startDate >= rowStart && week.startDate <= rowEnd);
+    rows.push({ days, courseWeek });
+  }
+
+  return rows;
 }
 
 function MaterialCard({ material }) {
@@ -141,7 +229,6 @@ export default async function CoursePage({ params }) {
   const objectives = course.syllabus?.objectives || course.outcomes || [];
   const gradingComponents = course.syllabus?.assessments || course.gradingComponents || [];
   const assessmentItems = buildAssessmentItems(gradingComponents);
-  const assessmentGradient = buildAssessmentGradient(assessmentItems);
   const weeklySchedule = course.syllabus?.schedule || course.schedule || [];
   const semesterCalendar = course.syllabus?.calendar || course.calendar || [];
   const photoSlots = course.photos?.length
@@ -238,32 +325,12 @@ export default async function CoursePage({ params }) {
         </div>
         <div className="course-grading-grid">
           <div className="course-assessment-panel" aria-label="Assignments and grading weights">
-            <div
-              className="course-assessment-chart-card"
-              tabIndex={0}
-              aria-label="Final grade pie chart. Hover or focus to view the assignment breakdown."
-            >
-              <div className="course-assessment-chart" style={{ "--assessment-chart": assessmentGradient }}>
-                <strong>100%</strong>
-                <span>Final grade</span>
-              </div>
-              <div className="course-assessment-flyout" aria-label="Assignment weight breakdown">
-                {assessmentItems.map((item) => (
-                  <article className="course-assessment-item" key={item.task}>
-                    <strong>{item.weightLabel}</strong>
-                    <div>
-                      <h3>{item.task}</h3>
-                      <p>{item.due || "Due date TBD"}</p>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </div>
+            <CourseAssessmentChart items={assessmentItems} />
           </div>
 
           <div className="course-scale-panel" aria-label="Grading scale">
-            {defaultGradingScale.map((item) => (
-              <div className="course-scale-pill" key={item.grade}>
+            {defaultGradingScale.map((item, index) => (
+              <div className="course-scale-pill" key={item.grade} style={{ "--ladder-step": index }}>
                 <strong>{item.grade}</strong>
                 <span>{item.range}</span>
               </div>
@@ -286,35 +353,56 @@ export default async function CoursePage({ params }) {
                     <h3>{month.month}</h3>
                     <span>{month.year}</span>
                   </div>
-                  {month.notes?.length ? (
-                    <div className="course-calendar-notes" aria-label={`${month.month} university dates`}>
-                      {month.notes.map((note) => (
-                        <details className="course-calendar-note" key={`${note.date}-${note.title}`}>
-                          <summary>
-                            <span>{note.date}</span>
-                            {note.title}
-                          </summary>
-                          <p>{note.description}</p>
-                        </details>
+                  <div className="course-month-calendar" aria-label={`${month.month} ${month.year} calendar`}>
+                    <div className="course-calendar-weekday-row" aria-hidden="true">
+                      {calendarWeekdays.map((day) => (
+                        <span key={day}>{day}</span>
                       ))}
                     </div>
-                  ) : null}
-                  <div className="course-calendar-weeks">
-                    {month.weeks.map((week) => (
-                      <section className={`course-calendar-week${week.blocked ? " is-blocked" : ""}`} key={`${month.month}-${week.week}`}>
-                        <div>
-                          <span>{week.date}</span>
-                          <strong>{/^\d+$/.test(String(week.week)) ? `Week ${week.week}` : week.week}</strong>
-                        </div>
-                        <p>{week.topic}</p>
-                        {week.due?.length ? (
-                          <ul>
-                            {week.due.map((item) => (
-                              <li key={item}>{item}</li>
+                    {buildMonthCalendar(month).map((row) => (
+                      <div
+                        aria-label={
+                          row.courseWeek
+                            ? `${/^\d+$/.test(String(row.courseWeek.week)) ? `Week ${row.courseWeek.week}` : row.courseWeek.week}: ${row.courseWeek.topic}`
+                            : undefined
+                        }
+                        className={`course-calendar-row${row.courseWeek ? " has-course-week" : ""}${row.courseWeek?.blocked ? " is-blocked" : ""}`}
+                        key={`${month.month}-${row.days[0].date.toISOString()}`}
+                        tabIndex={row.courseWeek ? 0 : undefined}
+                      >
+                        {row.days.map((day) => (
+                          <div
+                            className={`course-calendar-day${day.isCurrentMonth ? "" : " is-muted"}`}
+                            key={day.date.toISOString()}
+                          >
+                            <span>{day.date.getDate()}</span>
+                            {day.notes.map((note) => (
+                              <details className="course-calendar-note" key={`${note.date}-${note.title}`}>
+                                <summary>{note.title}</summary>
+                                <p>{note.description}</p>
+                              </details>
                             ))}
-                          </ul>
+                          </div>
+                        ))}
+                        {row.courseWeek ? (
+                          <div className="course-calendar-week-popover" aria-hidden="true">
+                            <div>
+                              <span>{row.courseWeek.date}</span>
+                              <strong>
+                                {/^\d+$/.test(String(row.courseWeek.week)) ? `Week ${row.courseWeek.week}` : row.courseWeek.week}
+                              </strong>
+                            </div>
+                            <p>{row.courseWeek.topic}</p>
+                            {row.courseWeek.due?.length ? (
+                              <ul>
+                                {row.courseWeek.due.map((item) => (
+                                  <li key={item}>{item}</li>
+                                ))}
+                              </ul>
+                            ) : null}
+                          </div>
                         ) : null}
-                      </section>
+                      </div>
                     ))}
                   </div>
                 </article>
