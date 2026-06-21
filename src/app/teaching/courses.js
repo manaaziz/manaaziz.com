@@ -189,9 +189,8 @@ export const courses = [
         "Describe strategies for successful intercultural communication in foodservice operations."
       ],
       assessments: [
-        { task: "Picture and biography posted to Canvas", percent: "10%", due: "Week 1" },
         { task: "Online quizzes", percent: "20%", due: "Weeks 1-11" },
-        { task: "Discussions", percent: "15%", due: "Weekly" },
+        { task: "Discussions, picture, and biography", percent: "25%", due: "Weekly" },
         { task: "Mid-semester restaurant visit assignment", percent: "25%", due: "Week 14" },
         { task: "Final presentation", percent: "30%", due: "Weeks 9-14" }
       ],
@@ -204,12 +203,12 @@ export const courses = [
         { week: "6", topic: "Wine tasting and culture" },
         { week: "7", topic: "Healthy eating, cheese and culture, diet within cultures, and plant-based foods" },
         { week: "8", topic: "Spring Break or university recess week" },
-        { week: "9", topic: "Group presentations: Peru and Brazil" },
-        { week: "10", topic: "Group presentations: Greece and South Korea" },
-        { week: "11", topic: "Group presentations: Mexico and Egypt" },
-        { week: "12", topic: "Group presentations: Thailand and Japan" },
-        { week: "13", topic: "Group presentations: Philippines and Ukraine" },
-        { week: "14", topic: "Group presentations: Colombia and Group 15" }
+        { week: "9", topic: "Group presentations: Groups 1 and 2" },
+        { week: "10", topic: "Group presentations: Groups 3 and 5" },
+        { week: "11", topic: "Group presentations: Groups 6 and 7" },
+        { week: "12", topic: "Group presentations: Groups 8 and 9" },
+        { week: "13", topic: "Group presentations: Groups 10 and 11" },
+        { week: "14", topic: "Group presentations: Groups 12 and 15" }
       ],
       calendar: [
         {
@@ -330,13 +329,13 @@ export const courses = [
             {
               week: "9",
               date: "Mar 23",
-              topic: "Group presentations: Peru and Brazil",
+              topic: "Group presentations: Groups 1 and 2",
               due: ["Online quiz", "Team presentations begin"]
             },
             {
               week: "10",
               date: "Mar 30",
-              topic: "Group presentations: Greece and South Korea",
+              topic: "Group presentations: Groups 3 and 5",
               due: ["Online quiz", "Team presentations"]
             }
           ]
@@ -360,25 +359,25 @@ export const courses = [
             {
               week: "11",
               date: "Apr 6",
-              topic: "Group presentations: Mexico and Egypt",
+              topic: "Group presentations: Groups 6 and 7",
               due: ["Final online quiz", "Team presentations"]
             },
             {
               week: "12",
               date: "Apr 13",
-              topic: "Group presentations: Thailand and Japan",
+              topic: "Group presentations: Groups 8 and 9",
               due: ["Team presentations"]
             },
             {
               week: "13",
               date: "Apr 20",
-              topic: "Group presentations: Philippines and Ukraine",
+              topic: "Group presentations: Groups 10 and 11",
               due: ["Team presentations"]
             },
             {
               week: "14",
               date: "Apr 27",
-              topic: "Group presentations: Colombia and Group 15",
+              topic: "Group presentations: Groups 12 and 15",
               due: ["Restaurant visit assignment", "Team presentations wrap"]
             }
           ]

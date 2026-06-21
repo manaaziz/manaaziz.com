@@ -3391,7 +3391,8 @@ h3 {
 }
 
 .consulting-area-card,
-.consulting-example-grid article {
+.consulting-example-grid article,
+.consulting-writing-card {
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--surface-raised);
@@ -3460,7 +3461,8 @@ h3 {
 }
 
 .consulting-area-card,
-.consulting-example-grid article {
+.consulting-example-grid article,
+.consulting-writing-card {
   padding: 1.25rem;
 }
 
@@ -3474,17 +3476,37 @@ h3 {
 }
 
 .consulting-area-card h3,
-.consulting-example-grid h3 {
+.consulting-example-grid h3,
+.consulting-writing-card h3 {
   margin: 0;
   font-size: clamp(1.35rem, 2vw, 1.9rem);
   line-height: 1.04;
 }
 
 .consulting-area-card p,
-.consulting-example-grid p {
+.consulting-example-grid p,
+.consulting-writing-card p {
   margin: 0;
   color: var(--muted);
   line-height: 1.48;
+}
+
+.consulting-writing-card {
+  display: grid;
+  gap: 0.8rem;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.consulting-writing-card > span {
+  color: var(--green);
+  font-size: 0.62rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.consulting-writing-card:hover {
+  transform: translateY(-0.18rem);
 }
 
 .consulting-area-card ul {

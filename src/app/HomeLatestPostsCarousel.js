@@ -119,7 +119,7 @@ export default function HomeLatestPostsCarousel({ posts }) {
             key={`${post.href}-${index}`}
             tabIndex={position === "active" ? 0 : -1}
           >
-            <img src={post.cover || post.seriesCover} alt="" />
+            <img src={post.cover || post.seriesCover} alt="" loading="lazy" decoding="async" />
             <div className="home-post-card-copy">
               <span>{post.seriesTitle} · {post.date} · {post.readingMinutes} min read</span>
               <h3>{post.title}</h3>

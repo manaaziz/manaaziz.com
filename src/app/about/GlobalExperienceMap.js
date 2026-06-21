@@ -32,7 +32,7 @@ const collaborations = [
     drilldown: true,
     work: [
       card({
-        name: "UNLV hospitality analytics courses",
+        name: "UNLV College of Hospitality",
         type: "Teaching",
         blurb: "Taught and supported applied statistics, analytics, and hospitality coursework.",
         href: "/teaching",
@@ -89,13 +89,6 @@ const collaborations = [
         blurb: "Presented research characterizing UK online gamblers exceeding financial risk thresholds.",
         href: "/research",
         logo: "/assets/logos/gli_regulator_roundtable.png"
-      }),
-      card({
-        name: "UNLV research forums",
-        type: "Research",
-        blurb: "Presented open science in hospitality, teaching statistics in hospitality, and booking cancellation research.",
-        href: "/research",
-        logo: "/assets/logos/unlvhospitality_logo.jpeg"
       }),
       card({
         name: "Casino Miami",
@@ -190,8 +183,8 @@ const collaborations = [
       }),
       card({
         name: "Fundacion Patologia Dual",
-        type: "Consulting",
-        blurb: "Supported consulting context connected to dual pathology work in Madrid.",
+        type: "Research",
+        blurb: "Connected research conversations to dual pathology work in Madrid.",
         logo: "/assets/logos/fund_path_dual_transparent.png"
       })
     ]
@@ -752,7 +745,7 @@ const usStates = [
     summary: "Casino analytics, teaching, consulting, and gaming research concentrated in Nevada.",
     work: [
       card({
-        name: "UNLV hospitality analytics courses",
+        name: "UNLV College of Hospitality",
         type: "Teaching",
         blurb: "Taught and supported applied statistics, analytics, and hospitality coursework.",
         href: "/teaching",
@@ -810,13 +803,6 @@ const usStates = [
         href: "/research",
         logo: "/assets/logos/gli_regulator_roundtable.png"
       }),
-      card({
-        name: "UNLV research forums",
-        type: "Research",
-        blurb: "Presented open science in hospitality, teaching statistics in hospitality, and booking cancellation research.",
-        href: "/research",
-        logo: "/assets/logos/unlvhospitality_logo.jpeg"
-      })
     ],
     state: "Nevada"
   },
@@ -1320,9 +1306,6 @@ export default function GlobalExperienceMap() {
         </div>
       ) : null}
 
-      <p className="map-credit">
-        Map data from <a href="https://github.com/VictorCazanave/svg-maps">svg-maps</a>, licensed CC BY 4.0.
-      </p>
     </section>
   );
 }

@@ -5,7 +5,8 @@ export const podcasts = [
     eyebrow: "UNLV podcast",
     description:
       "A UNLV-centered show about ideas, people, scholarship, and the work moving through the university.",
-    spotifyHref: "https://open.spotify.com/show/3HrzYII7QOj8CyYYj19r3o?si=4a3605a137fa4173",
+    spotifyHref: "https://open.spotify.com/show/3HrzYII7QOj8CyYYj19r3o?si=23829acf00794c3d",
+    logo: "/assets/logos/rebel_revolution_logo.jpeg",
     focus: ["UNLV", "Scholarship", "Campus voices"]
   },
   {
@@ -14,7 +15,8 @@ export const podcasts = [
     eyebrow: "Career podcast",
     description:
       "A show about college, work, early career transitions, and the stories people carry into their professional lives.",
-    spotifyHref: "https://open.spotify.com/show/1xfePE5KeTYJFdoz0PDV0T?si=ac2fa720a41943a0",
+    spotifyHref: "https://open.spotify.com/show/1xfePE5KeTYJFdoz0PDV0T?si=b880695351d946fe",
+    logo: "/assets/logos/the_job_forum_logo.jpeg",
     focus: ["College", "Work", "Career stories"]
   }
 ];

@@ -91,7 +91,7 @@ export default function ArchiveCarousel({ posts }) {
             key={`${post.href}-${offset}`}
             tabIndex={offset === 0 ? 0 : -1}
           >
-            <img src={post.cover || post.seriesCover} alt="" />
+            <img src={post.cover || post.seriesCover} alt="" loading="lazy" decoding="async" />
             <div>
               <span>{post.seriesTitle} · {post.date} · {post.readingMinutes} min read</span>
               <h3>{post.title}</h3>

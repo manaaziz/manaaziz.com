@@ -27,7 +27,7 @@ export default function AboutBackgroundTimeline() {
         <div className="timeline-photos">
           {timelineItems.map((item) => (
             <figure className="timeline-photo" key={item.caption}>
-              <img className={item.imageClass || undefined} src={item.image} alt={item.alt} />
+              <img className={item.imageClass || undefined} src={item.image} alt={item.alt} loading="lazy" decoding="async" />
             </figure>
           ))}
         </div>

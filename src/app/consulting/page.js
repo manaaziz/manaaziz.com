@@ -1,5 +1,6 @@
 import Link from "next/link";
 import LogoBounceField from "./LogoBounceField";
+import { newsItems } from "../news/items";
 
 export const metadata = {
   title: "Consulting"
@@ -58,26 +59,24 @@ const clients = [
   { name: "Oakmont", logo: "/assets/logos/oakmont_logo_transparent.png" },
   { name: "WDTS", logo: "/assets/logos/wdts_logo.png" },
   { name: "AXES", logo: "/assets/logos/axes_logo.png" },
-  { name: "Fundacion Patologia Dual", logo: "/assets/logos/fund_path_dual_transparent.png" },
   { name: "Bally's", logo: "/assets/logos/ballys_corporation_logo.svg" },
   { name: "GMA Consulting", logo: "/assets/logos/gma_logo.png.webp" }
 ];
 
-const projectExamples = [
+const consultingWriting = [
   {
-    title: "From segmentation to personalization",
+    title: "The Manalogue analytics desk",
     body:
-      "Casino marketing has moved from broad segments to micro-segments. My work pushes that further toward personalization at the individual level, where offers are tuned to a patron's predicted behavior, value, preference, and lifecycle stage."
+      "Notes on gaming, hospitality, data science, AI, analytics, and the business-facing questions behind the work.",
+    href: "/manalogue",
+    label: "Open Manalogue"
   },
   {
-    title: "Unusual loss modeling",
-    body:
-      "Instead of asking whether a loss is large in general, these models ask whether the loss is unusually large for that specific patron and whether the sequence of lost wagers is improbable given how that patron plays."
-  },
-  {
-    title: "Real-time marketing support",
-    body:
-      "Using AI and analytics to help teams identify when an offer may be relevant, how it should be framed, and what constraints or delivery details matter for the patron and the property."
+    title: newsItems[0]?.title || "Baccarat data and casino operators",
+    body: newsItems[0]?.description || "Coverage on how baccarat data can create new analytical opportunities for casino operators.",
+    href: newsItems[0]?.href || "https://igamingbusiness.com/casino/baccarat-data-the-next-breakthrough-for-casino-operators/",
+    label: "Read coverage",
+    external: true
   }
 ];
 
@@ -88,22 +87,22 @@ export default function ConsultingPage() {
         <p className="eyebrow">Consulting</p>
         <h1>Helping casinos leverage data and AI</h1>
         <p className="lede">
-          I help casino and hospitality teams turn data science, forecasting, machine learning, and AI into clearer decisions across marketing, surveillance, and operational optimization.
-        </p>
-        <div className="button-row">
-          <a className="button" href="mailto:manaazizsoltani@gmail.com">
-            Start a conversation
+          I am the head of data science at{" "}
+          <a href="https://diffgaming.com" rel="noreferrer" target="_blank">
+            differential labs
           </a>
-          <Link className="button" href="/about">
-            See global experience
-          </Link>
-        </div>
+          , where I lead the development and implementation of data science and AI solutions for casinos all across the globe. I am also the head of knowledge architecture for{" "}
+          <a href="https://hexgaming.ai" rel="noreferrer" target="_blank">
+            Hex Gaming AI
+          </a>
+          . Hex is a platform for LLM-driven personalized marketing in real time.
+        </p>
       </section>
 
       <section className="consulting-client-section" aria-labelledby="consulting-clients-title">
         <div className="section-intro">
           <p className="eyebrow">Clients</p>
-          <h2 id="consulting-clients-title">Selected casino, hospitality, and gaming technology contexts</h2>
+          <h2 id="consulting-clients-title">I have worked with some of the biggest players in the industry</h2>
         </div>
 
         <LogoBounceField clients={clients} />
@@ -112,7 +111,7 @@ export default function ConsultingPage() {
       <section className="consulting-area-section" aria-labelledby="consulting-areas-title">
         <div className="section-intro">
           <p className="eyebrow">Areas</p>
-          <h2 id="consulting-areas-title">What the work usually touches</h2>
+          <h2 id="consulting-areas-title">I have experience in various faces of the business</h2>
         </div>
 
         <div className="consulting-area-grid">
@@ -131,18 +130,27 @@ export default function ConsultingPage() {
         </div>
       </section>
 
-      <section className="consulting-example-section" aria-labelledby="consulting-examples-title">
+      <section className="consulting-example-section" aria-labelledby="consulting-writing-title">
         <div className="section-intro">
-          <p className="eyebrow">Examples</p>
-          <h2 id="consulting-examples-title">The kinds of questions I help answer</h2>
+          <p className="eyebrow">Writing</p>
+          <h2 id="consulting-writing-title">Consulting-related writing and coverage</h2>
         </div>
 
         <div className="consulting-example-grid">
-          {projectExamples.map((project) => (
-            <article key={project.title}>
-              <h3>{project.title}</h3>
-              <p>{project.body}</p>
-            </article>
+          {consultingWriting.map((item) => (
+            item.external ? (
+              <a className="consulting-writing-card" href={item.href} key={item.title} rel="noreferrer" target="_blank">
+                <span>{item.label}</span>
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
+              </a>
+            ) : (
+              <Link className="consulting-writing-card" href={item.href} key={item.title}>
+                <span>{item.label}</span>
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
+              </Link>
+            )
           ))}
         </div>
       </section>

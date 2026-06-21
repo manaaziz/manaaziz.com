@@ -28,7 +28,7 @@ const panelHeights = {
 function StoryCard({ story }) {
   const content = (
     <>
-      {story.image ? <img src={story.image} alt="" /> : null}
+      {story.image ? <img src={story.image} alt="" loading="lazy" decoding="async" /> : null}
       <span>{story.topic}</span>
       <h2>{story.title}</h2>
       <p>{story.excerpt}</p>
@@ -62,7 +62,7 @@ function PhotoMosaic({ photos }) {
         >
           <div className="presentation-photo-surface">
             <div className="presentation-photo-placeholder has-photo">
-              <img className="presentation-photo-image is-photo" src={photo.image} alt="" />
+              <img className="presentation-photo-image is-photo" src={photo.image} alt="" loading="lazy" decoding="async" />
               <span>{photo.series}</span>
             </div>
             <div className="presentation-photo-copy">
@@ -215,9 +215,10 @@ export default function BlogSectionSwitcher() {
               topic: "Podcast",
               title: podcasts[0].title,
               excerpt: podcasts[0].description,
-              href: `/podcast/${podcasts[0].slug}`,
-              image: "/assets/images/TJF1.jpg",
-              action: "Open show",
+              href: podcasts[0].spotifyHref,
+              image: podcasts[0].logo,
+              action: "Listen on Spotify",
+              external: true,
               size: "standard"
             }
           : null,
@@ -317,9 +318,10 @@ export default function BlogSectionSwitcher() {
         topic: podcast.eyebrow,
         title: podcast.title,
         excerpt: podcast.description,
-        href: `/podcast/${podcast.slug}`,
-        image: "/assets/images/TJF1.jpg",
-        action: "Open show page",
+        href: podcast.spotifyHref,
+        image: podcast.logo,
+        action: "Listen on Spotify",
+        external: true,
         size: "standard"
       }))
     },

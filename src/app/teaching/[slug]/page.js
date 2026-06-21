@@ -3,23 +3,19 @@ import { notFound } from "next/navigation";
 import { courses, getCourse } from "../courses";
 import CourseAssessmentChart from "./CourseAssessmentChart";
 
-const kindGroups = [
-  {
-    title: "Syllabus and course guide",
-    eyebrow: "Start here",
-    kinds: ["Syllabus"]
-  },
-  {
-    title: "Assignments and projects",
-    eyebrow: "Student work",
-    kinds: ["Assignment", "Assignments", "Project", "Activity", "Writing", "Experiences"]
-  },
-  {
-    title: "Slides, videos, code, and data",
-    eyebrow: "Resources",
-    kinds: ["Slides", "Videos", "Code", "Data"]
-  }
-];
+const materialKindOrder = {
+  Syllabus: 0,
+  Assignment: 1,
+  Assignments: 1,
+  Project: 2,
+  Activity: 3,
+  Writing: 4,
+  Experiences: 5,
+  Slides: 6,
+  Videos: 7,
+  Code: 8,
+  Data: 9
+};
 
 const defaultGradingScale = [
   { grade: "A", range: "93% and above" },
@@ -62,10 +58,6 @@ const monthIndexes = {
   december: 11
 };
 
-function materialMatches(material, kinds) {
-  return kinds.includes(material.kind);
-}
-
 function parseNumericValue(value) {
   if (!value) return null;
   const parsed = Number.parseFloat(String(value).replace("%", ""));
@@ -101,6 +93,38 @@ function buildAssessmentItems(components) {
     weight: weights[index],
     weightLabel: `${weights[index].toFixed(1).replace(".0", "")}%`
   }));
+}
+
+function sortCourseMaterials(materials) {
+  return [...materials].sort((first, second) => {
+    const firstOrder = materialKindOrder[first.kind] ?? 99;
+    const secondOrder = materialKindOrder[second.kind] ?? 99;
+
+    if (firstOrder !== secondOrder) {
+      return firstOrder - secondOrder;
+    }
+
+    return first.title.localeCompare(second.title);
+  });
+}
+
+function isSiteResource(href) {
+  return typeof href === "string" && href.startsWith("/");
+}
+
+function materialHasSiteResource(material) {
+  return isSiteResource(material.href) || material.links?.some((link) => isSiteResource(link.href));
+}
+
+function materialWithSiteLinks(material) {
+  if (!material.links?.length) {
+    return material;
+  }
+
+  return {
+    ...material,
+    links: material.links.filter((link) => isSiteResource(link.href))
+  };
 }
 
 function parseCalendarDate(dateText, fallbackMonth, fallbackYear) {
@@ -231,6 +255,7 @@ export default async function CoursePage({ params }) {
   const assessmentItems = buildAssessmentItems(gradingComponents);
   const weeklySchedule = course.syllabus?.schedule || course.schedule || [];
   const semesterCalendar = course.syllabus?.calendar || course.calendar || [];
+  const orderedMaterials = sortCourseMaterials((course.materials || []).filter(materialHasSiteResource)).map(materialWithSiteLinks);
   const photoSlots = course.photos?.length
     ? course.photos
     : [
@@ -259,7 +284,7 @@ export default async function CoursePage({ params }) {
         <div className="course-photo-grid">
           {photoSlots.map((photo) => (
             <figure className="course-photo-slot" key={photo.label}>
-              {photo.src ? <img src={photo.src} alt={photo.alt || ""} /> : null}
+              {photo.src ? <img src={photo.src} alt={photo.alt || ""} loading="lazy" decoding="async" /> : null}
               <figcaption>
                 <span>{photo.label}</span>
                 <p>{photo.note}</p>
@@ -431,41 +456,12 @@ export default async function CoursePage({ params }) {
           <h2 id="course-materials-title">Course materials, assignments, and links</h2>
         </div>
 
-        {kindGroups.map((group) => {
-          const materials = course.materials.filter((material) => materialMatches(material, group.kinds));
-
-          if (!materials.length) return null;
-
-          return (
-            <section className="course-material-group" key={group.title}>
-              <div>
-                <p className="eyebrow">{group.eyebrow}</p>
-                <h3>{group.title}</h3>
-              </div>
-              <div className="course-material-list">
-                {materials.map((material) => (
-                  <MaterialCard key={material.title} material={material} />
-                ))}
-              </div>
-            </section>
-          );
-        })}
+        <div className="course-material-list">
+          {orderedMaterials.map((material) => (
+            <MaterialCard key={material.title} material={material} />
+          ))}
+        </div>
       </section>
-
-      {course.syllabus ? (
-        <section className="course-syllabus-preview" aria-labelledby="course-syllabus-preview-title">
-          <div>
-            <p className="eyebrow">Web syllabus</p>
-            <h2 id="course-syllabus-preview-title">The syllabus is available as a website page</h2>
-            <p>
-              The Culture and Cuisine syllabus has been translated from the PDF into a rendered course page with course information, objectives, assignments, and weekly schedule.
-            </p>
-          </div>
-          <Link className="button" href={`/teaching/${course.slug}/syllabus`}>
-            Open syllabus
-          </Link>
-        </section>
-      ) : null}
     </main>
   );
 }
