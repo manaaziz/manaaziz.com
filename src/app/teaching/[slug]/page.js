@@ -170,6 +170,14 @@ function buildMonthCalendar(month) {
     notesByDate.set(key, [...(notesByDate.get(key) || []), note]);
   });
 
+  const eventsByDate = new Map();
+  (month.days || []).forEach((event) => {
+    const eventDate = parseCalendarDate(event.date, month.month, month.year);
+    if (!eventDate) return;
+    const key = dateKey(eventDate);
+    eventsByDate.set(key, [...(eventsByDate.get(key) || []), event]);
+  });
+
   const weeks = (month.weeks || []).map((week) => ({
     ...week,
     startDate: parseCalendarDate(week.date, month.month, month.year)
@@ -185,7 +193,8 @@ function buildMonthCalendar(month) {
       days.push({
         date: current,
         isCurrentMonth: current.getMonth() === monthIndex,
-        notes: notesByDate.get(dateKey(current)) || []
+        notes: notesByDate.get(dateKey(current)) || [],
+        events: eventsByDate.get(dateKey(current)) || []
       });
       cursor.setDate(cursor.getDate() + 1);
     }
@@ -364,11 +373,11 @@ export default async function CoursePage({ params }) {
         </div>
       </section>
 
-      {weeklySchedule.length ? (
+      {weeklySchedule.length || semesterCalendar.length ? (
         <section className="course-schedule-section" aria-labelledby="course-schedule-title">
           <div className="section-intro">
             <p className="eyebrow">Schedule</p>
-            <h2 id="course-schedule-title">{semesterCalendar.length ? "Semester calendar" : "Weekly schedule"}</h2>
+            <h2 id="course-schedule-title">{semesterCalendar.length ? course.calendarLabel || "Semester calendar" : "Weekly schedule"}</h2>
           </div>
           {semesterCalendar.length ? (
             <div className="course-calendar-grid" aria-label="Semester calendar with weekly topics and university dates">
@@ -402,10 +411,32 @@ export default async function CoursePage({ params }) {
                           >
                             <span>{day.date.getDate()}</span>
                             {day.notes.map((note) => (
-                              <details className="course-calendar-note" key={`${note.date}-${note.title}`}>
-                                <summary>{note.title}</summary>
-                                <p>{note.description}</p>
-                              </details>
+                              <div className="course-calendar-note" key={`${note.date}-${note.title}`}>
+                                <button className="course-calendar-note-trigger" type="button">
+                                  {note.title}
+                                </button>
+                                <div className="course-calendar-note-popover" role="tooltip">
+                                  <p>{note.description}</p>
+                                </div>
+                              </div>
+                            ))}
+                            {day.events.map((event) => (
+                              <div className="course-calendar-note course-calendar-event" key={`${event.date}-${event.topic}`}>
+                                <button className="course-calendar-note-trigger" type="button">
+                                  {event.label || event.topic}
+                                </button>
+                                <div className="course-calendar-note-popover" role="tooltip">
+                                  <strong>{event.topic}</strong>
+                                  {event.description ? <p>{event.description}</p> : null}
+                                  {event.due?.length ? (
+                                    <ul>
+                                      {event.due.map((item) => (
+                                        <li key={item}>{item}</li>
+                                      ))}
+                                    </ul>
+                                  ) : null}
+                                </div>
+                              </div>
                             ))}
                           </div>
                         ))}

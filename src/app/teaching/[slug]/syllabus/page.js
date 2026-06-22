@@ -32,6 +32,7 @@ export default async function SyllabusPage({ params }) {
   }
 
   const syllabus = course.syllabus;
+  const showAssessmentPoints = syllabus.assessments.some((assessment) => assessment.points);
 
   return (
     <main className="page-shell course-page syllabus-page">
@@ -44,6 +45,16 @@ export default async function SyllabusPage({ params }) {
         <h1>{course.title}</h1>
         <p className="lede">{course.semester}</p>
       </section>
+
+      {syllabus.featuredLinks?.length ? (
+        <section className="syllabus-featured-links" aria-label="Related course writing">
+          {syllabus.featuredLinks.map((link) => (
+            <Link className="button" href={link.href} key={link.href}>
+              {link.label}
+            </Link>
+          ))}
+        </section>
+      ) : null}
 
       <section className="syllabus-grid" aria-label="Course information">
         <article>
@@ -82,30 +93,40 @@ export default async function SyllabusPage({ params }) {
       <section className="syllabus-section">
         <p className="eyebrow">Evaluation</p>
         <h2>Assignments and grading</h2>
-        <div className="syllabus-table" role="table" aria-label="Assessment summary">
+        <div className={`syllabus-table${showAssessmentPoints ? "" : " no-points"}`} role="table" aria-label="Assessment summary">
           <div role="row">
             <strong role="columnheader">Task</strong>
-            <strong role="columnheader">Points</strong>
+            {showAssessmentPoints ? <strong role="columnheader">Points</strong> : null}
             <strong role="columnheader">Weight</strong>
             <strong role="columnheader">Due</strong>
           </div>
           {syllabus.assessments.map((assessment) => (
             <div role="row" key={assessment.task}>
               <span role="cell">{assessment.task}</span>
-              <span role="cell">{assessment.points}</span>
+              {showAssessmentPoints ? <span role="cell">{assessment.points}</span> : null}
               <span role="cell">{assessment.percent || "TBD"}</span>
               <span role="cell">{assessment.due}</span>
             </div>
           ))}
         </div>
+        {syllabus.gradingScale?.length ? (
+          <div className="syllabus-scale-list" aria-label="Grading scale">
+            {syllabus.gradingScale.map((item) => (
+              <article key={item.grade}>
+                <strong>{item.grade}</strong>
+                <span>{item.range}</span>
+              </article>
+            ))}
+          </div>
+        ) : null}
       </section>
 
       <section className="syllabus-section">
         <p className="eyebrow">Schedule</p>
-        <h2>Weekly teaching schedule</h2>
+        <h2>{syllabus.scheduleHeading || "Weekly teaching schedule"}</h2>
         <div className="syllabus-table weekly" role="table" aria-label="Weekly teaching schedule">
           <div role="row">
-            <strong role="columnheader">Week</strong>
+            <strong role="columnheader">{syllabus.scheduleLabel || "Week"}</strong>
             <strong role="columnheader">Topic</strong>
           </div>
           {syllabus.schedule.map((week) => (
@@ -116,6 +137,21 @@ export default async function SyllabusPage({ params }) {
           ))}
         </div>
       </section>
+
+      {syllabus.sections?.map((section) => (
+        <section className="syllabus-section" key={section.title}>
+          <p className="eyebrow">{section.label}</p>
+          <h2>{section.title}</h2>
+          {section.copy ? <p>{section.copy}</p> : null}
+          {section.items?.length ? (
+            <ul className="syllabus-list">
+              {section.items.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ))}
     </main>
   );
 }

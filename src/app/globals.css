@@ -2737,6 +2737,14 @@ h3 {
   grid-column: 4 / span 2;
 }
 
+.course-calendar-grid:has(.course-calendar-month:nth-child(2):last-child) .course-calendar-month:first-child {
+  grid-column: 2 / span 2;
+}
+
+.course-calendar-grid:has(.course-calendar-month:nth-child(2):last-child) .course-calendar-month:nth-child(2) {
+  grid-column: 4 / span 2;
+}
+
 .course-calendar-month-header {
   display: flex;
   gap: 1rem;
@@ -2842,43 +2850,90 @@ h3 {
 
 .course-calendar-note {
   position: relative;
+  z-index: 2;
   min-width: 0;
 }
 
-.course-calendar-note summary {
+.course-calendar-day:has(.course-calendar-note:hover),
+.course-calendar-day:has(.course-calendar-note:focus-within) {
+  z-index: 30;
+}
+
+.course-calendar-note-trigger {
   display: block;
   overflow: hidden;
+  width: 100%;
   padding: 0.2rem 0.25rem;
+  border: 0;
   border-radius: 4px;
   background: rgba(47, 111, 100, 0.12);
   color: var(--green);
   cursor: pointer;
+  font: inherit;
   font-size: 0.54rem;
   font-weight: 900;
   line-height: 1.08;
   list-style: none;
+  text-align: center;
   text-overflow: ellipsis;
   text-transform: uppercase;
   white-space: nowrap;
 }
 
-.course-calendar-note summary::-webkit-details-marker {
-  display: none;
+.course-calendar-note-trigger:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
 }
 
-.course-calendar-note p {
+.course-calendar-note-popover {
   position: absolute;
-  z-index: 5;
-  width: min(16rem, 72vw);
-  margin: 0.2rem 0 0;
-  padding: 0.55rem 0.65rem;
+  top: calc(100% + 0.34rem);
+  left: 50%;
+  z-index: 40;
+  display: none;
+  width: min(17rem, 74vw);
+  padding: 0.68rem 0.78rem;
   border: 1px solid var(--line-strong);
   border-radius: 8px;
-  background: var(--surface-raised);
-  box-shadow: var(--shadow-hover);
+  background: #fffaf1;
+  box-shadow:
+    0 18px 38px rgba(23, 23, 23, 0.18),
+    0 0.24rem 0 #000;
   color: var(--muted);
   font-size: 0.72rem;
   line-height: 1.36;
+  opacity: 1;
+  transform: translateX(-50%);
+}
+
+.course-calendar-note:hover .course-calendar-note-popover,
+.course-calendar-note:focus-within .course-calendar-note-popover {
+  display: block;
+}
+
+.course-calendar-note-popover strong {
+  display: block;
+  margin-bottom: 0.18rem;
+  color: var(--ink);
+  font-size: 0.78rem;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.course-calendar-note-popover p {
+  margin: 0;
+}
+
+.course-calendar-note-popover ul {
+  display: grid;
+  gap: 0.22rem;
+  margin: 0.35rem 0 0;
+  padding-left: 1rem;
+}
+
+.course-calendar-event .course-calendar-note-trigger {
+  background: rgba(138, 21, 56, 0.1);
+  color: var(--ruby);
 }
 
 .course-calendar-week-popover {
@@ -3531,6 +3586,13 @@ h3 {
   margin-top: 2rem;
 }
 
+.syllabus-featured-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.35rem;
+}
+
 .syllabus-grid strong {
   display: block;
   margin-top: 0.45rem;
@@ -3577,6 +3639,10 @@ h3 {
   grid-template-columns: minmax(0, 1.45fr) 5rem 6rem minmax(7rem, 0.5fr);
 }
 
+.syllabus-page .syllabus-table.no-points:not(.weekly) > div {
+  grid-template-columns: minmax(0, 1.5fr) 6rem minmax(7rem, 0.5fr);
+}
+
 .syllabus-table > div:first-child {
   border-top: 0;
   background: var(--panel);
@@ -3587,6 +3653,40 @@ h3 {
   min-width: 0;
   color: var(--ink);
   line-height: 1.35;
+}
+
+.syllabus-scale-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.65rem;
+  margin-top: 1rem;
+}
+
+.syllabus-scale-list article {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 4rem;
+  padding: 0.8rem 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-raised);
+  box-shadow: var(--shadow-soft);
+}
+
+.syllabus-scale-list strong {
+  color: var(--ink);
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.syllabus-scale-list span {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 900;
+  line-height: 1.1;
+  text-align: right;
 }
 
 .two-column {
@@ -7127,6 +7227,267 @@ h3 {
   text-align: center;
 }
 
+.spain-scroll {
+  margin-top: clamp(2rem, 5vw, 4rem);
+}
+
+.spain-scroll-grid {
+  display: grid;
+  grid-template-columns: minmax(18rem, 0.9fr) minmax(20rem, 1.1fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: start;
+}
+
+.spain-scroll-copy {
+  position: relative;
+  display: grid;
+  gap: clamp(2rem, 5vw, 4rem);
+  padding-bottom: 30vh;
+}
+
+.spain-scroll-route {
+  position: absolute;
+  top: 2rem;
+  right: clamp(-2.4rem, -3vw, -1.2rem);
+  bottom: 16vh;
+  width: 5rem;
+  pointer-events: none;
+}
+
+.spain-scroll-route::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 4px;
+  background-image: radial-gradient(circle, rgba(138, 21, 56, 0.75) 0 2px, transparent 2.6px);
+  background-size: 4px 16px;
+  background-repeat: repeat-y;
+  transform: translateX(-50%);
+}
+
+.spain-scroll-dot {
+  position: absolute;
+  left: 50%;
+  z-index: 3;
+  width: 1.05rem;
+  height: 1.05rem;
+  border: 3px solid var(--panel);
+  border-radius: 999px;
+  background: var(--ruby);
+  box-shadow: 0 0 0 2px rgba(138, 21, 56, 0.22), 0 10px 22px rgba(0, 0, 0, 0.18);
+  transform: translate(-50%, -50%);
+  transition: top 0.12s linear;
+}
+
+.spain-scroll-card {
+  display: flex;
+  min-height: min(72vh, 38rem);
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0.24;
+  transform: translateY(1rem);
+  transition:
+    opacity 0.36s ease,
+    transform 0.36s ease;
+}
+
+.spain-scroll-card.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.spain-scroll-card header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem 1rem;
+  justify-content: space-between;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--line);
+  border-bottom: 0;
+  border-radius: var(--radius-tight) var(--radius-tight) 0 0;
+  background: rgba(138, 21, 56, 0.08);
+}
+
+.spain-scroll-card header span,
+.spain-scroll-card header time {
+  color: var(--ruby);
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.spain-scroll-card h2,
+.spain-scroll-card p {
+  margin: 0;
+}
+
+.spain-scroll-card h2 {
+  padding: clamp(1.2rem, 3vw, 2rem) clamp(1.2rem, 3vw, 2rem) 0.75rem;
+  border-inline: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--ink);
+  font-size: clamp(2rem, 4vw, 4rem);
+  line-height: 0.98;
+}
+
+.spain-scroll-card p {
+  padding: 0 clamp(1.2rem, 3vw, 2rem) clamp(1.2rem, 3vw, 2rem);
+  border: 1px solid var(--line);
+  border-top: 0;
+  border-radius: 0 0 var(--radius-tight) var(--radius-tight);
+  background: var(--panel);
+  box-shadow: var(--shadow-soft);
+  color: var(--muted);
+  font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+  line-height: 1.42;
+}
+
+.spain-scroll-visual-wrap {
+  position: sticky;
+  top: clamp(5rem, 10vh, 8rem);
+  min-height: min(78vh, 46rem);
+}
+
+.spain-scroll-visual-stage {
+  position: relative;
+  min-height: min(78vh, 46rem);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-tight);
+  background: var(--panel);
+  box-shadow: var(--shadow-soft);
+}
+
+.spain-scroll-visual {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  margin: 0;
+  opacity: 0;
+  transform: scale(1.02);
+  transition:
+    opacity 0.42s ease,
+    transform 0.42s ease;
+}
+
+.spain-scroll-visual.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.spain-scroll-placeholder {
+  display: grid;
+  place-items: center;
+  min-height: 100%;
+  padding: 2rem;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(255, 250, 241, 0.2)),
+    repeating-linear-gradient(45deg, rgba(47, 123, 107, 0.07) 0 18px, rgba(47, 123, 107, 0.02) 18px 36px);
+  text-align: center;
+}
+
+.spain-scroll-placeholder::before {
+  content: "";
+  position: absolute;
+  inset: clamp(1.5rem, 4vw, 3rem);
+  border: 2px dashed rgba(23, 23, 23, 0.18);
+  border-radius: var(--radius-tight);
+}
+
+.spain-scroll-placeholder span,
+.spain-scroll-placeholder strong {
+  position: relative;
+  z-index: 1;
+}
+
+.spain-scroll-placeholder span {
+  align-self: end;
+  color: var(--green);
+  font-size: 0.9rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.spain-scroll-placeholder strong {
+  align-self: start;
+  color: var(--ink);
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 900;
+  line-height: 0.9;
+}
+
+.spain-scroll-visual.paella .spain-scroll-placeholder {
+  background:
+    radial-gradient(circle at 70% 25%, rgba(232, 194, 92, 0.35), transparent 28%),
+    repeating-linear-gradient(45deg, rgba(138, 21, 56, 0.07) 0 18px, rgba(47, 123, 107, 0.04) 18px 36px),
+    var(--panel);
+}
+
+.spain-scroll-visual.tiles .spain-scroll-placeholder {
+  background:
+    linear-gradient(135deg, rgba(47, 123, 107, 0.12), rgba(255, 250, 241, 0.45)),
+    repeating-linear-gradient(90deg, rgba(23, 23, 23, 0.05) 0 22px, transparent 22px 44px),
+    var(--panel);
+}
+
+.spain-scroll-visual.notes .spain-scroll-placeholder {
+  background:
+    radial-gradient(circle at 30% 35%, rgba(138, 21, 56, 0.14), transparent 30%),
+    repeating-linear-gradient(0deg, rgba(47, 123, 107, 0.06) 0 3px, transparent 3px 34px),
+    var(--panel);
+}
+
+@media (max-width: 900px) {
+  .spain-scroll-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .spain-scroll-copy {
+    order: 2;
+    padding-left: 1.8rem;
+    padding-bottom: 0;
+  }
+
+  .spain-scroll-route {
+    right: auto;
+    left: 0;
+    width: 1.3rem;
+  }
+
+  .spain-scroll-card {
+    min-height: auto;
+  }
+
+  .spain-scroll-visual-wrap {
+    position: sticky;
+    top: 4.5rem;
+    order: 1;
+    min-height: 18rem;
+    z-index: 4;
+  }
+
+  .spain-scroll-visual-stage {
+    min-height: 18rem;
+  }
+
+  .spain-scroll-placeholder strong {
+    font-size: clamp(2.4rem, 12vw, 4rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spain-scroll-card,
+  .spain-scroll-dot,
+  .spain-scroll-visual {
+    transition: none;
+  }
+}
+
 .post-nav {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -7530,9 +7891,15 @@ h3 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .syllabus-scale-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .course-calendar-month,
   .course-calendar-month:nth-child(4),
-  .course-calendar-month:nth-child(5) {
+  .course-calendar-month:nth-child(5),
+  .course-calendar-grid:has(.course-calendar-month:nth-child(2):last-child) .course-calendar-month:first-child,
+  .course-calendar-grid:has(.course-calendar-month:nth-child(2):last-child) .course-calendar-month:nth-child(2) {
     grid-column: auto;
   }
 
@@ -7960,6 +8327,7 @@ h3 {
   .work-mix-layout,
   .teaching-values,
   .syllabus-grid,
+  .syllabus-scale-list,
   .course-card-grid,
   .course-outcome-grid,
   .course-material-list {
@@ -7974,7 +8342,9 @@ h3 {
 
   .course-calendar-month,
   .course-calendar-month:nth-child(4),
-  .course-calendar-month:nth-child(5) {
+  .course-calendar-month:nth-child(5),
+  .course-calendar-grid:has(.course-calendar-month:nth-child(2):last-child) .course-calendar-month:first-child,
+  .course-calendar-grid:has(.course-calendar-month:nth-child(2):last-child) .course-calendar-month:nth-child(2) {
     grid-column: auto;
   }
 

@@ -88,13 +88,22 @@ export default function BlogSectionSwitcher() {
   const newsItem = newsItems[0];
   const travelArchives = [
     {
+      topic: "Travel + Teaching",
+      title: "Spain Recap",
+      excerpt: "A city-by-city FAB 333 study-abroad recap from Madrid, Valencia, and Barcelona.",
+      href: "/blog/spain-2025/spain-recap",
+      image: "/assets/photos/fab333_reunion_group.jpg",
+      action: "Read recap",
+      size: "lead"
+    },
+    {
       topic: "Travel Archive",
       title: "Europe 2023",
       excerpt: "A professional and personal archive from a multi-purpose European summer trip.",
       href: "/blog/europe-2023",
       image: "/assets/images/EU23cover.jpg",
       action: "Open archive",
-      size: "lead"
+      size: "standard"
     },
     {
       topic: "Travel Archive",

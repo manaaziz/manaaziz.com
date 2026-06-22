@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { getAdjacentPosts } from "@/lib/posts";
+import SpainRecapScrolly from "@/components/SpainRecapScrolly";
 
 export default function PostContent({ post }) {
   const { previous, next } = getAdjacentPosts(post);
+  const isSpainRecap = post.seriesSlug === "spain-2025" && post.slug === "spain-recap";
 
   return (
     <main className="page-shell post-shell">
@@ -23,7 +25,11 @@ export default function PostContent({ post }) {
         <span>{post.readingMinutes} min read</span>
         <span>Filed under {post.seriesTitle}</span>
       </div>
-      <article className="post-body" dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
+      {isSpainRecap ? (
+        <SpainRecapScrolly />
+      ) : (
+        <article className="post-body" dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
+      )}
       <nav className="post-nav" aria-label="Post navigation">
         {previous ? (
           <Link href={previous.href}>

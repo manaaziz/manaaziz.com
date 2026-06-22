@@ -25,6 +25,13 @@ export const seriesConfig = {
     title: "Americanito in Barcelona",
     description: "The week-by-week archive from life abroad in Spain.",
     cover: "/assets/images/barcapic.jpg"
+  },
+  "spain-2025": {
+    legacyCategory: "spain2025",
+    legacyBase: "blog/spain-2025",
+    title: "Spain 2025",
+    description: "Study-abroad reflections, photos, and course memories from FAB 333 in Spain.",
+    cover: "/assets/photos/fab333_reunion_group.jpg"
   }
 };
 

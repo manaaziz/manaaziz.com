@@ -51,15 +51,144 @@ export const courses = [
       { task: "Attendance and Participation", percent: "35%" },
       { task: "Instructor's Evaluation of Student", percent: "15%" }
     ],
+    calendarLabel: "Daily course calendar",
     schedule: [
-      { week: "1", topic: "Program orientation; culture, cuisine, and travel learning" },
-      { week: "2", topic: "Spanish foodways, regional identity, markets, and hospitality contexts" },
-      { week: "3", topic: "Field observation, restaurant reflection, and guided cultural analysis" },
-      { week: "4", topic: "Student presentations, portfolio synthesis, and final reflection" }
+      { week: "May 19", topic: "Depart for Madrid" },
+      { week: "May 20", topic: "Arrive in Madrid, receive metro pass, and share a welcome dinner" },
+      { week: "May 21", topic: "Orientation, neighborhood walk, Madrid city tour, and group lunch" },
+      { week: "May 22", topic: "Free day or university-sourced activity in Madrid" },
+      { week: "May 23", topic: "Class meeting followed by vineyard and wine tasting" },
+      { week: "May 24", topic: "Guided visit to the Royal Palace of Madrid" },
+      { week: "May 25", topic: "Train to Valencia and afternoon class meeting" },
+      { week: "May 26", topic: "Class meeting and guided Valencia city tour" },
+      { week: "May 27", topic: "Paella cooking class and farm-to-table lunch" },
+      { week: "May 28", topic: "Free day or university-sourced activity in Valencia" },
+      { week: "May 29", topic: "Coach to Barcelona with cheese and wine tour stop" },
+      { week: "May 30", topic: "Class meeting, Gothic Quarter tour, and La Sagrada Familia" },
+      { week: "May 31", topic: "Penedes wine region visit" },
+      { week: "June 1", topic: "Class meeting and La Boqueria market tour" },
+      { week: "June 2", topic: "Final class meeting, reflection time, and farewell dinner" },
+      { week: "June 3", topic: "Program ends and airport transfer" }
+    ],
+    calendar: [
+      {
+        month: "May",
+        year: 2025,
+        days: [
+          {
+            date: "May 19",
+            label: "Travel",
+            topic: "Program begins",
+            description: "Participants depart for Madrid on individually arranged flights."
+          },
+          {
+            date: "May 20",
+            label: "Madrid",
+            topic: "Arrival and welcome dinner",
+            description: "Transfer to accommodations, receive the Madrid Metro Pass, and gather for a welcome dinner."
+          },
+          {
+            date: "May 21",
+            label: "Madrid",
+            topic: "Orientation and city tour",
+            description: "Local orientation, neighborhood walk, guided Habsburg Madrid tour, and group lunch."
+          },
+          {
+            date: "May 22",
+            label: "Madrid",
+            topic: "Free day or university activity",
+            description: "Independent exploration or a university-sourced activity with lunch and dinner on your own."
+          },
+          {
+            date: "May 23",
+            label: "Class",
+            topic: "Class meeting and vineyard visit",
+            description: "Faculty-led class meeting followed by a guided vineyard and wine tasting outside Madrid."
+          },
+          {
+            date: "May 24",
+            label: "Madrid",
+            topic: "Royal Palace",
+            description: "Guided visit to the Royal Palace of Madrid with free time afterward."
+          },
+          {
+            date: "May 25",
+            label: "Valencia",
+            topic: "Train to Valencia and class",
+            description: "Travel by train to Valencia, receive a transit pass, check in, and meet for class."
+          },
+          {
+            date: "May 26",
+            label: "Valencia",
+            topic: "Class and city tour",
+            description: "Faculty-led class meeting followed by a guided walk through Valencia's old quarter and central market area."
+          },
+          {
+            date: "May 27",
+            label: "Foodways",
+            topic: "Paella cooking class",
+            description: "Farm-to-table paella cooking class and group lunch at Barraca de Toni Montoliu."
+          },
+          {
+            date: "May 28",
+            label: "Valencia",
+            topic: "Free day or university activity",
+            description: "Independent exploration or a university-sourced activity in Valencia."
+          },
+          {
+            date: "May 29",
+            label: "Barcelona",
+            topic: "Travel to Barcelona",
+            description: "Coach transfer to Barcelona with a cheese and wine tour stop, then hotel check-in."
+          },
+          {
+            date: "May 30",
+            label: "Barcelona",
+            topic: "Class, Gothic Quarter, and Sagrada Familia",
+            description: "Faculty-led class meeting, Gothic Quarter tour, and guided visit to La Sagrada Familia."
+          },
+          {
+            date: "May 31",
+            label: "Wine",
+            topic: "Penedes wine region",
+            description: "Full-day visit to the Penedes wine region with free evening time in Barcelona."
+          }
+        ]
+      },
+      {
+        month: "June",
+        year: 2025,
+        days: [
+          {
+            date: "June 1",
+            label: "Market",
+            topic: "Class and La Boqueria",
+            description: "Faculty-led class meeting followed by a guided La Boqueria market visit with tastings."
+          },
+          {
+            date: "June 2",
+            label: "Final",
+            topic: "Class and farewell dinner",
+            description: "Final class meeting, reflection time, and group farewell dinner in Barcelona."
+          },
+          {
+            date: "June 3",
+            label: "Travel",
+            topic: "Program ends",
+            description: "Check out and transfer to the airport at the most common departure time."
+          }
+        ]
+      }
     ],
     materials: [
       {
-        title: "Syllabus",
+        title: "HTML syllabus",
+        kind: "Syllabus",
+        description: "Accessible web version of the Summer 2025 Spain study-abroad syllabus.",
+        href: "/teaching/fab-333-summer-studies-spain/syllabus"
+      },
+      {
+        title: "PDF syllabus",
         kind: "Syllabus",
         description: "Downloadable PDF copy of the Summer 2025 Spain study-abroad syllabus.",
         href: "/assets/course-materials/fab-333-summer-studies-spain/fab333_summer_2025_syllabus.pdf"
@@ -79,7 +208,102 @@ export const courses = [
         kind: "Videos",
         description: "Short orientation videos and cultural background materials can be linked here."
       }
-    ]
+    ],
+    syllabus: {
+      instructor: "Mohsen Azizsoltani and Mana Azizsoltani, PhD",
+      email: "mohsen.azizsoltani@unlv.edu; mana.azizsoltani@unlv.edu",
+      meeting: "May 20 - June 3, 2025",
+      room: "Madrid, Valencia, and Barcelona, Spain",
+      credits: "3 credits",
+      prerequisites: "FAB 333 Culture and Cuisine or FAB 790 Independent Study designation",
+      featuredLinks: [
+        { label: "Spain Recap", href: "/blog/spain-2025/spain-recap" },
+        { label: "Spain Reunion", href: "/manalogue#spain-reunion" }
+      ],
+      description:
+        "This immersive study abroad program offers students a unique opportunity to explore Spanish culture through its diverse culinary traditions. Based in Madrid, Valencia, and Barcelona, students engage with local history, art, architecture, social customs, cooking workshops, market visits, restaurant experiences, and cultural excursions. The course is designed to build a deeper understanding of Spain's regional identities, historical influences on gastronomy, and the social significance of food in everyday life.",
+      objectives: [
+        "Identify and describe key historical, social, and cultural influences on the cuisine of Madrid, Valencia, and Barcelona.",
+        "Recognize and differentiate regional culinary specialties and ingredients within the three featured cities.",
+        "Understand and apply basic Spanish culinary techniques through hands-on workshops.",
+        "Analyze the role of food in Spanish social customs, celebrations, and daily life.",
+        "Develop critical observation and analytical skills through engagement with local markets, restaurants, and cultural sites.",
+        "Communicate effectively about Spanish culture and cuisine through written assignments, presentations, and discussions.",
+        "Gain intercultural competence and adaptability through immersion in a foreign cultural environment."
+      ],
+      assessments: [
+        { task: "Introduction discussion and daily journal short essays", percent: "50%", due: "Daily during program" },
+        { task: "Attendance, participation, and engagement", percent: "35%", due: "Every scheduled activity" },
+        { task: "Instructor evaluation of student performance, behavior, and trip-policy compliance", percent: "15%", due: "June 5" }
+      ],
+      gradingScale: [
+        { grade: "A", range: "93% to 100%" },
+        { grade: "A-", range: "90% to 92%" },
+        { grade: "B+", range: "87% to 89%" },
+        { grade: "B", range: "84% to 86%" },
+        { grade: "B-", range: "80% to 84%" },
+        { grade: "C+", range: "77% to 79%" },
+        { grade: "C", range: "73% to 76%" },
+        { grade: "C-", range: "70% to 72%" },
+        { grade: "D+", range: "67% to 69%" },
+        { grade: "D", range: "63% to 66%" },
+        { grade: "D-", range: "60% to 62%" },
+        { grade: "F", range: "Below 60%" }
+      ],
+      scheduleHeading: "Daily Spain program schedule",
+      scheduleLabel: "Date",
+      schedule: [
+        { week: "May 19", topic: "Program begins; participants depart for Madrid." },
+        { week: "May 20", topic: "Arrival in Madrid, transit pass, check-in, and welcome dinner." },
+        { week: "May 21", topic: "Local orientation, neighborhood walk, Habsburg Madrid city tour, and group lunch." },
+        { week: "May 22", topic: "Free day or university-sourced activity in Madrid." },
+        { week: "May 23", topic: "Class meeting followed by guided vineyard and wine tasting." },
+        { week: "May 24", topic: "Guided Royal Palace of Madrid visit and independent exploration." },
+        { week: "May 25", topic: "Train to Valencia, hotel check-in, transit pass, and class meeting." },
+        { week: "May 26", topic: "Class meeting and guided Valencia city tour." },
+        { week: "May 27", topic: "Paella cooking class and farm-to-table lunch." },
+        { week: "May 28", topic: "Free day or university-sourced activity in Valencia." },
+        { week: "May 29", topic: "Coach to Barcelona with cheese and wine tour stop." },
+        { week: "May 30", topic: "Class meeting, Gothic Quarter tour, and La Sagrada Familia guided visit." },
+        { week: "May 31", topic: "Penedes wine region visit and free evening in Barcelona." },
+        { week: "June 1", topic: "Class meeting and guided La Boqueria market visit with tastings." },
+        { week: "June 2", topic: "Final class meeting, reflection time, and farewell dinner." },
+        { week: "June 3", topic: "Program ends; check-out and airport transfer." }
+      ],
+      sections: [
+        {
+          label: "Program outcomes",
+          title: "College of Hospitality outcomes",
+          items: [
+            "Communicate effectively in written, spoken, visual, and digital modes to different audiences.",
+            "Develop knowledge of the global and multicultural hospitality industry.",
+            "Understand issues in ethics, diversity, and inclusion.",
+            "Apply critical thinking to hospitality management problems.",
+            "Evaluate critical hospitality management concepts."
+          ]
+        },
+        {
+          label: "Resources",
+          title: "Recommended reading and preparation",
+          items: [
+            "Local Spanish newspapers and magazines available online.",
+            "Websites and blogs dedicated to Spanish food and culture.",
+            "Documentaries and films related to Spanish history, culture, and gastronomy."
+          ]
+        },
+        {
+          label: "Policies",
+          title: "Course expectations",
+          items: [
+            "Active and punctual participation in all scheduled activities is mandatory.",
+            "Assignments must be submitted through WebCampus Canvas as text entries unless otherwise instructed.",
+            "Make-up opportunities are only allowed for documented emergencies or excused absences under university policy.",
+            "Students are expected to engage respectfully with instructors, program staff, classmates, and local communities.",
+            "All submitted work must be original and follow UNLV academic integrity expectations."
+          ]
+        }
+      ]
+    }
   },
   {
     slug: "fab-333-culture-and-cuisine",
