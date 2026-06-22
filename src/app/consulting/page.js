@@ -1,6 +1,5 @@
 import Link from "next/link";
 import LogoBounceField from "./LogoBounceField";
-import { newsItems } from "../news/items";
 
 export const metadata = {
   title: "Consulting"
@@ -65,18 +64,18 @@ const clients = [
 
 const consultingWriting = [
   {
-    title: "The Manalogue analytics desk",
+    title: "Blog 1 - Breda",
     body:
-      "Notes on gaming, hospitality, data science, AI, analytics, and the business-facing questions behind the work.",
-    href: "/manalogue",
-    label: "Open Manalogue"
+      "A travel post that turns into a reflection on applied data science, AI labs, research culture, and small-group technical learning.",
+    href: "/blog/europe-2023/Post1",
+    label: "Read post"
   },
   {
-    title: newsItems[0]?.title || "Baccarat data and casino operators",
-    body: newsItems[0]?.description || "Coverage on how baccarat data can create new analytical opportunities for casino operators.",
-    href: newsItems[0]?.href || "https://igamingbusiness.com/casino/baccarat-data-the-next-breakthrough-for-casino-operators/",
-    label: "Read coverage",
-    external: true
+    title: "Volume 1 - Dive Right In",
+    body:
+      "A PhD reflection about statistics, producing knowledge, interpreting the stories numbers tell, and building high-impact solutions.",
+    href: "/blog/becoming-dr-mana/V1",
+    label: "Read post"
   }
 ];
 
@@ -133,24 +132,16 @@ export default function ConsultingPage() {
       <section className="consulting-example-section" aria-labelledby="consulting-writing-title">
         <div className="section-intro">
           <p className="eyebrow">Writing</p>
-          <h2 id="consulting-writing-title">Consulting-related writing and coverage</h2>
+          <h2 id="consulting-writing-title">Consulting-related posts from The Manalogue</h2>
         </div>
 
         <div className="consulting-example-grid">
           {consultingWriting.map((item) => (
-            item.external ? (
-              <a className="consulting-writing-card" href={item.href} key={item.title} rel="noreferrer" target="_blank">
-                <span>{item.label}</span>
-                <h3>{item.title}</h3>
-                <p>{item.body}</p>
-              </a>
-            ) : (
-              <Link className="consulting-writing-card" href={item.href} key={item.title}>
-                <span>{item.label}</span>
-                <h3>{item.title}</h3>
-                <p>{item.body}</p>
-              </Link>
-            )
+            <Link className="consulting-writing-card" href={item.href} key={item.title}>
+              <span>{item.label}</span>
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </Link>
           ))}
         </div>
       </section>
