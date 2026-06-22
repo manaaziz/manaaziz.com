@@ -71,12 +71,10 @@ export default function Home() {
         </a>
       </section>
 
-      <section className="split-band home-about reveal" id="selected-areas">
-        <div>
-          <p className="eyebrow">About</p>
-          <h2>Get to know me a little bit more.</h2>
-        </div>
-        <div>
+      <section className="section-intro home-about reveal" id="selected-areas">
+        <p className="eyebrow">About</p>
+        <h2>Get to know me a little bit more.</h2>
+        <div className="home-about-tile">
           <p>
             I work at the intersection of hospitality, gaming, data science, AI, research, and teaching. The about page is where the professional story has more room to breathe.
           </p>
@@ -104,7 +102,7 @@ export default function Home() {
       <section className="home-stream reveal">
         <div>
           <p className="eyebrow">Media</p>
-          <h2>The Manalogue is the home for current writing, podcasts, and archives.</h2>
+          <h2>The monologue is the home for all things Mana.</h2>
           <Link className="button" href="/manalogue">
             Open The Manalogue
           </Link>

@@ -56,14 +56,18 @@ export default function TeachingPage() {
       <section className="course-link-section" aria-labelledby="course-link-title">
         <div className="section-intro">
           <p className="eyebrow">Courses</p>
-          <h2 id="course-link-title">Courses Taught</h2>
+          <h2 id="course-link-title">I have taught both graduate and undergraduate courses.</h2>
         </div>
 
         <div className="course-card-grid">
           {courses.map((course) => (
             <Link className="course-card" href={`/teaching/${course.slug}`} key={course.slug}>
-              <span>{course.label}</span>
-              <h3>{course.title}</h3>
+              <span>{course.courseNumber}</span>
+              <h3>{course.courseName}</h3>
+              <div className="course-card-university">
+                <img src="/assets/logos/unlvhospitality_logo.jpeg" alt="" loading="lazy" />
+                <small>{course.university}</small>
+              </div>
               <p>{course.summary}</p>
               <strong>Open course home</strong>
             </Link>

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import FeatureCarousel from "@/components/FeatureCarousel";
 import LogoBounceField from "./LogoBounceField";
 
 export const metadata = {
@@ -65,17 +65,65 @@ const clients = [
 const consultingWriting = [
   {
     title: "Blog 1 - Breda",
-    body:
+    excerpt:
       "A travel post that turns into a reflection on applied data science, AI labs, research culture, and small-group technical learning.",
     href: "/blog/europe-2023/Post1",
-    label: "Read post"
+    image: "/assets/photos/breda1.jpg",
+    imageAlt: "A travel photo from Breda",
+    dateLabel: "June 3, 2023",
+    label: "Read post",
+    topic: "Applied AI"
   },
   {
     title: "Volume 1 - Dive Right In",
-    body:
+    excerpt:
       "A PhD reflection about statistics, producing knowledge, interpreting the stories numbers tell, and building high-impact solutions.",
     href: "/blog/becoming-dr-mana/V1",
-    label: "Read post"
+    image: "/assets/images/phdblog-cover.jpg",
+    imageAlt: "A cover image for Becoming Dr. Mana",
+    dateLabel: "December 20, 2022",
+    label: "Read post",
+    topic: "Research practice"
+  },
+  {
+    title: "Spain Recap",
+    excerpt:
+      "A future consulting-adjacent travel essay built around field notes, place, operations, observation, and the little systems that shape hospitality experiences.",
+    href: "/blog/spain-2025/spain-recap",
+    image: "/assets/photos/fab333_reunion_unlvflag.jpeg",
+    imageAlt: "A UNLV flag photo from the Spain course archive",
+    dateLabel: "June 5, 2025",
+    label: "Read post",
+    topic: "Field notes"
+  }
+];
+
+const companyRoles = [
+  {
+    company: "Differential Labs",
+    href: "https://diffgaming.com",
+    role: "Head of Data Science",
+    kicker: "Casino analytics, casino AI, marketing analytics, and fraud analytics.",
+    body:
+      "I lead the development and implementation of data science and AI solutions for casinos across the globe, translating models into workflows that operators can actually use.",
+    points: [
+      "Casino-facing data science and AI systems",
+      "Marketing, fraud, surveillance, and operational analytics",
+      "Model interpretation that connects technical output to business decisions"
+    ]
+  },
+  {
+    company: "Hex Gaming AI",
+    href: "https://hexgaming.ai",
+    role: "Head of Knowledge Architecture",
+    kicker: "Gen AI-powered tools for casino marketing, fraud detection, and operations optimization.",
+    body:
+      "I help shape the knowledge layer for LLM-driven casino workflows, especially where personalization, domain expertise, and real-time marketing logic need to work together.",
+    points: [
+      "Knowledge architecture for casino-specific AI agents",
+      "LLM workflows for personalized marketing in real time",
+      "Domain structure that keeps AI useful for casino teams"
+    ]
   }
 ];
 
@@ -96,6 +144,34 @@ export default function ConsultingPage() {
           </a>
           . Hex is a platform for LLM-driven personalized marketing in real time.
         </p>
+      </section>
+
+      <section className="consulting-role-section" aria-labelledby="consulting-roles-title">
+        <div className="section-intro">
+          <p className="eyebrow">Roles</p>
+          <h2 id="consulting-roles-title">Where I build casino AI and analytics systems</h2>
+        </div>
+
+        <div className="consulting-role-grid">
+          {companyRoles.map((role) => (
+            <article className="consulting-role-card" key={role.company}>
+              <div>
+                <span>{role.role}</span>
+                <h3>{role.company}</h3>
+                <p className="consulting-role-kicker">{role.kicker}</p>
+              </div>
+              <p>{role.body}</p>
+              <ul>
+                {role.points.map((point) => (
+                  <li key={point}>{point}</li>
+                ))}
+              </ul>
+              <a href={role.href} rel="noreferrer" target="_blank">
+                Visit {role.company}
+              </a>
+            </article>
+          ))}
+        </div>
       </section>
 
       <section className="consulting-client-section" aria-labelledby="consulting-clients-title">
@@ -129,22 +205,14 @@ export default function ConsultingPage() {
         </div>
       </section>
 
-      <section className="consulting-example-section" aria-labelledby="consulting-writing-title">
-        <div className="section-intro">
-          <p className="eyebrow">Writing</p>
-          <h2 id="consulting-writing-title">Consulting-related posts from The Manalogue</h2>
-        </div>
-
-        <div className="consulting-example-grid">
-          {consultingWriting.map((item) => (
-            <Link className="consulting-writing-card" href={item.href} key={item.title}>
-              <span>{item.label}</span>
-              <h3>{item.title}</h3>
-              <p>{item.body}</p>
-            </Link>
-          ))}
-        </div>
-      </section>
+      <FeatureCarousel
+        ariaLabel="Consulting writing controls"
+        eyebrow="Writing"
+        items={consultingWriting}
+        sectionClassName="consulting-example-section consulting-writing-carousel"
+        title="Consulting-related posts from The Manalogue"
+        variant="blog"
+      />
     </main>
   );
 }
