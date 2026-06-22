@@ -123,7 +123,7 @@ export default function BlogSectionSwitcher() {
       place: "Barcelona",
       preview: "A travel note from Barcelona and the return of an older thread in the Manalogue archive.",
       href: "/blog/europe-2023/Post8",
-      image: "/assets/EUblog/images/blog8_1.jpg",
+      image: "/assets/photos/eublog/blog8_1.jpg",
       tile: "wide"
     },
     {
@@ -142,7 +142,7 @@ export default function BlogSectionSwitcher() {
       place: "Europe",
       preview: "Photos and field notes from the Europe 2023 archive.",
       href: "/blog/europe-2023/Post1",
-      image: "/assets/EUblog/images/blog1_2.jpg"
+      image: "/assets/photos/eublog/blog1_2.jpg"
     },
     {
       title: "Blog 4 - Europe 2023",
@@ -151,7 +151,7 @@ export default function BlogSectionSwitcher() {
       place: "Europe",
       preview: "A visual entry from the European travel archive.",
       href: "/blog/europe-2023/Post4",
-      image: "/assets/EUblog/images/blog4_4.jpg",
+      image: "/assets/photos/eublog/blog4_4.jpg",
       tile: "wide"
     },
     {
@@ -161,7 +161,7 @@ export default function BlogSectionSwitcher() {
       place: "Europe",
       preview: "Another photo-forward stop from the Europe 2023 posts.",
       href: "/blog/europe-2023/Post7",
-      image: "/assets/EUblog/images/blog7_3.jpg"
+      image: "/assets/photos/eublog/blog7_3.jpg"
     },
     {
       title: "Becoming Dr. Mana",
@@ -197,7 +197,7 @@ export default function BlogSectionSwitcher() {
           title: "Conference presentations and published work",
           excerpt: "A running archive of research questions, methods, papers, and presentation moments.",
           href: "/research",
-          image: "/assets/gallery/ICGRT_2023.jpeg",
+          image: "/assets/photos/ICGRT_2023.jpeg",
           action: "Open research",
           size: "wide"
         },
@@ -272,7 +272,7 @@ export default function BlogSectionSwitcher() {
           excerpt:
             "A mosaic of journals, working papers, presentation archives, research questions, and the methods connecting them.",
           href: "/research",
-          image: "/assets/gallery/ICGRT_2023.jpeg",
+          image: "/assets/photos/ICGRT_2023.jpeg",
           action: "Open research",
           size: "lead"
         }

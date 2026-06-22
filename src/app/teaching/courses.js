@@ -24,33 +24,32 @@ export const courses = [
       {
         label: "FAB 333 reunion",
         note: "A group moment connected to the broader FAB 333 travel and cuisine archive.",
-        src: "/assets/gallery/fab333_reunion_group.jpg",
+        src: "/assets/photos/fab333_reunion_group.jpg",
         alt: "FAB 333 reunion group photo"
       },
       {
         label: "Spain connection",
         note: "A travel and culture memory tied to the study-abroad version of FAB 333.",
-        src: "/assets/gallery/fab333_reunion_manaflag.jpeg",
+        src: "/assets/photos/fab333_reunion_manaflag.jpeg",
         alt: "Mana with a flag during a FAB 333 reunion moment"
       },
       {
         label: "Course community",
         note: "Personal and student-facing moments from the FAB 333 extended classroom.",
-        src: "/assets/gallery/fab333_reunion_mark.jpg",
+        src: "/assets/photos/fab333_reunion_mark.jpg",
         alt: "FAB 333 reunion photo"
       },
       {
         label: "UNLV abroad",
         note: "A study-abroad visual archive for the Spain-focused FAB 333 course home.",
-        src: "/assets/gallery/fab333_reunion_unlvflag.jpeg",
+        src: "/assets/photos/fab333_reunion_unlvflag.jpeg",
         alt: "UNLV flag photo connected to FAB 333 Summer Studies in Spain"
       }
     ],
     gradingComponents: [
-      { task: "Field participation and engagement", percent: "25%" },
-      { task: "Cultural observation reflections", percent: "25%" },
-      { task: "Group presentation", percent: "25%" },
-      { task: "Final travel learning portfolio", percent: "25%" }
+      { task: "Intro & Daily Journal", percent: "50%" },
+      { task: "Attendance and Participation", percent: "35%" },
+      { task: "Instructor's Evaluation of Student", percent: "15%" }
     ],
     schedule: [
       { week: "1", topic: "Program orientation; culture, cuisine, and travel learning" },
@@ -62,8 +61,8 @@ export const courses = [
       {
         title: "Syllabus",
         kind: "Syllabus",
-        description: "Program overview and course details for the Spain study-abroad experience.",
-        href: "/assets/course-materials/fab-333-summer-studies-spain/spain_program_overview.pdf"
+        description: "Downloadable PDF copy of the Summer 2025 Spain study-abroad syllabus.",
+        href: "/assets/course-materials/fab-333-summer-studies-spain/fab333_summer_2025_syllabus.pdf"
       },
       {
         title: "Field learning",
@@ -107,19 +106,19 @@ export const courses = [
       {
         label: "Culture and Cuisine",
         note: "A Spring 2026 classroom moment from FAB 333.",
-        src: "/assets/gallery/fab333_2026_2.jpeg",
+        src: "/assets/photos/fab333_2026_2.jpeg",
         alt: "FAB 333 Culture and Cuisine classroom moment"
       },
       {
         label: "Tea and tasting",
         note: "A tasting-centered class moment from Culture and Cuisine.",
-        src: "/assets/gallery/fab333_2026_tea.jpeg",
+        src: "/assets/photos/fab333_2026_tea.jpeg",
         alt: "FAB 333 Culture and Cuisine tea tasting moment"
       },
       {
         label: "Paella",
         note: "A cuisine-focused class moment connected to Spanish foodways and shared meals.",
-        src: "/assets/gallery/fab333_paella.jpeg",
+        src: "/assets/photos/fab333_paella.jpeg",
         alt: "Paella prepared for FAB 333 Culture and Cuisine"
       }
     ],
