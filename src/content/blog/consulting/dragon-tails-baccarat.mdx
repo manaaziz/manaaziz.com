@@ -1,0 +1,88 @@
+---
+title: Dragon Tails in Baccarat
+date: 2026-06-23
+seriesTitle: Consulting Notes
+tags: consulting, analytics, baccarat, table games, casino behavior
+cover: /assets/images/LVcover.png
+country: United States
+city: Las Vegas
+region: North America
+workType: Consulting
+---
+
+<p>
+  I was chatting with Todd Fishon from
+  <a href="https://wdtablesystems.com" target="_blank" rel="noreferrer"> Walker Digital Table Systems</a>,
+  who always seems to have one more casino story tucked away than I am expecting.
+</p>
+
+<p>
+  We were talking about baccarat, and specifically about how deeply players can believe in patterns. In Macau,
+  players can be intensely loyal to the road, to the trend, and to the feeling that the shoe is trying to tell them
+  something. That is part of what makes baccarat fascinating: the game is mathematically simple, but behaviorally rich.
+</p>
+
+<p>
+  Todd mentioned a belief he had heard from players around the "dragon tail." The idea, as I understood it, was that
+  after a long Banker or Player run finally breaks, some players still expect the dragon to give one back. In other
+  words, even after the streak ends, they may bet as if the streak has one last breath in it.
+</p>
+
+<section class="dragon-tail-demo" aria-label="Animated baccarat dragon tail road">
+  <div class="dragon-tail-copy">
+    <span>Table games behavior</span>
+    <strong>When a trend ends, does the table still chase the tail?</strong>
+    <p>
+      The analytic question is not whether the dragon tail is real. The question is whether players behave as though it is.
+    </p>
+  </div>
+  <div class="dragon-tail-road" aria-hidden="true">
+    <span class="road-cell banker">B</span>
+    <span class="road-cell banker">B</span>
+    <span class="road-cell banker">B</span>
+    <span class="road-cell banker">B</span>
+    <span class="road-cell banker">B</span>
+    <span class="road-cell banker">B</span>
+    <span class="road-cell player break">P</span>
+    <span class="road-cell banker return">B</span>
+    <span class="road-cell ghost">?</span>
+  </div>
+</section>
+
+<p>
+  So I tried to quantify it. I treated the dragon tail as a behavioral moment around a long trend: a run forms, the run
+  breaks, and then the next hand becomes the interesting one. If players believe the dragon will return, then the betting
+  behavior after the break should show up in the data.
+</p>
+
+<p>
+  Todd's instinct was that, purely from the game, the returning side would come back only a little over half the time.
+  The behavioral question was different: how often do players actually bet on that return?
+</p>
+
+<section class="dragon-tail-finding" aria-label="Dragon tail finding">
+  <div>
+    <span>Observed betting behavior</span>
+    <strong>53.5%</strong>
+    <p>Approximate rate at which players bet on the dragon return in the data I checked.</p>
+  </div>
+  <div>
+    <span>Directional texture</span>
+    <strong>Banker-heavy</strong>
+    <p>The behavior appeared more often after Banker-side dragon tails than Player-side ones.</p>
+  </div>
+</section>
+
+<p>
+  The result was interesting because it sits in that messy space between probability and belief. The math of baccarat
+  does not need a dragon tail. The player does.
+</p>
+
+<p>
+  That is the part of casino analytics I keep coming back to. Sometimes the most useful question is not whether a belief
+  is mathematically true. Sometimes the useful question is whether the belief is real enough to shape decisions at the table.
+</p>
+
+<p>
+  And if it does shape decisions, then it becomes something we can measure.
+</p>

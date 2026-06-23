@@ -16,7 +16,7 @@ const sections = [
 ];
 
 const panelHeights = {
-  home: "clamp(36rem, 52vw, 47rem)",
+  home: "clamp(42rem, 60vw, 54rem)",
   analytics: "clamp(29rem, 42vw, 37rem)",
   research: "clamp(29rem, 42vw, 37rem)",
   teaching: "clamp(29rem, 42vw, 37rem)",
@@ -82,10 +82,120 @@ function PhotoMosaic({ photos }) {
   );
 }
 
-export default function BlogSectionSwitcher() {
+function postToStory(post, topic) {
+  return {
+    topic,
+    title: post.title,
+    excerpt: post.excerpt,
+    href: post.href,
+    image: post.previewImage || post.cover || post.images[0] || post.seriesCover,
+    action: "Read post",
+    size: "standard",
+    date: post.date,
+    minutes: post.readingMinutes,
+    tags: post.tags || []
+  };
+}
+
+function postTopic(post) {
+  const knownTopics = ["teaching", "analytics", "research", "travel", "consulting"];
+  const tag = post.tags.find((item) => knownTopics.includes(item.toLowerCase()));
+  return tag ? tag.charAt(0).toUpperCase() + tag.slice(1) : "The Manalogue";
+}
+
+function formatStoryDate(value) {
+  if (!value) {
+    return "";
+  }
+
+  return new Intl.DateTimeFormat("en", { month: "short", day: "numeric", year: "numeric" }).format(new Date(`${value}T12:00:00`));
+}
+
+function storyMeta(story) {
+  return [story.topic, formatStoryDate(story.date), story.minutes ? `${story.minutes} min read` : ""].filter(Boolean).join(" · ");
+}
+
+function NewspaperStory({ story, variant = "brief" }) {
+  const content = (
+    <>
+      {story.image ? (
+        <div className="manalogue-paper-image">
+          <img src={story.image} alt="" loading={variant === "lead" ? "eager" : "lazy"} decoding="async" />
+        </div>
+      ) : null}
+      <div className="manalogue-paper-copy">
+        <span>{storyMeta(story)}</span>
+        <h3>{story.title}</h3>
+        <p>{story.excerpt}</p>
+        <strong>{story.action || "Read post"}</strong>
+      </div>
+    </>
+  );
+
+  if (story.external) {
+    return (
+      <a className="manalogue-paper-story" data-variant={variant} href={story.href} rel="noreferrer" target="_blank">
+        {content}
+      </a>
+    );
+  }
+
+  return (
+    <Link className="manalogue-paper-story" data-variant={variant} href={story.href}>
+      {content}
+    </Link>
+  );
+}
+
+function NewspaperFrontPage({ stories }) {
+  const frontStories = stories.slice(0, 7);
+  const [lead, feature, ...briefs] = frontStories;
+
+  return (
+    <div className="manalogue-newspaper-front">
+      {lead ? <NewspaperStory story={lead} variant="lead" /> : null}
+      <div className="manalogue-paper-briefs">
+        {briefs.slice(0, 2).map((story) => (
+          <NewspaperStory key={`${story.topic}-${story.title}`} story={story} />
+        ))}
+      </div>
+      {feature ? <NewspaperStory story={feature} variant="feature" /> : null}
+      <div className="manalogue-paper-strip">
+        {briefs.slice(2, 5).map((story) => (
+          <NewspaperStory key={`${story.topic}-${story.title}`} story={story} variant="compact" />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function storiesByTag(posts, tag, topic, leadFirst = false) {
+  const tagKey = tag.toLowerCase();
+  const stories = posts
+    .filter((post) => post.tags.some((item) => item.toLowerCase() === tagKey))
+    .map((post) => postToStory(post, topic));
+
+  if (leadFirst && stories.length) {
+    stories[0] = { ...stories[0], size: "lead" };
+  }
+
+  return stories;
+}
+
+function fallbackStory({ topic, title, excerpt, href, image, action = "Open", size = "lead" }) {
+  return { topic, title, excerpt, href, image, action, size };
+}
+
+export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const activeSection = sections[activeIndex];
   const newsItem = newsItems[0];
+  const visiblePosts = allPosts.length ? allPosts : posts;
+  const analyticsStories = storiesByTag(visiblePosts, "analytics", "Analytics", true);
+  const researchStories = storiesByTag(visiblePosts, "research", "Research", true);
+  const teachingStories = storiesByTag(visiblePosts, "teaching", "Teaching", true);
+  const travelPostStories = storiesByTag(visiblePosts, "travel", "Travel", true);
+  const frontPageStories = visiblePosts.slice(0, 7).map((post) => postToStory(post, postTopic(post)));
   const travelArchives = [
     {
       topic: "Travel + Teaching",
@@ -102,15 +212,6 @@ export default function BlogSectionSwitcher() {
       excerpt: "A professional and personal archive from a multi-purpose European summer trip.",
       href: "/blog/europe-2023",
       image: "/assets/images/EU23cover.jpg",
-      action: "Open archive",
-      size: "standard"
-    },
-    {
-      topic: "Academic Archive",
-      title: "Becoming Dr. Mana",
-      excerpt: "Older doctoral-life writing, archived as part of the broader Manalogue record.",
-      href: "/blog/becoming-dr-mana",
-      image: "/assets/images/phdblog-cover.jpg",
       action: "Open archive",
       size: "standard"
     }
@@ -153,15 +254,6 @@ export default function BlogSectionSwitcher() {
       preview: "Another photo-forward stop from the Europe 2023 posts.",
       href: "/blog/europe-2023/Post7",
       image: "/assets/photos/eublog/blog7_3.jpg"
-    },
-    {
-      title: "Becoming Dr. Mana",
-      series: "Doctoral Archive",
-      date: "Archive",
-      place: "Academic Life",
-      preview: "Older writing about doctoral work, growth, and academic identity.",
-      href: "/blog/becoming-dr-mana/Preface",
-      image: "/assets/images/phdblog-cover.jpg"
     }
   ];
   const topicPanels = [
@@ -169,8 +261,8 @@ export default function BlogSectionSwitcher() {
       id: "home",
       kicker: "Front Page",
       title: "The current front page of the work",
-      layout: "front",
-      stories: [
+      layout: "newspaper-front",
+      stories: frontPageStories.length ? frontPageStories : [
         newsItem
           ? {
               topic: "Analytics",
@@ -228,7 +320,7 @@ export default function BlogSectionSwitcher() {
       id: "analytics",
       kicker: "Analytics Desk",
       title: "Gaming, hospitality, data, and decision-making",
-      stories: [
+      stories: analyticsStories.length ? analyticsStories : [
         newsItem
           ? {
               topic: "In the News",
@@ -256,8 +348,8 @@ export default function BlogSectionSwitcher() {
       id: "research",
       kicker: "Research Desk",
       title: "Papers, projects, methods, and academic life",
-      stories: [
-        {
+      stories: researchStories.length ? researchStories : [
+        fallbackStory({
           topic: "Research",
           title: "Published work and conference presentations",
           excerpt:
@@ -266,15 +358,15 @@ export default function BlogSectionSwitcher() {
           image: "/assets/photos/ICGRT_2023.jpeg",
           action: "Open research",
           size: "lead"
-        }
+        })
       ]
     },
     {
       id: "teaching",
       kicker: "Teaching Desk",
       title: "Courses, classrooms, and student-facing materials",
-      stories: [
-        {
+      stories: teachingStories.length ? teachingStories : [
+        fallbackStory({
           topic: "Teaching",
           title: "Course homes, syllabi, assignments, and class media",
           excerpt:
@@ -283,8 +375,8 @@ export default function BlogSectionSwitcher() {
           image: "/assets/images/grad_pic.jpeg",
           action: "Open teaching",
           size: "lead"
-        },
-        {
+        }),
+        fallbackStory({
           topic: "Course Home",
           title: "Culture and Cuisine",
           excerpt: "A student-facing course home built around foodways, cultural context, assignments, and embedded course materials.",
@@ -292,14 +384,14 @@ export default function BlogSectionSwitcher() {
           image: "/assets/images/barcapic.jpg",
           action: "Open course",
           size: "standard"
-        }
+        })
       ]
     },
     {
       id: "travel",
       kicker: "Travel Archive",
       title: "Tales from far and wide",
-      stories: travelArchives
+      stories: travelPostStories.length ? travelPostStories : travelArchives
     },
     {
       id: "podcasts",
@@ -379,6 +471,8 @@ export default function BlogSectionSwitcher() {
 
                     {panel.layout === "photo-mosaic" ? (
                       <PhotoMosaic photos={panel.photos} />
+                    ) : panel.layout === "newspaper-front" ? (
+                      <NewspaperFrontPage stories={panel.stories} />
                     ) : (
                       <div className="manalogue-topic-grid" data-count={panel.stories.length} data-layout={panel.layout || "topic"}>
                         {panel.stories.map((story) => (

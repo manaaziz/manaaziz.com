@@ -6,12 +6,16 @@ export default function PostContent({ post }) {
   const { previous, next } = getAdjacentPosts(post);
   const relatedPosts = getRelatedPosts(post);
   const isSpainRecap = post.seriesSlug === "spain-2025" && post.slug === "spain-recap";
+  const allowedTags = new Set(["consulting", "teaching", "research", "travel"]);
+  const visibleTags = post.tags.filter((tag) => allowedTags.has(tag.toLowerCase()));
+  const backHref = post.standalone ? "/manalogue" : `/blog/${post.seriesSlug}`;
+  const backLabel = post.standalone ? "Back to The Manalogue" : `Back to ${post.seriesTitle}`;
 
   return (
     <main className="page-shell post-shell">
       <div className="reading-progress" aria-hidden="true" />
-      <Link className="back-link" href={`/blog/${post.seriesSlug}`}>
-        Back to {post.seriesTitle}
+      <Link className="back-link" href={backHref}>
+        {backLabel}
       </Link>
       <p className="eyebrow">{post.seriesTitle}</p>
       <h1>{post.title}</h1>
@@ -24,13 +28,14 @@ export default function PostContent({ post }) {
           })}
         </span>
         <span>{post.readingMinutes} min read</span>
-        <span>Filed under {post.seriesTitle}</span>
       </div>
-      <div className="post-tag-row" aria-label="Post tags">
-        {post.tags.map((tag) => (
-          <span key={tag}>{tag}</span>
-        ))}
-      </div>
+      {visibleTags.length > 0 ? (
+        <div className="post-tag-row" aria-label="Post tags">
+          {visibleTags.map((tag) => (
+            <span key={tag}>{tag}</span>
+          ))}
+        </div>
+      ) : null}
       {isSpainRecap ? (
         <SpainRecapScrolly />
       ) : (
@@ -40,11 +45,19 @@ export default function PostContent({ post }) {
             <p className="eyebrow">Related</p>
             <h2>Keep reading</h2>
             <div className="post-related-list">
-              <Link href={`/blog/${post.seriesSlug}`}>
-                <span>Series</span>
-                <strong>{post.seriesTitle}</strong>
-                <small>Open the full archive</small>
-              </Link>
+              {post.standalone ? (
+                <Link href="/manalogue">
+                  <span>Manalogue</span>
+                  <strong>Tagged writing</strong>
+                  <small>Browse by teaching, travel, research, and analytics</small>
+                </Link>
+              ) : (
+                <Link href={`/blog/${post.seriesSlug}`}>
+                  <span>Series</span>
+                  <strong>{post.seriesTitle}</strong>
+                  <small>Open the full archive</small>
+                </Link>
+              )}
               {relatedPosts.map((related) => (
                 <Link href={related.href} key={related.href}>
                   <span>{related.seriesTitle}</span>

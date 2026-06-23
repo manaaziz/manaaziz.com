@@ -10,7 +10,8 @@ const stops = [
     label: "Arrival and welcome dinner",
     copy:
       "Transfer to accommodations, receive the Madrid Metro Pass, and gather for the welcome dinner. Placeholder for the first arrival impressions, first meal, and early group rhythm.",
-    motif: "plaza"
+    motif: "plaza",
+    image: "/assets/photos/eublog/blog1_1.jpg"
   },
   {
     city: "Madrid",
@@ -19,7 +20,8 @@ const stops = [
     label: "Orientation and city tour",
     copy:
       "Local orientation, neighborhood walk, guided Habsburg Madrid tour, and group lunch. Placeholder for notes on place, history, and the city becoming the classroom.",
-    motif: "plaza"
+    motif: "plaza",
+    image: "/assets/photos/eublog/blog1_2.jpg"
   },
   {
     city: "Madrid",
@@ -28,7 +30,8 @@ const stops = [
     label: "Free day or university activity",
     copy:
       "Independent exploration or a university-sourced activity in Madrid. Placeholder for whatever felt worth remembering: museums, meals, walks, and student observations.",
-    motif: "notes"
+    motif: "notes",
+    image: "/assets/photos/eublog/blog2_1.jpg"
   },
   {
     city: "Madrid",
@@ -37,7 +40,8 @@ const stops = [
     label: "Class meeting and vineyard visit",
     copy:
       "Faculty-led class meeting followed by a guided vineyard and wine tasting outside Madrid. Placeholder for wine, region, hospitality, and how tasting became a learning method.",
-    motif: "plaza"
+    motif: "plaza",
+    image: "/assets/photos/eublog/blog2_2.jpg"
   },
   {
     city: "Madrid",
@@ -46,7 +50,8 @@ const stops = [
     label: "Royal Palace",
     copy:
       "Guided visit to the Royal Palace of Madrid with free time afterward. Placeholder for architecture, monarchy, ritual, and the connection between spectacle and culture.",
-    motif: "tiles"
+    motif: "tiles",
+    image: "/assets/photos/eublog/blog3_1.jpg"
   },
   {
     city: "Valencia",
@@ -55,7 +60,8 @@ const stops = [
     label: "Train to Valencia and class",
     copy:
       "Travel by train to Valencia, receive a transit pass, check in, and meet for class. Placeholder for the shift in pace, scenery, and regional identity.",
-    motif: "tiles"
+    motif: "tiles",
+    image: "/assets/photos/eublog/blog3_2.jpg"
   },
   {
     city: "Valencia",
@@ -64,7 +70,8 @@ const stops = [
     label: "Class and city tour",
     copy:
       "Faculty-led class meeting followed by a guided walk through Valencia's old quarter and central market area. Placeholder for markets, city texture, and local foodways.",
-    motif: "tiles"
+    motif: "tiles",
+    image: "/assets/photos/eublog/blog4_1.jpg"
   },
   {
     city: "Valencia",
@@ -73,7 +80,8 @@ const stops = [
     label: "Paella cooking class",
     copy:
       "Farm-to-table paella cooking class and group lunch at Barraca de Toni Montoliu. Placeholder for cooking, rice, shared meals, and the way food turns strangers into a table.",
-    motif: "paella"
+    motif: "paella",
+    image: "/assets/photos/eublog/blog4_2.jpg"
   },
   {
     city: "Valencia",
@@ -82,7 +90,8 @@ const stops = [
     label: "Free day or university activity",
     copy:
       "Independent exploration or a university-sourced activity in Valencia. Placeholder for free-day wandering, small discoveries, and the moments that did not fit the official itinerary.",
-    motif: "notes"
+    motif: "notes",
+    image: "/assets/photos/eublog/blog5_1.jpg"
   },
   {
     city: "Barcelona",
@@ -91,7 +100,8 @@ const stops = [
     label: "Travel to Barcelona",
     copy:
       "Coach transfer to Barcelona with a cheese and wine tour stop, then hotel check-in. Placeholder for the travel day, the food stop, and the transition into the final city.",
-    motif: "tiles"
+    motif: "tiles",
+    image: "/assets/photos/eublog/blog5_2.jpg"
   },
   {
     city: "Barcelona",
@@ -100,7 +110,8 @@ const stops = [
     label: "Gothic Quarter and Sagrada Familia",
     copy:
       "Faculty-led class meeting, Gothic Quarter tour, and guided visit to La Sagrada Familia. Placeholder for architecture, tourism, sacred space, and Barcelona's layered identity.",
-    motif: "tiles"
+    motif: "tiles",
+    image: "/assets/photos/eublog/blog6_1.jpg"
   },
   {
     city: "Barcelona",
@@ -109,7 +120,8 @@ const stops = [
     label: "Penedes wine region",
     copy:
       "Full-day visit to the Penedes wine region with free evening time in Barcelona. Placeholder for wine region notes, landscape, hospitality, and group reflections.",
-    motif: "plaza"
+    motif: "plaza",
+    image: "/assets/photos/eublog/blog6_2.jpg"
   },
   {
     city: "Barcelona",
@@ -118,7 +130,8 @@ const stops = [
     label: "La Boqueria market",
     copy:
       "Faculty-led class meeting followed by a guided La Boqueria market visit with tastings. Placeholder for market sensory details, crowds, ingredients, and food as public life.",
-    motif: "paella"
+    motif: "paella",
+    image: "/assets/photos/eublog/blog7_1.jpg"
   },
   {
     city: "Barcelona",
@@ -127,7 +140,8 @@ const stops = [
     label: "Final class and farewell dinner",
     copy:
       "Final class meeting, reflection time, and group farewell dinner in Barcelona. Placeholder for the emotional wrap-up, what students noticed, and what the course left behind.",
-    motif: "notes"
+    motif: "notes",
+    image: "/assets/photos/eublog/blog7_2.jpg"
   },
   {
     city: "Barcelona",
@@ -136,7 +150,8 @@ const stops = [
     label: "Program ends",
     copy:
       "Check out and transfer to the airport at the most common departure time. Placeholder for departures, final impressions, and the aftertaste of the trip.",
-    motif: "notes"
+    motif: "notes",
+    image: "/assets/photos/eublog/blog8_1.jpg"
   }
 ];
 
@@ -148,8 +163,14 @@ export default function SpainRecapScrolly() {
   const wrapRef = useRef(null);
   const [progress, setProgress] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
-
-  const dotTop = useMemo(() => `${8 + progress * 84}%`, [progress]);
+  const segmentPosition = useMemo(() => {
+    const scaled = progress * (stops.length - 1);
+    const index = clamp(Math.floor(scaled), 0, stops.length - 2);
+    return {
+      index,
+      progress: clamp(scaled - index, 0, 1)
+    };
+  }, [progress]);
 
   useEffect(() => {
     const wrap = wrapRef.current;
@@ -162,7 +183,7 @@ export default function SpainRecapScrolly() {
       const viewport = window.innerHeight || 1;
       const travel = Math.max(1, rect.height - viewport);
       const nextProgress = clamp((viewport * 0.18 - rect.top) / travel, 0, 1);
-      const nextIndex = clamp(Math.floor(nextProgress * stops.length), 0, stops.length - 1);
+      const nextIndex = clamp(Math.round(nextProgress * (stops.length - 1)), 0, stops.length - 1);
 
       setProgress(nextProgress);
       setActiveIndex(nextIndex);
@@ -188,18 +209,26 @@ export default function SpainRecapScrolly() {
     <section className="spain-scroll" ref={wrapRef} aria-label="Spain recap scrollytelling draft">
       <div className="spain-scroll-grid">
         <div className="spain-scroll-copy">
-          <div className="spain-scroll-route" aria-hidden="true">
-            <span className="spain-scroll-dot" style={{ top: dotTop }} />
-          </div>
           {stops.map((stop, index) => (
-            <article className={`spain-scroll-card${activeIndex === index ? " active" : ""}`} key={`${stop.city}-${stop.date}`}>
-              <header>
-                <span>Spain 2025</span>
-                <time>{stop.date}</time>
-              </header>
-              <h2>{stop.city}: {stop.day}</h2>
-              <p><strong>{stop.label}.</strong> {stop.copy}</p>
-            </article>
+            <div className="spain-scroll-step" key={`${stop.city}-${stop.date}`}>
+              <article className={`spain-scroll-card${activeIndex === index ? " active" : ""}`}>
+                <header>
+                  <span>Spain 2025</span>
+                  <time>{stop.date}</time>
+                </header>
+                <h2>{stop.city}: {stop.day}</h2>
+                <p><strong>{stop.label}.</strong> {stop.copy}</p>
+              </article>
+              {index < stops.length - 1 ? (
+                <div
+                  aria-hidden="true"
+                  className={`spain-scroll-connector${segmentPosition.index === index ? " active" : ""}`}
+                  style={{ "--segment-progress": segmentPosition.progress }}
+                >
+                  <span className="spain-scroll-dot" />
+                </div>
+              ) : null}
+            </div>
           ))}
         </div>
 
@@ -207,11 +236,7 @@ export default function SpainRecapScrolly() {
           <div className="spain-scroll-visual-stage">
             {stops.map((stop, index) => (
               <figure className={`spain-scroll-visual ${stop.motif}${activeIndex === index ? " active" : ""}`} key={`${stop.motif}-${stop.date}`}>
-                <div className="spain-scroll-placeholder">
-                  <span>Photo placeholder</span>
-                  <strong>{stop.city}</strong>
-                  <small>{stop.day}</small>
-                </div>
+                <img src={stop.image} alt="" loading={index < 2 ? "eager" : "lazy"} decoding="async" />
               </figure>
             ))}
           </div>

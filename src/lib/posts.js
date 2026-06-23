@@ -12,7 +12,8 @@ export const seriesConfig = {
     description: "A graduate-school archive about doctoral work, research identity, academic pressure, and the life I tried to keep building around the PhD.",
     cover: "/assets/images/phdblog-cover.jpg",
     tags: ["Academic Life", "Research", "Doctoral Archive"],
-    startingPointLabel: "First volume"
+    startingPointLabel: "First volume",
+    archived: true
   },
   "europe-2023": {
     legacyCategory: "EUblog",
@@ -30,7 +31,8 @@ export const seriesConfig = {
     description: "A personal week-by-week archive from life abroad in Spain.",
     cover: "/assets/images/barcapic.jpg",
     tags: ["Travel", "Barcelona", "Personal Archive"],
-    startingPointLabel: "First week"
+    startingPointLabel: "First week",
+    archived: true
   },
   "spain-2025": {
     legacyCategory: "spain2025",
@@ -39,7 +41,8 @@ export const seriesConfig = {
     description: "A study-abroad course archive for FAB 333 in Spain, built around daily movement through Madrid, Valencia, and Barcelona.",
     cover: "/assets/photos/fab333_reunion_group.jpg",
     tags: ["Travel", "Teaching", "FAB 333"],
-    startingPointLabel: "Course route"
+    startingPointLabel: "Course route",
+    standalone: true
   },
   consulting: {
     legacyCategory: "consulting",
@@ -57,7 +60,8 @@ export const seriesConfig = {
     description: "Reflections on courses, classrooms, student engagement, hospitality education, and the moments that make teaching feel alive.",
     cover: "/assets/photos/fab333_2026_2.jpeg",
     tags: ["Teaching", "Hospitality Education", "FAB 333"],
-    startingPointLabel: "First reflection"
+    startingPointLabel: "First reflection",
+    standalone: true
   }
 };
 
@@ -168,23 +172,30 @@ function readSeriesPosts(seriesSlug) {
       const date = data.date || "";
       const frontMatterTags = parseList(data.tags);
       const seriesTags = config.tags || [];
-      const tags = Array.from(new Set([config.title, ...seriesTags, ...frontMatterTags]));
+      const tags = Array.from(new Set([...(config.standalone ? [] : [config.title]), ...seriesTags, ...frontMatterTags]));
+      const images = getImages(contentHtml);
+      const cover = data.cover || config.cover || "";
+      const previewImage = seriesSlug === "europe-2023" ? images[0] || cover : data.cover || images[0] || config.cover || "";
 
       return {
         sourcePath,
         seriesSlug,
-        seriesTitle: data.seriesTitle || config.title,
+        seriesTitle: data.seriesTitle || (config.standalone ? "The Manalogue" : config.title),
+        collectionTitle: config.title,
         legacyBase: config.legacyBase,
         legacyCategory: config.legacyCategory,
+        standalone: Boolean(config.standalone),
         slug,
         title,
         date,
-        cover: data.cover || "",
+        cover,
+        previewImage,
+        archived: Boolean(config.archived),
         href: `/blog/${seriesSlug}/${slug}`,
         legacyHref: data.legacyPath || `/${config.legacyBase}/${slug}`,
         contentHtml,
         excerpt: makeExcerpt(contentHtml),
-        images: getImages(contentHtml),
+        images,
         readingMinutes: estimateReadingMinutes(contentHtml),
         headings: getHeadings(contentHtml),
         tags,
@@ -206,8 +217,12 @@ export function getAllPosts() {
   return Object.keys(seriesConfig).flatMap(readSeriesPosts);
 }
 
+export function getVisiblePosts() {
+  return getAllPosts().filter((post) => !post.archived);
+}
+
 export function getRecentPosts(count = 6) {
-  return getAllPosts()
+  return getVisiblePosts()
     .slice()
     .sort((a, b) => b.date.localeCompare(a.date))
     .slice(0, count);
@@ -230,6 +245,11 @@ export function getSeriesInfo(seriesSlug) {
     ...posts.flatMap((post) => post.images)
   ].filter(Boolean))).slice(0, 8);
   return { seriesSlug, ...info, coverImages };
+}
+
+export function isPublicSeries(seriesSlug) {
+  const info = seriesConfig[seriesSlug];
+  return Boolean(info && !info.archived && !info.standalone);
 }
 
 export function getPost(seriesSlug, slug) {
@@ -255,7 +275,7 @@ export function getAdjacentPosts(post) {
 export function getRelatedPosts(post, count = 4) {
   const currentTags = new Set(post.tags.map((tag) => tag.toLowerCase()));
   return getAllPosts()
-    .filter((candidate) => candidate.href !== post.href)
+    .filter((candidate) => candidate.href !== post.href && (!candidate.archived || post.archived))
     .map((candidate) => {
       const tagScore = candidate.tags.filter((tag) => currentTags.has(tag.toLowerCase())).length;
       const seriesScore = candidate.seriesSlug === post.seriesSlug ? 3 : 0;
@@ -273,9 +293,11 @@ export function getRelatedPosts(post, count = 4) {
 }
 
 export function getSeriesSummaries() {
-  return Object.entries(seriesConfig).map(([seriesSlug, config]) => ({
-    seriesSlug,
-    ...config,
-    posts: readSeriesPosts(seriesSlug)
-  }));
+  return Object.entries(seriesConfig)
+    .filter(([, config]) => !config.archived && !config.standalone)
+    .map(([seriesSlug, config]) => ({
+      seriesSlug,
+      ...config,
+      posts: readSeriesPosts(seriesSlug)
+    }));
 }

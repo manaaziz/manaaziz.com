@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getSeriesInfo, getSeriesPosts, getSeriesSummaries } from "@/lib/posts";
+import { getSeriesInfo, getSeriesPosts, getSeriesSummaries, isPublicSeries } from "@/lib/posts";
 
 export function generateStaticParams() {
   return getSeriesSummaries().map((series) => ({ series: series.seriesSlug }));
@@ -19,7 +19,7 @@ export default async function BlogSeriesPage({ params }) {
   const info = getSeriesInfo(series);
   const posts = getSeriesPosts(series);
 
-  if (!info) notFound();
+  if (!info || !isPublicSeries(series)) notFound();
 
   const totalReadingMinutes = posts.reduce((total, post) => total + post.readingMinutes, 0);
   const firstPost = posts[0];
@@ -72,7 +72,9 @@ export default async function BlogSeriesPage({ params }) {
       <section className="post-list series-post-list">
         {posts.map((post) => (
           <Link className="post-list-item reveal" href={post.href} key={post.href}>
-            {post.cover || post.images[0] ? <img src={post.cover || post.images[0]} alt="" loading="lazy" decoding="async" /> : null}
+            {post.previewImage || post.cover || post.images[0] ? (
+              <img src={post.previewImage || post.cover || post.images[0]} alt="" loading="lazy" decoding="async" />
+            ) : null}
             <span>{post.date} - {post.readingMinutes} min read</span>
             <h2>{post.title}</h2>
             <p>{post.excerpt}</p>
