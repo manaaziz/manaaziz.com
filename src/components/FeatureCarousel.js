@@ -15,6 +15,11 @@ function wrapIndex(index, length) {
   return ((index % length) + length) % length;
 }
 
+function getSpinDelay(step, totalSteps) {
+  const progress = step / totalSteps;
+  return 48 + Math.pow(progress, 3.4) * 410;
+}
+
 function QuoteCard({ item }) {
   return (
     <blockquote>
@@ -31,19 +36,23 @@ function QuoteCard({ item }) {
 }
 
 function BlogPreviewCard({ item }) {
+  const image = item.image || item.previewImage || item.cover || item.seriesCover;
+  const topic = item.topic || item.seriesTitle || "The Manalogue";
+  const dateLabel = item.dateLabel || item.date;
+
   return (
     <Link className="feature-blog-card-link" href={item.href}>
       <figure className="feature-blog-image">
-        {item.image ? (
-          <img src={item.image} alt={item.imageAlt || ""} loading="lazy" />
+        {image ? (
+          <img src={image} alt={item.imageAlt || ""} loading="lazy" decoding="async" />
         ) : (
-          <span>{item.topic || "The Manalogue"}</span>
+          <span>{topic}</span>
         )}
       </figure>
       <div className="feature-blog-body">
         <div className="feature-blog-meta">
-          <span>{item.topic || "Post"}</span>
-          {item.dateLabel ? <time>{item.dateLabel}</time> : null}
+          <span>{topic}</span>
+          {dateLabel ? <time>{dateLabel}</time> : null}
         </div>
         <h3>{item.title}</h3>
         <p>{item.excerpt || item.body}</p>
@@ -55,9 +64,13 @@ function BlogPreviewCard({ item }) {
 
 export default function FeatureCarousel({
   ariaLabel = "Carousel controls",
+  cardClassName = "",
+  carouselClassName = "",
   eyebrow,
+  filterTag,
   items,
   sectionClassName = "",
+  stageClassName = "",
   title,
   variant = "quote"
 }) {
@@ -67,7 +80,17 @@ export default function FeatureCarousel({
   const [chipFlips, setChipFlips] = useState({ previous: 0, next: 0 });
   const spinTimerRef = useRef(null);
 
-  const itemCount = items.length;
+  const filteredItems = useMemo(() => {
+    if (!filterTag) return items;
+
+    const filterKey = filterTag.toLowerCase();
+    return items.filter((item) => {
+      const tags = item.tags || [];
+      return tags.some((tag) => tag.toLowerCase() === filterKey);
+    });
+  }, [filterTag, items]);
+
+  const itemCount = filteredItems.length;
   const controls = useMemo(() => ({
     next() {
       setActiveIndex((index) => (index + 1) % itemCount);
@@ -76,6 +99,10 @@ export default function FeatureCarousel({
       setActiveIndex((index) => (index - 1 + itemCount) % itemCount);
     }
   }), [itemCount]);
+
+  useEffect(() => {
+    setActiveIndex((index) => (itemCount ? Math.min(index, itemCount - 1) : 0));
+  }, [itemCount]);
 
   useEffect(() => {
     if (isPaused || isSpinning || itemCount < 2) return undefined;
@@ -99,8 +126,8 @@ export default function FeatureCarousel({
       const randomIndex = Math.floor(Math.random() * itemCount);
       return randomIndex === activeIndex ? (randomIndex + 1) % itemCount : randomIndex;
     })();
-    const forwardDistance = wrapIndex(targetIndex - activeIndex, itemCount);
-    const totalSteps = itemCount * 2 + forwardDistance;
+    const forwardDistance = wrapIndex(targetIndex - activeIndex, itemCount) || itemCount;
+    const totalSteps = itemCount * 4 + forwardDistance;
     let step = 0;
 
     setIsSpinning(true);
@@ -117,12 +144,10 @@ export default function FeatureCarousel({
         return;
       }
 
-      const progress = step / totalSteps;
-      const delay = 132 + progress * progress * progress * 260;
-      spinTimerRef.current = window.setTimeout(advance, delay);
+      spinTimerRef.current = window.setTimeout(advance, getSpinDelay(step, totalSteps));
     }
 
-    spinTimerRef.current = window.setTimeout(advance, 132);
+    spinTimerRef.current = window.setTimeout(advance, 54);
   }
 
   function moveItem(direction) {
@@ -138,7 +163,7 @@ export default function FeatureCarousel({
   const visibleItems = reelPositions.map(({ offset, position }) => {
     const index = wrapIndex(activeIndex + offset, itemCount);
     return {
-      item: items[index],
+      item: filteredItems[index],
       position,
       index
     };
@@ -159,12 +184,12 @@ export default function FeatureCarousel({
         </div>
       ) : null}
 
-      <div className={`student-review-carousel feature-carousel ${isSpinning ? "is-spinning" : ""}`} aria-live="polite">
-        <div className="student-review-stage feature-carousel-stage">
+      <div className={`student-review-carousel feature-carousel ${carouselClassName} ${isSpinning ? "is-spinning" : ""}`.trim()} aria-live="polite">
+        <div className={`student-review-stage feature-carousel-stage ${stageClassName}`.trim()}>
           {visibleItems.map(({ item, position, index }) => (
             <article
               aria-hidden={position !== "active"}
-              className={`student-review-card feature-carousel-card feature-carousel-card-${variant} is-${position}`}
+              className={`student-review-card feature-carousel-card feature-carousel-card-${variant} ${cardClassName} is-${position}`.trim()}
               key={`${item.href || item.courseNumber || item.title}-${index}`}
               style={{ "--review-index": index }}
             >
@@ -186,7 +211,7 @@ export default function FeatureCarousel({
             <span aria-hidden="true">←</span>
           </button>
           <div className="review-dots" aria-label={`Item ${activeIndex + 1} of ${itemCount}`}>
-            {items.map((item, index) => (
+            {filteredItems.map((item, index) => (
               <button
                 aria-label={`Show item ${index + 1}`}
                 className={index === activeIndex ? "is-active" : ""}

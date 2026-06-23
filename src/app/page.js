@@ -1,7 +1,7 @@
 import Link from "next/link";
+import FeatureCarousel from "@/components/FeatureCarousel";
 import LocalizedHello from "@/components/LocalizedHello";
 import { getRecentPosts, getSeriesSummaries } from "@/lib/posts";
-import HomeLatestPostsCarousel from "./HomeLatestPostsCarousel";
 
 const workAreas = [
   {
@@ -30,6 +30,11 @@ export default function Home() {
     const seriesInfo = series.find((item) => item.seriesSlug === post.seriesSlug);
     return {
       ...post,
+      image: post.previewImage || post.cover || seriesInfo?.cover || "/assets/images/phdblog-cover.jpg",
+      imageAlt: "",
+      dateLabel: post.date,
+      label: "Read post",
+      topic: post.seriesTitle || "The Manalogue",
       seriesCover: seriesInfo?.cover || "/assets/images/phdblog-cover.jpg"
     };
   });
@@ -107,7 +112,11 @@ export default function Home() {
             Open The Manalogue
           </Link>
         </div>
-        <HomeLatestPostsCarousel posts={recentPosts} />
+        <FeatureCarousel
+          ariaLabel="Latest post carousel controls"
+          items={recentPosts}
+          variant="blog"
+        />
       </section>
     </main>
   );
