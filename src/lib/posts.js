@@ -47,10 +47,10 @@ export const seriesConfig = {
   consulting: {
     legacyCategory: "consulting",
     legacyBase: "blog/consulting",
-    title: "Consulting Notes",
+    title: "Analysis",
     description: "Short essays on casino analytics, AI, marketing, personalization, and the operator-facing questions behind consulting work.",
     cover: "/assets/images/consultant_pic.jpeg",
-    tags: ["Consulting", "Analytics", "Casino Marketing"],
+    tags: ["Analytics", "Casino Marketing"],
     startingPointLabel: "First note"
   },
   teaching: {
@@ -82,6 +82,16 @@ function parseList(value = "") {
 
 function parseBoolean(value = "") {
   return ["true", "yes", "1"].includes(parseValue(value).toLowerCase());
+}
+
+function uniqueTags(tags = []) {
+  const seen = new Set();
+  return tags.filter((tag) => {
+    const key = tag.toLowerCase();
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
 }
 
 function parseFrontMatter(source) {
@@ -172,7 +182,7 @@ function readSeriesPosts(seriesSlug) {
       const date = data.date || "";
       const frontMatterTags = parseList(data.tags);
       const seriesTags = config.tags || [];
-      const tags = Array.from(new Set([...(config.standalone ? [] : [config.title]), ...seriesTags, ...frontMatterTags]));
+      const tags = uniqueTags([...(config.standalone ? [] : [config.title]), ...seriesTags, ...frontMatterTags]);
       const images = getImages(contentHtml);
       const cover = data.cover || config.cover || "";
       const previewImage = seriesSlug === "europe-2023" ? images[0] || cover : data.cover || images[0] || config.cover || "";

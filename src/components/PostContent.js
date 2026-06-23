@@ -7,7 +7,10 @@ export default function PostContent({ post }) {
   const relatedPosts = getRelatedPosts(post);
   const isSpainRecap = post.seriesSlug === "spain-2025" && post.slug === "spain-recap";
   const allowedTags = new Set(["consulting", "teaching", "research", "travel"]);
-  const visibleTags = post.tags.filter((tag) => allowedTags.has(tag.toLowerCase()));
+  const visibleTags = post.tags.filter((tag, index, tags) => {
+    const key = tag.toLowerCase();
+    return allowedTags.has(key) && tags.findIndex((candidate) => candidate.toLowerCase() === key) === index;
+  });
   const backHref = post.standalone ? "/manalogue" : `/blog/${post.seriesSlug}`;
   const backLabel = post.standalone ? "Back to The Manalogue" : `Back to ${post.seriesTitle}`;
 

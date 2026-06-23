@@ -7,7 +7,7 @@ import { podcasts } from "../podcast/shows";
 
 const sections = [
   { id: "home", label: "Home Page" },
-  { id: "analytics", label: "Analytics" },
+  { id: "analytics", label: "Analysis" },
   { id: "research", label: "Research" },
   { id: "teaching", label: "Teaching" },
   { id: "travel", label: "Travel" },
@@ -98,9 +98,16 @@ function postToStory(post, topic) {
 }
 
 function postTopic(post) {
-  const knownTopics = ["teaching", "analytics", "research", "travel", "consulting"];
-  const tag = post.tags.find((item) => knownTopics.includes(item.toLowerCase()));
-  return tag ? tag.charAt(0).toUpperCase() + tag.slice(1) : "The Manalogue";
+  const knownTopics = [
+    ["analytics", "Analysis"],
+    ["research", "Research"],
+    ["teaching", "Teaching"],
+    ["travel", "Travel"],
+    ["consulting", "Consulting"]
+  ];
+  const tagSet = new Set(post.tags.map((item) => item.toLowerCase()));
+  const topic = knownTopics.find(([key]) => tagSet.has(key));
+  return topic ? topic[1] : "The Manalogue";
 }
 
 function formatStoryDate(value) {
@@ -191,7 +198,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
   const activeSection = sections[activeIndex];
   const newsItem = newsItems[0];
   const visiblePosts = allPosts.length ? allPosts : posts;
-  const analyticsStories = storiesByTag(visiblePosts, "analytics", "Analytics", true);
+  const analyticsStories = storiesByTag(visiblePosts, "analytics", "Analysis", true);
   const researchStories = storiesByTag(visiblePosts, "research", "Research", true);
   const teachingStories = storiesByTag(visiblePosts, "teaching", "Teaching", true);
   const travelPostStories = storiesByTag(visiblePosts, "travel", "Travel", true);
@@ -318,7 +325,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
     },
     {
       id: "analytics",
-      kicker: "Analytics Desk",
+      kicker: "Analysis Desk",
       title: "Gaming, hospitality, data, and decision-making",
       stories: analyticsStories.length ? analyticsStories : [
         newsItem

@@ -93,8 +93,7 @@ const companyRoles = [
 ];
 
 export default function ConsultingPage() {
-  const consultingWriting = getAllPosts()
-    .filter((post) => post.tags.some((tag) => tag.toLowerCase() === "consulting"))
+  const writingPosts = getAllPosts()
     .sort((a, b) => b.date.localeCompare(a.date))
     .map((post) => ({
       title: post.title,
@@ -104,8 +103,10 @@ export default function ConsultingPage() {
       imageAlt: "",
       dateLabel: post.date,
       label: "Read post",
+      tags: post.tags,
       topic: post.seriesTitle
     }));
+  const consultingWriting = writingPosts.filter((post) => post.tags.some((tag) => tag.toLowerCase() === "consulting"));
 
   return (
     <main className="page-shell consulting-page">
@@ -184,7 +185,8 @@ export default function ConsultingPage() {
         <FeatureCarousel
           ariaLabel="Consulting writing controls"
           eyebrow="Writing"
-          items={consultingWriting}
+          filterTag="consulting"
+          items={writingPosts}
           sectionClassName="consulting-example-section consulting-writing-carousel"
           title="Check out some of my thinking"
           variant="blog"

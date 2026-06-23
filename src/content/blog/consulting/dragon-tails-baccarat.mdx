@@ -1,7 +1,7 @@
 ---
 title: Dragon Tails in Baccarat
 date: 2026-06-23
-seriesTitle: Consulting Notes
+seriesTitle: Analysis
 tags: consulting, analytics, baccarat, table games, casino behavior
 cover: /assets/images/LVcover.png
 country: United States
@@ -36,16 +36,29 @@ workType: Consulting
       The analytic question is not whether the dragon tail is real. The question is whether players behave as though it is.
     </p>
   </div>
-  <div class="dragon-tail-road" aria-hidden="true">
-    <span class="road-cell banker">B</span>
-    <span class="road-cell banker">B</span>
-    <span class="road-cell banker">B</span>
-    <span class="road-cell banker">B</span>
-    <span class="road-cell banker">B</span>
-    <span class="road-cell banker">B</span>
-    <span class="road-cell player break">P</span>
-    <span class="road-cell banker return">B</span>
-    <span class="road-cell ghost">?</span>
+  <div class="dragon-tail-road baccarat-road-board" aria-hidden="true">
+    <div class="baccarat-road-layer banker-road">
+      <span class="road-marker banker" style="--row: 1; --col: 1">B</span>
+      <span class="road-marker banker" style="--row: 2; --col: 1">B</span>
+      <span class="road-marker banker" style="--row: 3; --col: 1">B</span>
+      <span class="road-marker banker" style="--row: 4; --col: 1">B</span>
+      <span class="road-marker banker" style="--row: 5; --col: 1">B</span>
+      <span class="road-marker banker" style="--row: 6; --col: 1">B</span>
+      <span class="road-marker player" style="--row: 1; --col: 2">P</span>
+      <span class="road-marker banker return" style="--row: 1; --col: 3">B</span>
+      <span class="road-marker ghost" style="--row: 2; --col: 3">?</span>
+    </div>
+    <div class="baccarat-road-layer player-road">
+      <span class="road-marker player" style="--row: 1; --col: 1">P</span>
+      <span class="road-marker player" style="--row: 2; --col: 1">P</span>
+      <span class="road-marker player" style="--row: 3; --col: 1">P</span>
+      <span class="road-marker player" style="--row: 4; --col: 1">P</span>
+      <span class="road-marker player" style="--row: 5; --col: 1">P</span>
+      <span class="road-marker player" style="--row: 6; --col: 1">P</span>
+      <span class="road-marker banker" style="--row: 1; --col: 2">B</span>
+      <span class="road-marker player return" style="--row: 1; --col: 3">P</span>
+      <span class="road-marker ghost" style="--row: 2; --col: 3">?</span>
+    </div>
   </div>
 </section>
 
