@@ -780,21 +780,23 @@ h3 {
 
 .home-stream {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: clamp(1rem, 3vw, 1.75rem);
+  grid-template-columns: minmax(0, 0.42fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
   align-items: start;
-  margin-top: 4rem;
+  margin-top: clamp(2.75rem, 6vw, 4.25rem);
 }
 
 .home-stream h2 {
   width: 100%;
-  max-width: 54rem;
-  font-size: var(--section-heading-size);
+  max-width: 28rem;
+  font-size: clamp(2.8rem, 6vw, 5.4rem);
   line-height: 1.04;
 }
 
 .home-stream > div {
-  max-width: 58rem;
+  position: sticky;
+  top: 7rem;
+  max-width: 30rem;
 }
 
 .home-stream-list {
@@ -809,18 +811,21 @@ h3 {
 .home-post-carousel {
   width: 100%;
   margin-top: 0;
+  gap: clamp(0.85rem, 2vw, 1.15rem);
+  padding-top: 0.25rem;
 }
 
 .home-post-stage {
-  min-height: clamp(25rem, 35vw, 32rem);
+  min-height: clamp(22rem, 34vw, 27rem);
+  overflow: visible;
 }
 
 .home-post-card {
   overflow: hidden;
-  width: min(38rem, 72vw);
-  min-height: clamp(20rem, 28vw, 24rem);
+  width: min(33rem, 48vw);
+  min-height: clamp(17.5rem, 28vw, 22rem);
   align-content: stretch;
-  grid-template-rows: minmax(10rem, 0.82fr) minmax(0, auto);
+  grid-template-rows: minmax(8.5rem, 0.72fr) minmax(0, auto);
   padding: 0;
   color: var(--ink);
   text-decoration: none;
@@ -855,7 +860,7 @@ h3 {
   margin: 0;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
-  font-size: clamp(1.25rem, 2vw, 1.8rem);
+  font-size: clamp(1.15rem, 1.65vw, 1.55rem);
   line-height: 1.04;
 }
 
@@ -871,8 +876,8 @@ h3 {
 }
 
 .home-post-carousel.is-spinning .home-post-card {
-  width: min(22rem, 42vw);
-  min-height: clamp(17rem, 24vw, 20rem);
+  width: min(33rem, 48vw);
+  min-height: clamp(17.5rem, 28vw, 22rem);
 }
 
 .home-post-carousel.is-spinning .home-post-card-copy p {
@@ -880,7 +885,9 @@ h3 {
 }
 
 .home-post-controls {
-  margin-top: 0.75rem;
+  position: relative;
+  z-index: 10;
+  margin-top: clamp(0.4rem, 1.5vw, 0.85rem);
 }
 
 .home-media-card {
@@ -8736,6 +8743,23 @@ h3 {
     grid-template-columns: 1fr;
   }
 
+  .home-stream > div {
+    position: static;
+    max-width: none;
+  }
+
+  .home-stream h2 {
+    max-width: 46rem;
+  }
+
+  .home-post-stage {
+    min-height: clamp(22rem, 50vw, 29rem);
+  }
+
+  .home-post-card {
+    width: min(35rem, 70vw);
+  }
+
   .course-assessment-panel {
     grid-template-columns: 1fr;
   }
@@ -9249,10 +9273,36 @@ h3 {
     min-height: 24rem;
   }
 
+  .home-stream {
+    margin-top: 2.75rem;
+  }
+
+  .home-stream h2 {
+    font-size: clamp(2.55rem, 13vw, 4rem);
+  }
+
+  .home-post-stage {
+    min-height: 22rem;
+  }
+
   .student-review-card {
     width: min(100%, 19rem);
     min-height: 18rem;
     padding: 1.15rem 1rem;
+  }
+
+  .home-post-card {
+    width: min(100%, 20.5rem);
+    min-height: 18.5rem;
+    padding: 0;
+  }
+
+  .home-post-card-copy {
+    padding: 0.9rem;
+  }
+
+  .home-post-card-copy h3 {
+    font-size: 1.15rem;
   }
 
   .feature-carousel-card-blog {
