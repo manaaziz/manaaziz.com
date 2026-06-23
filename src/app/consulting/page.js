@@ -1,4 +1,5 @@
 import FeatureCarousel from "@/components/FeatureCarousel";
+import { getAllPosts } from "@/lib/posts";
 import LogoBounceField from "./LogoBounceField";
 
 export const metadata = {
@@ -62,42 +63,6 @@ const clients = [
   { name: "GMA Consulting", logo: "/assets/logos/gma_logo.png.webp" }
 ];
 
-const consultingWriting = [
-  {
-    title: "Blog 1 - Breda",
-    excerpt:
-      "A travel post that turns into a reflection on applied data science, AI labs, research culture, and small-group technical learning.",
-    href: "/blog/europe-2023/Post1",
-    image: "/assets/photos/breda1.jpg",
-    imageAlt: "A travel photo from Breda",
-    dateLabel: "June 3, 2023",
-    label: "Read post",
-    topic: "Applied AI"
-  },
-  {
-    title: "Volume 1 - Dive Right In",
-    excerpt:
-      "A PhD reflection about statistics, producing knowledge, interpreting the stories numbers tell, and building high-impact solutions.",
-    href: "/blog/becoming-dr-mana/V1",
-    image: "/assets/images/phdblog-cover.jpg",
-    imageAlt: "A cover image for Becoming Dr. Mana",
-    dateLabel: "December 20, 2022",
-    label: "Read post",
-    topic: "Research practice"
-  },
-  {
-    title: "Spain Recap",
-    excerpt:
-      "A future consulting-adjacent travel essay built around field notes, place, operations, observation, and the little systems that shape hospitality experiences.",
-    href: "/blog/spain-2025/spain-recap",
-    image: "/assets/photos/fab333_reunion_unlvflag.jpeg",
-    imageAlt: "A UNLV flag photo from the Spain course archive",
-    dateLabel: "June 5, 2025",
-    label: "Read post",
-    topic: "Field notes"
-  }
-];
-
 const companyRoles = [
   {
     company: "Differential Labs",
@@ -128,6 +93,20 @@ const companyRoles = [
 ];
 
 export default function ConsultingPage() {
+  const consultingWriting = getAllPosts()
+    .filter((post) => post.tags.some((tag) => tag.toLowerCase() === "consulting"))
+    .sort((a, b) => b.date.localeCompare(a.date))
+    .map((post) => ({
+      title: post.title,
+      excerpt: post.excerpt,
+      href: post.href,
+      image: post.images[0] || null,
+      imageAlt: "",
+      dateLabel: post.date,
+      label: "Read post",
+      topic: post.seriesTitle
+    }));
+
   return (
     <main className="page-shell consulting-page">
       <section className="consulting-hero">
@@ -155,11 +134,7 @@ export default function ConsultingPage() {
         <div className="consulting-role-grid">
           {companyRoles.map((role) => (
             <article className="consulting-role-card" key={role.company}>
-              <div>
-                <span>{role.role}</span>
-                <h3>{role.company}</h3>
-                <p className="consulting-role-kicker">{role.kicker}</p>
-              </div>
+              <h3>{role.company}</h3>
               <p>{role.body}</p>
               <ul>
                 {role.points.map((point) => (
@@ -205,14 +180,28 @@ export default function ConsultingPage() {
         </div>
       </section>
 
-      <FeatureCarousel
-        ariaLabel="Consulting writing controls"
-        eyebrow="Writing"
-        items={consultingWriting}
-        sectionClassName="consulting-example-section consulting-writing-carousel"
-        title="Consulting-related posts from The Manalogue"
-        variant="blog"
-      />
+      {consultingWriting.length ? (
+        <FeatureCarousel
+          ariaLabel="Consulting writing controls"
+          eyebrow="Writing"
+          items={consultingWriting}
+          sectionClassName="consulting-example-section consulting-writing-carousel"
+          title="Check out some of the thinking I have done"
+          variant="blog"
+        />
+      ) : (
+        <section className="consulting-example-section consulting-writing-empty" aria-labelledby="consulting-writing-title">
+          <div className="section-intro">
+            <p className="eyebrow">Writing</p>
+            <h2 id="consulting-writing-title">Check out some of the thinking I have done</h2>
+          </div>
+          <div className="consulting-writing-placeholder">
+            <p>
+              Consulting essays from The Manalogue will appear here once posts are tagged with <strong>consulting</strong>.
+            </p>
+          </div>
+        </section>
+      )}
     </main>
   );
 }

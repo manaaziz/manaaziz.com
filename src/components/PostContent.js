@@ -1,9 +1,10 @@
 import Link from "next/link";
-import { getAdjacentPosts } from "@/lib/posts";
+import { getAdjacentPosts, getRelatedPosts } from "@/lib/posts";
 import SpainRecapScrolly from "@/components/SpainRecapScrolly";
 
 export default function PostContent({ post }) {
   const { previous, next } = getAdjacentPosts(post);
+  const relatedPosts = getRelatedPosts(post);
   const isSpainRecap = post.seriesSlug === "spain-2025" && post.slug === "spain-recap";
 
   return (
@@ -25,10 +26,35 @@ export default function PostContent({ post }) {
         <span>{post.readingMinutes} min read</span>
         <span>Filed under {post.seriesTitle}</span>
       </div>
+      <div className="post-tag-row" aria-label="Post tags">
+        {post.tags.map((tag) => (
+          <span key={tag}>{tag}</span>
+        ))}
+      </div>
       {isSpainRecap ? (
         <SpainRecapScrolly />
       ) : (
-        <article className="post-body" dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
+        <div className="post-content-grid">
+          <article className="post-body" dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
+          <aside className="post-related-panel" aria-label="Related items">
+            <p className="eyebrow">Related</p>
+            <h2>Keep reading</h2>
+            <div className="post-related-list">
+              <Link href={`/blog/${post.seriesSlug}`}>
+                <span>Series</span>
+                <strong>{post.seriesTitle}</strong>
+                <small>Open the full archive</small>
+              </Link>
+              {relatedPosts.map((related) => (
+                <Link href={related.href} key={related.href}>
+                  <span>{related.seriesTitle}</span>
+                  <strong>{related.title}</strong>
+                  <small>{related.readingMinutes} min read</small>
+                </Link>
+              ))}
+            </div>
+          </aside>
+        </div>
       )}
       <nav className="post-nav" aria-label="Post navigation">
         {previous ? (

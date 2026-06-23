@@ -9,29 +9,55 @@ export const seriesConfig = {
     legacyCategory: "phdblog",
     legacyBase: "phdblog",
     title: "Becoming Dr. Mana",
-    description: "Writing about doctoral work, research life, and the emotional weather around becoming an academic.",
-    cover: "/assets/images/phdblog-cover.jpg"
+    description: "A graduate-school archive about doctoral work, research identity, academic pressure, and the life I tried to keep building around the PhD.",
+    cover: "/assets/images/phdblog-cover.jpg",
+    tags: ["Academic Life", "Research", "Doctoral Archive"],
+    startingPointLabel: "First volume"
   },
   "europe-2023": {
     legacyCategory: "EUblog",
     legacyBase: "EUblog",
     title: "Europe 2023",
-    description: "A travel and professional archive from a multi-purpose European summer trip.",
-    cover: "/assets/images/EU23cover.jpg"
+    description: "A travel and professional archive from a European summer that moved between universities, conferences, cities, friends, and field notes.",
+    cover: "/assets/images/EU23cover.jpg",
+    tags: ["Travel", "Europe", "Field Notes"],
+    startingPointLabel: "First dispatch"
   },
   barcelona: {
     legacyCategory: "bcnblog",
     legacyBase: "bcnblog",
     title: "Americanito in Barcelona",
-    description: "The week-by-week archive from life abroad in Spain.",
-    cover: "/assets/images/barcapic.jpg"
+    description: "A personal week-by-week archive from life abroad in Spain.",
+    cover: "/assets/images/barcapic.jpg",
+    tags: ["Travel", "Barcelona", "Personal Archive"],
+    startingPointLabel: "First week"
   },
   "spain-2025": {
     legacyCategory: "spain2025",
     legacyBase: "blog/spain-2025",
     title: "Spain 2025",
-    description: "Study-abroad reflections, photos, and course memories from FAB 333 in Spain.",
-    cover: "/assets/photos/fab333_reunion_group.jpg"
+    description: "A study-abroad course archive for FAB 333 in Spain, built around daily movement through Madrid, Valencia, and Barcelona.",
+    cover: "/assets/photos/fab333_reunion_group.jpg",
+    tags: ["Travel", "Teaching", "FAB 333"],
+    startingPointLabel: "Course route"
+  },
+  consulting: {
+    legacyCategory: "consulting",
+    legacyBase: "blog/consulting",
+    title: "Consulting Notes",
+    description: "Short essays on casino analytics, AI, marketing, personalization, and the operator-facing questions behind consulting work.",
+    cover: "/assets/images/consultant_pic.jpeg",
+    tags: ["Consulting", "Analytics", "Casino Marketing"],
+    startingPointLabel: "First note"
+  },
+  teaching: {
+    legacyCategory: "teaching",
+    legacyBase: "blog/teaching",
+    title: "Teaching Notes",
+    description: "Reflections on courses, classrooms, student engagement, hospitality education, and the moments that make teaching feel alive.",
+    cover: "/assets/photos/fab333_2026_2.jpeg",
+    tags: ["Teaching", "Hospitality Education", "FAB 333"],
+    startingPointLabel: "First reflection"
   }
 };
 
@@ -116,6 +142,12 @@ function getHeadings(contentHtml) {
   }));
 }
 
+function getImages(contentHtml) {
+  return Array.from(contentHtml.matchAll(/<img[^>]+src=["']([^"']+)["'][^>]*>/gi))
+    .map((match) => match[1])
+    .filter(Boolean);
+}
+
 function readSeriesPosts(seriesSlug) {
   const config = seriesConfig[seriesSlug];
   const seriesDir = path.join(contentRoot, seriesSlug);
@@ -134,6 +166,9 @@ function readSeriesPosts(seriesSlug) {
       const contentHtml = normalizeBody(body);
       const title = data.title || slug;
       const date = data.date || "";
+      const frontMatterTags = parseList(data.tags);
+      const seriesTags = config.tags || [];
+      const tags = Array.from(new Set([config.title, ...seriesTags, ...frontMatterTags]));
 
       return {
         sourcePath,
@@ -144,13 +179,15 @@ function readSeriesPosts(seriesSlug) {
         slug,
         title,
         date,
+        cover: data.cover || "",
         href: `/blog/${seriesSlug}/${slug}`,
         legacyHref: data.legacyPath || `/${config.legacyBase}/${slug}`,
         contentHtml,
         excerpt: makeExcerpt(contentHtml),
+        images: getImages(contentHtml),
         readingMinutes: estimateReadingMinutes(contentHtml),
         headings: getHeadings(contentHtml),
-        tags: parseList(data.tags),
+        tags,
         map: {
           featured: parseBoolean(data.mapFeatured),
           country: data.country || "",
@@ -187,7 +224,12 @@ export function getSeriesPosts(seriesSlug) {
 export function getSeriesInfo(seriesSlug) {
   const info = seriesConfig[seriesSlug];
   if (!info) return null;
-  return { seriesSlug, ...info };
+  const posts = readSeriesPosts(seriesSlug);
+  const coverImages = Array.from(new Set([
+    info.cover,
+    ...posts.flatMap((post) => post.images)
+  ].filter(Boolean))).slice(0, 8);
+  return { seriesSlug, ...info, coverImages };
 }
 
 export function getPost(seriesSlug, slug) {
@@ -208,6 +250,26 @@ export function getAdjacentPosts(post) {
     previous: index > 0 ? posts[index - 1] : null,
     next: index >= 0 && index < posts.length - 1 ? posts[index + 1] : null
   };
+}
+
+export function getRelatedPosts(post, count = 4) {
+  const currentTags = new Set(post.tags.map((tag) => tag.toLowerCase()));
+  return getAllPosts()
+    .filter((candidate) => candidate.href !== post.href)
+    .map((candidate) => {
+      const tagScore = candidate.tags.filter((tag) => currentTags.has(tag.toLowerCase())).length;
+      const seriesScore = candidate.seriesSlug === post.seriesSlug ? 3 : 0;
+      return {
+        ...candidate,
+        relatedScore: seriesScore + tagScore
+      };
+    })
+    .filter((candidate) => candidate.relatedScore > 0)
+    .sort((a, b) => {
+      if (b.relatedScore !== a.relatedScore) return b.relatedScore - a.relatedScore;
+      return b.date.localeCompare(a.date);
+    })
+    .slice(0, count);
 }
 
 export function getSeriesSummaries() {

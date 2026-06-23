@@ -28,7 +28,18 @@ const teachingValues = [
   }
 ];
 
+const recentCourseOrder = [
+  "hoa-730-statistical-analysis",
+  "hoa-732-advanced-statistical-analysis",
+  "fab-333-culture-and-cuisine",
+  "fab-333-summer-studies-spain"
+];
+
 export default function TeachingPage() {
+  const sortedCourses = courses
+    .slice()
+    .sort((a, b) => recentCourseOrder.indexOf(a.slug) - recentCourseOrder.indexOf(b.slug));
+
   return (
     <main className="page-shell teaching-page">
       <section className="teaching-hero">
@@ -60,14 +71,13 @@ export default function TeachingPage() {
         </div>
 
         <div className="course-card-grid">
-          {courses.map((course) => (
+          {sortedCourses.map((course) => (
             <Link className="course-card" href={`/teaching/${course.slug}`} key={course.slug}>
-              <span>{course.courseNumber}</span>
-              <h3>{course.courseName}</h3>
-              <div className="course-card-university">
-                <img src="/assets/logos/unlvhospitality_logo.jpeg" alt="" loading="lazy" />
-                <small>{course.university}</small>
+              <div className="course-card-meta">
+                <span>{course.courseNumber}</span>
+                <span>{course.university}</span>
               </div>
+              <h3>{course.courseName}</h3>
               <p>{course.summary}</p>
               <strong>Open course home</strong>
             </Link>

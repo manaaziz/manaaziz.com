@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
+import worldMap from "@svg-maps/world";
 
 const mapboxToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
@@ -181,6 +182,22 @@ function normalizeLocation(location) {
     latitude: location.latitude,
     longitude: location.longitude
   };
+}
+
+function DistanceSearchFallback() {
+  return (
+    <div className="distance-search-fallback" aria-hidden="true">
+      <div className="distance-search-globe">
+        <svg className="distance-search-world-map" viewBox={worldMap.viewBox} focusable="false">
+          {worldMap.locations.map((location) => (
+            <path d={location.path} key={location.id} />
+          ))}
+        </svg>
+        <span className="distance-search-vegas-dot" />
+        <img src={lasVegasSearchingAvatarSrc} alt="" decoding="async" draggable={false} />
+      </div>
+    </div>
+  );
 }
 
 async function fetchJsonWithTimeout(url, signal) {
@@ -460,7 +477,10 @@ export default function AboutDistanceFromVegas() {
         <div className="distance-mapbox-canvas" ref={mapNodeRef} />
         {mapStatus !== "ready" ? (
           <div className="distance-map-fallback">
-            {mapStatus === "missing-token" ? "Mapbox token missing" : "Loading globe"}
+            <DistanceSearchFallback />
+            <span className="distance-map-fallback-label">
+              {mapStatus === "missing-token" ? "Mapbox token missing" : "Looking from home"}
+            </span>
           </div>
         ) : null}
       </div>
@@ -472,7 +492,7 @@ export default function AboutDistanceFromVegas() {
             That is roughly <strong className="distance-value">{distance.toLocaleString()} km</strong> from where you are based on your IP address.
           </p>
         ) : status === "loading" ? (
-          <p>Checking how far Las Vegas is from your current location...</p>
+          <p>I am looking for you from home based on your IP address.</p>
         ) : (
           <p>I couldn&apos;t find you based on your IP address, but I am looking for you from home.</p>
         )}

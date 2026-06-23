@@ -16,13 +16,13 @@ const sections = [
 ];
 
 const panelHeights = {
-  home: "clamp(33rem, 48vw, 43rem)",
-  analytics: "clamp(26rem, 38vw, 34rem)",
-  research: "clamp(26rem, 38vw, 34rem)",
-  teaching: "clamp(26rem, 38vw, 34rem)",
-  travel: "clamp(26rem, 38vw, 34rem)",
-  podcasts: "clamp(24rem, 34vw, 31rem)",
-  gallery: "clamp(31rem, 44vw, 39rem)"
+  home: "clamp(36rem, 52vw, 47rem)",
+  analytics: "clamp(29rem, 42vw, 37rem)",
+  research: "clamp(29rem, 42vw, 37rem)",
+  teaching: "clamp(29rem, 42vw, 37rem)",
+  travel: "clamp(29rem, 42vw, 37rem)",
+  podcasts: "clamp(26rem, 38vw, 34rem)",
+  gallery: "clamp(35rem, 52vw, 45rem)"
 };
 
 function StoryCard({ story }) {
@@ -32,7 +32,7 @@ function StoryCard({ story }) {
       <span>{story.topic}</span>
       <h2>{story.title}</h2>
       <p>{story.excerpt}</p>
-      <strong>{story.action}</strong>
+      <strong className={story.actionStyle === "button" ? "button button-small" : undefined}>{story.action}</strong>
     </>
   );
 
@@ -106,15 +106,6 @@ export default function BlogSectionSwitcher() {
       size: "standard"
     },
     {
-      topic: "Travel Archive",
-      title: "Americanito in Barcelona",
-      excerpt: "The older week-by-week archive from life abroad in Spain, kept here without taking over the front page.",
-      href: "/blog/barcelona",
-      image: "/assets/images/barcapic.jpg",
-      action: "Open archive",
-      size: "standard"
-    },
-    {
       topic: "Academic Archive",
       title: "Becoming Dr. Mana",
       excerpt: "Older doctoral-life writing, archived as part of the broader Manalogue record.",
@@ -134,15 +125,6 @@ export default function BlogSectionSwitcher() {
       href: "/blog/europe-2023/Post8",
       image: "/assets/photos/eublog/blog8_1.jpg",
       tile: "wide"
-    },
-    {
-      title: "Week 1 - Pivoting",
-      series: "Barcelona",
-      date: "2021-09-21",
-      place: "Barcelona",
-      preview: "The opening week of the Americanito in Barcelona archive.",
-      href: "/blog/barcelona/Week-1",
-      image: "/assets/images/barcapic.jpg"
     },
     {
       title: "Blog 1 - Europe 2023",
@@ -316,13 +298,14 @@ export default function BlogSectionSwitcher() {
     {
       id: "travel",
       kicker: "Travel Archive",
-      title: "Older blogs, kept as archive instead of front-page material",
+      title: "Tales from far and wide",
       stories: travelArchives
     },
     {
       id: "podcasts",
       kicker: "Podcast Desk",
       title: "Two shows, each with its own home",
+      layout: "podcasts",
       stories: podcasts.map((podcast) => ({
         topic: podcast.eyebrow,
         title: podcast.title,
@@ -330,6 +313,7 @@ export default function BlogSectionSwitcher() {
         href: podcast.spotifyHref,
         image: podcast.logo,
         action: "Listen on Spotify",
+        actionStyle: "button",
         external: true,
         size: "standard"
       }))
@@ -390,7 +374,6 @@ export default function BlogSectionSwitcher() {
                 <div className="media-newspaper manalogue-topic-page">
                   <section className="manalogue-topic-front" aria-label={`${panel.title} stories`}>
                     <div className="manalogue-topic-heading">
-                      <span>{panel.kicker}</span>
                       <h2>{panel.title}</h2>
                     </div>
 
