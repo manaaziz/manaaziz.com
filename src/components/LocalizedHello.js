@@ -100,6 +100,17 @@ function firstGreetingFromLocales(locales) {
   return locales.map(greetingFromLocale).find(Boolean);
 }
 
+function greetingScale(value) {
+  const length = Array.from(value).length;
+
+  if (length <= 5) return 1;
+  if (length <= 7) return 0.78;
+  if (length <= 9) return 0.66;
+  if (length <= 12) return 0.54;
+  if (length <= 16) return 0.45;
+  return 0.36;
+}
+
 export default function LocalizedHello() {
   const [greeting, setGreeting] = useState(greetingsByLanguage.en);
 
@@ -132,5 +143,12 @@ export default function LocalizedHello() {
     };
   }, []);
 
-  return <span>{greeting}</span>;
+  return (
+    <span
+      className="localized-greeting"
+      style={{ "--greeting-scale": greetingScale(greeting) }}
+    >
+      {greeting}
+    </span>
+  );
 }

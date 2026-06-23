@@ -602,8 +602,8 @@ function FlagArt({ countryId }) {
         <>
           <rect width="120" height="80" fill="#fff" />
           <g transform="translate(60 40) rotate(-32)">
-            <path d="M0 -18a18 18 0 0 1 0 36a9 9 0 0 1 0 -18a9 9 0 0 0 0 -18Z" fill="#c60c30" />
-            <path d="M0 -18a18 18 0 0 0 0 36a9 9 0 0 0 0 -18a9 9 0 0 1 0 -18Z" fill="#003478" />
+            <circle r="18" fill="#c60c30" />
+            <path d="M-18 0A18 18 0 0 0 18 0A9 9 0 0 0 0 0A9 9 0 0 1 -18 0Z" fill="#003478" />
           </g>
           <g stroke="#111" strokeWidth="3.2" strokeLinecap="butt">
             <g transform="translate(27 18) rotate(-32)">
