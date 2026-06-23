@@ -186,14 +186,14 @@ export default function ConsultingPage() {
           eyebrow="Writing"
           items={consultingWriting}
           sectionClassName="consulting-example-section consulting-writing-carousel"
-          title="Check out some of the thinking I have done"
+          title="Check out some of my thinking"
           variant="blog"
         />
       ) : (
         <section className="consulting-example-section consulting-writing-empty" aria-labelledby="consulting-writing-title">
           <div className="section-intro">
             <p className="eyebrow">Writing</p>
-            <h2 id="consulting-writing-title">Check out some of the thinking I have done</h2>
+            <h2 id="consulting-writing-title">Check out some of my thinking</h2>
           </div>
           <div className="consulting-writing-placeholder">
             <p>

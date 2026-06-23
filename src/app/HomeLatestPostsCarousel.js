@@ -56,7 +56,7 @@ export default function HomeLatestPostsCarousel({ posts }) {
       return randomIndex === activeIndex ? (randomIndex + 1) % posts.length : randomIndex;
     })();
     const forwardDistance = wrapIndex(targetIndex - activeIndex, posts.length);
-    const totalSteps = posts.length + forwardDistance;
+    const totalSteps = posts.length * 2 + forwardDistance;
     let step = 0;
 
     setIsSpinning(true);
@@ -74,11 +74,11 @@ export default function HomeLatestPostsCarousel({ posts }) {
       }
 
       const progress = step / totalSteps;
-      const delay = 38 + progress * progress * 185;
+      const delay = 132 + progress * progress * progress * 260;
       spinTimerRef.current = window.setTimeout(advance, delay);
     }
 
-    spinTimerRef.current = window.setTimeout(advance, 38);
+    spinTimerRef.current = window.setTimeout(advance, 132);
   }
 
   function movePost(direction) {
@@ -116,10 +116,10 @@ export default function HomeLatestPostsCarousel({ posts }) {
             aria-hidden={position !== "active"}
             className={`student-review-card home-post-card is-${position}`}
             href={post.href}
-            key={`${post.href}-${index}`}
+            key={post.href}
             tabIndex={position === "active" ? 0 : -1}
           >
-            <img src={post.cover || post.seriesCover} alt="" loading="lazy" decoding="async" />
+            <img src={post.previewImage || post.cover || post.seriesCover} alt="" loading="lazy" decoding="async" />
             <div className="home-post-card-copy">
               <span>{post.seriesTitle} · {post.date} · {post.readingMinutes} min read</span>
               <h3>{post.title}</h3>

@@ -100,7 +100,7 @@ export default function FeatureCarousel({
       return randomIndex === activeIndex ? (randomIndex + 1) % itemCount : randomIndex;
     })();
     const forwardDistance = wrapIndex(targetIndex - activeIndex, itemCount);
-    const totalSteps = itemCount + forwardDistance;
+    const totalSteps = itemCount * 2 + forwardDistance;
     let step = 0;
 
     setIsSpinning(true);
@@ -118,11 +118,11 @@ export default function FeatureCarousel({
       }
 
       const progress = step / totalSteps;
-      const delay = 38 + progress * progress * 185;
+      const delay = 132 + progress * progress * progress * 260;
       spinTimerRef.current = window.setTimeout(advance, delay);
     }
 
-    spinTimerRef.current = window.setTimeout(advance, 38);
+    spinTimerRef.current = window.setTimeout(advance, 132);
   }
 
   function moveItem(direction) {
@@ -165,7 +165,7 @@ export default function FeatureCarousel({
             <article
               aria-hidden={position !== "active"}
               className={`student-review-card feature-carousel-card feature-carousel-card-${variant} is-${position}`}
-              key={`${item.href || item.courseNumber || item.title}-${position}-${index}`}
+              key={`${item.href || item.courseNumber || item.title}-${index}`}
               style={{ "--review-index": index }}
             >
               {variant === "blog" ? <BlogPreviewCard item={item} /> : <QuoteCard item={item} />}
