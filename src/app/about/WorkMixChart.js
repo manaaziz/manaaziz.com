@@ -41,7 +41,7 @@ export default function WorkMixChart() {
     <section className="work-mix-section" aria-labelledby="work-mix-title">
       <div className="section-intro">
         <p className="eyebrow">Work mix</p>
-        <h2 id="work-mix-title">I am principally a consultant, but am passionate about research and teaching</h2>
+        <h2 id="work-mix-title">I am a consultant with passion for research and teaching</h2>
       </div>
 
       <div className="work-mix-layout">

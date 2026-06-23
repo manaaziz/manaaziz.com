@@ -218,7 +218,7 @@ export const courses = [
       prerequisites: "FAB 333 Culture and Cuisine or FAB 790 Independent Study designation",
       featuredLinks: [
         { label: "Spain Recap", href: "/blog/spain-2025/spain-recap" },
-        { label: "Spain Reunion", href: "/manalogue#spain-reunion" }
+        { label: "Spain Reunion", href: "/blog/spain-2025/spain-reunion" }
       ],
       description:
         "This immersive study abroad program offers students a unique opportunity to explore Spanish culture through its diverse culinary traditions. Based in Madrid, Valencia, and Barcelona, students engage with local history, art, architecture, social customs, cooking workshops, market visits, restaurant experiences, and cultural excursions. The course is designed to build a deeper understanding of Spain's regional identities, historical influences on gastronomy, and the social significance of food in everyday life.",

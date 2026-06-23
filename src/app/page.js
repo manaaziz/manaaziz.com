@@ -100,9 +100,9 @@ export default function Home() {
       </section>
 
       <section className="home-stream reveal">
-        <div>
-          <p className="eyebrow">Media</p>
-          <h2>The monologue is the home for all things Mana.</h2>
+        <div className="section-intro home-stream-heading">
+          <p className="eyebrow">Manalogue</p>
+          <h2>The Manalogue is the home for all things Mana.</h2>
           <Link className="button" href="/manalogue">
             Open The Manalogue
           </Link>

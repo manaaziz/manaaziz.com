@@ -307,6 +307,10 @@ export default function AboutDistanceFromVegas() {
 
     mapRef.current = map;
 
+    const mapLoadFallbackTimeout = window.setTimeout(() => {
+      setMapStatus((currentStatus) => currentStatus === "loading" ? "error" : currentStatus);
+    }, 8500);
+
     map.on("style.load", () => {
       map.setFog({
         color: "rgb(17, 24, 32)",
@@ -318,6 +322,7 @@ export default function AboutDistanceFromVegas() {
     });
 
     map.on("load", () => {
+      window.clearTimeout(mapLoadFallbackTimeout);
       setMapStatus("ready");
 
       const vegasMarker = new mapboxgl.Marker({
@@ -461,6 +466,7 @@ export default function AboutDistanceFromVegas() {
     });
 
     return () => {
+      window.clearTimeout(mapLoadFallbackTimeout);
       if (frameRef.current) {
         window.cancelAnimationFrame(frameRef.current);
       }
