@@ -17,7 +17,7 @@ function wrapIndex(index, length) {
 
 function getSpinDelay(step, totalSteps) {
   const progress = step / totalSteps;
-  return 48 + Math.pow(progress, 3.4) * 410;
+  return 74 + Math.pow(progress, 2.35) * 230;
 }
 
 function QuoteCard({ item }) {
@@ -127,7 +127,7 @@ export default function FeatureCarousel({
       return randomIndex === activeIndex ? (randomIndex + 1) % itemCount : randomIndex;
     })();
     const forwardDistance = wrapIndex(targetIndex - activeIndex, itemCount) || itemCount;
-    const totalSteps = itemCount * 4 + forwardDistance;
+    const totalSteps = itemCount * 2 + forwardDistance;
     let step = 0;
 
     setIsSpinning(true);
@@ -147,7 +147,7 @@ export default function FeatureCarousel({
       spinTimerRef.current = window.setTimeout(advance, getSpinDelay(step, totalSteps));
     }
 
-    spinTimerRef.current = window.setTimeout(advance, 54);
+    spinTimerRef.current = window.setTimeout(advance, 74);
   }
 
   function moveItem(direction) {
