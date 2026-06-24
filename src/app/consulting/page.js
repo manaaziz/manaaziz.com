@@ -1,5 +1,6 @@
+import Link from "next/link";
 import FeatureCarousel from "@/components/FeatureCarousel";
-import { getAllPosts } from "@/lib/posts";
+import { getAllPosts, getSeriesSummaries } from "@/lib/posts";
 import LogoBounceField from "./LogoBounceField";
 
 export const metadata = {
@@ -93,19 +94,21 @@ const companyRoles = [
 ];
 
 export default function ConsultingPage() {
+  const series = getSeriesSummaries();
   const writingPosts = getAllPosts()
     .sort((a, b) => b.date.localeCompare(a.date))
-    .map((post) => ({
-      title: post.title,
-      excerpt: post.excerpt,
-      href: post.href,
-      image: post.images[0] || null,
-      imageAlt: "",
-      dateLabel: post.date,
-      label: "Read post",
-      tags: post.tags,
-      topic: post.seriesTitle
-    }));
+    .map((post) => {
+      const seriesInfo = series.find((item) => item.seriesSlug === post.seriesSlug);
+      return {
+        ...post,
+        image: post.previewImage || post.cover || seriesInfo?.cover || "/assets/images/phdblog-cover.jpg",
+        imageAlt: "",
+        dateLabel: post.date,
+        label: "Read post",
+        topic: post.seriesTitle || "The Manalogue",
+        seriesCover: seriesInfo?.cover || "/assets/images/phdblog-cover.jpg"
+      };
+    });
   const consultingWriting = writingPosts.filter((post) => post.tags.some((tag) => tag.toLowerCase() === "consulting"));
 
   return (
@@ -182,15 +185,21 @@ export default function ConsultingPage() {
       </section>
 
       {consultingWriting.length ? (
-        <FeatureCarousel
-          ariaLabel="Consulting writing controls"
-          eyebrow="Writing"
-          filterTag="consulting"
-          items={writingPosts}
-          sectionClassName="consulting-example-section consulting-writing-carousel"
-          title="Check out some of my thinking"
-          variant="blog"
-        />
+        <section className="home-stream reveal">
+          <div className="section-intro home-stream-heading">
+            <p className="eyebrow">Writing</p>
+            <h2>Check out some of my thinking</h2>
+            <Link className="button" href="/manalogue">
+              Open The Manalogue
+            </Link>
+          </div>
+          <FeatureCarousel
+            ariaLabel="Consulting writing controls"
+            filterTag="consulting"
+            items={writingPosts}
+            variant="blog"
+          />
+        </section>
       ) : (
         <section className="consulting-example-section consulting-writing-empty" aria-labelledby="consulting-writing-title">
           <div className="section-intro">

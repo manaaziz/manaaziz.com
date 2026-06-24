@@ -11,6 +11,25 @@ const reelPositions = [
   { offset: 2, position: "far-next" }
 ];
 
+const reelPositionsByCount = {
+  1: [{ offset: 0, position: "active" }],
+  2: [
+    { offset: 0, position: "active" },
+    { offset: 1, position: "next" }
+  ],
+  3: [
+    { offset: -1, position: "previous" },
+    { offset: 0, position: "active" },
+    { offset: 1, position: "next" }
+  ],
+  4: [
+    { offset: -1, position: "previous" },
+    { offset: 0, position: "active" },
+    { offset: 1, position: "next" },
+    { offset: 2, position: "far-next" }
+  ]
+};
+
 function wrapIndex(index, length) {
   return ((index % length) + length) % length;
 }
@@ -61,6 +80,11 @@ function BlogPreviewCard({ item }) {
     </Link>
   );
 }
+
+const tileContentByVariant = {
+  blog: BlogPreviewCard,
+  quote: QuoteCard
+};
 
 export default function FeatureCarousel({
   ariaLabel = "Carousel controls",
@@ -118,6 +142,7 @@ export default function FeatureCarousel({
   }, []);
 
   if (!itemCount) return null;
+  const TileContent = tileContentByVariant[variant] || tileContentByVariant.quote;
 
   function spinReel() {
     if (isSpinning || itemCount < 2) return;
@@ -160,7 +185,8 @@ export default function FeatureCarousel({
     controls[direction]();
   }
 
-  const visibleItems = reelPositions.map(({ offset, position }) => {
+  const visibleReelPositions = reelPositionsByCount[itemCount] || reelPositions;
+  const visibleItems = visibleReelPositions.map(({ offset, position }) => {
     const index = wrapIndex(activeIndex + offset, itemCount);
     return {
       item: filteredItems[index],
@@ -186,16 +212,20 @@ export default function FeatureCarousel({
 
       <div className={`student-review-carousel feature-carousel ${carouselClassName} ${isSpinning ? "is-spinning" : ""}`.trim()} aria-live="polite">
         <div className={`student-review-stage feature-carousel-stage ${stageClassName}`.trim()}>
-          {visibleItems.map(({ item, position, index }) => (
-            <article
-              aria-hidden={position !== "active"}
-              className={`student-review-card feature-carousel-card feature-carousel-card-${variant} ${cardClassName} is-${position}`.trim()}
-              key={`${item.href || item.courseNumber || item.title}-${index}`}
-              style={{ "--review-index": index }}
-            >
-              {variant === "blog" ? <BlogPreviewCard item={item} /> : <QuoteCard item={item} />}
-            </article>
-          ))}
+          {visibleItems.map(({ item, position, index }) => {
+            const itemKey = `${item.href || item.courseNumber || item.title}-${index}`;
+
+            return (
+              <article
+                aria-hidden={position !== "active"}
+                className={`student-review-card feature-carousel-card feature-carousel-card-${variant} ${cardClassName} is-${position}`.trim()}
+                key={itemKey}
+                style={{ "--review-index": index }}
+              >
+                <TileContent item={item} />
+              </article>
+            );
+          })}
         </div>
 
         <div className="student-review-controls" aria-label={ariaLabel}>
