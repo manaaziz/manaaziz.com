@@ -1,4 +1,3 @@
-import Link from "next/link";
 import FeatureCarousel from "@/components/FeatureCarousel";
 import { getAllPosts, getSeriesSummaries } from "@/lib/posts";
 import LogoBounceField from "./LogoBounceField";
@@ -189,9 +188,6 @@ export default function ConsultingPage() {
           <div className="section-intro home-stream-heading">
             <p className="eyebrow">Writing</p>
             <h2>Check out some of my thinking</h2>
-            <Link className="button" href="/manalogue">
-              Open The Manalogue
-            </Link>
           </div>
           <FeatureCarousel
             ariaLabel="Consulting writing controls"
