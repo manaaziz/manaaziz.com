@@ -1879,28 +1879,28 @@ h3 {
 }
 
 .work-mix-section {
-  margin-top: 4rem;
+  margin-top: clamp(3rem, 5vw, 4rem);
 }
 
 .work-mix-layout {
   display: grid;
   place-items: center;
-  margin-top: 1.5rem;
+  margin-top: 0.35rem;
 }
 
 .work-pie-wrap {
   position: relative;
   display: grid;
-  width: min(100%, 70rem);
-  min-height: 36rem;
+  width: min(100%, 66rem);
+  min-height: clamp(29rem, 44vw, 34rem);
   place-items: center;
-  padding: clamp(1rem, 4vw, 2rem);
+  padding: clamp(0.5rem, 2.2vw, 1rem);
 }
 
 .work-pie-chart {
-  width: min(62vw, 28rem);
+  width: min(42vw, 21.75rem);
   max-width: 100%;
-  transform: rotate(-90deg);
+  transform: rotate(-45deg);
   overflow: visible;
 }
 
@@ -1954,8 +1954,8 @@ h3 {
 .work-pie-center {
   position: absolute;
   display: grid;
-  width: clamp(8rem, 20vw, 11.5rem);
-  height: clamp(8rem, 20vw, 11.5rem);
+  width: clamp(6.35rem, 14.5vw, 8.45rem);
+  height: clamp(6.35rem, 14.5vw, 8.45rem);
   place-items: center;
   align-content: center;
   border: 1px solid var(--line);
@@ -1968,7 +1968,7 @@ h3 {
 
 .work-pie-center strong {
   color: var(--ink);
-  font-size: clamp(2.15rem, 5vw, 3.7rem);
+  font-size: clamp(1.75rem, 3.65vw, 2.85rem);
   line-height: 1;
 }
 
@@ -1979,33 +1979,127 @@ h3 {
   text-transform: uppercase;
 }
 
+.work-mix-cards {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
 .work-mix-card {
   position: absolute;
-  bottom: 2rem;
+  z-index: 2;
   display: grid;
   align-content: end;
-  width: min(22rem, 33%);
-  min-height: 12rem;
-  padding: 1.15rem;
+  width: min(18.5rem, 31%);
+  min-height: 9.25rem;
+  padding: 0.9rem;
   border: 1px solid var(--line-strong);
   border-radius: 8px;
   background: rgba(255, 250, 241, 0.94);
   box-shadow:
     0 18px 38px rgba(23, 23, 23, 0.14),
     0 0.55rem 0 #000;
-  animation: work-mix-card-pop 360ms cubic-bezier(0.32, 0.72, 0, 1) both;
   transform-origin: 50% 100%;
   backdrop-filter: blur(8px);
+  pointer-events: auto;
+  transition:
+    opacity 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms var(--ease-out-back);
 }
 
-.work-mix-card.right {
+.work-mix-card::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(23, 23, 23, 0.08), rgba(23, 23, 23, 0.62));
+  transform-origin: 100% 50%;
+  opacity: 0.66;
+  pointer-events: none;
+}
+
+.work-mix-card::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 0.46rem;
+  height: 0.46rem;
+  border-radius: 999px;
+  background: var(--ink);
+  pointer-events: none;
+}
+
+.work-mix-card.consulting {
+  top: 50%;
   right: 0;
-  transform-origin: 0% 100%;
+  transform: translateY(-50%);
+  transform-origin: 0% 50%;
 }
 
-.work-mix-card.left {
+.work-mix-card.consulting::before {
+  top: 50%;
+  right: 100%;
+  width: clamp(5.5rem, 12vw, 9rem);
+}
+
+.work-mix-card.consulting::after {
+  top: calc(50% - 0.23rem);
+  right: calc(100% + clamp(5.5rem, 12vw, 9rem));
+}
+
+.work-mix-card.research {
+  top: 0;
   left: 0;
   transform-origin: 100% 100%;
+}
+
+.work-mix-card.research::before {
+  right: -45%;
+  bottom: 22%;
+  width: clamp(5.5rem, 12vw, 9rem);
+  transform: rotate(20deg);
+}
+
+.work-mix-card.research::after {
+  right: calc(-45% - clamp(5.5rem, 12vw, 9rem));
+  bottom: calc(22% - 0.23rem);
+}
+
+.work-mix-card.teaching {
+  bottom: 0;
+  left: 0;
+  transform-origin: 100% 0%;
+}
+
+.work-mix-card.teaching::before {
+  right: -45%;
+  top: 22%;
+  width: clamp(5.5rem, 12vw, 9rem);
+  transform: rotate(-20deg);
+}
+
+.work-mix-card.teaching::after {
+  right: calc(-45% - clamp(5.5rem, 12vw, 9rem));
+  top: calc(22% - 0.23rem);
+}
+
+.work-mix-card[data-muted="true"] {
+  opacity: 0.32;
+  transform: scale(0.98);
+}
+
+.work-mix-card.consulting[data-muted="true"] {
+  transform: translateY(-50%) scale(0.98);
+}
+
+.work-mix-card[data-active="true"] {
+  border-color: var(--ink);
+  box-shadow:
+    0 24px 46px rgba(23, 23, 23, 0.18),
+    0 0.55rem 0 #000;
 }
 
 .work-mix-card span {
@@ -2019,18 +2113,19 @@ h3 {
   width: 100%;
   max-width: none;
   margin-top: 0.45rem;
-  font-size: clamp(1.3rem, 2vw, 1.8rem);
+  font-size: clamp(1.14rem, 1.65vw, 1.48rem);
   line-height: 1.08;
 }
 
 .work-mix-card p {
   color: var(--muted);
-  line-height: 1.45;
+  font-size: 0.9rem;
+  line-height: 1.38;
 }
 
 .work-mix-card .button {
   justify-self: start;
-  margin-top: 1rem;
+  margin-top: 0.75rem;
 }
 
 .work-progression {
@@ -4847,8 +4942,8 @@ h3 {
 
 .global-map-shell {
   display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(18rem, 0.65fr);
-  gap: 1rem;
+  grid-template-columns: minmax(0, 1.38fr) minmax(19rem, 0.66fr);
+  gap: clamp(0.9rem, 1.8vw, 1.25rem);
   align-items: stretch;
   margin-top: 1.5rem;
 }
@@ -4861,6 +4956,10 @@ h3 {
   animation: map-drill-up 420ms var(--ease-out-back) both;
 }
 
+.global-experience-loading {
+  min-height: 0;
+}
+
 .world-map-panel,
 .map-detail-card {
   border: 1px solid var(--line);
@@ -4869,17 +4968,81 @@ h3 {
   box-shadow: var(--shadow);
 }
 
+.global-map-placeholder,
+.global-detail-placeholder {
+  position: relative;
+  overflow: hidden;
+}
+
+.global-map-placeholder {
+  place-items: center;
+}
+
+.global-map-placeholder::before,
+.global-detail-placeholder::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(110deg, transparent 0 34%, rgba(255, 250, 241, 0.64) 46%, transparent 58%),
+    repeating-linear-gradient(135deg, rgba(47, 111, 100, 0.06) 0 0.8rem, transparent 0.8rem 1.6rem);
+  animation: map-placeholder-sheen 1.8s ease-in-out infinite;
+}
+
+.global-map-placeholder > div {
+  width: min(80%, 34rem);
+  aspect-ratio: 1.9;
+  border: 1px solid rgba(23, 23, 23, 0.08);
+  border-radius: 999px;
+  background: rgba(23, 23, 23, 0.035);
+}
+
+.global-detail-placeholder {
+  align-content: start;
+  gap: 0.85rem;
+}
+
+.global-detail-placeholder > div {
+  position: relative;
+  z-index: 1;
+  height: 2.6rem;
+  border-radius: 8px;
+  background: rgba(23, 23, 23, 0.055);
+}
+
+.global-detail-placeholder > div:first-child {
+  width: 62%;
+}
+
+.global-detail-placeholder > div:nth-child(2) {
+  width: 92%;
+}
+
+.global-detail-placeholder > div:nth-child(3) {
+  width: 76%;
+}
+
+@keyframes map-placeholder-sheen {
+  from {
+    transform: translateX(-35%);
+  }
+
+  to {
+    transform: translateX(35%);
+  }
+}
+
 .world-map-panel {
   display: grid;
-  min-height: 28rem;
-  padding: clamp(0.75rem, 2vw, 1.25rem);
+  min-height: clamp(29.5rem, 40vw, 35rem);
+  padding: clamp(0.8rem, 1.8vw, 1.25rem);
   overflow: hidden;
 }
 
 .world-map {
   width: 100%;
   height: 100%;
-  min-height: 24rem;
+  min-height: clamp(25.5rem, 36vw, 31rem);
 }
 
 .regional-map-view {
@@ -4892,7 +5055,7 @@ h3 {
 .region-overview-map,
 .country-map-stage {
   position: relative;
-  min-height: 24rem;
+  min-height: clamp(25.5rem, 36vw, 31rem);
 }
 
 .country-map-stage {
@@ -4930,14 +5093,14 @@ h3 {
   top: var(--y);
   display: grid;
   gap: 0.12rem;
-  max-width: min(13rem, 40vw);
+  max-width: min(15rem, 40vw);
   border: 1px solid var(--line);
   border-radius: 8px;
   background: rgba(255, 250, 241, 0.92);
   color: var(--ink);
   cursor: pointer;
   font: inherit;
-  padding: 0.65rem 0.75rem;
+  padding: 0.78rem 0.9rem;
   text-align: left;
   transform: translate(-50%, -50%);
   user-select: none;
@@ -4953,8 +5116,8 @@ h3 {
 
 .region-hotspot::before,
 .country-floater::before {
-  width: 0.55rem;
-  height: 0.55rem;
+  width: 0.64rem;
+  height: 0.64rem;
   border-radius: 999px;
   background: var(--green);
   content: "";
@@ -4962,7 +5125,7 @@ h3 {
 
 .region-hotspot span,
 .country-floater span {
-  font-size: 0.9rem;
+  font-size: 1.03rem;
   font-weight: 900;
   line-height: 1.1;
 }
@@ -4970,7 +5133,7 @@ h3 {
 .region-hotspot small,
 .country-floater small {
   color: var(--muted);
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   font-weight: 800;
   line-height: 1.2;
 }
@@ -5441,8 +5604,8 @@ h3 {
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
   align-content: start;
-  min-height: 28rem;
-  padding: clamp(1rem, 3vw, 1.4rem);
+  min-height: clamp(29.5rem, 40vw, 35rem);
+  padding: clamp(1rem, 2.6vw, 1.4rem);
   animation: map-panel-pop 360ms cubic-bezier(0.32, 0.72, 0, 1) both;
   transform-origin: 18% 12%;
 }
@@ -9757,16 +9920,40 @@ h3 {
   }
 
   .work-pie-wrap {
-    min-height: 18rem;
+    min-height: auto;
+    gap: 1rem;
+  }
+
+  .work-mix-cards {
+    position: static;
+    display: grid;
+    gap: 0.85rem;
+    width: 100%;
+    pointer-events: auto;
   }
 
   .work-mix-card {
     position: relative;
+    inset: auto;
     right: auto;
     bottom: auto;
+    left: auto;
+    top: auto;
     width: 100%;
     min-height: 0;
     margin-top: 1rem;
+    transform: none;
+  }
+
+  .work-mix-card::before,
+  .work-mix-card::after {
+    display: none;
+  }
+
+  .work-mix-card.consulting,
+  .work-mix-card.consulting[data-muted="true"],
+  .work-mix-card[data-muted="true"] {
+    transform: none;
   }
 
   .work-pie-chart {

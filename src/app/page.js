@@ -2,21 +2,26 @@ import Link from "next/link";
 import FeatureCarousel from "@/components/FeatureCarousel";
 import LocalizedHello from "@/components/LocalizedHello";
 import { getRecentPosts, getSeriesSummaries } from "@/lib/posts";
+import HomeGlobalExperience from "./HomeGlobalExperience";
+import WorkMixChart from "./about/WorkMixChart";
 
 const workAreas = [
   {
+    id: "consulting",
     href: "/consulting",
     label: "Consulting",
     title: "Helping companies leverage data and AI.",
     body: "Applied data science, AI, forecasting, reporting, and analytics work for casino and hospitality operators."
   },
   {
+    id: "research",
     href: "/research",
     label: "Research",
     title: "Data-driven, industry-relevant research.",
     body: "Machine learning, revenue management, gaming analytics, demand forecasting, and hospitality technology."
   },
   {
+    id: "teaching",
     href: "/teaching",
     label: "Teaching",
     title: "Educating and empowering young minds.",
@@ -29,7 +34,9 @@ export default function Home() {
   const recentPosts = getRecentPosts(8).map((post) => {
     const seriesInfo = series.find((item) => item.seriesSlug === post.seriesSlug);
     return {
-      ...post,
+      href: post.href,
+      title: post.title,
+      excerpt: post.excerpt,
       image: post.previewImage || post.cover || seriesInfo?.cover || "/assets/images/phdblog-cover.jpg",
       imageAlt: "",
       dateLabel: post.date,
@@ -76,33 +83,9 @@ export default function Home() {
         </a>
       </section>
 
-      <section className="section-intro home-about reveal" id="selected-areas">
-        <p className="eyebrow">About</p>
-        <h2>Get to know me a little bit more.</h2>
-        <div className="home-about-tile">
-          <p>
-            I work at the intersection of hospitality, gaming, data science, AI, research, and teaching. The about page is where the professional story has more room to breathe.
-          </p>
-          <Link className="button" href="/about">
-            About Mana
-          </Link>
-        </div>
-      </section>
+      <WorkMixChart id="selected-areas" items={workAreas} />
 
-      <section className="section-intro reveal">
-        <p className="eyebrow">Work</p>
-        <h2>Consulting, research, and teaching connected by applied analytics.</h2>
-      </section>
-
-      <section className="card-grid home-work-grid">
-        {workAreas.map((area) => (
-          <Link className="feature-card reveal" href={area.href} key={area.href}>
-            <span>{area.label}</span>
-            <h3>{area.title}</h3>
-            <p>{area.body}</p>
-          </Link>
-        ))}
-      </section>
+      <HomeGlobalExperience />
 
       <section className="home-stream reveal">
         <div className="section-intro home-stream-heading">

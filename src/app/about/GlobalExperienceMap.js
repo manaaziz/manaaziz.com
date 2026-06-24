@@ -401,7 +401,7 @@ const globalRegions = [
     summary: "Invited academic exchange and applied analytics conversations in Argentina.",
     countries: ["ar"],
     defaultCountry: "ar",
-    position: { left: "34%", top: "66%" },
+    position: { left: "34%", top: "70%" },
     mapCountries: ["ar", "bo", "br", "cl", "co", "ec", "fk", "gf", "gy", "pe", "py", "sr", "uy", "ve"],
     viewBox: "195 300 285 380"
   },
@@ -424,7 +424,7 @@ const globalRegions = [
     label: "Africa",
     summary: "Future collaborations in Africa will live here as the project list grows.",
     countries: [],
-    position: { left: "52%", top: "56%" },
+    position: { left: "52%", top: "61%" },
     mapCountries: [
       "ao", "bf", "bi", "bj", "bw", "cd", "cf", "cg", "ci", "cm", "cv", "dj", "dz", "eg", "eh", "er", "et",
       "ga", "gh", "gm", "gn", "gq", "gw", "ke", "km", "lr", "ls", "ly", "ma", "mg", "ml", "mr", "mu", "mw",
@@ -449,7 +449,7 @@ const globalRegions = [
     summary: "Integrated resort, casino, and hospitality analytics work across East and Southeast Asia.",
     countries: ["cn", "kr", "vn", "sg"],
     defaultCountry: "cn",
-    position: { left: "73%", top: "43%" },
+    position: { left: "76%", top: "43%" },
     mapCountries: [
       "af", "am", "az", "bd", "bn", "bt", "cc", "cn", "cx", "ge", "hk", "id", "in", "jp", "kg", "kh", "kp",
       "kr", "kz", "la", "lk", "mm", "mn", "mo", "my", "np", "ph", "pk", "sg", "th", "tj", "tm", "tw", "uz", "vn"

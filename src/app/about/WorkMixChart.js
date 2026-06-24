@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 
-const workMix = [
+const defaultWorkMix = [
   {
     id: "consulting",
     label: "Consulting",
@@ -33,19 +33,24 @@ const workMix = [
   }
 ];
 
-export default function WorkMixChart() {
+export default function WorkMixChart({ id, items = defaultWorkMix }) {
+  const workMix = defaultWorkMix.map((item) => ({
+    ...item,
+    ...(items.find((override) => override.id === item.id || override.href === item.href) || {})
+  }));
   const [activeId, setActiveId] = useState("consulting");
+  const [isComparing, setIsComparing] = useState(false);
   const active = workMix.find((item) => item.id === activeId) || workMix[0];
 
   return (
-    <section className="work-mix-section" aria-labelledby="work-mix-title">
+    <section className="work-mix-section" id={id} aria-labelledby="work-mix-title">
       <div className="section-intro">
         <p className="eyebrow">Work mix</p>
         <h2 id="work-mix-title">I am a consultant with passion for research and teaching</h2>
       </div>
 
       <div className="work-mix-layout">
-        <div className="work-pie-wrap" aria-label="Clickable work mix pie chart">
+        <div className="work-pie-wrap" aria-label="Clickable work mix pie chart" onMouseLeave={() => setIsComparing(false)}>
           <svg className="work-pie-chart" viewBox="0 0 42 42" role="img" aria-labelledby="work-pie-title">
             <title id="work-pie-title">Consulting 70 percent, research 20 percent, teaching 10 percent</title>
             <circle className="work-pie-base" cx="21" cy="21" r="15.9155" />
@@ -59,9 +64,18 @@ export default function WorkMixChart() {
                   cy="21"
                   data-active={activeId === item.id ? "true" : "false"}
                   key={item.id}
-                  onClick={() => setActiveId(item.id)}
-                  onFocus={() => setActiveId(item.id)}
-                  onMouseEnter={() => setActiveId(item.id)}
+                  onClick={() => {
+                    setActiveId(item.id);
+                    setIsComparing(true);
+                  }}
+                  onFocus={() => {
+                    setActiveId(item.id);
+                    setIsComparing(true);
+                  }}
+                  onMouseEnter={() => {
+                    setActiveId(item.id);
+                    setIsComparing(true);
+                  }}
                   r="15.9155"
                   role="button"
                   strokeDasharray={`${item.value} ${100 - item.value}`}
@@ -76,14 +90,32 @@ export default function WorkMixChart() {
             <span>{active.label}</span>
           </div>
 
-          <article className={`work-mix-card ${active.id} ${active.calloutSide}`} key={active.id}>
-            <span>{active.label}</span>
-            <h3>{active.title}</h3>
-            <p>{active.body}</p>
-            <Link className="button" href={active.href}>
-              Explore {active.label}
-            </Link>
-          </article>
+          <div className="work-mix-cards">
+            {workMix.map((item) => (
+              <article
+                className={`work-mix-card ${item.id}`}
+                data-active={activeId === item.id ? "true" : "false"}
+                data-muted={isComparing && activeId !== item.id ? "true" : "false"}
+                key={item.id}
+                onBlur={() => setIsComparing(false)}
+                onFocus={() => {
+                  setActiveId(item.id);
+                  setIsComparing(true);
+                }}
+                onMouseEnter={() => {
+                  setActiveId(item.id);
+                  setIsComparing(true);
+                }}
+              >
+                <span>{item.label}</span>
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
+                <Link className="button" href={item.href}>
+                  Explore {item.label}
+                </Link>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </section>
