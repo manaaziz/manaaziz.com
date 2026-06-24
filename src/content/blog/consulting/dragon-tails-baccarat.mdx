@@ -44,9 +44,10 @@ workType: Consulting
       <span class="road-marker banker" style="--row: 4; --col: 1">B</span>
       <span class="road-marker banker" style="--row: 5; --col: 1">B</span>
       <span class="road-marker banker" style="--row: 6; --col: 1">B</span>
+      <span class="road-marker banker" style="--row: 6; --col: 2">B</span>
+      <span class="road-marker banker" style="--row: 6; --col: 3">B</span>
       <span class="road-marker player" style="--row: 1; --col: 2">P</span>
-      <span class="road-marker banker return" style="--row: 1; --col: 3">B</span>
-      <span class="road-marker ghost" style="--row: 2; --col: 3">?</span>
+      <span class="road-marker ghost" style="--row: 1; --col: 3">?</span>
     </div>
     <div class="baccarat-road-layer player-road">
       <span class="road-marker player" style="--row: 1; --col: 1">P</span>
@@ -55,9 +56,11 @@ workType: Consulting
       <span class="road-marker player" style="--row: 4; --col: 1">P</span>
       <span class="road-marker player" style="--row: 5; --col: 1">P</span>
       <span class="road-marker player" style="--row: 6; --col: 1">P</span>
+      <span class="road-marker player" style="--row: 6; --col: 2">P</span>
+      <span class="road-marker player" style="--row: 6; --col: 3">P</span>
+      <span class="road-marker player" style="--row: 6; --col: 4">P</span>
       <span class="road-marker banker" style="--row: 1; --col: 2">B</span>
-      <span class="road-marker player return" style="--row: 1; --col: 3">P</span>
-      <span class="road-marker ghost" style="--row: 2; --col: 3">?</span>
+      <span class="road-marker ghost" style="--row: 1; --col: 3">?</span>
     </div>
   </div>
 </section>
@@ -73,6 +76,79 @@ workType: Consulting
   The behavioral question was different: how often do players actually bet on that return?
 </p>
 
+<section class="dragon-tail-chart" aria-label="Dragon tail return betting chart">
+  <svg viewBox="0 0 1160 650" role="img" aria-labelledby="dragon-return-title dragon-return-desc">
+    <title id="dragon-return-title">Dragon Tail Return Betting</title>
+    <desc id="dragon-return-desc">
+      A line chart showing that break-hand old-side betting was about 98 percent, then next-hand return betting was
+      53.5 percent overall, 58.9 percent after Banker tails, and 46.7 percent after Player tails.
+    </desc>
+    <text class="chart-title" x="580" y="48" text-anchor="middle">Dragon Tail Return Betting</text>
+    <line class="chart-axis" x1="92" y1="86" x2="1080" y2="86"></line>
+    <line class="chart-axis" x1="92" y1="86" x2="92" y2="566"></line>
+    <line class="chart-axis" x1="1080" y1="86" x2="1080" y2="566"></line>
+    <line class="chart-axis" x1="92" y1="566" x2="1080" y2="566"></line>
+    <g class="chart-grid">
+      <line x1="92" y1="125" x2="1080" y2="125"></line>
+      <line x1="92" y1="166" x2="1080" y2="166"></line>
+      <line x1="92" y1="208" x2="1080" y2="208"></line>
+      <line x1="92" y1="249" x2="1080" y2="249"></line>
+      <line x1="92" y1="290" x2="1080" y2="290"></line>
+      <line x1="92" y1="332" x2="1080" y2="332"></line>
+      <line x1="92" y1="373" x2="1080" y2="373"></line>
+      <line x1="92" y1="414" x2="1080" y2="414"></line>
+      <line x1="92" y1="456" x2="1080" y2="456"></line>
+      <line x1="92" y1="497" x2="1080" y2="497"></line>
+      <line x1="92" y1="539" x2="1080" y2="539"></line>
+    </g>
+    <line class="chart-half-line" x1="92" y1="332" x2="1080" y2="332"></line>
+    <text class="chart-half-label" x="1000" y="327">50%</text>
+    <g class="chart-y-labels">
+      <text x="74" y="130" text-anchor="end">100%</text>
+      <text x="74" y="171" text-anchor="end">90%</text>
+      <text x="74" y="213" text-anchor="end">80%</text>
+      <text x="74" y="254" text-anchor="end">70%</text>
+      <text x="74" y="295" text-anchor="end">60%</text>
+      <text x="74" y="337" text-anchor="end">50%</text>
+      <text x="74" y="378" text-anchor="end">40%</text>
+      <text x="74" y="419" text-anchor="end">30%</text>
+      <text x="74" y="461" text-anchor="end">20%</text>
+      <text x="74" y="502" text-anchor="end">10%</text>
+      <text x="74" y="544" text-anchor="end">0%</text>
+    </g>
+    <text class="chart-axis-title" x="24" y="328" transform="rotate(-90 24 328)" text-anchor="middle">
+      Share of bets on old streak side
+    </text>
+    <text class="chart-note" x="265" y="110" text-anchor="middle">tail loses on this hand</text>
+    <g class="chart-lines">
+      <line class="chart-line overall" x1="265" y1="135" x2="790" y2="318"></line>
+      <line class="chart-line banker-line" x1="265" y1="134" x2="790" y2="296"></line>
+      <line class="chart-line player-line" x1="265" y1="136" x2="790" y2="346"></line>
+      <circle class="chart-dot overall" cx="265" cy="135" r="6"></circle>
+      <circle class="chart-dot banker-line" cx="265" cy="134" r="6"></circle>
+      <circle class="chart-dot player-line" cx="265" cy="136" r="6"></circle>
+      <circle class="chart-dot overall" cx="790" cy="318" r="6"></circle>
+      <circle class="chart-dot banker-line" cx="790" cy="296" r="6"></circle>
+      <circle class="chart-dot player-line" cx="790" cy="346" r="6"></circle>
+    </g>
+    <g class="chart-end-labels">
+      <text class="chart-annotation overall" x="835" y="322">Overall return: 53.5%</text>
+      <text class="chart-annotation banker-line" x="835" y="292">Banker tail return: 58.9%</text>
+      <text class="chart-annotation player-line" x="835" y="350">Player tail return: 46.7%</text>
+    </g>
+    <g class="chart-x-labels">
+      <text x="265" y="600" text-anchor="middle">
+        <tspan x="265">Break hand</tspan>
+        <tspan x="265" dy="24">BBBBBBB+ P or PPPPPPP+ B</tspan>
+      </text>
+      <text x="790" y="600" text-anchor="middle">
+        <tspan x="790">Next hand</tspan>
+        <tspan x="790" dy="24">bet back to old side?</tspan>
+      </text>
+    </g>
+  </svg>
+</section>
+
 <section class="dragon-tail-finding" aria-label="Dragon tail finding">
   <div>
     <span>Observed betting behavior</span>
@@ -87,15 +163,16 @@ workType: Consulting
 </section>
 
 <p>
-  The result was interesting because it sits in that messy space between probability and belief. The math of baccarat
-  does not need a dragon tail. The player does.
+  The result was interesting because it sits in that messy space between probability and belief. Is the dragon tail
+  really a real thing? Mathematically, probably not in the way players mean it.
 </p>
 
 <p>
-  That is the part of casino analytics I keep coming back to. Sometimes the most useful question is not whether a belief
-  is mathematically true. Sometimes the useful question is whether the belief is real enough to shape decisions at the table.
+  But I am pretty sure that for Todd and his group of friends, when they are standing at the table and the road has just
+  turned, it feels extremely real.
 </p>
 
 <p>
-  And if it does shape decisions, then it becomes something we can measure.
+  And that is the part of casino analytics I keep coming back to. Sometimes the useful question is not whether a belief
+  is true. Sometimes the useful question is whether the belief is real enough to shape decisions at the table.
 </p>
