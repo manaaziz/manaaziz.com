@@ -8506,85 +8506,100 @@ h3 {
   margin-top: clamp(2rem, 5vw, 4rem);
 }
 
-.spain-scroll-grid {
+.spain-scroll-steps {
   display: grid;
-  grid-template-columns: minmax(18rem, 0.9fr) minmax(20rem, 1.1fr);
-  gap: clamp(2rem, 5vw, 5rem);
-  align-items: start;
-}
-
-.spain-scroll-copy {
-  position: relative;
-  display: grid;
-  padding-bottom: 30vh;
 }
 
 .spain-scroll-step {
   display: grid;
-  justify-items: stretch;
+  grid-template-columns: minmax(26rem, 1.16fr) minmax(18rem, 0.84fr);
+  grid-template-rows: auto minmax(clamp(12rem, 28vh, 18rem), 1fr);
+  column-gap: clamp(1.5rem, 4.5vw, 4.5rem);
+  row-gap: 0;
+  align-items: start;
+  min-height: clamp(30rem, 68vh, 42rem);
 }
 
-.spain-scroll-connector {
+.spain-scroll-route {
   position: relative;
-  width: clamp(4rem, 8vw, 6.5rem);
-  height: clamp(7.5rem, 18vh, 12rem);
+  grid-column: 1;
+  grid-row: 2;
+  align-self: stretch;
+  width: clamp(7rem, 34%, 11rem);
+  min-height: 100%;
   justify-self: center;
   pointer-events: none;
 }
 
-.spain-scroll-connector::before {
-  content: "";
+.spain-scroll-route-line {
   position: absolute;
-  top: -0.05rem;
-  bottom: -0.05rem;
-  left: 50%;
-  width: 4px;
-  background-image: radial-gradient(circle, rgba(218, 45, 61, 0.9) 0 2px, transparent 2.8px);
-  background-repeat: repeat-y;
-  background-size: 4px 16px;
-  transform: translateX(-50%);
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
 }
 
-.spain-scroll-connector::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: -0.5rem;
-  width: 1.15rem;
-  height: 1.15rem;
-  border-radius: 55% 55% 55% 0;
-  background: #da2d3d;
-  opacity: 0.9;
-  transform: translateX(-50%) rotate(-45deg);
+.spain-scroll-route-line path {
+  fill: none;
+  stroke: #da2d3d;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 6 12;
+  opacity: 0.95;
+  vector-effect: non-scaling-stroke;
 }
 
-.spain-scroll-dot {
+.spain-scroll-dot-svg {
+  fill: #da2d3d;
+  filter: drop-shadow(0 0 1.5px rgba(218, 45, 61, 0.28));
+}
+
+.spain-scroll-start,
+.spain-scroll-pin {
   position: absolute;
-  top: calc(var(--segment-progress, 0) * 100%);
-  left: 50%;
   z-index: 3;
-  width: 1.05rem;
-  height: 1.05rem;
-  border: 3px solid var(--panel);
-  border-radius: 999px;
   background: #da2d3d;
-  box-shadow:
-    0 0 0 2px rgba(218, 45, 61, 0.2),
-    0 10px 22px rgba(0, 0, 0, 0.18);
-  opacity: 0;
-  transform: translate(-50%, -50%);
-  transition:
-    opacity 0.18s ease,
-    top 0.08s linear;
 }
 
-.spain-scroll-connector.active .spain-scroll-dot {
-  opacity: 1;
+.spain-scroll-start {
+  top: 0;
+  left: 50%;
+  width: 1.45rem;
+  height: 1.45rem;
+  border-radius: 999px;
+  transform: translate(-50%, -50%);
+}
+
+.spain-scroll-pin {
+  bottom: 0;
+  left: 50%;
+  width: 1.65rem;
+  height: 1.65rem;
+  border: 0.28rem solid #da2d3d;
+  border-radius: 55% 55% 55% 0;
+  box-shadow: none;
+  transform: translate(-50%, 50%) rotate(-45deg);
+}
+
+.spain-scroll-pin::after {
+  content: "";
+  position: absolute;
+  inset: 0.18rem;
+  border-radius: 999px;
+  background: var(--panel);
+}
+
+.spain-scroll-route.final .spain-scroll-pin {
+  top: 0;
+  bottom: auto;
+  transform: translate(-50%, -50%) rotate(-45deg);
 }
 
 .spain-scroll-card {
+  grid-column: 1;
+  grid-row: 1;
   display: flex;
-  min-height: min(58vh, 30rem);
   flex-direction: column;
   justify-content: center;
   opacity: 0.16;
@@ -8594,7 +8609,7 @@ h3 {
     transform 0.36s ease;
 }
 
-.spain-scroll-card.active {
+.spain-scroll-step.active .spain-scroll-card {
   opacity: 1;
   transform: translateY(0);
 }
@@ -8627,12 +8642,15 @@ h3 {
 }
 
 .spain-scroll-card h2 {
-  padding: clamp(1.45rem, 3vw, 2.1rem) clamp(1.2rem, 3vw, 2rem) 0.85rem;
+  overflow: hidden;
+  padding: clamp(1.1rem, 2vw, 1.55rem) clamp(1.2rem, 3vw, 2rem) 0.65rem;
   border-inline: 1px solid var(--line);
   background: var(--panel);
   color: var(--ink);
-  font-size: clamp(2rem, 4.5vw, 4.5rem);
+  font-size: clamp(1.65rem, 2.7vw, 2.6rem);
   line-height: 0.98;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .spain-scroll-card p {
@@ -8652,72 +8670,61 @@ h3 {
   font-weight: 900;
 }
 
-.spain-scroll-visual-wrap {
-  position: sticky;
-  top: clamp(5rem, 10vh, 8rem);
-  min-height: min(78vh, 46rem);
-}
-
-.spain-scroll-visual-stage {
-  position: relative;
-  min-height: min(78vh, 46rem);
-  overflow: visible;
-  background: transparent;
-}
-
 .spain-scroll-visual {
-  position: absolute;
-  inset: 0;
+  grid-column: 2;
+  grid-row: 1 / 3;
+  align-self: start;
   display: grid;
   margin: 0;
-  opacity: 0;
-  transform: scale(1.02);
+  opacity: 0.18;
+  transform: translateY(1.35rem) scale(0.98);
   transition:
     opacity 0.42s ease,
     transform 0.42s ease;
 }
 
-.spain-scroll-visual.active {
+.spain-scroll-step.active .spain-scroll-visual {
   opacity: 1;
-  transform: scale(1);
+  transform: translateY(0) scale(1);
 }
 
 .spain-scroll-visual img {
   width: 100%;
-  height: min(78vh, 46rem);
-  border-radius: 28px;
+  height: clamp(18rem, 56vh, 36rem);
+  border-radius: 24px;
   object-fit: cover;
   box-shadow: 0 26px 80px rgba(23, 23, 23, 0.16);
 }
 
 @media (max-width: 900px) {
-  .spain-scroll-grid {
+  .spain-scroll-step {
     grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+    gap: 1rem;
+    min-height: auto;
+    margin-bottom: 2.5rem;
   }
 
-  .spain-scroll-copy {
-    order: 2;
-    padding-bottom: 0;
+  .spain-scroll-card,
+  .spain-scroll-route,
+  .spain-scroll-visual {
+    grid-column: 1;
   }
 
   .spain-scroll-card {
-    min-height: auto;
+    grid-row: 1;
   }
 
-  .spain-scroll-connector {
-    height: 6.5rem;
+  .spain-scroll-route {
+    grid-row: 3;
+    order: 3;
+    min-height: 7.5rem;
+    width: min(9rem, 44vw);
+    justify-self: center;
   }
 
-  .spain-scroll-visual-wrap {
-    position: sticky;
-    top: 4.5rem;
-    order: 1;
-    min-height: 18rem;
-    z-index: 4;
-  }
-
-  .spain-scroll-visual-stage {
-    min-height: 18rem;
+  .spain-scroll-visual {
+    grid-row: 2;
   }
 
   .spain-scroll-visual img {
@@ -8728,7 +8735,6 @@ h3 {
 
 @media (prefers-reduced-motion: reduce) {
   .spain-scroll-card,
-  .spain-scroll-dot,
   .spain-scroll-visual {
     transition: none;
   }

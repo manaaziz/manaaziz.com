@@ -159,6 +159,124 @@ function clamp(value, min, max) {
   return Math.min(max, Math.max(min, value));
 }
 
+function getRoutePoints(index) {
+  const direction = index % 2 === 0 ? 1 : -1;
+  const side = direction > 0 ? 1 : -1;
+  const variants = [
+    [
+      [60, 0],
+      [60, 62],
+      [102, 62],
+      [102, 176],
+      [60, 176],
+      [60, 300]
+    ],
+    [
+      [60, 0],
+      [60, 78],
+      [24, 78],
+      [24, 138],
+      [88, 138],
+      [88, 214],
+      [60, 214],
+      [60, 300]
+    ],
+    [
+      [60, 0],
+      [60, 48],
+      [98, 48],
+      [98, 110],
+      [36, 110],
+      [36, 230],
+      [60, 230],
+      [60, 300]
+    ],
+    [
+      [60, 0],
+      [60, 92],
+      [20, 92],
+      [20, 184],
+      [60, 184],
+      [60, 300]
+    ]
+  ];
+  const base = variants[index % variants.length];
+
+  return base.map(([x, y]) => ({
+    x: side === 1 ? x : 120 - x,
+    y
+  }));
+}
+
+function pointBetween(start, end, distanceFromStart) {
+  const length = Math.hypot(end.x - start.x, end.y - start.y);
+  const ratio = length === 0 ? 0 : distanceFromStart / length;
+
+  return {
+    x: start.x + (end.x - start.x) * ratio,
+    y: start.y + (end.y - start.y) * ratio
+  };
+}
+
+function quadraticPoint(start, control, end, t) {
+  const inverse = 1 - t;
+
+  return {
+    x: inverse * inverse * start.x + 2 * inverse * t * control.x + t * t * end.x,
+    y: inverse * inverse * start.y + 2 * inverse * t * control.y + t * t * end.y
+  };
+}
+
+function getRoundedRoutePoints(index) {
+  const points = getRoutePoints(index);
+  const rounded = [points[0]];
+  const radius = 13;
+
+  for (let pointIndex = 1; pointIndex < points.length - 1; pointIndex += 1) {
+    const previous = points[pointIndex - 1];
+    const current = points[pointIndex];
+    const next = points[pointIndex + 1];
+    const previousLength = Math.hypot(current.x - previous.x, current.y - previous.y);
+    const nextLength = Math.hypot(next.x - current.x, next.y - current.y);
+    const cornerRadius = Math.min(radius, previousLength / 2, nextLength / 2);
+    const curveStart = pointBetween(current, previous, cornerRadius);
+    const curveEnd = pointBetween(current, next, cornerRadius);
+
+    rounded.push(curveStart);
+
+    for (let step = 1; step <= 12; step += 1) {
+      rounded.push(quadraticPoint(curveStart, current, curveEnd, step / 12));
+    }
+  }
+
+  rounded.push(points[points.length - 1]);
+  return rounded;
+}
+
+function getRoutePath(index) {
+  const points = getRoutePoints(index);
+  const radius = 13;
+  const commands = [`M${points[0].x} ${points[0].y}`];
+
+  for (let pointIndex = 1; pointIndex < points.length - 1; pointIndex += 1) {
+    const previous = points[pointIndex - 1];
+    const current = points[pointIndex];
+    const next = points[pointIndex + 1];
+    const previousLength = Math.hypot(current.x - previous.x, current.y - previous.y);
+    const nextLength = Math.hypot(next.x - current.x, next.y - current.y);
+    const cornerRadius = Math.min(radius, previousLength / 2, nextLength / 2);
+    const curveStart = pointBetween(current, previous, cornerRadius);
+    const curveEnd = pointBetween(current, next, cornerRadius);
+
+    commands.push(`L${curveStart.x} ${curveStart.y}`);
+    commands.push(`Q${current.x} ${current.y} ${curveEnd.x} ${curveEnd.y}`);
+  }
+
+  const finalPoint = points[points.length - 1];
+  commands.push(`L${finalPoint.x} ${finalPoint.y}`);
+  return commands.join(" ");
+}
+
 export default function SpainRecapScrolly() {
   const wrapRef = useRef(null);
   const [progress, setProgress] = useState(0);
@@ -171,6 +289,39 @@ export default function SpainRecapScrolly() {
       progress: clamp(scaled - index, 0, 1)
     };
   }, [progress]);
+  const dotPosition = useMemo(() => {
+    const path = getRoundedRoutePoints(segmentPosition.index);
+    const lengths = path.slice(1).map((point, index) => {
+      const previous = path[index];
+      return Math.hypot(point.x - previous.x, point.y - previous.y);
+    });
+    const totalLength = lengths.reduce((sum, length) => sum + length, 0);
+    let remaining = segmentPosition.progress * totalLength;
+    let x = path[0].x;
+    let y = path[0].y;
+
+    for (let index = 0; index < lengths.length; index += 1) {
+      const length = lengths[index];
+      const start = path[index];
+      const end = path[index + 1];
+
+      if (remaining <= length) {
+        const ratio = length === 0 ? 0 : remaining / length;
+        x = start.x + (end.x - start.x) * ratio;
+        y = start.y + (end.y - start.y) * ratio;
+        break;
+      }
+
+      remaining -= length;
+      x = end.x;
+      y = end.y;
+    }
+
+    return {
+      x,
+      y
+    };
+  }, [segmentPosition]);
 
   useEffect(() => {
     const wrap = wrapRef.current;
@@ -207,40 +358,43 @@ export default function SpainRecapScrolly() {
 
   return (
     <section className="spain-scroll" ref={wrapRef} aria-label="Spain recap scrollytelling draft">
-      <div className="spain-scroll-grid">
-        <div className="spain-scroll-copy">
-          {stops.map((stop, index) => (
-            <div className="spain-scroll-step" key={`${stop.city}-${stop.date}`}>
-              <article className={`spain-scroll-card${activeIndex === index ? " active" : ""}`}>
-                <header>
-                  <span>Spain 2025</span>
-                  <time>{stop.date}</time>
-                </header>
-                <h2>{stop.city}: {stop.day}</h2>
-                <p><strong>{stop.label}.</strong> {stop.copy}</p>
-              </article>
-              {index < stops.length - 1 ? (
-                <div
-                  aria-hidden="true"
-                  className={`spain-scroll-connector${segmentPosition.index === index ? " active" : ""}`}
-                  style={{ "--segment-progress": segmentPosition.progress }}
-                >
-                  <span className="spain-scroll-dot" />
-                </div>
-              ) : null}
-            </div>
-          ))}
-        </div>
+      <div className="spain-scroll-steps">
+        {stops.map((stop, index) => (
+          <div className={`spain-scroll-step${activeIndex === index ? " active" : ""}`} key={`${stop.city}-${stop.date}`}>
+            <article className="spain-scroll-card">
+              <header>
+                <span>Spain 2025</span>
+                <time>{stop.date}</time>
+              </header>
+              <h2>{stop.city}: {stop.day}</h2>
+              <p><strong>{stop.label}.</strong> {stop.copy}</p>
+            </article>
 
-        <div className="spain-scroll-visual-wrap" aria-hidden="true">
-          <div className="spain-scroll-visual-stage">
-            {stops.map((stop, index) => (
-              <figure className={`spain-scroll-visual ${stop.motif}${activeIndex === index ? " active" : ""}`} key={`${stop.motif}-${stop.date}`}>
-                <img src={stop.image} alt="" loading={index < 2 ? "eager" : "lazy"} decoding="async" />
-              </figure>
-            ))}
+            <div
+              aria-hidden="true"
+              className={`spain-scroll-route bend-${index % 2 === 0 ? "right" : "left"}${segmentPosition.index === index ? " active" : ""}${index === stops.length - 1 ? " final" : ""}`}
+            >
+              {index < stops.length - 1 ? (
+                <>
+                  <svg className="spain-scroll-route-line" viewBox="0 0 120 300" preserveAspectRatio="none">
+                    <path d={getRoutePath(index)} />
+                    {segmentPosition.index === index ? (
+                      <circle className="spain-scroll-dot-svg" cx={dotPosition.x} cy={dotPosition.y} r="4.3" />
+                    ) : null}
+                  </svg>
+                  <span className="spain-scroll-start" />
+                  <span className="spain-scroll-pin" />
+                </>
+              ) : (
+                <span className="spain-scroll-pin" />
+              )}
+            </div>
+
+            <figure className={`spain-scroll-visual ${stop.motif}`}>
+              <img src={stop.image} alt="" loading={index < 2 ? "eager" : "lazy"} decoding="async" />
+            </figure>
           </div>
-        </div>
+        ))}
       </div>
     </section>
   );
