@@ -14,6 +14,7 @@ const papers = [
     year: "2026",
     doi: "10.1016/j.puhe.2025.106080",
     blogHref: "/manalogue",
+    pdfHref: "/assets/papers/characterising-online-gamblers-risk-thresholds.pdf",
     blurb: "A retrospective analysis of open banking data to understand financial risk signals among online gamblers.",
     detail: "This paper studies online gamblers who exceed financial risk thresholds using open banking data. It connects gambling behavior, financial signals, and public-health-oriented risk identification."
   },
@@ -24,18 +25,20 @@ const papers = [
     year: "2026",
     doi: "10.1016/j.actpsy.2026.106947",
     blogHref: "/manalogue",
+    pdfHref: "/assets/papers/interpretable-behavioral-clusters-gamblers.pdf",
     blurb: "An unsupervised learning project identifying behaviorally meaningful gambler clusters.",
     detail: "This study uses unsupervised learning to identify behavioral clusters among gamblers. The goal is to find interpretable subgroups that can support research on gambling behavior and risk."
   },
   {
-    title: "A systematic review of machine learning methodologies in hotel revenue management",
+    title: "A systematic review of machine learning applications in hotel occupancy forecasting",
     status: "Published",
     venue: "European Journal of Tourism, Hospitality and Recreation",
     year: "2025",
     doi: "10.2478/ejthr-2025-0022",
     blogHref: "/manalogue",
-    blurb: "A review of how machine learning methods are used across hotel revenue management research.",
-    detail: "This systematic review maps how machine learning has been used in hotel revenue management. It highlights model families, common prediction tasks, and gaps for future hospitality analytics research."
+    pdfHref: "/assets/papers/systematic-review-ml-hotel-occupancy-forecasting.pdf",
+    blurb: "A review of how machine learning methods are used across hotel occupancy forecasting research.",
+    detail: "This systematic review maps how machine learning has been used in hotel occupancy forecasting. It highlights model families, common prediction tasks, and gaps for future hospitality analytics research."
   },
   {
     title: "Across the bettor-verse: An open banking perspective on gambling in the United Kingdom",
@@ -44,6 +47,7 @@ const papers = [
     year: "2025",
     doi: "10.1007/s10899-025-10419-6",
     blogHref: "/manalogue",
+    pdfHref: "/assets/papers/across-the-bettor-verse-open-banking-gambling.pdf",
     blurb: "An open banking view of gambling behavior, spending patterns, and risk-relevant financial activity.",
     detail: "This study uses open banking data to characterize gambling activity through a financial lens. It helps connect player behavior, spending patterns, and broader questions about gambling-related harm."
   },
@@ -54,6 +58,7 @@ const papers = [
     year: "2025",
     doi: "10.1080/14459795.2025.2529177",
     blogHref: "/manalogue",
+    pdfHref: "/assets/papers/measurement-invariance-pgsi.pdf",
     blurb: "A measurement study testing whether the PGSI behaves consistently across sociodemographics and gambling modalities.",
     detail: "This paper evaluates whether the Problem Gambling Severity Index measures the same construct across different groups and gambling modalities. The work is about making sure comparisons across people are statistically defensible."
   },
@@ -64,6 +69,7 @@ const papers = [
     year: "2025",
     doi: "10.1016/j.engappai.2025.110664",
     blogHref: "/manalogue",
+    pdfHref: "/assets/papers/towards-explainable-ai-machine-learning.pdf",
     blurb: "A study of efficient perturbation-based explanations for machine learning models.",
     detail: "This paper contributes to explainable AI by studying efficient perturbation-based explanations. The focus is on making complex machine learning predictions more interpretable without unnecessary computational cost."
   },
@@ -74,6 +80,7 @@ const papers = [
     year: "2025",
     doi: "10.1109/ACCESS.2025.3536094",
     blogHref: "/manalogue",
+    pdfHref: "/assets/papers/ml-hospitality-booking-cancellations.pdf",
     blurb: "An interpretable machine learning approach to forecasting hotel booking cancellations.",
     detail: "This paper applies machine learning to predict hotel booking cancellations while keeping model interpretation central. It sits at the intersection of forecasting, hospitality operations, and practical decision support."
   },

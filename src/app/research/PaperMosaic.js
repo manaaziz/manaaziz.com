@@ -83,12 +83,12 @@ export default function PaperMosaic({ papers }) {
         const { x, y, width, height } = tileRect;
 
         return [
-          { x: x + width * 0.5, y },
-          { x: x + width, y: y + height * 0.25 },
-          { x: x + width, y: y + height * 0.75 },
-          { x: x + width * 0.5, y: y + height },
-          { x, y: y + height * 0.75 },
-          { x, y: y + height * 0.25 }
+          { x: x + width * 0.25, y },
+          { x: x + width * 0.75, y },
+          { x: x + width, y: y + height * 0.5 },
+          { x: x + width * 0.75, y: y + height },
+          { x: x + width * 0.25, y: y + height },
+          { x, y: y + height * 0.5 }
         ];
       });
 
@@ -321,6 +321,11 @@ export default function PaperMosaic({ papers }) {
                         Manalogue
                       </a>
                     ) : null}
+                    {paper.pdfHref ? (
+                      <a href={paper.pdfHref} target="_blank" rel="noreferrer">
+                        PDF
+                      </a>
+                    ) : null}
                   </div>
                 </div>
               </article>
@@ -357,6 +362,11 @@ export default function PaperMosaic({ papers }) {
               {activePaper.blogHref ? (
                 <a className="button paper-focus-button" href={activePaper.blogHref}>
                   Manalogue
+                </a>
+              ) : null}
+              {activePaper.pdfHref ? (
+                <a className="button paper-focus-button" href={activePaper.pdfHref} target="_blank" rel="noreferrer">
+                  PDF
                 </a>
               ) : null}
             </div>

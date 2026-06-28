@@ -120,21 +120,52 @@ workType: Consulting
       Share of bets on old streak side
     </text>
     <text class="chart-note" x="265" y="110" text-anchor="middle">tail loses on this hand</text>
-    <g class="chart-lines">
-      <line class="chart-line overall" x1="265" y1="135" x2="790" y2="318"></line>
-      <line class="chart-line banker-line" x1="265" y1="134" x2="790" y2="296"></line>
-      <line class="chart-line player-line" x1="265" y1="136" x2="790" y2="346"></line>
-      <circle class="chart-dot overall" cx="265" cy="135" r="6"></circle>
-      <circle class="chart-dot banker-line" cx="265" cy="134" r="6"></circle>
-      <circle class="chart-dot player-line" cx="265" cy="136" r="6"></circle>
-      <circle class="chart-dot overall" cx="790" cy="318" r="6"></circle>
-      <circle class="chart-dot banker-line" cx="790" cy="296" r="6"></circle>
-      <circle class="chart-dot player-line" cx="790" cy="346" r="6"></circle>
-    </g>
-    <g class="chart-end-labels">
-      <text class="chart-annotation overall" x="835" y="322">Overall return: 53.5%</text>
-      <text class="chart-annotation banker-line" x="835" y="292">Banker tail return: 58.9%</text>
-      <text class="chart-annotation player-line" x="835" y="350">Player tail return: 46.7%</text>
+    <g class="chart-series-layer">
+      <g class="chart-series" tabindex="0" aria-label="Overall return: 53.5% of next-hand bets returned to the old streak side.">
+        <line class="chart-hover-line" x1="265" y1="135" x2="790" y2="318"></line>
+        <line class="chart-line overall" x1="265" y1="135" x2="790" y2="318"></line>
+        <circle class="chart-dot overall" cx="265" cy="135" r="6"></circle>
+        <circle class="chart-dot overall" cx="790" cy="318" r="6"></circle>
+        <text class="chart-annotation overall" x="835" y="322">Overall return: 53.5%</text>
+        <g class="chart-tooltip" transform="translate(515 332)">
+          <rect width="310" height="72" rx="8"></rect>
+          <circle class="overall" cx="22" cy="24" r="6"></circle>
+          <text x="42" y="24">
+            <tspan x="42">Overall return: 53.5%</tspan>
+            <tspan x="42" dy="22">Bet back to the old streak side</tspan>
+          </text>
+        </g>
+      </g>
+      <g class="chart-series" tabindex="0" aria-label="Banker tail return: 58.9% of next-hand bets returned after Banker-side tails.">
+        <line class="chart-hover-line" x1="265" y1="134" x2="790" y2="296"></line>
+        <line class="chart-line banker-line" x1="265" y1="134" x2="790" y2="296"></line>
+        <circle class="chart-dot banker-line" cx="265" cy="134" r="6"></circle>
+        <circle class="chart-dot banker-line" cx="790" cy="296" r="6"></circle>
+        <text class="chart-annotation banker-line" x="835" y="292">Banker tail return: 58.9%</text>
+        <g class="chart-tooltip" transform="translate(515 230)">
+          <rect width="320" height="72" rx="8"></rect>
+          <circle class="banker-line" cx="22" cy="24" r="6"></circle>
+          <text x="42" y="24">
+            <tspan x="42">Banker tail return: 58.9%</tspan>
+            <tspan x="42" dy="22">Return behavior after Banker tails</tspan>
+          </text>
+        </g>
+      </g>
+      <g class="chart-series" tabindex="0" aria-label="Player tail return: 46.7% of next-hand bets returned after Player-side tails.">
+        <line class="chart-hover-line" x1="265" y1="136" x2="790" y2="346"></line>
+        <line class="chart-line player-line" x1="265" y1="136" x2="790" y2="346"></line>
+        <circle class="chart-dot player-line" cx="265" cy="136" r="6"></circle>
+        <circle class="chart-dot player-line" cx="790" cy="346" r="6"></circle>
+        <text class="chart-annotation player-line" x="835" y="350">Player tail return: 46.7%</text>
+        <g class="chart-tooltip" transform="translate(515 356)">
+          <rect width="320" height="72" rx="8"></rect>
+          <circle class="player-line" cx="22" cy="24" r="6"></circle>
+          <text x="42" y="24">
+            <tspan x="42">Player tail return: 46.7%</tspan>
+            <tspan x="42" dy="22">Return behavior after Player tails</tspan>
+          </text>
+        </g>
+      </g>
     </g>
     <g class="chart-x-labels">
       <text x="265" y="600" text-anchor="middle">
