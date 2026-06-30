@@ -261,6 +261,44 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
       preview: "Another photo-forward stop from the Europe 2023 posts.",
       href: "/blog/europe-2023/Post7",
       image: "/assets/photos/eublog/blog7_3.jpg"
+    },
+    {
+      title: "Betting and Digital Assets Conference",
+      series: "Research",
+      date: "2026",
+      place: "Belmont",
+      preview: "Conference presentation moments from the betting, data, and analytics side of the work.",
+      href: "/research",
+      image: "/assets/photos/mana_belmont_bdaic.jpeg",
+      tile: "wide"
+    },
+    {
+      title: "UMAC Research Presentation",
+      series: "Research",
+      date: "2026",
+      place: "Las Vegas",
+      preview: "Presentation photos from research conversations around gaming, data, and hospitality analytics.",
+      href: "/research",
+      image: "/assets/photos/mana_davis_umac.jpg"
+    },
+    {
+      title: "URJC Research Visit",
+      series: "Research",
+      date: "2026",
+      place: "Madrid",
+      preview: "A research and teaching stop from the international side of the archive.",
+      href: "/research",
+      image: "/assets/photos/urjc_mana.jpeg"
+    },
+    {
+      title: "UMAC Session",
+      series: "Research",
+      date: "2026",
+      place: "Las Vegas",
+      preview: "More presentation-room texture for the gallery view.",
+      href: "/research",
+      image: "/assets/photos/mana_umac.jpeg",
+      tile: "wide"
     }
   ];
   const topicPanels = [
