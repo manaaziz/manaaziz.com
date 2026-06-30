@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 1200" role="img" aria-labelledby="title desc">
+  <title id="title">Dragon tail thumbnail</title>
+  <desc id="desc">A crisp red and gold dragon stretched across a wide white thumbnail.</desc>
+  <defs>
+    <filter id="softShadow" x="-10%" y="-20%" width="120%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#8f6b00" flood-opacity="0.18"/>
+    </filter>
+    <linearGradient id="dragonRed" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff1910"/>
+      <stop offset="0.46" stop-color="#df0804"/>
+      <stop offset="1" stop-color="#b90000"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff0a4"/>
+      <stop offset="0.5" stop-color="#d8a72f"/>
+      <stop offset="1" stop-color="#8b6500"/>
+    </linearGradient>
+    <pattern id="scalePattern" width="56" height="48" patternUnits="userSpaceOnUse">
+      <path d="M2 46 C10 14 46 14 54 46" fill="none" stroke="url(#gold)" stroke-width="5" stroke-linecap="round"/>
+    </pattern>
+  </defs>
+
+  <rect width="2400" height="1200" fill="#fffdfa"/>
+
+  <g filter="url(#softShadow)">
+    <path d="M313 587 C488 378 682 364 775 505 C867 641 750 781 869 822 C1029 876 1052 524 1246 549 C1379 567 1378 786 1510 786 C1653 785 1651 581 1792 587 C1943 593 1944 806 2183 712" fill="none" stroke="url(#gold)" stroke-width="190" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M313 587 C488 378 682 364 775 505 C867 641 750 781 869 822 C1029 876 1052 524 1246 549 C1379 567 1378 786 1510 786 C1653 785 1651 581 1792 587 C1943 593 1944 806 2183 712" fill="none" stroke="url(#dragonRed)" stroke-width="158" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M313 587 C488 378 682 364 775 505 C867 641 750 781 869 822 C1029 876 1052 524 1246 549 C1379 567 1378 786 1510 786 C1653 785 1651 581 1792 587 C1943 593 1944 806 2183 712" fill="none" stroke="url(#scalePattern)" stroke-width="128" stroke-linecap="round" stroke-linejoin="round" opacity="0.72"/>
+
+    <path d="M267 584 C210 525 211 444 284 400 C355 356 471 365 558 435 C589 460 595 505 566 531 C500 587 430 584 384 640 C350 684 303 622 267 584Z" fill="url(#dragonRed)" stroke="url(#gold)" stroke-width="18" stroke-linejoin="round"/>
+    <path d="M333 403 C320 314 376 251 421 216 C415 313 449 356 513 401" fill="none" stroke="url(#gold)" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M430 396 C455 309 525 259 590 239 C542 322 556 382 620 438" fill="none" stroke="url(#gold)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M248 486 C180 443 145 364 138 304 C215 370 270 395 350 398" fill="none" stroke="url(#gold)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M279 544 C342 555 393 539 444 499 C414 568 365 606 296 607" fill="#fffdfa" stroke="url(#gold)" stroke-width="10" stroke-linejoin="round"/>
+    <circle cx="328" cy="465" r="18" fill="#fff6bf" stroke="#8b6500" stroke-width="7"/>
+    <circle cx="333" cy="466" r="7" fill="#111"/>
+    <path d="M227 553 C176 546 122 562 81 602 C152 596 201 610 242 657" fill="none" stroke="url(#gold)" stroke-width="17" stroke-linecap="round"/>
+
+    <g fill="url(#dragonRed)" stroke="url(#gold)" stroke-width="13" stroke-linejoin="round">
+      <path d="M705 710 L645 852 L721 844 L779 735Z"/>
+      <path d="M1048 798 L1003 937 L1074 918 L1126 816Z"/>
+      <path d="M1475 846 L1435 978 L1508 961 L1560 851Z"/>
+      <path d="M1763 658 L1727 783 L1797 775 L1842 673Z"/>
+    </g>
+    <g fill="none" stroke="url(#gold)" stroke-width="16" stroke-linecap="round">
+      <path d="M646 852 C608 884 574 884 535 863"/>
+      <path d="M1003 937 C963 966 923 965 887 940"/>
+      <path d="M1435 978 C1391 1003 1351 998 1318 968"/>
+      <path d="M1727 783 C1685 806 1646 799 1618 769"/>
+    </g>
+
+    <path d="M606 400 L643 312 L659 414 L729 345 L706 452 L801 417 L734 497" fill="url(#dragonRed)" stroke="url(#gold)" stroke-width="14" stroke-linejoin="round"/>
+    <path d="M838 531 L884 449 L893 551 L970 491 L936 594 L1034 569 L959 641" fill="url(#dragonRed)" stroke="url(#gold)" stroke-width="14" stroke-linejoin="round"/>
+    <path d="M1210 545 L1270 478 L1256 578 L1344 535 L1290 626 L1392 624 L1304 677" fill="url(#dragonRed)" stroke="url(#gold)" stroke-width="14" stroke-linejoin="round"/>
+    <path d="M1587 748 L1647 681 L1633 781 L1721 738 L1667 829 L1769 827 L1681 880" fill="url(#dragonRed)" stroke="url(#gold)" stroke-width="14" stroke-linejoin="round"/>
+
+    <path d="M2170 704 C2262 633 2301 535 2317 447 C2230 502 2159 507 2070 490 C2142 573 2143 637 2170 704Z" fill="url(#dragonRed)" stroke="url(#gold)" stroke-width="18" stroke-linejoin="round"/>
+    <path d="M2164 702 C2242 680 2299 699 2342 743" fill="none" stroke="url(#gold)" stroke-width="16" stroke-linecap="round"/>
+  </g>
+</svg>
