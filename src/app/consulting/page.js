@@ -10,8 +10,7 @@ const consultingAreas = [
   {
     label: "Marketing",
     title: "Individual-level personalization",
-    body:
-      "Helping casino teams move from segmentation to micro-segmentation to true patron-level personalization: the right offer, to the right person, at the right time, with the right components, terms, and delivery.",
+    body: "The right offer, to the right person, at the right time, with the right components, terms, and delivery.",
     examples: [
       "Offer sensitivity and reinvestment efficiency",
       "Churn prediction and patron lifecycle modeling",
@@ -27,8 +26,8 @@ const consultingAreas = [
     examples: [
       "Unusually high loss thresholds by patron",
       "Improbable loss detection across wagers and bet mix",
-      "Behavioral signal monitoring",
-      "Operator-facing interpretation of model outputs"
+      "Advantage play detection and safeguard workflows",
+      "Behavioral signal monitoring"
     ]
   },
   {

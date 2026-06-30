@@ -206,7 +206,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
   const travelArchives = [
     {
       topic: "Travel + Teaching",
-      title: "Spain Recap",
+      title: "Summer School in Spain",
       excerpt: "A city-by-city FAB 333 study-abroad recap from Madrid, Valencia, and Barcelona.",
       href: "/blog/spain-2025/spain-recap",
       image: "/assets/photos/fab333_reunion_group.jpg",

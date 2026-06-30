@@ -10,9 +10,9 @@ export const metadata = {
 const teachingValues = [
   {
     label: "Whole person formation",
-    title: "Preparing students for more than the next assignment",
+    title: "Preparing students to be successful in the real world",
     body:
-      "I care about helping students build judgment, confidence, communication skills, and professional habits alongside the course material."
+      "My goal is to go beyond course content by helping students develop the judgment, communication skills, confidence, and professional habits they need to become successful professionals."
   },
   {
     label: "Teaching through passion",

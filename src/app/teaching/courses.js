@@ -217,7 +217,7 @@ export const courses = [
       credits: "3 credits",
       prerequisites: "FAB 333 Culture and Cuisine or FAB 790 Independent Study designation",
       featuredLinks: [
-        { label: "Spain Recap", href: "/blog/spain-2025/spain-recap" },
+        { label: "Summer School in Spain", href: "/blog/spain-2025/spain-recap" },
         { label: "Spain Reunion", href: "/blog/spain-2025/spain-reunion" }
       ],
       description:
