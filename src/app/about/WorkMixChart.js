@@ -50,14 +50,24 @@ export default function WorkMixChart({ id, items = defaultWorkMix }) {
     setIsComparing(true);
   }
 
+  function resetWorkMix() {
+    setActiveId("consulting");
+    setIsComparing(false);
+  }
+
+  function handleWrapBlur(event) {
+    if (!event.currentTarget.contains(event.relatedTarget)) {
+      resetWorkMix();
+    }
+  }
+
   function renderCard(item) {
     return (
       <article
         className={`work-mix-card ${item.id}`}
-        data-active={activeId === item.id ? "true" : "false"}
+        data-active={isComparing && activeId === item.id ? "true" : "false"}
         data-muted={isComparing && activeId !== item.id ? "true" : "false"}
         key={item.id}
-        onBlur={() => setIsComparing(false)}
         onFocus={() => activateItem(item.id)}
         onMouseEnter={() => activateItem(item.id)}
       >
@@ -79,7 +89,13 @@ export default function WorkMixChart({ id, items = defaultWorkMix }) {
       </div>
 
       <div className="work-mix-layout">
-        <div className="work-pie-wrap" aria-label="Clickable work mix pie chart" onMouseLeave={() => setIsComparing(false)}>
+        <div
+          className="work-pie-wrap"
+          aria-label="Clickable work mix pie chart"
+          data-comparing={isComparing ? "true" : "false"}
+          onBlur={handleWrapBlur}
+          onMouseLeave={resetWorkMix}
+        >
           <div className="work-mix-card-stack work-mix-card-stack-left">
             {leftCards.map(renderCard)}
           </div>
@@ -95,7 +111,7 @@ export default function WorkMixChart({ id, items = defaultWorkMix }) {
                     className={`work-pie-slice ${item.id}`}
                     cx="21"
                     cy="21"
-                    data-active={activeId === item.id ? "true" : "false"}
+                    data-active={isComparing && activeId === item.id ? "true" : "false"}
                     key={item.id}
                     onClick={() => activateItem(item.id)}
                     onFocus={() => activateItem(item.id)}

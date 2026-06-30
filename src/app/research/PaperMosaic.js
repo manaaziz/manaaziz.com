@@ -2,6 +2,25 @@
 
 import { useEffect, useRef, useState } from "react";
 
+function getPaperSlot(index) {
+  let remaining = index;
+  let row = 0;
+
+  while (true) {
+    const rowCapacity = row % 2 === 0 ? 2 : 1;
+
+    if (remaining < rowCapacity) {
+      return {
+        x: rowCapacity === 2 ? remaining * 2 : 1,
+        y: row
+      };
+    }
+
+    remaining -= rowCapacity;
+    row += 1;
+  }
+}
+
 export default function PaperMosaic({ papers }) {
   const wrapRef = useRef(null);
   const chipRefs = useRef([]);
@@ -269,12 +288,11 @@ export default function PaperMosaic({ papers }) {
     event.stopPropagation();
   }
 
-  const paperRows = [];
-  for (let index = 0; index < papers.length;) {
-    const rowSize = paperRows.length % 2 === 0 ? 4 : 3;
-    paperRows.push(papers.slice(index, index + rowSize));
-    index += rowSize;
-  }
+  const paperSlots = papers.map((paper, index) => ({
+    paper,
+    slot: getPaperSlot(index)
+  }));
+  const maxSlotY = paperSlots.reduce((maxY, { slot }) => Math.max(maxY, slot.y), 4);
 
   return (
     <div className="paper-mosaic-wrap" ref={wrapRef}>
@@ -288,49 +306,53 @@ export default function PaperMosaic({ papers }) {
           />
         ))}
       </div>
-      <div className="paper-mosaic" data-expanded={activePaper ? "true" : "false"}>
-        {paperRows.map((row, rowIndex) => (
-          <div className="paper-mosaic-row" data-row={rowIndex % 2 === 0 ? "full" : "offset"} key={`paper-row-${rowIndex}`}>
-            {row.map((paper) => (
-              <article
-                aria-label={`Open details for ${paper.title}`}
-                className="paper-tile"
-                data-active={activePaper?.title === paper.title ? "true" : "false"}
-                key={paper.title}
-                onClick={(event) => openPaper(paper, event.currentTarget)}
-                onKeyDown={(event) => paperKeyDown(event, paper)}
-                role="button"
-                tabIndex={0}
-              >
-                <div className="paper-tile-inner">
-                  <div>
-                    <h3>{paper.title}</h3>
-                  </div>
-                  <div className="paper-tile-detail">
-                    <p>{paper.blurb}</p>
-                    <small>{paper.venue}</small>
-                  </div>
-                  <div className="paper-tile-actions" onClick={stopTileOpen}>
-                    {paper.doi ? (
-                      <a href={`https://doi.org/${paper.doi}`} target="_blank" rel="noreferrer">
-                        DOI
-                      </a>
-                    ) : null}
-                    {paper.blogHref ? (
-                      <a href={paper.blogHref}>
-                        Manalogue
-                      </a>
-                    ) : null}
-                    {paper.pdfHref ? (
-                      <a href={paper.pdfHref} target="_blank" rel="noreferrer">
-                        PDF
-                      </a>
-                    ) : null}
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
+      <div
+        className="paper-mosaic"
+        data-expanded={activePaper ? "true" : "false"}
+        style={{ "--paper-slot-rows": maxSlotY + 1 }}
+      >
+        {paperSlots.map(({ paper, slot }, index) => (
+          <article
+            aria-label={`Open details for ${paper.title}`}
+            className="paper-tile"
+            data-active={activePaper?.title === paper.title ? "true" : "false"}
+            data-slot={index}
+            key={paper.title}
+            onClick={(event) => openPaper(paper, event.currentTarget)}
+            onKeyDown={(event) => paperKeyDown(event, paper)}
+            role="button"
+            style={{
+              "--paper-slot-left": slot.x,
+              "--paper-slot-y": slot.y
+            }}
+            tabIndex={0}
+          >
+            <div className="paper-tile-inner">
+              <div>
+                <h3>{paper.title}</h3>
+              </div>
+              <div className="paper-tile-detail">
+                <small>{paper.venue}</small>
+              </div>
+              <div className="paper-tile-actions" onClick={stopTileOpen}>
+                {paper.doi ? (
+                  <a href={`https://doi.org/${paper.doi}`} target="_blank" rel="noreferrer">
+                    DOI
+                  </a>
+                ) : null}
+                {paper.blogHref ? (
+                  <a href={paper.blogHref}>
+                    Manalogue
+                  </a>
+                ) : null}
+                {paper.pdfHref ? (
+                  <a href={paper.pdfHref} target="_blank" rel="noreferrer">
+                    PDF
+                  </a>
+                ) : null}
+              </div>
+            </div>
+          </article>
         ))}
       </div>
 
