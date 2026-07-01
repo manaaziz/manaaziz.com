@@ -59,20 +59,6 @@ export default function PaperMosaic({ papers }) {
     let polygons = [];
     let crackLanes = [];
 
-    function pointInPolygon(point, polygon) {
-      let inside = false;
-      for (let index = 0, previous = polygon.length - 1; index < polygon.length; previous = index++) {
-        const currentPoint = polygon[index];
-        const previousPoint = polygon[previous];
-        const crosses =
-          currentPoint.y > point.y !== previousPoint.y > point.y &&
-          point.x < ((previousPoint.x - currentPoint.x) * (point.y - currentPoint.y)) / (previousPoint.y - currentPoint.y) + currentPoint.x;
-
-        if (crosses) inside = !inside;
-      }
-      return inside;
-    }
-
     function closestPointOnSegment(point, segmentStart, segmentEnd) {
       const dx = segmentEnd.x - segmentStart.x;
       const dy = segmentEnd.y - segmentStart.y;
@@ -87,7 +73,7 @@ export default function PaperMosaic({ papers }) {
 
     function refreshPolygons() {
       bounds = wrap.getBoundingClientRect();
-      const tileRects = Array.from(wrap.querySelectorAll(".paper-tile")).map((tile) => {
+      const tileRects = Array.from(wrap.querySelectorAll(".paper-tile-inner")).map((tile) => {
         const rect = tile.getBoundingClientRect();
 
         return {
@@ -100,14 +86,27 @@ export default function PaperMosaic({ papers }) {
 
       polygons = tileRects.map((tileRect) => {
         const { x, y, width, height } = tileRect;
+        const insetX = width * 0.018;
+        const insetY = height * 0.018;
+        const innerX = x + insetX;
+        const innerY = y + insetY;
+        const innerWidth = width - insetX * 2;
+        const innerHeight = height - insetY * 2;
+
+        const points = [
+          { x: innerX + innerWidth * 0.25, y: innerY },
+          { x: innerX + innerWidth * 0.75, y: innerY },
+          { x: innerX + innerWidth, y: innerY + innerHeight * 0.5 },
+          { x: innerX + innerWidth * 0.75, y: innerY + innerHeight },
+          { x: innerX + innerWidth * 0.25, y: innerY + innerHeight },
+          { x: innerX, y: innerY + innerHeight * 0.5 }
+        ];
 
         return [
-          { x: x + width * 0.25, y },
-          { x: x + width * 0.75, y },
-          { x: x + width, y: y + height * 0.5 },
-          { x: x + width * 0.75, y: y + height },
-          { x: x + width * 0.25, y: y + height },
-          { x, y: y + height * 0.5 }
+          [points[1], points[2]],
+          [points[2], points[3]],
+          [points[4], points[5]],
+          [points[5], points[0]]
         ];
       });
 
@@ -134,13 +133,12 @@ export default function PaperMosaic({ papers }) {
       }
     }
 
-    function collideChipWithPolygon(chip, polygon) {
+    function collideChipWithPolygonEdges(chip, edges) {
       let nearestPoint = null;
       let nearestDistance = Infinity;
 
-      for (let index = 0; index < polygon.length; index += 1) {
-        const start = polygon[index];
-        const end = polygon[(index + 1) % polygon.length];
+      for (let index = 0; index < edges.length; index += 1) {
+        const [start, end] = edges[index];
         const point = closestPointOnSegment(chip, start, end);
         const dx = chip.x - point.x;
         const dy = chip.y - point.y;
@@ -152,15 +150,14 @@ export default function PaperMosaic({ papers }) {
         }
       }
 
-      const inside = pointInPolygon(chip, polygon);
-      const collisionRadius = chip.radius * 0.58;
-      if (!inside && nearestDistance >= collisionRadius) return;
+      const collisionRadius = chip.radius * 0.72;
+      if (nearestDistance >= collisionRadius) return;
 
       const dx = chip.x - nearestPoint.x;
       const dy = chip.y - nearestPoint.y;
       const distance = Math.hypot(dx, dy) || 1;
-      const normal = inside ? { x: -dx / distance, y: -dy / distance } : { x: dx / distance, y: dy / distance };
-      const penetration = inside ? collisionRadius + nearestDistance : collisionRadius - nearestDistance;
+      const normal = { x: dx / distance, y: dy / distance };
+      const penetration = collisionRadius - nearestDistance;
       const velocityAlongNormal = chip.vx * normal.x + chip.vy * normal.y;
 
       chip.x += normal.x * (penetration + 0.6);
@@ -188,14 +185,16 @@ export default function PaperMosaic({ papers }) {
 
     function resetChip(chip, index, startAbove = true) {
       chip.radius = Math.max(5, chipElements[index].offsetWidth / 2);
-      const randomDropX = Math.random() * bounds.width;
+      const lane = crackLanes.length > 0 ? crackLanes[index % crackLanes.length] : bounds.width * (0.24 + Math.random() * 0.52);
+      const jitter = (Math.random() - 0.5) * Math.max(chip.radius * 3.4, bounds.width * 0.035);
+      const randomDropX = Math.max(chip.radius * 2, Math.min(bounds.width - chip.radius * 2, lane + jitter));
       const edgeBuffer = bounds.width * 0.18;
       let side = Math.random() < 0.5 ? -1 : 1;
       if (randomDropX < edgeBuffer) side = 1;
       if (randomDropX > bounds.width - edgeBuffer) side = -1;
       chip.x = randomDropX;
       chip.y = startAbove ? -chip.radius * (2.5 + Math.random() * 4.5) : -chip.radius * (1 + index * 1.6);
-      chip.vx = side * (38 + Math.random() * 92) + (Math.random() - 0.5) * 72;
+      chip.vx = side * (22 + Math.random() * 54) + (Math.random() - 0.5) * 38;
       chip.vy = 12 + Math.random() * 36;
       chip.angle = Math.random() * 360;
       chip.angularVelocity = chip.vx * (0.88 + Math.random() * 0.58);
@@ -228,7 +227,7 @@ export default function PaperMosaic({ papers }) {
         chip.angle += chip.angularVelocity * delta;
         chip.angularVelocity *= 0.994;
 
-        polygons.forEach((polygon) => collideChipWithPolygon(chip, polygon));
+        polygons.forEach((polygon) => collideChipWithPolygonEdges(chip, polygon));
 
         if (
           chip.y > bounds.height + chip.radius * 5 ||
@@ -297,7 +296,7 @@ export default function PaperMosaic({ papers }) {
   return (
     <div className="paper-mosaic-wrap" ref={wrapRef}>
       <div className="paper-chip-drop" aria-hidden="true">
-        {Array.from({ length: 6 }).map((_, index) => (
+        {Array.from({ length: 10 }).map((_, index) => (
           <span
             key={`paper-chip-${index}`}
             ref={(element) => {

@@ -1495,7 +1495,9 @@ h3 {
 }
 
 .paper-mosaic-wrap {
+  --paper-chip-runway: clamp(1.5rem, 3vw, 2.8rem);
   position: relative;
+  isolation: isolate;
   overflow: visible;
   margin-top: 1.25rem;
 }
@@ -1505,9 +1507,8 @@ h3 {
   --paper-gutter: clamp(0.75rem, 1.2vw, 1.15rem);
   --paper-step-x: calc(var(--paper-cell) * 0.75 + var(--paper-gutter));
   --paper-step-y: calc(var(--paper-cell) * 0.4330127 + var(--paper-gutter) * 0.58);
-  --paper-chip-runway: clamp(0.25rem, 0.8vw, 0.65rem);
   position: relative;
-  z-index: 1;
+  z-index: 2;
   width: min(100%, calc(var(--paper-cell) + var(--paper-step-x) * 2));
   height: calc((var(--paper-slot-rows) - 1) * var(--paper-step-y) + var(--paper-cell) * 0.8660254);
   margin-inline: auto;
@@ -1536,8 +1537,9 @@ h3 {
 
 .paper-chip-drop {
   position: absolute;
-  inset: calc(var(--paper-chip-runway) * -1) 0 0;
-  z-index: 0;
+  inset: calc(var(--paper-chip-runway) * -1) 0 auto;
+  height: calc(100% + var(--paper-chip-runway) * 2);
+  z-index: 1;
   display: block;
   overflow: hidden;
   pointer-events: none;
@@ -1547,7 +1549,7 @@ h3 {
   position: absolute;
   top: 0;
   left: 0;
-  width: clamp(0.98rem, 1.32vw, 1.18rem);
+  width: clamp(0.78rem, 1vw, 0.98rem);
   aspect-ratio: 1;
   border-radius: 50%;
   background: #fff url("/assets/images/black_casino_chip.png") center / 112% 112% no-repeat;
