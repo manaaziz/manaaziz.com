@@ -56,20 +56,7 @@ export default function PaperMosaic({ papers }) {
     let animationFrame;
     let lastFrame = performance.now();
     let bounds = wrap.getBoundingClientRect();
-    let polygons = [];
     let crackLanes = [];
-
-    function closestPointOnSegment(point, segmentStart, segmentEnd) {
-      const dx = segmentEnd.x - segmentStart.x;
-      const dy = segmentEnd.y - segmentStart.y;
-      const lengthSquared = dx * dx + dy * dy || 1;
-      const t = Math.max(0, Math.min(1, ((point.x - segmentStart.x) * dx + (point.y - segmentStart.y) * dy) / lengthSquared));
-
-      return {
-        x: segmentStart.x + dx * t,
-        y: segmentStart.y + dy * t
-      };
-    }
 
     function refreshPolygons() {
       bounds = wrap.getBoundingClientRect();
@@ -84,33 +71,7 @@ export default function PaperMosaic({ papers }) {
         };
       });
 
-      polygons = tileRects.map((tileRect) => {
-        const { x, y, width, height } = tileRect;
-        const insetX = width * 0.018;
-        const insetY = height * 0.018;
-        const innerX = x + insetX;
-        const innerY = y + insetY;
-        const innerWidth = width - insetX * 2;
-        const innerHeight = height - insetY * 2;
-
-        const points = [
-          { x: innerX + innerWidth * 0.25, y: innerY },
-          { x: innerX + innerWidth * 0.75, y: innerY },
-          { x: innerX + innerWidth, y: innerY + innerHeight * 0.5 },
-          { x: innerX + innerWidth * 0.75, y: innerY + innerHeight },
-          { x: innerX + innerWidth * 0.25, y: innerY + innerHeight },
-          { x: innerX, y: innerY + innerHeight * 0.5 }
-        ];
-
-        return [
-          [points[1], points[2]],
-          [points[2], points[3]],
-          [points[4], points[5]],
-          [points[5], points[0]]
-        ];
-      });
-
-      const measuredLanes = new Set();
+      const measuredLanes = new Map();
       tileRects.forEach((firstRect) => {
         tileRects.forEach((secondRect) => {
           if (secondRect.x <= firstRect.x) return;
@@ -119,83 +80,43 @@ export default function PaperMosaic({ papers }) {
           const horizontalGap = secondRect.x - (firstRect.x + firstRect.width);
 
           if (verticalOverlap > Math.min(firstRect.height, secondRect.height) * 0.28 && horizontalGap > 2) {
-            measuredLanes.add(Math.round(firstRect.x + firstRect.width + horizontalGap / 2));
+            const center = Math.round(firstRect.x + firstRect.width + horizontalGap / 2);
+            measuredLanes.set(center, {
+              center,
+              min: firstRect.x + firstRect.width + 2,
+              max: secondRect.x - 2
+            });
           }
         });
       });
 
-      crackLanes = [...measuredLanes]
-        .filter((lane) => lane > bounds.width * 0.08 && lane < bounds.width * 0.92)
-        .sort((firstLane, secondLane) => firstLane - secondLane);
+      crackLanes = [...measuredLanes.values()]
+        .filter((lane) => lane.center > bounds.width * 0.08 && lane.center < bounds.width * 0.92 && lane.max - lane.min > 4)
+        .sort((firstLane, secondLane) => firstLane.center - secondLane.center);
 
       if (crackLanes.length === 0) {
-        crackLanes = [bounds.width * 0.28, bounds.width * 0.5, bounds.width * 0.72];
-      }
-    }
-
-    function collideChipWithPolygonEdges(chip, edges) {
-      let nearestPoint = null;
-      let nearestDistance = Infinity;
-
-      for (let index = 0; index < edges.length; index += 1) {
-        const [start, end] = edges[index];
-        const point = closestPointOnSegment(chip, start, end);
-        const dx = chip.x - point.x;
-        const dy = chip.y - point.y;
-        const distance = Math.hypot(dx, dy);
-
-        if (distance < nearestDistance) {
-          nearestDistance = distance;
-          nearestPoint = point;
-        }
-      }
-
-      const collisionRadius = chip.radius * 0.72;
-      if (nearestDistance >= collisionRadius) return;
-
-      const dx = chip.x - nearestPoint.x;
-      const dy = chip.y - nearestPoint.y;
-      const distance = Math.hypot(dx, dy) || 1;
-      const normal = { x: dx / distance, y: dy / distance };
-      const penetration = collisionRadius - nearestDistance;
-      const velocityAlongNormal = chip.vx * normal.x + chip.vy * normal.y;
-
-      chip.x += normal.x * (penetration + 0.6);
-      chip.y += normal.y * (penetration + 0.6);
-
-      if (velocityAlongNormal < 0) {
-        const bounce = 0.72;
-        chip.vx -= (1 + bounce) * velocityAlongNormal * normal.x;
-        chip.vy -= (1 + bounce) * velocityAlongNormal * normal.y;
-
-        const tangentVelocity = -chip.vx * normal.y + chip.vy * normal.x;
-        chip.angularVelocity += tangentVelocity * 0.26;
-        chip.vx *= 0.985;
-        chip.vy *= 0.985;
-      } else if (Math.hypot(chip.vx, chip.vy) < 42) {
-        let tangent = { x: -normal.y, y: normal.x };
-        if (tangent.y < 0) {
-          tangent = { x: -tangent.x, y: -tangent.y };
-        }
-        chip.vx += tangent.x * 18;
-        chip.vy += tangent.y * 18;
-        chip.angularVelocity += tangent.x * 58;
+        crackLanes = [0.28, 0.5, 0.72].map((position) => {
+          const center = bounds.width * position;
+          const width = Math.max(20, bounds.width * 0.04);
+          return {
+            center,
+            min: center - width / 2,
+            max: center + width / 2
+          };
+        });
       }
     }
 
     function resetChip(chip, index, startAbove = true) {
       chip.radius = Math.max(5, chipElements[index].offsetWidth / 2);
-      const lane = crackLanes.length > 0 ? crackLanes[index % crackLanes.length] : bounds.width * (0.24 + Math.random() * 0.52);
-      const jitter = (Math.random() - 0.5) * Math.max(chip.radius * 3.4, bounds.width * 0.035);
-      const randomDropX = Math.max(chip.radius * 2, Math.min(bounds.width - chip.radius * 2, lane + jitter));
-      const edgeBuffer = bounds.width * 0.18;
-      let side = Math.random() < 0.5 ? -1 : 1;
-      if (randomDropX < edgeBuffer) side = 1;
-      if (randomDropX > bounds.width - edgeBuffer) side = -1;
-      chip.x = randomDropX;
+      chip.lane = crackLanes.length > 0 ? crackLanes[index % crackLanes.length] : null;
+      const laneCenter = chip.lane?.center ?? bounds.width * 0.5;
+      const laneWidth = chip.lane ? chip.lane.max - chip.lane.min : bounds.width * 0.04;
+      const jitter = (Math.random() - 0.5) * Math.max(chip.radius * 2, laneWidth * 0.42);
+      chip.x = laneCenter + jitter;
       chip.y = startAbove ? -chip.radius * (2.5 + Math.random() * 4.5) : -chip.radius * (1 + index * 1.6);
-      chip.vx = side * (22 + Math.random() * 54) + (Math.random() - 0.5) * 38;
-      chip.vy = 12 + Math.random() * 36;
+      chip.vx = (Math.random() - 0.5) * 95;
+      chip.vy = 8 + Math.random() * 22;
       chip.angle = Math.random() * 360;
       chip.angularVelocity = chip.vx * (0.88 + Math.random() * 0.58);
     }
@@ -209,6 +130,7 @@ export default function PaperMosaic({ papers }) {
         vx: 0,
         vy: 0,
         radius: Math.max(5, element.offsetWidth / 2),
+        lane: null,
         angle: 0,
         angularVelocity: 0
       };
@@ -221,13 +143,30 @@ export default function PaperMosaic({ papers }) {
       lastFrame = now;
 
       chips.forEach((chip, index) => {
-        chip.vy += 760 * delta;
+        chip.vy += 540 * delta;
         chip.x += chip.vx * delta;
         chip.y += chip.vy * delta;
         chip.angle += chip.angularVelocity * delta;
-        chip.angularVelocity *= 0.994;
+        chip.angularVelocity *= 0.992;
 
-        polygons.forEach((polygon) => collideChipWithPolygonEdges(chip, polygon));
+        if (chip.lane) {
+          const minX = chip.lane.min + chip.radius * 0.62;
+          const maxX = chip.lane.max - chip.radius * 0.62;
+          if (chip.x < minX) {
+            chip.x = minX;
+            chip.vx = Math.abs(chip.vx) * 0.84 + 12;
+            chip.vy *= 0.92;
+            chip.angularVelocity += chip.vx * 0.84;
+          } else if (chip.x > maxX) {
+            chip.x = maxX;
+            chip.vx = -Math.abs(chip.vx) * 0.84 - 12;
+            chip.vy *= 0.92;
+            chip.angularVelocity += chip.vx * 0.84;
+          }
+
+          chip.vx += (chip.lane.center - chip.x) * 0.38 * delta;
+          chip.vx *= 0.996;
+        }
 
         if (
           chip.y > bounds.height + chip.radius * 5 ||
