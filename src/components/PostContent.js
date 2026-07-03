@@ -1,6 +1,9 @@
 import Link from "next/link";
+import DecisionTreeGrowth from "@/components/DecisionTreeGrowth";
 import { getAdjacentPosts, getRelatedPosts } from "@/lib/posts";
 import SpainRecapScrolly from "@/components/SpainRecapScrolly";
+
+const decisionTreeMarker = '<div data-decision-tree-growth></div>';
 
 export default function PostContent({ post }) {
   const { previous, next } = getAdjacentPosts(post);
@@ -13,6 +16,24 @@ export default function PostContent({ post }) {
   });
   const backHref = post.standalone ? "/manalogue" : `/blog/${post.seriesSlug}`;
   const backLabel = post.standalone ? "Back to The Manalogue" : `Back to ${post.seriesTitle}`;
+  const postContentSections = post.contentHtml.split(decisionTreeMarker);
+
+  function renderPostBody() {
+    if (postContentSections.length === 1) {
+      return <article className="post-body" dangerouslySetInnerHTML={{ __html: post.contentHtml }} />;
+    }
+
+    return (
+      <article className="post-body">
+        {postContentSections.map((section, index) => (
+          <div key={`post-section-${index}`}>
+            {section ? <div dangerouslySetInnerHTML={{ __html: section }} /> : null}
+            {index < postContentSections.length - 1 ? <DecisionTreeGrowth /> : null}
+          </div>
+        ))}
+      </article>
+    );
+  }
 
   return (
     <main className="page-shell post-shell">
@@ -43,7 +64,7 @@ export default function PostContent({ post }) {
         <SpainRecapScrolly />
       ) : (
         <div className="post-content-grid">
-          <article className="post-body" dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
+          {renderPostBody()}
           <aside className="post-related-panel" aria-label="Related items">
             <p className="eyebrow">Related</p>
             <h2>Keep reading</h2>

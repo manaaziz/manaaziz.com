@@ -8074,6 +8074,40 @@ h3 {
   padding: 1rem clamp(0.55rem, 2vw, 1.25rem) clamp(1.4rem, 3vw, 2rem);
 }
 
+.decision-tree-growth-visual {
+  display: grid;
+  min-height: clamp(18rem, 34vw, 28rem);
+  place-items: center;
+  overflow: hidden;
+}
+
+.decision-tree-growth-visual svg {
+  width: min(100%, 64rem);
+  height: auto;
+  overflow: visible;
+}
+
+.decision-tree-graph {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.decision-tree-edge {
+  fill: none;
+  stroke: rgba(47, 111, 100, 0.34);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+
+.decision-tree-node {
+  fill: var(--surface-raised);
+  stroke: rgba(47, 111, 100, 0.62);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+
 .decision-tree-horizontal {
   --tree-line: rgba(47, 111, 100, 0.28);
   --tree-line-soft: rgba(23, 23, 23, 0.12);
