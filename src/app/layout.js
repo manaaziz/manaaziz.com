@@ -3,14 +3,29 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import Link from "next/link";
 import SiteLogo from "@/components/SiteLogo";
 
+const siteTitle = "Mana Azizsoltani";
+const siteDescription =
+  "Consultant, researcher, and professor specializing in AI and analytics in the hospitality and gaming industry";
+
 export const metadata = {
   title: {
-    default: "Mana Azizsoltani",
-    template: "%s | Mana Azizsoltani"
+    default: siteTitle,
+    template: `%s | ${siteTitle}`
   },
-  description:
-    "Hospitality analytics researcher, educator, and data storyteller working across machine learning, tourism, gaming, and quantitative education.",
-  metadataBase: new URL("https://manaaziz.com")
+  description: siteDescription,
+  metadataBase: new URL("https://manaaziz.com"),
+  openGraph: {
+    title: siteTitle,
+    description: siteDescription,
+    url: "https://manaaziz.com",
+    siteName: siteTitle,
+    type: "website"
+  },
+  twitter: {
+    card: "summary",
+    title: siteTitle,
+    description: siteDescription
+  }
 };
 
 export const viewport = {
