@@ -2,6 +2,71 @@
 
 import { useEffect, useRef, useState } from "react";
 
+const HEX_POINTS = [
+  [0.25, 0],
+  [0.75, 0],
+  [1, 0.5],
+  [0.75, 1],
+  [0.25, 1],
+  [0, 0.5]
+];
+
+function polygonFromRect(rect) {
+  return HEX_POINTS.map(([x, y]) => ({
+    x: rect.x + rect.width * x,
+    y: rect.y + rect.height * y
+  }));
+}
+
+function solidEdgesFromPolygon(polygon) {
+  return polygon.map((point, index) => {
+    const nextPoint = polygon[(index + 1) % polygon.length];
+    const dx = nextPoint.x - point.x;
+    const dy = nextPoint.y - point.y;
+    const length = Math.hypot(dx, dy) || 1;
+
+    return {
+      start: point,
+      end: nextPoint,
+      // The polygon points are clockwise in screen coordinates. The left normal
+      // points outward from the visible hexagon.
+      normal: {
+        x: dy / length,
+        y: -dx / length
+      }
+    };
+  });
+}
+
+function nearestPointOnSegment(point, segment) {
+  const dx = segment.end.x - segment.start.x;
+  const dy = segment.end.y - segment.start.y;
+  const lengthSquared = dx * dx + dy * dy;
+  const projected = lengthSquared === 0
+    ? 0
+    : ((point.x - segment.start.x) * dx + (point.y - segment.start.y) * dy) / lengthSquared;
+  const t = Math.max(0, Math.min(1, projected));
+
+  return {
+    x: segment.start.x + dx * t,
+    y: segment.start.y + dy * t
+  };
+}
+
+function pointInPolygon(point, polygon) {
+  let inside = false;
+
+  for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i, i += 1) {
+    const pi = polygon[i];
+    const pj = polygon[j];
+    const intersects = pi.y > point.y !== pj.y > point.y && point.x < ((pj.x - pi.x) * (point.y - pi.y)) / (pj.y - pi.y) + pi.x;
+
+    if (intersects) inside = !inside;
+  }
+
+  return inside;
+}
+
 function getPaperSlot(index) {
   let remaining = index;
   let row = 0;
@@ -56,67 +121,65 @@ export default function PaperMosaic({ papers }) {
     let animationFrame;
     let lastFrame = performance.now();
     let bounds = wrap.getBoundingClientRect();
-    let crackLanes = [];
+    let tileElements = [];
+    let solidTiles = [];
+
+    function resolveChipContact(chip, normal) {
+      const velocityDotNormal = chip.vx * normal.x + chip.vy * normal.y;
+
+      if (velocityDotNormal >= 0) return;
+
+      const tangent = { x: -normal.y, y: normal.x };
+      const tangentVelocity = chip.vx * tangent.x + chip.vy * tangent.y;
+      const isSlopedEdge = Math.abs(normal.x) > 0.32 && normal.y < 0.12;
+      const impact = Math.abs(velocityDotNormal);
+      const restitution = isSlopedEdge ? 0.36 : impact > 190 ? 0.56 : 0.42;
+      const normalVelocity = impact * restitution;
+      const tangentFriction = isSlopedEdge ? 0.988 : 0.975;
+
+      chip.vx = tangent.x * tangentVelocity * tangentFriction + normal.x * normalVelocity;
+      chip.vy = tangent.y * tangentVelocity * tangentFriction + normal.y * normalVelocity;
+    }
 
     function refreshPolygons() {
       bounds = wrap.getBoundingClientRect();
-      const tileRects = Array.from(wrap.querySelectorAll(".paper-tile-inner")).map((tile) => {
-        const rect = tile.getBoundingClientRect();
+      tileElements = Array.from(wrap.querySelectorAll(".paper-tile"));
+    }
 
-        return {
+    function updateSolidTiles() {
+      bounds = wrap.getBoundingClientRect();
+      solidTiles = tileElements.map((tile) => {
+        const rect = tile.getBoundingClientRect();
+        const tileRect = {
           x: rect.left - bounds.left,
           y: rect.top - bounds.top,
           width: rect.width,
           height: rect.height
         };
+        const polygon = polygonFromRect(tileRect);
+
+        return {
+          polygon,
+          edges: solidEdgesFromPolygon(polygon)
+        };
       });
-
-      const measuredLanes = new Map();
-      tileRects.forEach((firstRect) => {
-        tileRects.forEach((secondRect) => {
-          if (secondRect.x <= firstRect.x) return;
-
-          const verticalOverlap = Math.min(firstRect.y + firstRect.height, secondRect.y + secondRect.height) - Math.max(firstRect.y, secondRect.y);
-          const horizontalGap = secondRect.x - (firstRect.x + firstRect.width);
-
-          if (verticalOverlap > Math.min(firstRect.height, secondRect.height) * 0.28 && horizontalGap > 2) {
-            const center = Math.round(firstRect.x + firstRect.width + horizontalGap / 2);
-            measuredLanes.set(center, {
-              center,
-              min: firstRect.x + firstRect.width + 2,
-              max: secondRect.x - 2
-            });
-          }
-        });
-      });
-
-      crackLanes = [...measuredLanes.values()]
-        .filter((lane) => lane.center > bounds.width * 0.08 && lane.center < bounds.width * 0.92 && lane.max - lane.min > 4)
-        .sort((firstLane, secondLane) => firstLane.center - secondLane.center);
-
-      if (crackLanes.length === 0) {
-        crackLanes = [0.28, 0.5, 0.72].map((position) => {
-          const center = bounds.width * position;
-          const width = Math.max(20, bounds.width * 0.04);
-          return {
-            center,
-            min: center - width / 2,
-            max: center + width / 2
-          };
-        });
-      }
     }
 
     function resetChip(chip, index, startAbove = true) {
-      chip.radius = Math.max(5, chipElements[index].offsetWidth / 2);
-      chip.lane = crackLanes.length > 0 ? crackLanes[index % crackLanes.length] : null;
-      const laneCenter = chip.lane?.center ?? bounds.width * 0.5;
-      const laneWidth = chip.lane ? chip.lane.max - chip.lane.min : bounds.width * 0.04;
-      const jitter = (Math.random() - 0.5) * Math.max(chip.radius * 2, laneWidth * 0.42);
-      chip.x = laneCenter + jitter;
+      chip.visualRadius = Math.max(5, chipElements[index].offsetWidth / 2);
+      chip.radius = Math.max(4, chipElements[index].offsetWidth * 0.32);
+      const spreadStart = bounds.width * 0.16;
+      const spreadWidth = bounds.width * 0.68;
+      chip.x = spreadStart + Math.random() * spreadWidth;
       chip.y = startAbove ? -chip.radius * (2.5 + Math.random() * 4.5) : -chip.radius * (1 + index * 1.6);
-      chip.vx = (Math.random() - 0.5) * 95;
-      chip.vy = 8 + Math.random() * 22;
+      const fallSpeed = 44 + Math.random() * 18;
+      const fallAngle = Math.PI / 6;
+      const direction = index % 2 === 0 ? 1 : -1;
+      chip.vx = Math.sin(fallAngle) * fallSpeed * direction;
+      chip.vy = Math.cos(fallAngle) * fallSpeed;
+      chip.driftDirection = direction;
+      chip.stuckTime = 0;
+      chip.surfaceContact = false;
       chip.angle = Math.random() * 360;
       chip.angularVelocity = chip.vx * (0.88 + Math.random() * 0.58);
     }
@@ -129,8 +192,11 @@ export default function PaperMosaic({ papers }) {
         y: 0,
         vx: 0,
         vy: 0,
-        radius: Math.max(5, element.offsetWidth / 2),
-        lane: null,
+        radius: Math.max(4, element.offsetWidth * 0.32),
+        visualRadius: Math.max(5, element.offsetWidth / 2),
+        driftDirection: index % 2 === 0 ? 1 : -1,
+        stuckTime: 0,
+        surfaceContact: false,
         angle: 0,
         angularVelocity: 0
       };
@@ -143,30 +209,91 @@ export default function PaperMosaic({ papers }) {
       lastFrame = now;
 
       chips.forEach((chip, index) => {
-        chip.vy += 540 * delta;
-        chip.x += chip.vx * delta;
-        chip.y += chip.vy * delta;
-        chip.angle += chip.angularVelocity * delta;
-        chip.angularVelocity *= 0.992;
+        const steps = 3;
+        const stepDelta = delta / steps;
+        chip.surfaceContact = false;
 
-        if (chip.lane) {
-          const minX = chip.lane.min + chip.radius * 0.62;
-          const maxX = chip.lane.max - chip.radius * 0.62;
-          if (chip.x < minX) {
-            chip.x = minX;
-            chip.vx = Math.abs(chip.vx) * 0.84 + 12;
-            chip.vy *= 0.92;
-            chip.angularVelocity += chip.vx * 0.84;
-          } else if (chip.x > maxX) {
-            chip.x = maxX;
-            chip.vx = -Math.abs(chip.vx) * 0.84 - 12;
-            chip.vy *= 0.92;
-            chip.angularVelocity += chip.vx * 0.84;
-          }
+        for (let step = 0; step < steps; step += 1) {
+          updateSolidTiles();
+          chip.vy += 520 * stepDelta;
+          chip.x += chip.vx * stepDelta;
+          chip.y += chip.vy * stepDelta;
 
-          chip.vx += (chip.lane.center - chip.x) * 0.38 * delta;
-          chip.vx *= 0.996;
+          solidTiles.forEach((tile) => {
+            const chipPoint = { x: chip.x, y: chip.y };
+            const insideTile = pointInPolygon(chipPoint, tile.polygon);
+            let collision = null;
+
+            tile.edges.forEach((edge) => {
+              if (insideTile) {
+                const signedDistance = (chip.x - edge.start.x) * edge.normal.x + (chip.y - edge.start.y) * edge.normal.y;
+
+                if (!collision || signedDistance > collision.signedDistance) {
+                  collision = {
+                    signedDistance,
+                    overlap: chip.radius - signedDistance,
+                    normal: edge.normal
+                  };
+                }
+
+                return;
+              }
+
+              const nearest = nearestPointOnSegment(chipPoint, edge);
+              const dx = chip.x - nearest.x;
+              const dy = chip.y - nearest.y;
+              const distance = Math.hypot(dx, dy);
+
+              if (distance >= chip.radius) return;
+
+              const normal = distance > 0.001
+                ? { x: dx / distance, y: dy / distance }
+                : edge.normal;
+
+              if (!collision || distance < collision.distance) {
+                collision = {
+                  distance,
+                  overlap: chip.radius - distance,
+                  normal: edge.normal
+                };
+
+                collision.normal = normal;
+              }
+            });
+
+            if (!collision) return;
+
+            chip.x += collision.normal.x * (collision.overlap + 0.15);
+            chip.y += collision.normal.y * (collision.overlap + 0.15);
+            resolveChipContact(chip, collision.normal);
+
+            if (collision.normal.y < -0.72) {
+              chip.surfaceContact = true;
+            }
+          });
         }
+
+        const speed = Math.hypot(chip.vx, chip.vy);
+        if (chip.surfaceContact && speed < 22) {
+          chip.stuckTime += delta;
+          chip.vx += chip.driftDirection * 16 * delta;
+
+          if (chip.stuckTime > 0.42) {
+            chip.vx += chip.driftDirection * (46 + Math.random() * 18);
+            chip.vy -= 30 + Math.random() * 18;
+            chip.stuckTime = 0;
+          }
+        } else {
+          chip.stuckTime = Math.max(0, chip.stuckTime - delta * 2);
+        }
+
+        const rollingSpin = (chip.vx / Math.max(chip.visualRadius, 1)) * 44;
+        chip.angularVelocity += (rollingSpin - chip.angularVelocity) * 0.12;
+        chip.angularVelocity = Math.max(-360, Math.min(360, chip.angularVelocity));
+        chip.angle += chip.angularVelocity * delta;
+        chip.angularVelocity *= 0.982;
+
+        chip.vx *= 0.998;
 
         if (
           chip.y > bounds.height + chip.radius * 5 ||
@@ -176,7 +303,7 @@ export default function PaperMosaic({ papers }) {
           resetChip(chip, index);
         }
 
-        chipElements[index].style.transform = `translate3d(${chip.x - chip.radius}px, ${chip.y - chip.radius}px, 0) rotate(${chip.angle}deg)`;
+        chipElements[index].style.transform = `translate3d(${chip.x - chip.visualRadius}px, ${chip.y - chip.visualRadius}px, 0) rotate(${chip.angle}deg)`;
       });
 
       animationFrame = requestAnimationFrame(update);
@@ -235,7 +362,7 @@ export default function PaperMosaic({ papers }) {
   return (
     <div className="paper-mosaic-wrap" ref={wrapRef}>
       <div className="paper-chip-drop" aria-hidden="true">
-        {Array.from({ length: 10 }).map((_, index) => (
+        {Array.from({ length: 6 }).map((_, index) => (
           <span
             key={`paper-chip-${index}`}
             ref={(element) => {

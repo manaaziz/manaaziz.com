@@ -1537,9 +1537,9 @@ h3 {
 
 .paper-chip-drop {
   position: absolute;
-  inset: calc(var(--paper-chip-runway) * -1) 0 auto;
-  height: calc(100% + var(--paper-chip-runway) * 2);
-  z-index: 1;
+  inset: 0 0 auto;
+  height: 100%;
+  z-index: 3;
   display: block;
   overflow: hidden;
   pointer-events: none;
@@ -1640,7 +1640,7 @@ h3 {
 
 .paper-tile:hover,
 .paper-tile:focus-visible {
-  z-index: 2;
+  z-index: 4;
   outline: none;
   transform: translateY(-0.35rem) scale(1.02);
 }
