@@ -132,13 +132,18 @@ export default function PaperMosaic({ papers }) {
       const tangent = { x: -normal.y, y: normal.x };
       const tangentVelocity = chip.vx * tangent.x + chip.vy * tangent.y;
       const isSlopedEdge = Math.abs(normal.x) > 0.32 && normal.y < 0.12;
+      const isTopSurface = normal.y < -0.72;
       const impact = Math.abs(velocityDotNormal);
-      const restitution = isSlopedEdge ? 0.36 : impact > 190 ? 0.56 : 0.42;
+      const restitution = isSlopedEdge ? 0.48 : impact > 190 ? 0.72 : 0.58;
       const normalVelocity = impact * restitution;
-      const tangentFriction = isSlopedEdge ? 0.988 : 0.975;
+      const tangentFriction = isSlopedEdge ? 0.982 : 0.964;
 
       chip.vx = tangent.x * tangentVelocity * tangentFriction + normal.x * normalVelocity;
       chip.vy = tangent.y * tangentVelocity * tangentFriction + normal.y * normalVelocity;
+
+      if (isTopSurface && impact > 90) {
+        chip.vy -= Math.min(38, impact * 0.08);
+      }
     }
 
     function refreshPolygons() {
@@ -276,11 +281,11 @@ export default function PaperMosaic({ papers }) {
         const speed = Math.hypot(chip.vx, chip.vy);
         if (chip.surfaceContact && speed < 22) {
           chip.stuckTime += delta;
-          chip.vx += chip.driftDirection * 16 * delta;
+          chip.vx += chip.driftDirection * 22 * delta;
 
           if (chip.stuckTime > 0.42) {
             chip.vx += chip.driftDirection * (46 + Math.random() * 18);
-            chip.vy -= 30 + Math.random() * 18;
+            chip.vy -= 42 + Math.random() * 24;
             chip.stuckTime = 0;
           }
         } else {

@@ -167,8 +167,8 @@ export default function DecisionTreeGrowth() {
   return (
     <section className="decision-tree-demo decision-tree-growth" aria-label="A decision tree animation showing segmentation becoming too crowded">
       <div className="decision-tree-caption">
-        <span>Segmentation logic</span>
-        <strong>When every exception becomes another branch</strong>
+        <span>SEGMENTATION LOGIC</span>
+        <strong>From segmentation to microsegmentation</strong>
       </div>
       <div className="decision-tree-visual decision-tree-growth-visual" aria-hidden="true">
         <svg viewBox={`0 0 ${TREE_WIDTH} ${TREE_HEIGHT}`} role="img">
