@@ -151,7 +151,8 @@ const collaborations = [
       card({
         name: "Master's degree",
         type: "Education",
-        blurb: "Earned a master's degree in North Carolina before continuing into doctoral research and applied analytics.",
+        blurb: "I earned my master's degree in statistics at NC State University in one year with a 4.0 GPA.",
+        href: "https://news.delta.ncsu.edu/2022/06/15/online-grad-applies-master-of-statistics-to-hospitality/",
         logo: "/assets/logos/nc_state_logo.svg"
       }),
       card({
@@ -928,7 +929,8 @@ const usStates = [
       card({
         name: "Master's degree",
         type: "Education",
-        blurb: "Earned a master's degree in North Carolina before continuing into doctoral research and applied analytics.",
+        blurb: "I earned my master's degree in statistics at NC State University in one year with a 4.0 GPA.",
+        href: "https://news.delta.ncsu.edu/2022/06/15/online-grad-applies-master-of-statistics-to-hospitality/",
         logo: "/assets/logos/nc_state_logo.svg"
       }),
       card({
