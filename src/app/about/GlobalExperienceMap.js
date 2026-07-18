@@ -274,7 +274,7 @@ const collaborations = [
       card({
         name: "EuroCHRIE Conference 2024",
         type: "Research",
-        blurb: "I presented interpretable forecasting of hotel booking cancellations with stacked generalization.",
+        blurb: "I presented a paper on utilizing explainable AI to predict booking cancellations.",
         href: "/research",
         logo: "/assets/logos/eurochrie_2024_qatar.png"
       })
@@ -315,7 +315,7 @@ const collaborations = [
       card({
         name: "INSPIRE Resort Entertainment",
         type: "Consulting",
-        blurb: "I worked on casino and resort analytics questions for an integrated entertainment resort.",
+        blurb: "I worked on a marketing program that contained strategic recommendations for player development, revenue growth, and casino marketing.",
         logo: "/assets/logos/inspire_resort_logo.png"
       })
     ]
