@@ -94,7 +94,7 @@ const collaborations = [
       card({
         name: "Casino Miami",
         type: "Consulting",
-        blurb: "I supported casino and hospitality consulting context connected to South Florida operations.",
+        blurb: "I analyzed the patron database, extracted strategic insights, and built out AI models for patron lifecycle as well as lifetime value.",
         logo: "/assets/logos/casino_miami_logo.png"
       }),
       card({
@@ -106,7 +106,7 @@ const collaborations = [
       card({
         name: "Oakmont",
         type: "Consulting",
-        blurb: "I supported consulting work connected to Texas hospitality and entertainment operations.",
+        blurb: "I conducted a feasibility study on a potential integrated resort and casino in a city in Texas.",
         logo: "/assets/logos/oakmont_logo_transparent.png"
       }),
       card({
@@ -146,7 +146,7 @@ const collaborations = [
       card({
         name: "Bally's Atlantic City",
         type: "Consulting",
-        blurb: "I supported casino and hospitality consulting context connected to Atlantic City operations.",
+        blurb: "I conducted market research as well as an analysis of their customer database and gave strategic recommendations for the business.",
         logo: "/assets/logos/ballys_corporation_logo.svg"
       }),
       card({
@@ -817,7 +817,7 @@ const usStates = [
       card({
         name: "Casino Miami",
         type: "Consulting",
-        blurb: "I supported casino and hospitality consulting context connected to South Florida operations.",
+        blurb: "I analyzed the patron database, extracted strategic insights, and built out AI models for patron lifecycle as well as lifetime value.",
         logo: "/assets/logos/casino_miami_logo.png"
       }),
       card({
@@ -889,7 +889,7 @@ const usStates = [
       card({
         name: "Bally's Atlantic City",
         type: "Consulting",
-        blurb: "I supported casino and hospitality consulting context connected to Atlantic City operations.",
+        blurb: "I conducted market research as well as an analysis of their customer database and gave strategic recommendations for the business.",
         logo: "/assets/logos/ballys_corporation_logo.svg"
       })
     ],
@@ -917,7 +917,7 @@ const usStates = [
       card({
         name: "Oakmont",
         type: "Consulting",
-        blurb: "I supported consulting work connected to Texas hospitality and entertainment operations.",
+        blurb: "I conducted a feasibility study on a potential integrated resort and casino in a city in Texas.",
         logo: "/assets/logos/oakmont_logo_transparent.png"
       })
     ],
