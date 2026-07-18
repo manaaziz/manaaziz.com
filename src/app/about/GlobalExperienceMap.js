@@ -140,7 +140,7 @@ const collaborations = [
       card({
         name: "GMA Consulting",
         type: "Consulting",
-        blurb: "Supported Denver-based consulting work translating casino data into operational recommendations.",
+        blurb: "I have supported GMA Consulting on drafting strategic marketing recommendations for a billion-dollar casino company.",
         logo: "/assets/logos/gma_logo.png.webp"
       }),
       card({
@@ -875,7 +875,7 @@ const usStates = [
       card({
         name: "GMA Consulting",
         type: "Consulting",
-        blurb: "Supported Denver-based casino consulting work by turning analysis into operator-facing recommendations.",
+        blurb: "I have supported GMA Consulting on drafting strategic marketing recommendations for a billion-dollar casino company.",
         logo: "/assets/logos/gma_logo.png.webp"
       })
     ],
