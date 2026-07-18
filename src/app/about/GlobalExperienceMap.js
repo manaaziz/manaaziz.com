@@ -34,7 +34,7 @@ const collaborations = [
       card({
         name: "UNLV College of Hospitality",
         type: "Teaching",
-        blurb: "Taught and supported applied statistics, analytics, and hospitality coursework.",
+        blurb: "I have taught various classes at the PhD and undergraduate levels, including Culture and Cuisine, Applied Statistics, and Summer Studies in Spain.",
         href: "/teaching",
         logo: "/assets/logos/unlvhospitality_logo.jpeg"
       }),
@@ -747,7 +747,7 @@ const usStates = [
       card({
         name: "UNLV College of Hospitality",
         type: "Teaching",
-        blurb: "Taught and supported applied statistics, analytics, and hospitality coursework.",
+        blurb: "I have taught various classes at the PhD and undergraduate levels, including Culture and Cuisine, Applied Statistics, and Summer Studies in Spain.",
         href: "/teaching",
         logo: "/assets/logos/unlvhospitality_logo.jpeg"
       }),
