@@ -42,59 +42,59 @@ const collaborations = [
       card({
         name: "International Gaming Institute",
         type: "Research",
-        blurb: "Worked on gaming research at the intersection of data, operations, and policy.",
+        blurb: "I worked on gaming research at the intersection of data, operations, and policy.",
         href: "/research",
         logo: "/assets/logos/unlv_igi_logo.jpeg"
       }),
       card({
         name: "Wynn Resorts",
         type: "Consulting",
-        blurb: "Supported analytics work tied to Wynn and Encore casino and hospitality operations.",
+        blurb: "I supported analytics work tied to Wynn and Encore casino and hospitality operations.",
         logo: "/assets/logos/Wynn_Las_Vegas_logo.svg.png"
       }),
       card({
         name: "Resorts World Las Vegas",
         type: "Consulting",
-        blurb: "Supported integrated resort and casino hospitality analytics context in Las Vegas.",
+        blurb: "I supported integrated resort and casino hospitality analytics context in Las Vegas.",
         logo: "/assets/logos/resorts_world_LV_logo_transparent.png"
       }),
       card({
         name: "WDTS",
         type: "Consulting",
-        blurb: "Explored gaming technology and data questions connected to operator workflows.",
+        blurb: "I explored gaming technology and data questions connected to operator workflows.",
         logo: "/assets/logos/wdts_logo.png"
       }),
       card({
         name: "AXES",
         type: "Research",
-        blurb: "Connected casino payments and player behavior data to applied analytics questions.",
+        blurb: "I connected casino payments and player behavior data to applied analytics questions.",
         logo: "/assets/logos/axes_logo.png"
       }),
       card({
         name: "International Conference on Gambling & Risk Taking",
         type: "Research",
-        blurb: "Presented work on baccarat luck quantification and declined gambling payment transactions in Las Vegas.",
+        blurb: "I presented work on baccarat luck quantification and declined gambling payment transactions in Las Vegas.",
         href: "/research",
         logo: "/assets/logos/gambling_risk_taking_logo.jpg"
       }),
       card({
         name: "ICRG Conference on Gambling and Addiction",
         type: "Research",
-        blurb: "Presented work on interpretable gambler clusters and slot-machine player clustering in Las Vegas.",
+        blurb: "I presented work on interpretable gambler clusters and slot-machine player clustering in Las Vegas.",
         href: "/research",
         logo: "/assets/logos/icrg_conference.png"
       }),
       card({
         name: "GLI Regulator Roundtable",
         type: "Research",
-        blurb: "Presented research characterizing UK online gamblers exceeding financial risk thresholds.",
+        blurb: "I presented research characterizing UK online gamblers exceeding financial risk thresholds.",
         href: "/research",
         logo: "/assets/logos/gli_regulator_roundtable.png"
       }),
       card({
         name: "Casino Miami",
         type: "Consulting",
-        blurb: "Supported casino and hospitality consulting context connected to South Florida operations.",
+        blurb: "I supported casino and hospitality consulting context connected to South Florida operations.",
         logo: "/assets/logos/casino_miami_logo.png"
       }),
       card({
@@ -106,27 +106,27 @@ const collaborations = [
       card({
         name: "Oakmont",
         type: "Consulting",
-        blurb: "Supported consulting work connected to Texas hospitality and entertainment operations.",
+        blurb: "I supported consulting work connected to Texas hospitality and entertainment operations.",
         logo: "/assets/logos/oakmont_logo_transparent.png"
       }),
       card({
         name: "Graduate Education & Graduate Student Research Conference",
         type: "Research",
-        blurb: "Presented a scoping review on how hotel customers feel about AI service technologies in Miami.",
+        blurb: "I presented a scoping review on how hotel customers feel about AI service technologies in Miami.",
         href: "/research",
         logo: "/assets/logos/west_chrie_2023.jpeg"
       }),
       card({
         name: "Conference on Statistical Practice",
         type: "Research",
-        blurb: "Attended the 2020 Conference on Statistical Practice in Sacramento, California.",
+        blurb: "I attended the 2020 Conference on Statistical Practice in Sacramento, California.",
         href: "/research",
         logo: "/assets/logos/csp_2020_logo.svg"
       }),
       card({
-        name: "RevME Hospitality Management and Analytics Conference",
+        name: "RevME Conference",
         type: "Research",
-        blurb: "Presented machine learning prediction of hotel room demand in Nashville.",
+        blurb: "I presented my research on applying machine learning to forecast hotel occupancy.",
         href: "/research",
         logo: "/assets/logos/revme_conf_logo.png"
       }),
@@ -146,7 +146,7 @@ const collaborations = [
       card({
         name: "Bally's Atlantic City",
         type: "Consulting",
-        blurb: "Supported casino and hospitality consulting context connected to Atlantic City operations.",
+        blurb: "I supported casino and hospitality consulting context connected to Atlantic City operations.",
         logo: "/assets/logos/ballys_corporation_logo.svg"
       }),
       card({
@@ -173,21 +173,21 @@ const collaborations = [
       card({
         name: "IEEE Conference on Artificial Intelligence",
         type: "Research",
-        blurb: "Presented Shapley interaction networks work on explaining the clinical course of gambling disorder in Granada.",
+        blurb: "I presented Shapley interaction networks work on explaining the clinical course of gambling disorder in Granada.",
         href: "/research",
         logo: "/assets/logos/cai_granada_logo.png"
       }),
       card({
         name: "Club de Convergentes",
         type: "Research",
-        blurb: "Presented work on AI ethics and governance in the gambling sector in Madrid.",
+        blurb: "I presented work on AI ethics and governance in the gambling sector in Madrid.",
         href: "/research",
         logo: "/assets/logos/club_convergentes.png"
       }),
       card({
         name: "Fundacion Patologia Dual",
         type: "Research",
-        blurb: "Connected research conversations to dual pathology work in Madrid.",
+        blurb: "I connected research conversations to dual pathology work in Madrid.",
         logo: "/assets/logos/fund_path_dual_transparent.png"
       })
     ]
@@ -200,7 +200,7 @@ const collaborations = [
       card({
         name: "Breda University of Applied Sciences",
         type: "Teaching",
-        blurb: "Visited as an invited guest connected to hospitality, tourism, gaming, and applied research conversations.",
+        blurb: "I visited as an invited guest connected to hospitality, tourism, gaming, and applied research conversations.",
         href: "https://pure.buas.nl/en/activities/mana-azizsoltani/",
         logo: "/assets/logos/buas_logo.png"
       })
@@ -214,7 +214,7 @@ const collaborations = [
       card({
         name: "European Conference on Gambling Studies and Policy Issues",
         type: "Research",
-        blurb: "Presented work on MG-CFA measurement invariance for the PGSI in Rome.",
+        blurb: "I presented work on MG-CFA measurement invariance for the PGSI in Rome.",
         href: "/research",
         logo: "/assets/logos/easg_rome_logo.png"
       })
@@ -228,7 +228,7 @@ const collaborations = [
       card({
         name: "Webinar on Safer Gambling",
         type: "Research",
-        blurb: "Presented machine learning work on detecting customer transaction decline.",
+        blurb: "I presented machine learning work on detecting customer transaction decline.",
         href: "/research",
         logo: "/assets/logos/sgcertified_logo.jpeg"
       })
@@ -242,13 +242,13 @@ const collaborations = [
       card({
         name: "Department of Trust",
         type: "Research",
-        blurb: "Explored trust, compliance, and gaming-related analytics questions.",
+        blurb: "I explored trust, compliance, and gaming-related analytics questions.",
         logo: "/assets/logos/department_trust_logo.jpeg"
       }),
       card({
         name: "Wynn Mayfair",
         type: "Consulting",
-        blurb: "Tracked international luxury hospitality and gaming market context.",
+        blurb: "I tracked international luxury hospitality and gaming market context.",
         logo: "/assets/logos/wynn_mayfair_logo.png"
       })
     ]
@@ -261,7 +261,7 @@ const collaborations = [
       card({
         name: "Wynn Al Marjan Island",
         type: "Consulting",
-        blurb: "Followed emerging integrated resort strategy in a new gaming market.",
+        blurb: "I followed emerging integrated resort strategy in a new gaming market.",
         logo: "/assets/logos/wynn_al_marjan_logo.png"
       })
     ]
@@ -274,7 +274,7 @@ const collaborations = [
       card({
         name: "EuroCHRIE Conference 2024",
         type: "Research",
-        blurb: "Presented interpretable forecasting of hotel booking cancellations with stacked generalization.",
+        blurb: "I presented interpretable forecasting of hotel booking cancellations with stacked generalization.",
         href: "/research",
         logo: "/assets/logos/eurochrie_2024_qatar.png"
       })
@@ -288,21 +288,21 @@ const collaborations = [
       card({
         name: "International Conference on Culture, Tourism, and Hospitality",
         type: "Research",
-        blurb: "Presented explainable machine learning work for hotel upselling in Portugal from Macau.",
+        blurb: "I presented explainable machine learning work for hotel upselling in Portugal from Macau.",
         href: "/research",
         logo: "/assets/logos/iccth_macau.png"
       }),
       card({
         name: "Wynn",
         type: "Consulting",
-        blurb: "Worked with Wynn-related Macau context across premium integrated resort operations, casino hospitality, and market strategy.",
+        blurb: "I worked with Wynn-related Macau context across premium integrated resort operations, casino hospitality, and market strategy.",
         href: "/blog/europe-2023",
         logo: "/assets/logos/wynn_macau_logo.png"
       }),
       card({
         name: "Melco",
         type: "Consulting",
-        blurb: "Studied integrated resort positioning and casino hospitality operations across Melco's Macau portfolio.",
+        blurb: "I studied integrated resort positioning and casino hospitality operations across Melco's Macau portfolio.",
         logo: "/assets/logos/Melco_logo.png"
       })
     ]
@@ -315,7 +315,7 @@ const collaborations = [
       card({
         name: "INSPIRE Resort Entertainment",
         type: "Consulting",
-        blurb: "Worked on casino and resort analytics questions for an integrated entertainment resort.",
+        blurb: "I worked on casino and resort analytics questions for an integrated entertainment resort.",
         logo: "/assets/logos/inspire_resort_logo.png"
       })
     ]
@@ -328,7 +328,7 @@ const collaborations = [
       card({
         name: "Hoiana",
         type: "Consulting",
-        blurb: "Reviewed integrated resort and casino hospitality context in Southeast Asia.",
+        blurb: "I reviewed integrated resort and casino hospitality context in Southeast Asia.",
         logo: "/assets/logos/hoiana_logo.png"
       })
     ]
@@ -341,7 +341,7 @@ const collaborations = [
       card({
         name: "Resorts World Sentosa",
         type: "Consulting",
-        blurb: "Supported integrated resort and casino hospitality analytics context in Singapore.",
+        blurb: "I supported integrated resort and casino hospitality analytics context in Singapore.",
         logo: "/assets/logos/resorts_world_singapore_logo_transparent.png"
       })
     ]
@@ -354,7 +354,7 @@ const collaborations = [
       card({
         name: "University of Buenos Aires",
         type: "Teaching",
-        blurb: "Visited as an invited guest for international academic exchange and applied analytics conversation.",
+        blurb: "I visited as an invited guest for international academic exchange and applied analytics conversation.",
         logo: "/assets/logos/uba_logo.svg"
       })
     ]
@@ -367,20 +367,20 @@ const collaborations = [
       card({
         name: "Technology, Risk and Gambling Early Career Researcher Showcase",
         type: "Research",
-        blurb: "Presented work on clustering slot machine players using session-level transaction data.",
+        blurb: "I presented work on clustering slot machine players using session-level transaction data.",
         href: "/research",
         logo: "/assets/logos/usydney_logo.svg"
       }),
       card({
         name: "Crown Resorts",
         type: "Consulting",
-        blurb: "Worked with gaming and hospitality context for Australian operator questions.",
+        blurb: "I worked with gaming and hospitality context for Australian operator questions.",
         logo: "/assets/logos/crown_resorts_logo.png"
       }),
       card({
         name: "The Star Entertainment Group",
         type: "Consulting",
-        blurb: "Tracked operator strategy and casino hospitality questions in Australia.",
+        blurb: "I tracked operator strategy and casino hospitality questions in Australia.",
         logo: "/assets/logos/the_star_logo.png"
       })
     ]
@@ -757,52 +757,52 @@ const usStates = [
       card({
         name: "International Gaming Institute",
         type: "Research",
-        blurb: "Worked on gaming research at the intersection of data, operations, and policy.",
+        blurb: "I worked on gaming research at the intersection of data, operations, and policy.",
         href: "/research",
         logo: "/assets/logos/unlv_igi_logo.jpeg"
       }),
       card({
         name: "Wynn Resorts",
         type: "Consulting",
-        blurb: "Supported analytics work tied to Wynn and Encore casino and hospitality operations.",
+        blurb: "I supported analytics work tied to Wynn and Encore casino and hospitality operations.",
         logo: "/assets/logos/Wynn_Las_Vegas_logo.svg.png"
       }),
       card({
         name: "Resorts World Las Vegas",
         type: "Consulting",
-        blurb: "Supported integrated resort and casino hospitality analytics context in Las Vegas.",
+        blurb: "I supported integrated resort and casino hospitality analytics context in Las Vegas.",
         logo: "/assets/logos/resorts_world_LV_logo_transparent.png"
       }),
       card({
         name: "WDTS",
         type: "Consulting",
-        blurb: "Explored gaming technology and data questions connected to operator workflows.",
+        blurb: "I explored gaming technology and data questions connected to operator workflows.",
         logo: "/assets/logos/wdts_logo.png"
       }),
       card({
         name: "AXES",
         type: "Research",
-        blurb: "Connected casino payments and player behavior data to applied analytics questions.",
+        blurb: "I connected casino payments and player behavior data to applied analytics questions.",
         logo: "/assets/logos/axes_logo.png"
       }),
       card({
         name: "International Conference on Gambling & Risk Taking",
         type: "Research",
-        blurb: "Presented work on baccarat luck quantification and declined gambling payment transactions in Las Vegas.",
+        blurb: "I presented work on baccarat luck quantification and declined gambling payment transactions in Las Vegas.",
         href: "/research",
         logo: "/assets/logos/gambling_risk_taking_logo.jpg"
       }),
       card({
         name: "ICRG Conference on Gambling and Addiction",
         type: "Research",
-        blurb: "Presented work on interpretable gambler clusters and slot-machine player clustering in Las Vegas.",
+        blurb: "I presented work on interpretable gambler clusters and slot-machine player clustering in Las Vegas.",
         href: "/research",
         logo: "/assets/logos/icrg_conference.png"
       }),
       card({
         name: "GLI Regulator Roundtable",
         type: "Research",
-        blurb: "Presented research characterizing UK online gamblers exceeding financial risk thresholds.",
+        blurb: "I presented research characterizing UK online gamblers exceeding financial risk thresholds.",
         href: "/research",
         logo: "/assets/logos/gli_regulator_roundtable.png"
       }),
@@ -817,13 +817,13 @@ const usStates = [
       card({
         name: "Casino Miami",
         type: "Consulting",
-        blurb: "Supported casino and hospitality consulting context connected to South Florida operations.",
+        blurb: "I supported casino and hospitality consulting context connected to South Florida operations.",
         logo: "/assets/logos/casino_miami_logo.png"
       }),
       card({
         name: "Graduate Education & Graduate Student Research Conference",
         type: "Research",
-        blurb: "Presented a scoping review on how hotel customers feel about AI service technologies in Miami.",
+        blurb: "I presented a scoping review on how hotel customers feel about AI service technologies in Miami.",
         href: "/research",
         logo: "/assets/logos/west_chrie_2023.jpeg"
       })
@@ -838,7 +838,7 @@ const usStates = [
       card({
         name: "Conference on Statistical Practice",
         type: "Research",
-        blurb: "Attended the 2020 Conference on Statistical Practice in Sacramento, California.",
+        blurb: "I attended the 2020 Conference on Statistical Practice in Sacramento, California.",
         href: "/research",
         logo: "/assets/logos/csp_2020_logo.svg"
       })
@@ -851,9 +851,9 @@ const usStates = [
     summary: "Hospitality analytics, research presentations, and invited teaching talks in Nashville.",
     work: [
       card({
-        name: "RevME Hospitality Management and Analytics Conference",
+        name: "RevME Conference",
         type: "Research",
-        blurb: "Presented machine learning prediction of hotel room demand in Nashville.",
+        blurb: "I presented my research on applying machine learning to forecast hotel occupancy.",
         href: "/research",
         logo: "/assets/logos/revme_conf_logo.png"
       }),
@@ -889,7 +889,7 @@ const usStates = [
       card({
         name: "Bally's Atlantic City",
         type: "Consulting",
-        blurb: "Supported casino and hospitality consulting context connected to Atlantic City operations.",
+        blurb: "I supported casino and hospitality consulting context connected to Atlantic City operations.",
         logo: "/assets/logos/ballys_corporation_logo.svg"
       })
     ],
@@ -917,7 +917,7 @@ const usStates = [
       card({
         name: "Oakmont",
         type: "Consulting",
-        blurb: "Supported consulting work connected to Texas hospitality and entertainment operations.",
+        blurb: "I supported consulting work connected to Texas hospitality and entertainment operations.",
         logo: "/assets/logos/oakmont_logo_transparent.png"
       })
     ],
