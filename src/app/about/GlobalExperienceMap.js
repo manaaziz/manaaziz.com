@@ -374,13 +374,13 @@ const collaborations = [
       card({
         name: "Crown Resorts",
         type: "Consulting",
-        blurb: "I worked with gaming and hospitality context for Australian operator questions.",
+        blurb: "I conducted a database analysis and gave strategic insights around casino marketing, loyalty programs, and responsible gaming.",
         logo: "/assets/logos/crown_resorts_logo.png"
       }),
       card({
         name: "The Star Entertainment Group",
         type: "Consulting",
-        blurb: "I tracked operator strategy and casino hospitality questions in Australia.",
+        blurb: "I worked on the due diligence of the potential purchase of one of the company's assets.",
         logo: "/assets/logos/the_star_logo.png"
       })
     ]
