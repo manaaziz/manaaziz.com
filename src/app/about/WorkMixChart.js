@@ -9,7 +9,7 @@ const defaultWorkMix = [
     label: "Consulting",
     value: 70,
     href: "/consulting",
-    calloutSide: "right",
+    calloutSide: "left",
     title: "Helping companies leverage data and AI",
     body: "Marketing personalization, surveillance analytics, operational optimization, patron lifecycle modeling, churn prediction, offer sensitivity, and real-time AI-driven loss offers."
   },
@@ -18,7 +18,7 @@ const defaultWorkMix = [
     label: "Research",
     value: 20,
     href: "/research",
-    calloutSide: "left",
+    calloutSide: "right",
     title: "Data-driven, industry-relevant research",
     body: "Predictive modeling, machine learning, revenue management, gaming analytics, and demand forecasting."
   },
@@ -27,7 +27,7 @@ const defaultWorkMix = [
     label: "Teaching",
     value: 10,
     href: "/teaching",
-    calloutSide: "left",
+    calloutSide: "right",
     title: "Educating and empowering young minds",
     body: "Statistics, entrepreneurship, mathematics, hospitality, R, forecasting, and applied data analysis."
   }
@@ -42,8 +42,8 @@ export default function WorkMixChart({ id, items = defaultWorkMix }) {
   const [isComparing, setIsComparing] = useState(false);
   const active = workMix.find((item) => item.id === activeId) || workMix[0];
   const cardById = new Map(workMix.map((item) => [item.id, item]));
-  const leftCards = ["teaching", "research"].map((itemId) => cardById.get(itemId)).filter(Boolean);
-  const rightCards = ["consulting"].map((itemId) => cardById.get(itemId)).filter(Boolean);
+  const leftCards = ["consulting"].map((itemId) => cardById.get(itemId)).filter(Boolean);
+  const rightCards = ["teaching", "research"].map((itemId) => cardById.get(itemId)).filter(Boolean);
 
   function activateItem(itemId) {
     setActiveId(itemId);
