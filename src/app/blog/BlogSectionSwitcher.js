@@ -306,6 +306,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
       id: "home",
       kicker: "Front Page",
       title: "The current front page of the work",
+      showTitle: false,
       layout: "newspaper-front",
       stories: frontPageStories.length ? frontPageStories : [
         newsItem
@@ -510,9 +511,11 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
               >
                 <div className="media-newspaper manalogue-topic-page">
                   <section className="manalogue-topic-front" aria-label={`${panel.title} stories`}>
-                    <div className="manalogue-topic-heading">
-                      <h2>{panel.title}</h2>
-                    </div>
+                    {panel.showTitle !== false ? (
+                      <div className="manalogue-topic-heading">
+                        <h2>{panel.title}</h2>
+                      </div>
+                    ) : null}
 
                     {panel.layout === "photo-mosaic" ? (
                       <PhotoMosaic photos={panel.photos} />
