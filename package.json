@@ -9,6 +9,7 @@
     "start": "next start",
     "lint": "node scripts/validate-site.mjs",
     "audit:assets": "node scripts/audit-assets.mjs",
+    "migrate:photos": "node scripts/migrate-photos-to-webp.mjs",
     "optimize:assets": "node scripts/optimize-public-images.mjs",
     "optimize:assets:write": "node scripts/optimize-public-images.mjs --write"
   },

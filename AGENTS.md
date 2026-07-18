@@ -40,7 +40,7 @@ This is the working memory for `manaaziz.com`, Mana Azizsoltani's personal websi
 ## Image Assets
 
 - Convert site photos to WebP before adding or replacing them so pages load more lightly.
-- Keep original source photos out of committed site assets unless they are explicitly needed for downloads or archival reasons.
+- Keep original source photos in `asset-originals/` with the same relative folder shape they would have in `public/assets`; do not leave heavy originals in deployable `public/assets` unless they are explicitly needed for downloads or archival reasons.
 - Use descriptive, lowercase, hyphenated filenames for optimized images.
 - Prefer responsive image sizing and avoid shipping images much larger than their rendered size.
 - Use `loading="lazy"` and `decoding="async"` for ordinary post/card images where appropriate.
