@@ -6,13 +6,14 @@ import usAtlas from "us-atlas/states-albers-10m.json";
 import { feature, mesh } from "topojson-client";
 import { geoPath } from "d3-geo";
 
-const card = ({ name, type, blurb, href, logo, countryId }) => ({
+const card = ({ name, type, blurb, href, logo, countryId, hideCaseNote = false }) => ({
   name,
   type,
   blurb,
   href,
   logo,
-  countryId
+  countryId,
+  hideCaseNote
 });
 
 const tileInitials = (name) =>
@@ -158,8 +159,9 @@ const collaborations = [
       card({
         name: "Student statistical consultant",
         type: "Consulting",
-        blurb: "Served as a student statistical consultant, supporting applied quantitative research and analysis projects.",
-        logo: "/assets/logos/nc_state_logo.svg"
+        blurb: "I served as a student statistical consultant for the NC State Department of Public Administration while completing my master's degree.",
+        logo: "/assets/logos/nc_state_logo.svg",
+        hideCaseNote: true
       })
     ]
   },
@@ -936,8 +938,9 @@ const usStates = [
       card({
         name: "Student statistical consultant",
         type: "Consulting",
-        blurb: "Served as a student statistical consultant, supporting applied quantitative research and analysis projects.",
-        logo: "/assets/logos/nc_state_logo.svg"
+        blurb: "I served as a student statistical consultant for the NC State Department of Public Administration while completing my master's degree.",
+        logo: "/assets/logos/nc_state_logo.svg",
+        hideCaseNote: true
       })
     ],
     state: "North Carolina"
@@ -1241,7 +1244,7 @@ export default function GlobalExperienceMap() {
                       <a className="case-link" href={selectedWork.href}>
                         Read more
                       </a>
-                    ) : (
+                    ) : selectedWork.hideCaseNote ? null : (
                       <span className="case-link disabled">Case note coming soon</span>
                     )}
                   </div>
