@@ -98,9 +98,9 @@ const collaborations = [
         logo: "/assets/logos/casino_miami_logo.png"
       }),
       card({
-        name: "Gilley's Kansas City",
+        name: "Gilley's Wichita",
         type: "Consulting",
-        blurb: "Supported hospitality and entertainment consulting context connected to Kansas City.",
+        blurb: "I supported the Gilley's Wichita property through financial modeling, determining the loyalty and marketing programs, and market research.",
         logo: "/assets/logos/gilleys_logo_transparent.png"
       }),
       card({
@@ -898,12 +898,12 @@ const usStates = [
   {
     id: "kansas",
     label: "Kansas",
-    summary: "Hospitality and entertainment consulting context connected to Kansas City.",
+    summary: "Hospitality and entertainment consulting context connected to Wichita.",
     work: [
       card({
-        name: "Gilley's Kansas City",
+        name: "Gilley's Wichita",
         type: "Consulting",
-        blurb: "Supported hospitality and entertainment consulting context connected to Kansas City.",
+        blurb: "I supported the Gilley's Wichita property through financial modeling, determining the loyalty and marketing programs, and market research.",
         logo: "/assets/logos/gilleys_logo_transparent.png"
       })
     ],
