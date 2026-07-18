@@ -11,7 +11,7 @@ const stops = [
     copy:
       "Transfer to accommodations, receive the Madrid Metro Pass, and gather for the welcome dinner. Placeholder for the first arrival impressions, first meal, and early group rhythm.",
     motif: "plaza",
-    image: "/assets/photos/eublog/blog1_1.jpg"
+    image: "/assets/photos/eublog/blog1_1.webp"
   },
   {
     city: "Madrid",
@@ -21,7 +21,7 @@ const stops = [
     copy:
       "Local orientation, neighborhood walk, guided Habsburg Madrid tour, and group lunch. Placeholder for notes on place, history, and the city becoming the classroom.",
     motif: "plaza",
-    image: "/assets/photos/eublog/blog1_2.jpg"
+    image: "/assets/photos/eublog/blog1_2.webp"
   },
   {
     city: "Madrid",
@@ -31,7 +31,7 @@ const stops = [
     copy:
       "Independent exploration or a university-sourced activity in Madrid. Placeholder for whatever felt worth remembering: museums, meals, walks, and student observations.",
     motif: "notes",
-    image: "/assets/photos/eublog/blog2_1.jpg"
+    image: "/assets/photos/eublog/blog2_1.webp"
   },
   {
     city: "Madrid",
@@ -41,7 +41,7 @@ const stops = [
     copy:
       "Faculty-led class meeting followed by a guided vineyard and wine tasting outside Madrid. Placeholder for wine, region, hospitality, and how tasting became a learning method.",
     motif: "plaza",
-    image: "/assets/photos/eublog/blog2_2.jpg"
+    image: "/assets/photos/eublog/blog2_2.webp"
   },
   {
     city: "Madrid",
@@ -51,7 +51,7 @@ const stops = [
     copy:
       "Guided visit to the Royal Palace of Madrid with free time afterward. Placeholder for architecture, monarchy, ritual, and the connection between spectacle and culture.",
     motif: "tiles",
-    image: "/assets/photos/eublog/blog3_1.jpg"
+    image: "/assets/photos/eublog/blog3_1.webp"
   },
   {
     city: "Valencia",
@@ -61,7 +61,7 @@ const stops = [
     copy:
       "Travel by train to Valencia, receive a transit pass, check in, and meet for class. Placeholder for the shift in pace, scenery, and regional identity.",
     motif: "tiles",
-    image: "/assets/photos/eublog/blog3_2.jpg"
+    image: "/assets/photos/eublog/blog3_2.webp"
   },
   {
     city: "Valencia",
@@ -71,7 +71,7 @@ const stops = [
     copy:
       "Faculty-led class meeting followed by a guided walk through Valencia's old quarter and central market area. Placeholder for markets, city texture, and local foodways.",
     motif: "tiles",
-    image: "/assets/photos/eublog/blog4_1.jpg"
+    image: "/assets/photos/eublog/blog4_1.webp"
   },
   {
     city: "Valencia",
@@ -81,7 +81,7 @@ const stops = [
     copy:
       "Farm-to-table paella cooking class and group lunch at Barraca de Toni Montoliu. Placeholder for cooking, rice, shared meals, and the way food turns strangers into a table.",
     motif: "paella",
-    image: "/assets/photos/eublog/blog4_2.jpg"
+    image: "/assets/photos/eublog/blog4_2.webp"
   },
   {
     city: "Valencia",
@@ -91,7 +91,7 @@ const stops = [
     copy:
       "Independent exploration or a university-sourced activity in Valencia. Placeholder for free-day wandering, small discoveries, and the moments that did not fit the official itinerary.",
     motif: "notes",
-    image: "/assets/photos/eublog/blog5_1.jpg"
+    image: "/assets/photos/eublog/blog5_1.webp"
   },
   {
     city: "Barcelona",
@@ -101,7 +101,7 @@ const stops = [
     copy:
       "Coach transfer to Barcelona with a cheese and wine tour stop, then hotel check-in. Placeholder for the travel day, the food stop, and the transition into the final city.",
     motif: "tiles",
-    image: "/assets/photos/eublog/blog5_2.jpg"
+    image: "/assets/photos/eublog/blog5_2.webp"
   },
   {
     city: "Barcelona",
@@ -111,7 +111,7 @@ const stops = [
     copy:
       "Faculty-led class meeting, Gothic Quarter tour, and guided visit to La Sagrada Familia. Placeholder for architecture, tourism, sacred space, and Barcelona's layered identity.",
     motif: "tiles",
-    image: "/assets/photos/eublog/blog6_1.jpg"
+    image: "/assets/photos/eublog/blog6_1.webp"
   },
   {
     city: "Barcelona",
@@ -121,7 +121,7 @@ const stops = [
     copy:
       "Full-day visit to the Penedes wine region with free evening time in Barcelona. Placeholder for wine region notes, landscape, hospitality, and group reflections.",
     motif: "plaza",
-    image: "/assets/photos/eublog/blog6_2.jpg"
+    image: "/assets/photos/eublog/blog6_2.webp"
   },
   {
     city: "Barcelona",
@@ -131,7 +131,7 @@ const stops = [
     copy:
       "Faculty-led class meeting followed by a guided La Boqueria market visit with tastings. Placeholder for market sensory details, crowds, ingredients, and food as public life.",
     motif: "paella",
-    image: "/assets/photos/eublog/blog7_1.jpg"
+    image: "/assets/photos/eublog/blog7_1.webp"
   },
   {
     city: "Barcelona",
@@ -141,7 +141,7 @@ const stops = [
     copy:
       "Final class meeting, reflection time, and group farewell dinner in Barcelona. Placeholder for the emotional wrap-up, what students noticed, and what the course left behind.",
     motif: "notes",
-    image: "/assets/photos/eublog/blog7_2.jpg"
+    image: "/assets/photos/eublog/blog7_2.webp"
   },
   {
     city: "Barcelona",
@@ -151,7 +151,7 @@ const stops = [
     copy:
       "Check out and transfer to the airport at the most common departure time. Placeholder for departures, final impressions, and the aftertaste of the trip.",
     motif: "notes",
-    image: "/assets/photos/eublog/blog8_1.jpg"
+    image: "/assets/photos/eublog/blog8_1.webp"
   }
 ];
 

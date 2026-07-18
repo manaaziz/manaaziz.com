@@ -1,17 +1,17 @@
 const timelineItems = [
   {
-    image: "/assets/images/grad_pic.jpeg",
+    image: "/assets/images/grad_pic.webp",
     alt: "Mana Azizsoltani in graduation regalia holding a mathematics diploma",
     caption: "I finished a BS in mathematics and MS in statistics to become a data scientist..."
   },
   {
-    image: "/assets/images/phd_pic.jpg",
+    image: "/assets/images/phd_pic.webp",
     imageClass: "crop-left",
     alt: "Mana Azizsoltani speaking at UNLV commencement",
     caption: "... to later complete my PhD in hospitality and become a university professor..."
   },
   {
-    image: "/assets/images/consultant_pic.jpeg",
+    image: "/assets/images/consultant_pic.webp",
     alt: "Mana Azizsoltani in Macau near integrated resort properties",
     caption: "... to become a consultant and help casinos better leverage data and AI."
   }

@@ -37,12 +37,12 @@ export default function Home() {
       href: post.href,
       title: post.title,
       excerpt: post.excerpt,
-      image: post.previewImage || post.cover || seriesInfo?.cover || "/assets/images/phdblog-cover.jpg",
+      image: post.previewImage || post.cover || seriesInfo?.cover || "/assets/images/phdblog-cover.webp",
       imageAlt: "",
       dateLabel: post.date,
       label: "Read post",
       topic: post.seriesTitle || "The Manalogue",
-      seriesCover: seriesInfo?.cover || "/assets/images/phdblog-cover.jpg"
+      seriesCover: seriesInfo?.cover || "/assets/images/phdblog-cover.webp"
     };
   });
 
@@ -74,7 +74,7 @@ export default function Home() {
         </div>
 
         <div className="portrait-panel" aria-label="Portrait of Mana Azizsoltani">
-          <img className="home-portrait" src="/assets/images/mana_home_portrait_bw_cutout.png" alt="Mana Azizsoltani" />
+          <img className="home-portrait" src="/assets/images/mana_home_portrait_bw_cutout.webp" alt="Mana Azizsoltani" />
         </div>
 
         <a className="scroll-cue" href="#selected-areas">

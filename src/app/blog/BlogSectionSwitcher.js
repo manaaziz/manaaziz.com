@@ -209,7 +209,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
       title: "Summer School in Spain",
       excerpt: "A city-by-city FAB 333 study-abroad recap from Madrid, Valencia, and Barcelona.",
       href: "/blog/spain-2025/spain-recap",
-      image: "/assets/photos/fab333_reunion_group.jpg",
+      image: "/assets/photos/fab333_reunion_group.webp",
       action: "Read recap",
       size: "lead"
     },
@@ -218,7 +218,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
       title: "Europe 2023",
       excerpt: "A professional and personal archive from a multi-purpose European summer trip.",
       href: "/blog/europe-2023",
-      image: "/assets/images/EU23cover.jpg",
+      image: "/assets/images/EU23cover.webp",
       action: "Open archive",
       size: "standard"
     }
@@ -231,7 +231,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
       place: "Barcelona",
       preview: "A travel note from Barcelona and the return of an older thread in the Manalogue archive.",
       href: "/blog/europe-2023/Post8",
-      image: "/assets/photos/eublog/blog8_1.jpg",
+      image: "/assets/photos/eublog/blog8_1.webp",
       tile: "wide"
     },
     {
@@ -241,7 +241,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
       place: "Europe",
       preview: "Photos and field notes from the Europe 2023 archive.",
       href: "/blog/europe-2023/Post1",
-      image: "/assets/photos/eublog/blog1_2.jpg"
+      image: "/assets/photos/eublog/blog1_2.webp"
     },
     {
       title: "Blog 4 - Europe 2023",
@@ -250,7 +250,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
       place: "Europe",
       preview: "A visual entry from the European travel archive.",
       href: "/blog/europe-2023/Post4",
-      image: "/assets/photos/eublog/blog4_4.jpg",
+      image: "/assets/photos/eublog/blog4_4.webp",
       tile: "wide"
     },
     {
@@ -260,7 +260,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
       place: "Europe",
       preview: "Another photo-forward stop from the Europe 2023 posts.",
       href: "/blog/europe-2023/Post7",
-      image: "/assets/photos/eublog/blog7_3.jpg"
+      image: "/assets/photos/eublog/blog7_3.webp"
     },
     {
       title: "Betting and Digital Assets Conference",
@@ -269,7 +269,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
       place: "Belmont",
       preview: "Conference presentation moments from the betting, data, and analytics side of the work.",
       href: "/research",
-      image: "/assets/photos/mana_belmont_bdaic.jpeg",
+      image: "/assets/photos/mana_belmont_bdaic.webp",
       tile: "wide"
     },
     {
@@ -279,7 +279,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
       place: "Las Vegas",
       preview: "Presentation photos from research conversations around gaming, data, and hospitality analytics.",
       href: "/research",
-      image: "/assets/photos/mana_davis_umac.jpg"
+      image: "/assets/photos/mana_davis_umac.webp"
     },
     {
       title: "URJC Research Visit",
@@ -288,7 +288,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
       place: "Madrid",
       preview: "A research and teaching stop from the international side of the archive.",
       href: "/research",
-      image: "/assets/photos/urjc_mana.jpeg"
+      image: "/assets/photos/urjc_mana.webp"
     },
     {
       title: "UMAC Session",
@@ -297,7 +297,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
       place: "Las Vegas",
       preview: "More presentation-room texture for the gallery view.",
       href: "/research",
-      image: "/assets/photos/mana_umac.jpeg",
+      image: "/assets/photos/mana_umac.webp",
       tile: "wide"
     }
   ];
@@ -314,7 +314,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
               title: newsItem.title,
               excerpt: newsItem.description,
               href: newsItem.href,
-              image: "/assets/images/LVcover.png",
+              image: "/assets/images/LVcover.webp",
               action: "Read coverage",
               size: "lead",
               external: true
@@ -325,7 +325,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
           title: "Conference presentations and published work",
           excerpt: "A running archive of research questions, methods, papers, and presentation moments.",
           href: "/research",
-          image: "/assets/photos/ICGRT_2023.jpeg",
+          image: "/assets/photos/ICGRT_2023.webp",
           action: "Open research",
           size: "wide"
         },
@@ -334,7 +334,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
           title: "Course homes and classroom materials",
           excerpt: "Course pages, syllabi, learning objectives, assignments, grading structures, and teaching resources.",
           href: "/teaching",
-          image: "/assets/images/grad_pic.jpeg",
+          image: "/assets/images/grad_pic.webp",
           action: "Open teaching",
           size: "standard"
         },
@@ -355,7 +355,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
           title: "Archived travel writing lives in its own room",
           excerpt: "Older travel and doctoral-life posts are archived under Travel, not promoted as current homepage material.",
           href: "/blog/europe-2023",
-          image: "/assets/images/EU23cover.jpg",
+          image: "/assets/images/EU23cover.webp",
           action: "Open travel",
           size: "standard"
         }
@@ -372,7 +372,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
               title: newsItem.title,
               excerpt: newsItem.description,
               href: newsItem.href,
-              image: "/assets/images/LVcover.png",
+              image: "/assets/images/LVcover.webp",
               action: "Read coverage",
               size: "lead",
               external: true
@@ -383,7 +383,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
           title: "Applied analytics across gaming and hospitality",
           excerpt: "A consulting-oriented view of analytics work, operational questions, and business-facing data projects.",
           href: "/consulting",
-          image: "/assets/images/consultant_pic.jpeg",
+          image: "/assets/images/consultant_pic.webp",
           action: "Open consulting",
           size: "standard"
         }
@@ -400,7 +400,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
           excerpt:
             "A mosaic of journals, working papers, presentation archives, research questions, and the methods connecting them.",
           href: "/research",
-          image: "/assets/photos/ICGRT_2023.jpeg",
+          image: "/assets/photos/ICGRT_2023.webp",
           action: "Open research",
           size: "lead"
         })
@@ -417,7 +417,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
           excerpt:
             "A practical home for course pages, learning objectives, grading structures, schedules, materials, and the classroom systems behind them.",
           href: "/teaching",
-          image: "/assets/images/grad_pic.jpeg",
+          image: "/assets/images/grad_pic.webp",
           action: "Open teaching",
           size: "lead"
         }),
@@ -426,7 +426,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
           title: "Culture and Cuisine",
           excerpt: "A student-facing course home built around foodways, cultural context, assignments, and embedded course materials.",
           href: "/teaching/fab-333-culture-and-cuisine",
-          image: "/assets/images/barcapic.jpg",
+          image: "/assets/images/barcapic.webp",
           action: "Open course",
           size: "standard"
         })

@@ -111,7 +111,7 @@ const conferencePresentations = [
     date: "May 27, 2026",
     venue: "19th International Conference on Gambling & Risk Taking",
     location: "Las Vegas, Nevada",
-    logo: "/assets/photos/conf_gambling_risk_2026.jpeg",
+    logo: "/assets/photos/conf_gambling_risk_2026.webp",
     photo: true,
     tile: "wide",
     focus: "center 42%"
@@ -146,7 +146,7 @@ const conferencePresentations = [
     date: "October 6, 2025",
     venue: "26th ICRG Conference on Gambling and Addiction",
     location: "Las Vegas, Nevada",
-    logo: "/assets/photos/ICRG_2025.jpeg",
+    logo: "/assets/photos/ICRG_2025.webp",
     photo: true,
     tile: "wide",
     focus: "center 40%"
@@ -157,7 +157,7 @@ const conferencePresentations = [
     date: "October 2, 2025",
     venue: "Club de Convergentes",
     location: "Madrid, Spain",
-    logo: "/assets/photos/CEOE_2025.jpg",
+    logo: "/assets/photos/CEOE_2025.webp",
     photo: true,
     tile: "wide",
     focus: "center 38%"
@@ -168,7 +168,7 @@ const conferencePresentations = [
     date: "April 17, 2025",
     venue: "2025 GLI Regulator Roundtable",
     location: "Las Vegas, Nevada",
-    logo: "/assets/photos/gli_regulator_roundtable.JPG",
+    logo: "/assets/photos/gli_regulator_roundtable.webp",
     photo: true,
     tile: "wide",
     focus: "center 42%"
@@ -186,7 +186,7 @@ const conferencePresentations = [
     date: "November 4-7, 2024",
     venue: "EuroCHRIE Conference 2024",
     location: "Qatar",
-    logo: "/assets/photos/eurochrie_qatar.jpeg",
+    logo: "/assets/photos/eurochrie_qatar.webp",
     photo: true,
     tile: "wide",
     focus: "center 42%"
@@ -205,7 +205,7 @@ const conferencePresentations = [
     date: "October 6-7, 2024",
     venue: "25th ICRG Conference on Gambling and Addiction",
     location: "Las Vegas, Nevada",
-    logo: "/assets/photos/ICRG_2024.JPG",
+    logo: "/assets/photos/ICRG_2024.webp",
     photo: true,
     tile: "tall",
     focus: "center 38%"
@@ -216,7 +216,7 @@ const conferencePresentations = [
     date: "September 10-13, 2024",
     venue: "14th European Conference on Gambling Studies and Policy Issues",
     location: "Rome, Italy",
-    logo: "/assets/photos/EASG_2024.JPG",
+    logo: "/assets/photos/EASG_2024.webp",
     photo: true,
     tile: "tall",
     focus: "center 42%"
@@ -227,7 +227,7 @@ const conferencePresentations = [
     date: "May 23-24, 2024",
     venue: "Nevada Annual State Conference on Problem Gambling",
     location: "Nevada",
-    logo: "/assets/photos/nvcpg_2024.jpeg",
+    logo: "/assets/photos/nvcpg_2024.webp",
     photo: true,
     tile: "wide",
     focus: "center 40%"
@@ -238,7 +238,7 @@ const conferencePresentations = [
     date: "December 14, 2023",
     venue: "6th Annual RevME Hospitality Management and Analytics Conference",
     location: "Nashville, Tennessee",
-    logo: "/assets/photos/revme_nashville.JPG",
+    logo: "/assets/photos/revme_nashville.webp",
     photo: true,
     tile: "wide",
     focus: "center 43%"
@@ -249,7 +249,7 @@ const conferencePresentations = [
     date: "June 13, 2023",
     venue: "Webinar on Safer Gambling: Insights from Leading Researchers & Applicability",
     location: "Malta",
-    logo: "/assets/photos/sustainable_gambling_photo.jpeg",
+    logo: "/assets/photos/sustainable_gambling_photo.webp",
     photo: true,
     tile: "wide",
     showInMosaic: true,
@@ -261,7 +261,7 @@ const conferencePresentations = [
     date: "May 23-25, 2023",
     venue: "International Conference on Gambling & Risk Taking",
     location: "Las Vegas, Nevada",
-    logo: "/assets/photos/ICGRT_2023.jpeg",
+    logo: "/assets/photos/ICGRT_2023.webp",
     photo: true,
     tile: "wide",
     focus: "center 42%"
@@ -272,7 +272,7 @@ const conferencePresentations = [
     date: "April 15, 2023",
     venue: "Graduate & Professional Student Research Forum",
     location: "Las Vegas, Nevada",
-    logo: "/assets/photos/gradforum1.jpg",
+    logo: "/assets/photos/gradforum1.webp",
     photo: true,
     tile: "tall",
     focus: "center 38%"
@@ -283,7 +283,7 @@ const conferencePresentations = [
     date: "March 17, 2023",
     venue: "2023 Hawkes Learning Innovative Educators Summit",
     location: "Virtual",
-    logo: "/assets/photos/hawkes3-cropped.jpg",
+    logo: "/assets/photos/hawkes3-cropped.webp",
     photo: true,
     tile: "wide",
     fit: "contain",
@@ -295,7 +295,7 @@ const conferencePresentations = [
     date: "February 18-19, 2023",
     venue: "2023 West Federation of Council on Hotel, Restaurant, and Institutional Education",
     location: "Las Vegas, Nevada",
-    logo: "/assets/photos/wfchrie_2023.jpeg",
+    logo: "/assets/photos/wfchrie_2023.webp",
     photo: true,
     focus: "center 26%"
   }

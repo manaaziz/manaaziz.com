@@ -10,7 +10,7 @@ export const seriesConfig = {
     legacyBase: "phdblog",
     title: "Becoming Dr. Mana",
     description: "A graduate-school archive about doctoral work, research identity, academic pressure, and the life I tried to keep building around the PhD.",
-    cover: "/assets/images/phdblog-cover.jpg",
+    cover: "/assets/images/phdblog-cover.webp",
     tags: ["Academic Life", "Research", "Doctoral Archive"],
     startingPointLabel: "First volume",
     archived: true
@@ -20,7 +20,7 @@ export const seriesConfig = {
     legacyBase: "EUblog",
     title: "Europe 2023",
     description: "A travel and professional archive from a European summer that moved between universities, conferences, cities, friends, and field notes.",
-    cover: "/assets/images/EU23cover.jpg",
+    cover: "/assets/images/EU23cover.webp",
     tags: ["Travel", "Europe", "Field Notes"],
     startingPointLabel: "First dispatch"
   },
@@ -29,7 +29,7 @@ export const seriesConfig = {
     legacyBase: "bcnblog",
     title: "Americanito in Barcelona",
     description: "A personal week-by-week archive from life abroad in Spain.",
-    cover: "/assets/images/barcapic.jpg",
+    cover: "/assets/images/barcapic.webp",
     tags: ["Travel", "Barcelona", "Personal Archive"],
     startingPointLabel: "First week",
     archived: true
@@ -39,7 +39,7 @@ export const seriesConfig = {
     legacyBase: "blog/spain-2025",
     title: "Spain 2025",
     description: "A study-abroad course archive for FAB 333 in Spain, built around daily movement through Madrid, Valencia, and Barcelona.",
-    cover: "/assets/photos/fab333_reunion_group.jpg",
+    cover: "/assets/photos/fab333_reunion_group.webp",
     tags: ["Travel", "Teaching", "FAB 333"],
     startingPointLabel: "Course route",
     standalone: true
@@ -49,7 +49,7 @@ export const seriesConfig = {
     legacyBase: "blog/consulting",
     title: "Analysis",
     description: "Short essays on casino analytics, AI, marketing, personalization, and the operator-facing questions behind consulting work.",
-    cover: "/assets/images/consultant_pic.jpeg",
+    cover: "/assets/images/consultant_pic.webp",
     tags: ["Analytics", "Casino Marketing"],
     startingPointLabel: "First note"
   },
@@ -58,7 +58,7 @@ export const seriesConfig = {
     legacyBase: "blog/teaching",
     title: "Teaching Notes",
     description: "Reflections on courses, classrooms, student engagement, hospitality education, and the moments that make teaching feel alive.",
-    cover: "/assets/photos/fab333_2026_2.jpeg",
+    cover: "/assets/photos/fab333_2026_2.webp",
     tags: ["Teaching", "Hospitality Education", "FAB 333"],
     startingPointLabel: "First reflection",
     standalone: true

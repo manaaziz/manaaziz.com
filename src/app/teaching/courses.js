@@ -24,25 +24,25 @@ export const courses = [
       {
         label: "FAB 333 reunion",
         note: "A group moment connected to the broader FAB 333 travel and cuisine archive.",
-        src: "/assets/photos/fab333_reunion_group.jpg",
+        src: "/assets/photos/fab333_reunion_group.webp",
         alt: "FAB 333 reunion group photo"
       },
       {
         label: "Spain connection",
         note: "A travel and culture memory tied to the study-abroad version of FAB 333.",
-        src: "/assets/photos/fab333_reunion_manaflag.jpeg",
+        src: "/assets/photos/fab333_reunion_manaflag.webp",
         alt: "Mana with a flag during a FAB 333 reunion moment"
       },
       {
         label: "Course community",
         note: "Personal and student-facing moments from the FAB 333 extended classroom.",
-        src: "/assets/photos/fab333_reunion_mark.jpg",
+        src: "/assets/photos/fab333_reunion_mark.webp",
         alt: "FAB 333 reunion photo"
       },
       {
         label: "UNLV abroad",
         note: "A study-abroad visual archive for the Spain-focused FAB 333 course home.",
-        src: "/assets/photos/fab333_reunion_unlvflag.jpeg",
+        src: "/assets/photos/fab333_reunion_unlvflag.webp",
         alt: "UNLV flag photo connected to FAB 333 Summer Studies in Spain"
       }
     ],
@@ -330,19 +330,19 @@ export const courses = [
       {
         label: "Culture and Cuisine",
         note: "A Spring 2026 classroom moment from FAB 333.",
-        src: "/assets/photos/fab333_2026_2.jpeg",
+        src: "/assets/photos/fab333_2026_2.webp",
         alt: "FAB 333 Culture and Cuisine classroom moment"
       },
       {
         label: "Tea and tasting",
         note: "A tasting-centered class moment from Culture and Cuisine.",
-        src: "/assets/photos/fab333_2026_tea.jpeg",
+        src: "/assets/photos/fab333_2026_tea.webp",
         alt: "FAB 333 Culture and Cuisine tea tasting moment"
       },
       {
         label: "Paella",
         note: "A cuisine-focused class moment connected to Spanish foodways and shared meals.",
-        src: "/assets/photos/fab333_paella.jpeg",
+        src: "/assets/photos/fab333_paella.webp",
         alt: "Paella prepared for FAB 333 Culture and Cuisine"
       }
     ],

@@ -14,14 +14,14 @@ export default function MediaPage() {
       const seriesInfo = series.find((item) => item.seriesSlug === post.seriesSlug);
       return {
         ...post,
-        seriesCover: seriesInfo?.cover || "/assets/images/phdblog-cover.jpg"
+        seriesCover: seriesInfo?.cover || "/assets/images/phdblog-cover.webp"
       };
     });
   const recentPosts = getRecentPosts(12).map((post) => {
     const seriesInfo = series.find((item) => item.seriesSlug === post.seriesSlug);
     return {
       ...post,
-      seriesCover: seriesInfo?.cover || "/assets/images/phdblog-cover.jpg"
+      seriesCover: seriesInfo?.cover || "/assets/images/phdblog-cover.webp"
     };
   });
   return (

@@ -99,12 +99,12 @@ export default function ConsultingPage() {
       const seriesInfo = series.find((item) => item.seriesSlug === post.seriesSlug);
       return {
         ...post,
-        image: post.previewImage || post.cover || seriesInfo?.cover || "/assets/images/phdblog-cover.jpg",
+        image: post.previewImage || post.cover || seriesInfo?.cover || "/assets/images/phdblog-cover.webp",
         imageAlt: "",
         dateLabel: post.date,
         label: "Read post",
         topic: post.seriesTitle || "The Manalogue",
-        seriesCover: seriesInfo?.cover || "/assets/images/phdblog-cover.jpg"
+        seriesCover: seriesInfo?.cover || "/assets/images/phdblog-cover.webp"
       };
     });
   const consultingWriting = writingPosts.filter((post) => post.tags.some((tag) => tag.toLowerCase() === "consulting"));
