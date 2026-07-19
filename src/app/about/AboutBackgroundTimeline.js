@@ -33,7 +33,9 @@ export default function AboutBackgroundTimeline() {
         </div>
 
         <div className="timeline-arrow" aria-hidden="true">
-          <span />
+          <svg className="timeline-arrow-piece" viewBox="0 0 1000 64" preserveAspectRatio="none" focusable="false">
+            <polygon points="0,22 970,22 970,7 1000,32 970,57 970,42 0,42" />
+          </svg>
         </div>
 
         <div className="timeline-captions">
