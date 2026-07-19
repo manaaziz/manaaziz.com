@@ -59,6 +59,7 @@ const clients = [
   { name: "WDTS", logo: "/assets/logos/wdts_logo.png" },
   { name: "AXES", logo: "/assets/logos/axes_logo.png" },
   { name: "Bally's", logo: "/assets/logos/ballys_corporation_logo.svg" },
+  { name: "IGT Italia", logo: "/assets/logos/igt_italia_logo.png" },
   { name: "GMA Consulting", logo: "/assets/logos/gma_logo.png.webp" }
 ];
 

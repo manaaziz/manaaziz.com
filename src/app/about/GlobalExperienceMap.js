@@ -200,7 +200,7 @@ const collaborations = [
       card({
         name: "Breda University of Applied Sciences",
         type: "Teaching",
-        blurb: "I visited as an invited guest connected to hospitality, tourism, gaming, and applied research conversations.",
+        blurb: "I was an invited guest at BUAS, where I had conversations about applied research and gave lectures to undergraduate data science students.",
         href: "https://pure.buas.nl/en/activities/mana-azizsoltani/",
         logo: "/assets/logos/buas_logo.png"
       })
@@ -217,6 +217,13 @@ const collaborations = [
         blurb: "I presented work on MG-CFA measurement invariance for the PGSI in Rome.",
         href: "/research",
         logo: "/assets/logos/easg_rome_logo.png"
+      }),
+      card({
+        name: "IGT Italia",
+        type: "Research",
+        blurb: "I was on a panel hosted by the IGT Italia team discussing research in the responsible gambling space.",
+        logo: "/assets/logos/igt_italia_logo.png",
+        hideCaseNote: true
       })
     ]
   },
@@ -242,14 +249,15 @@ const collaborations = [
       card({
         name: "Department of Trust",
         type: "Research",
-        blurb: "I explored trust, compliance, and gaming-related analytics questions.",
+        blurb: "I worked on various research projects in conjunction with DoT on open banking and gambling affordability.",
         logo: "/assets/logos/department_trust_logo.jpeg"
       }),
       card({
         name: "Wynn Mayfair",
         type: "Consulting",
-        blurb: "I tracked international luxury hospitality and gaming market context.",
-        logo: "/assets/logos/wynn_mayfair_logo.png"
+        blurb: "I worked on understanding the database and cross marketing with other properties in the company portfolio.",
+        logo: "/assets/logos/wynn_mayfair_logo.png",
+        hideCaseNote: true
       })
     ]
   },
@@ -261,7 +269,7 @@ const collaborations = [
       card({
         name: "Wynn Al Marjan Island",
         type: "Consulting",
-        blurb: "I followed emerging integrated resort strategy in a new gaming market.",
+        blurb: "I worked on the marketing and loyalty programs for the Wynn RAK property.",
         logo: "/assets/logos/wynn_al_marjan_logo.png"
       })
     ]
@@ -328,7 +336,7 @@ const collaborations = [
       card({
         name: "Hoiana",
         type: "Consulting",
-        blurb: "I reviewed integrated resort and casino hospitality context in Southeast Asia.",
+        blurb: "I trained analysts to use behavioral tracking data and advised management on how to translate those insights into operational strategy.",
         logo: "/assets/logos/hoiana_logo.png"
       })
     ]
@@ -961,6 +969,9 @@ export default function GlobalExperienceMap() {
   const [mapMode, setMapMode] = useState("regions");
   const [activeGlobalRegionId, setActiveGlobalRegionId] = useState("north-america");
   const [activeStateId, setActiveStateId] = useState("nevada");
+  const [previewGlobalRegionId, setPreviewGlobalRegionId] = useState(null);
+  const [previewCountryId, setPreviewCountryId] = useState(null);
+  const [previewStateId, setPreviewStateId] = useState(null);
   const [selectedWorkIndex, setSelectedWorkIndex] = useState(null);
   const collaborationById = useMemo(
     () => new Map(collaborations.map((item) => [item.id, item])),
@@ -974,8 +985,11 @@ export default function GlobalExperienceMap() {
     () => new Map(usStates.map((item) => [item.id, item])),
     []
   );
-  const activeGlobalRegion = globalRegionById.get(activeGlobalRegionId) || globalRegions[0];
-  const activeCountry = collaborationById.get(activeId);
+  const displayedGlobalRegionId = previewGlobalRegionId || activeGlobalRegionId;
+  const displayedCountryId = previewCountryId || activeId;
+  const displayedStateId = previewStateId || activeStateId;
+  const activeGlobalRegion = globalRegionById.get(displayedGlobalRegionId) || globalRegions[0];
+  const activeCountry = collaborationById.get(displayedCountryId);
   const activeRegionCountries = activeGlobalRegion.countries
     .map((countryId) => collaborationById.get(countryId))
     .filter(Boolean);
@@ -992,22 +1006,22 @@ export default function GlobalExperienceMap() {
     }))
   };
   const active = mapMode === "us"
-    ? stateById.get(activeStateId) || usStates[0]
+    ? stateById.get(displayedStateId) || usStates[0]
     : mapMode === "regions" || !activeCountry
       ? activeRegionOverview
       : activeCountry;
   const activeCountryFloatPosition = activeCountry
     ? countryFloatPositions[activeCountry.id] || { left: "50%", top: "50%" }
     : null;
-  const selectedWork = selectedWorkIndex === null ? null : active.work[selectedWorkIndex] || null;
+  const hasPreview = Boolean(previewGlobalRegionId || previewCountryId || previewStateId);
+  const selectedWork = hasPreview || selectedWorkIndex === null ? null : active.work[selectedWorkIndex] || null;
 
-  function activateCountry(locationId) {
+  function previewCountry(locationId) {
     const collaboration = collaborationById.get(locationId);
     if (!collaboration) return;
 
-    setActiveId(locationId);
-    setActiveGlobalRegionId(regionByCountry.get(locationId) || activeGlobalRegionId);
-    setSelectedWorkIndex(null);
+    setPreviewCountryId(locationId);
+    setPreviewGlobalRegionId(regionByCountry.get(locationId) || activeGlobalRegionId);
   }
 
   function openCountry(locationId) {
@@ -1016,6 +1030,9 @@ export default function GlobalExperienceMap() {
 
     setActiveId(locationId);
     setActiveGlobalRegionId(regionByCountry.get(locationId) || activeGlobalRegionId);
+    setPreviewCountryId(null);
+    setPreviewGlobalRegionId(null);
+    setPreviewStateId(null);
     setSelectedWorkIndex(null);
     if (collaboration.drilldown) {
       setMapMode("us");
@@ -1025,15 +1042,12 @@ export default function GlobalExperienceMap() {
     }
   }
 
-  function activateGlobalRegion(regionId) {
+  function previewGlobalRegion(regionId) {
     const region = globalRegionById.get(regionId);
     if (!region) return;
 
-    setActiveGlobalRegionId(regionId);
-    setSelectedWorkIndex(null);
-    if (region.defaultCountry) {
-      setActiveId(region.defaultCountry);
-    }
+    setPreviewGlobalRegionId(regionId);
+    setPreviewCountryId(region.defaultCountry || null);
   }
 
   function openGlobalRegion(regionId) {
@@ -1041,6 +1055,9 @@ export default function GlobalExperienceMap() {
     if (!region) return;
 
     setActiveGlobalRegionId(regionId);
+    setPreviewGlobalRegionId(null);
+    setPreviewCountryId(null);
+    setPreviewStateId(null);
     setSelectedWorkIndex(null);
     setActiveId("");
     setMapMode("region");
@@ -1059,6 +1076,9 @@ export default function GlobalExperienceMap() {
     setMapMode("region");
     setActiveGlobalRegionId("north-america");
     setActiveId("us");
+    setPreviewGlobalRegionId(null);
+    setPreviewCountryId(null);
+    setPreviewStateId(null);
     setSelectedWorkIndex(null);
   }
 
@@ -1079,7 +1099,13 @@ export default function GlobalExperienceMap() {
                 </button>
                 <span>United States detail</span>
               </div>
-              <svg className="us-region-map" viewBox="0 0 975 610" role="img" aria-labelledby="us-region-title">
+              <svg
+                className="us-region-map"
+                viewBox="0 0 975 610"
+                role="img"
+                aria-labelledby="us-region-title"
+                onMouseLeave={() => setPreviewStateId(null)}
+              >
                 <title id="us-region-title">United States regions with related clients, projects, and operators</title>
                 <g className="us-state-layer">
                   {usStateFeatures.map((state) => {
@@ -1091,7 +1117,7 @@ export default function GlobalExperienceMap() {
                         aria-label={stateWork ? `${state.properties.name}: ${stateWork.label}` : state.properties.name}
                         className={stateWork ? "us-state is-highlighted" : "us-state"}
                         d={usPath(state)}
-                        data-active={stateId && activeStateId === stateId ? "true" : "false"}
+                        data-active={stateId && displayedStateId === stateId ? "true" : "false"}
                         key={state.properties.name}
                         onClick={() => {
                           if (!stateId) return;
@@ -1105,8 +1131,7 @@ export default function GlobalExperienceMap() {
                         }}
                         onMouseEnter={() => {
                           if (!stateId) return;
-                          setActiveStateId(stateId);
-                          setSelectedWorkIndex(null);
+                          setPreviewStateId(stateId);
                         }}
                         role={stateWork ? "button" : "presentation"}
                         tabIndex={stateWork ? 0 : -1}
@@ -1131,21 +1156,28 @@ export default function GlobalExperienceMap() {
                 <span>{mapMode === "region" ? activeGlobalRegion.label : "Global view"}</span>
               </div>
               {mapMode === "regions" ? (
-                <div className="region-overview-map" aria-label="Choose a global region">
+                <div
+                  className="region-overview-map"
+                  aria-label="Choose a global region"
+                  onMouseLeave={() => {
+                    setPreviewGlobalRegionId(null);
+                    setPreviewCountryId(null);
+                  }}
+                >
                   <svg className="world-map region-base-map" viewBox={worldMap.viewBox} aria-hidden="true">
                     {worldMap.locations.map((location) => (
-                      <path className="map-country" d={location.path} key={location.id} />
+                      <path className="map-country" d={location.path} focusable="false" key={location.id} />
                     ))}
                   </svg>
                   <div className="region-hotspots">
                     {globalRegions.map((region) => (
                       <button
                         aria-label={`Open ${region.label}: ${region.summary}`}
-                        className={activeGlobalRegionId === region.id ? "region-hotspot is-active" : "region-hotspot"}
+                        className={displayedGlobalRegionId === region.id ? "region-hotspot is-active" : "region-hotspot"}
                         key={region.id}
                         onClick={() => openGlobalRegion(region.id)}
-                        onFocus={() => activateGlobalRegion(region.id)}
-                        onMouseEnter={() => activateGlobalRegion(region.id)}
+                        onFocus={() => previewGlobalRegion(region.id)}
+                        onMouseEnter={() => previewGlobalRegion(region.id)}
                         style={{
                           "--x": region.position.left,
                           "--y": region.position.top
@@ -1159,14 +1191,20 @@ export default function GlobalExperienceMap() {
                   </div>
                 </div>
               ) : (
-                <div className="country-map-stage">
+                <div
+                  className="country-map-stage"
+                  onMouseLeave={() => {
+                    setPreviewGlobalRegionId(null);
+                    setPreviewCountryId(null);
+                  }}
+                >
                   <svg className="world-map region-country-map" viewBox={activeGlobalRegion.viewBox || worldMap.viewBox} role="img" aria-labelledby="world-map-title">
                     <title id="world-map-title">{`${activeGlobalRegion.label} countries where Mana has worked or collaborated`}</title>
                     {worldMap.locations
                       .filter((location) => activeRegionMapCountryIds.has(location.id))
                       .map((location) => {
                         const collaboration = collaborationById.get(location.id);
-                        const isActiveCountry = activeId === location.id;
+                        const isActiveCountry = displayedCountryId === location.id;
 
                         return (
                           <path
@@ -1176,16 +1214,17 @@ export default function GlobalExperienceMap() {
                               collaboration ? "is-highlighted" : "is-region-context"
                             ].filter(Boolean).join(" ")}
                             d={location.path}
+                            focusable={collaboration ? "true" : "false"}
                             key={location.id}
                             onClick={() => collaboration && openCountry(location.id)}
-                            onFocus={() => collaboration && activateCountry(location.id)}
+                            onFocus={() => collaboration && previewCountry(location.id)}
                             onKeyDown={(event) => {
                               if ((event.key === "Enter" || event.key === " ") && collaboration) {
                                 event.preventDefault();
                                 openCountry(location.id);
                               }
                             }}
-                            onMouseEnter={() => collaboration && activateCountry(location.id)}
+                            onMouseEnter={() => collaboration && previewCountry(location.id)}
                             role={collaboration ? "button" : "presentation"}
                             tabIndex={collaboration ? 0 : -1}
                             data-active={isActiveCountry ? "true" : "false"}
@@ -1231,7 +1270,7 @@ export default function GlobalExperienceMap() {
                   </button>
                   <div className="collaboration-detail-logo" aria-label={selectedWork.name}>
                     {selectedWork.logo ? (
-                      <img src={selectedWork.logo} alt="" />
+                      <img src={selectedWork.logo} alt="" loading="lazy" decoding="async" />
                     ) : (
                       <span>{selectedWork.name}</span>
                     )}
@@ -1265,7 +1304,7 @@ export default function GlobalExperienceMap() {
                       </span>
                       <span className="collaboration-tile-logo" aria-hidden="true">
                         {item.logo ? (
-                          <img src={item.logo} alt="" />
+                          <img src={item.logo} alt="" loading="lazy" decoding="async" />
                         ) : item.countryId ? (
                           <AnimatedFlag countryId={item.countryId} label={item.name} />
                         ) : (
