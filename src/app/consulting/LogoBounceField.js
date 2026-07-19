@@ -178,7 +178,7 @@ export default function LogoBounceField({ clients }) {
           }}
         >
           <div className="consulting-client-logo" aria-label={client.name}>
-            {client.logo ? <img src={client.logo} alt="" /> : <strong>{client.name}</strong>}
+            {client.logo ? <img src={client.logo} alt="" loading="lazy" decoding="async" /> : <strong>{client.name}</strong>}
           </div>
         </article>
       ))}

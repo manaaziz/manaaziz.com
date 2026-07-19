@@ -142,11 +142,27 @@ function makeExcerpt(content) {
   return `${text.slice(0, 177).trim()}...`;
 }
 
+function addLazyImageHints(content) {
+  return content.replace(/<img\b[^>]*>/gi, (tag) => {
+    let nextTag = tag;
+
+    if (!/\sloading\s*=/.test(nextTag)) {
+      nextTag = nextTag.replace(/<img\b/i, '<img loading="lazy"');
+    }
+
+    if (!/\sdecoding\s*=/.test(nextTag)) {
+      nextTag = nextTag.replace(/<img\b/i, '<img decoding="async"');
+    }
+
+    return nextTag;
+  });
+}
+
 function normalizeBody(body) {
-  return body
+  return addLazyImageHints(body
     .replace(/className=/g, "class=")
     .replace(/\/>/g, ">")
-    .trim();
+    .trim());
 }
 
 function getHeadings(contentHtml) {

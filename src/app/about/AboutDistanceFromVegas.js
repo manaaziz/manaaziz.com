@@ -194,7 +194,7 @@ function DistanceSearchFallback() {
           ))}
         </svg>
         <span className="distance-search-vegas-dot" />
-        <img src={lasVegasSearchingAvatarSrc} alt="" decoding="async" draggable={false} />
+        <img src={lasVegasSearchingAvatarSrc} alt="" loading="lazy" decoding="async" draggable={false} />
       </div>
     </div>
   );
