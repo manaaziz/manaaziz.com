@@ -54,7 +54,7 @@ const clients = [
   { name: "Resorts World Las Vegas", logo: "/assets/logos/resorts_world_LV_logo_transparent.png" },
   { name: "Resorts World Sentosa", logo: "/assets/logos/resorts_world_singapore_logo_transparent.png" },
   { name: "Casino Miami", logo: "/assets/logos/casino_miami_logo.png" },
-  { name: "Gilley's Kansas City", logo: "/assets/logos/gilleys_logo_transparent.png" },
+  { name: "Gilley's Park City", logo: "/assets/logos/gilleys_logo_transparent.png" },
   { name: "Oakmont", logo: "/assets/logos/oakmont_logo_transparent.png" },
   { name: "WDTS", logo: "/assets/logos/wdts_logo.png" },
   { name: "AXES", logo: "/assets/logos/axes_logo.png" },

@@ -4129,6 +4129,11 @@ h3 {
   isolation: isolate;
 }
 
+.distance-mapbox-canvas.mapboxgl-map {
+  overflow: hidden;
+  font: 12px/20px sans-serif;
+}
+
 .distance-mapbox-canvas,
 .distance-mapbox-canvas .mapboxgl-canvas-container,
 .distance-mapbox-canvas .mapboxgl-canvas {
@@ -4136,6 +4141,22 @@ h3 {
   inset: 0;
   width: 100% !important;
   height: 100% !important;
+}
+
+.distance-mapbox-canvas .mapboxgl-canvas {
+  left: 0;
+  top: 0;
+}
+
+.distance-mapbox-canvas .mapboxgl-canvas-container {
+  user-select: none;
+}
+
+.distance-mapbox-canvas .mapboxgl-marker {
+  position: absolute;
+  left: 0;
+  top: 0;
+  will-change: transform;
 }
 
 .distance-mapbox-canvas .mapboxgl-ctrl,

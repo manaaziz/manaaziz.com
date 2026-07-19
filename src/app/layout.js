@@ -1,5 +1,4 @@
 import "./globals.css";
-import "mapbox-gl/dist/mapbox-gl.css";
 import Link from "next/link";
 import SiteLogo from "@/components/SiteLogo";
 

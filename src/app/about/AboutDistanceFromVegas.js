@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import mapboxgl from "mapbox-gl";
 import worldMap from "@svg-maps/world";
 
 const mapboxToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
@@ -284,195 +283,218 @@ export default function AboutDistanceFromVegas() {
 
     if (!mapboxToken || !mapNodeRef.current || (!visitorLocation && !showHomeFallback)) return undefined;
 
-    mapboxgl.accessToken = mapboxToken;
+    let isCancelled = false;
+    let map = null;
+    let mapLoadFallbackTimeout = null;
 
-    const hasVisitorLocation = Boolean(visitorLocation);
-    const visitorCenter = hasVisitorLocation ? [visitorLocation.longitude, visitorLocation.latitude] : null;
-    const vegasCenter = [lasVegas.longitude, lasVegas.latitude];
-    const overviewCenter = hasVisitorLocation ? midpoint(visitorLocation, lasVegas) : vegasCenter;
-    const finalZoom = hasVisitorLocation ? overviewZoomForDistance(haversineKilometers(visitorLocation, lasVegas)) : 1.35;
-    const fullRoute = hasVisitorLocation ? routeCoordinates(visitorLocation, lasVegas) : [];
+    async function initializeMap() {
+      let mapboxgl;
+      try {
+        ({ default: mapboxgl } = await import("mapbox-gl"));
+      } catch {
+        if (!isCancelled) setMapStatus("error");
+        return;
+      }
 
-    const map = new mapboxgl.Map({
-      center: hasVisitorLocation ? visitorCenter : vegasCenter,
-      container: mapNodeRef.current,
-      dragPan: false,
-      interactive: false,
-      pitch: hasVisitorLocation ? 58 : 0,
-      projection: "globe",
-      scrollZoom: false,
-      style: "mapbox://styles/mapbox/dark-v11",
-      zoom: hasVisitorLocation ? 10.8 : finalZoom
-    });
+      if (isCancelled || !mapNodeRef.current) return;
 
-    mapRef.current = map;
+      mapboxgl.accessToken = mapboxToken;
 
-    const mapLoadFallbackTimeout = window.setTimeout(() => {
-      setMapStatus((currentStatus) => currentStatus === "loading" ? "error" : currentStatus);
-    }, 8500);
+      const hasVisitorLocation = Boolean(visitorLocation);
+      const visitorCenter = hasVisitorLocation ? [visitorLocation.longitude, visitorLocation.latitude] : null;
+      const vegasCenter = [lasVegas.longitude, lasVegas.latitude];
+      const overviewCenter = hasVisitorLocation ? midpoint(visitorLocation, lasVegas) : vegasCenter;
+      const finalZoom = hasVisitorLocation ? overviewZoomForDistance(haversineKilometers(visitorLocation, lasVegas)) : 1.35;
+      const fullRoute = hasVisitorLocation ? routeCoordinates(visitorLocation, lasVegas) : [];
 
-    map.on("style.load", () => {
-      map.setFog({
-        color: "rgb(17, 24, 32)",
-        "high-color": "rgb(62, 80, 101)",
-        "horizon-blend": 0.08,
-        "space-color": "rgb(10, 13, 17)",
-        "star-intensity": 0.18
+      map = new mapboxgl.Map({
+        center: hasVisitorLocation ? visitorCenter : vegasCenter,
+        container: mapNodeRef.current,
+        dragPan: false,
+        interactive: false,
+        pitch: hasVisitorLocation ? 58 : 0,
+        projection: "globe",
+        scrollZoom: false,
+        style: "mapbox://styles/mapbox/dark-v11",
+        zoom: hasVisitorLocation ? 10.8 : finalZoom
       });
-    });
 
-    map.on("load", () => {
-      window.clearTimeout(mapLoadFallbackTimeout);
-      setMapStatus("ready");
+      mapRef.current = map;
 
-      const vegasMarker = new mapboxgl.Marker({
-        anchor: "bottom",
-        element: makeMarker({
-          className: hasVisitorLocation ? "distance-map-marker vegas avatar" : "distance-map-marker vegas avatar searching",
-          imageSrc: hasVisitorLocation ? lasVegasAvatarSrc : lasVegasSearchingAvatarSrc
+      mapLoadFallbackTimeout = window.setTimeout(() => {
+        setMapStatus((currentStatus) => currentStatus === "loading" ? "error" : currentStatus);
+      }, 8500);
+
+      map.on("style.load", () => {
+        map.setFog({
+          color: "rgb(17, 24, 32)",
+          "high-color": "rgb(62, 80, 101)",
+          "horizon-blend": 0.08,
+          "space-color": "rgb(10, 13, 17)",
+          "star-intensity": 0.18
+        });
+      });
+
+      map.on("load", () => {
+        window.clearTimeout(mapLoadFallbackTimeout);
+        setMapStatus("ready");
+
+        const vegasMarker = new mapboxgl.Marker({
+          anchor: "bottom",
+          element: makeMarker({
+            className: hasVisitorLocation ? "distance-map-marker vegas avatar" : "distance-map-marker vegas avatar searching",
+            imageSrc: hasVisitorLocation ? lasVegasAvatarSrc : lasVegasSearchingAvatarSrc
+          })
         })
-      })
-        .setLngLat(vegasCenter);
+          .setLngLat(vegasCenter);
 
-      if (!hasVisitorLocation) {
-        vegasMarker.addTo(map);
+        if (!hasVisitorLocation) {
+          vegasMarker.addTo(map);
+
+          map.once("remove", () => {
+            vegasMarker.remove();
+          });
+
+          return;
+        }
+
+        map.addSource("mana-route", {
+          type: "geojson",
+          data: emptyRoute()
+        });
+
+        map.addSource("visitor-point", {
+          type: "geojson",
+          data: pointFeature(visitorCenter)
+        });
+
+        map.addLayer({
+          id: "visitor-point-halo",
+          type: "circle",
+          source: "visitor-point",
+          paint: {
+            "circle-color": "#fffaf1",
+            "circle-opacity": 0.16,
+            "circle-radius": 18,
+            "circle-stroke-color": "rgba(255, 250, 241, 0.22)",
+            "circle-stroke-width": 2
+          }
+        });
+
+        map.addLayer({
+          id: "visitor-point-dot",
+          type: "circle",
+          source: "visitor-point",
+          paint: {
+            "circle-color": "#5f6b78",
+            "circle-radius": 11,
+            "circle-stroke-color": "#fffaf1",
+            "circle-stroke-width": 2
+          }
+        });
+
+        map.addLayer({
+          id: "visitor-point-label",
+          type: "symbol",
+          source: "visitor-point",
+          layout: {
+            "text-field": "YOU",
+            "text-font": ["Open Sans Bold", "Arial Unicode MS Bold"],
+            "text-size": 9
+          },
+          paint: {
+            "text-color": "#fffaf1"
+          }
+        });
+
+        map.addLayer({
+          id: "mana-route-glow",
+          type: "line",
+          source: "mana-route",
+          layout: {
+            "line-cap": "round",
+            "line-join": "round"
+          },
+          paint: {
+            "line-blur": 4,
+            "line-color": "#fffaf1",
+            "line-opacity": 0.28,
+            "line-width": 7
+          }
+        });
+
+        map.addLayer({
+          id: "mana-route-line",
+          type: "line",
+          source: "mana-route",
+          layout: {
+            "line-cap": "round",
+            "line-join": "round"
+          },
+          paint: {
+            "line-color": "#fffaf1",
+            "line-dasharray": [0.3, 1.4],
+            "line-opacity": 0.9,
+            "line-width": 3
+          }
+        });
+
+        timeoutRefs.current.push(window.setTimeout(() => {
+          map.flyTo({
+            bearing: -8,
+            center: overviewCenter,
+            curve: 1.45,
+            duration: 4800,
+            essential: true,
+            pitch: 0,
+            zoom: finalZoom
+          });
+        }, 650));
+
+        timeoutRefs.current.push(window.setTimeout(() => {
+          vegasMarker.addTo(map);
+          const source = map.getSource("mana-route");
+          const startTime = performance.now();
+          const duration = 1900;
+
+          function drawRoute(now) {
+            const progress = Math.min((now - startTime) / duration, 1);
+            const count = Math.max(2, Math.ceil(progress * fullRoute.length));
+            source.setData(routeFeature(fullRoute.slice(0, count)));
+
+            if (progress < 1) {
+              frameRef.current = window.requestAnimationFrame(drawRoute);
+            }
+          }
+
+          frameRef.current = window.requestAnimationFrame(drawRoute);
+        }, 5250));
 
         map.once("remove", () => {
           vegasMarker.remove();
         });
-
-        return;
-      }
-
-      map.addSource("mana-route", {
-        type: "geojson",
-        data: emptyRoute()
       });
 
-      map.addSource("visitor-point", {
-        type: "geojson",
-        data: pointFeature(visitorCenter)
+      map.on("error", () => {
+        setMapStatus("error");
       });
+    }
 
-      map.addLayer({
-        id: "visitor-point-halo",
-        type: "circle",
-        source: "visitor-point",
-        paint: {
-          "circle-color": "#fffaf1",
-          "circle-opacity": 0.16,
-          "circle-radius": 18,
-          "circle-stroke-color": "rgba(255, 250, 241, 0.22)",
-          "circle-stroke-width": 2
-        }
-      });
-
-      map.addLayer({
-        id: "visitor-point-dot",
-        type: "circle",
-        source: "visitor-point",
-        paint: {
-          "circle-color": "#5f6b78",
-          "circle-radius": 11,
-          "circle-stroke-color": "#fffaf1",
-          "circle-stroke-width": 2
-        }
-      });
-
-      map.addLayer({
-        id: "visitor-point-label",
-        type: "symbol",
-        source: "visitor-point",
-        layout: {
-          "text-field": "YOU",
-          "text-font": ["Open Sans Bold", "Arial Unicode MS Bold"],
-          "text-size": 9
-        },
-        paint: {
-          "text-color": "#fffaf1"
-        }
-      });
-
-      map.addLayer({
-        id: "mana-route-glow",
-        type: "line",
-        source: "mana-route",
-        layout: {
-          "line-cap": "round",
-          "line-join": "round"
-        },
-        paint: {
-          "line-blur": 4,
-          "line-color": "#fffaf1",
-          "line-opacity": 0.28,
-          "line-width": 7
-        }
-      });
-
-      map.addLayer({
-        id: "mana-route-line",
-        type: "line",
-        source: "mana-route",
-        layout: {
-          "line-cap": "round",
-          "line-join": "round"
-        },
-        paint: {
-          "line-color": "#fffaf1",
-          "line-dasharray": [0.3, 1.4],
-          "line-opacity": 0.9,
-          "line-width": 3
-        }
-      });
-
-      timeoutRefs.current.push(window.setTimeout(() => {
-        map.flyTo({
-          bearing: -8,
-          center: overviewCenter,
-          curve: 1.45,
-          duration: 4800,
-          essential: true,
-          pitch: 0,
-          zoom: finalZoom
-        });
-      }, 650));
-
-      timeoutRefs.current.push(window.setTimeout(() => {
-        vegasMarker.addTo(map);
-        const source = map.getSource("mana-route");
-        const startTime = performance.now();
-        const duration = 1900;
-
-        function drawRoute(now) {
-          const progress = Math.min((now - startTime) / duration, 1);
-          const count = Math.max(2, Math.ceil(progress * fullRoute.length));
-          source.setData(routeFeature(fullRoute.slice(0, count)));
-
-          if (progress < 1) {
-            frameRef.current = window.requestAnimationFrame(drawRoute);
-          }
-        }
-
-        frameRef.current = window.requestAnimationFrame(drawRoute);
-      }, 5250));
-
-      map.once("remove", () => {
-        vegasMarker.remove();
-      });
-    });
-
-    map.on("error", () => {
-      setMapStatus("error");
-    });
+    initializeMap();
 
     return () => {
+      isCancelled = true;
       window.clearTimeout(mapLoadFallbackTimeout);
       if (frameRef.current) {
         window.cancelAnimationFrame(frameRef.current);
       }
       timeoutRefs.current.forEach((timeout) => window.clearTimeout(timeout));
       timeoutRefs.current = [];
-      map.remove();
+      if (map) {
+        map.remove();
+      } else if (mapRef.current) {
+        mapRef.current.remove();
+      }
       mapRef.current = null;
     };
   }, [status, visitorLocation]);

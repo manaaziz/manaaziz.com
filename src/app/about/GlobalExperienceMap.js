@@ -98,9 +98,9 @@ const collaborations = [
         logo: "/assets/logos/casino_miami_logo.png"
       }),
       card({
-        name: "Gilley's Wichita",
+        name: "Gilley's Park City",
         type: "Consulting",
-        blurb: "I supported the Gilley's Wichita property through financial modeling, determining the loyalty and marketing programs, and market research.",
+        blurb: "I supported the Gilley's Park City property through financial modeling, determining the loyalty and marketing programs, and market research.",
         logo: "/assets/logos/gilleys_logo_transparent.png"
       }),
       card({
@@ -349,7 +349,7 @@ const collaborations = [
       card({
         name: "Resorts World Sentosa",
         type: "Consulting",
-        blurb: "I supported integrated resort and casino hospitality analytics context in Singapore.",
+        blurb: "I helped develop and integrate advanced predictive and generative AI models for marketing use cases.",
         logo: "/assets/logos/resorts_world_singapore_logo_transparent.png"
       })
     ]
@@ -906,12 +906,12 @@ const usStates = [
   {
     id: "kansas",
     label: "Kansas",
-    summary: "Hospitality and entertainment consulting context connected to Wichita.",
+    summary: "Hospitality and entertainment consulting context connected to Park City.",
     work: [
       card({
-        name: "Gilley's Wichita",
+        name: "Gilley's Park City",
         type: "Consulting",
-        blurb: "I supported the Gilley's Wichita property through financial modeling, determining the loyalty and marketing programs, and market research.",
+        blurb: "I supported the Gilley's Park City property through financial modeling, determining the loyalty and marketing programs, and market research.",
         logo: "/assets/logos/gilleys_logo_transparent.png"
       })
     ],
