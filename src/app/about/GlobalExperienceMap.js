@@ -42,45 +42,45 @@ const collaborations = [
       card({
         name: "International Gaming Institute",
         type: "Research",
-        blurb: "I worked on gaming research at the intersection of data, operations, and policy.",
+        blurb: "I serve as a part-time research scientist at the IGI, where I study various applications of AI to the casino and hospitality industry.",
         href: "/research",
         logo: "/assets/logos/unlv_igi_logo.jpeg"
       }),
       card({
         name: "Wynn Resorts",
         type: "Consulting",
-        blurb: "I supported analytics work tied to Wynn and Encore casino and hospitality operations.",
+        blurb: "I supported various international initiatives at the corporate level, including financial analysis, database analysis, and marketing.",
         logo: "/assets/logos/Wynn_Las_Vegas_logo.svg.png"
       }),
       card({
         name: "Resorts World Las Vegas",
         type: "Consulting",
-        blurb: "I supported integrated resort and casino hospitality analytics context in Las Vegas.",
+        blurb: "I analyzed product performance and gave recommendations around operational efficiency and surveillance.",
         logo: "/assets/logos/resorts_world_LV_logo_transparent.png"
       }),
       card({
-        name: "WDTS",
+        name: "Walker Digital Table Systems",
         type: "Consulting",
-        blurb: "I explored gaming technology and data questions connected to operator workflows.",
+        blurb: "I have built out various AI-powered applications for forecasting, discount on loss, operational efficiency, anomalous behavior detection, side bet countability, and player network analysis.",
         logo: "/assets/logos/wdts_logo.png"
       }),
       card({
-        name: "AXES",
+        name: "AXES.ai",
         type: "Research",
-        blurb: "I connected casino payments and player behavior data to applied analytics questions.",
+        blurb: "I worked with AXES to detect slot players that exhibit high-risk behaviors utilizing AI and behavioral tracking data.",
         logo: "/assets/logos/axes_logo.png"
       }),
       card({
         name: "International Conference on Gambling & Risk Taking",
         type: "Research",
-        blurb: "I presented work on baccarat luck quantification and declined gambling payment transactions in Las Vegas.",
+        blurb: "I presented at two conferences in a row, first on predicting gambling payment declines, and subsequently on quantifying how lucky a patron got in their baccarat outcomes.",
         href: "/research",
         logo: "/assets/logos/gambling_risk_taking_logo.jpg"
       }),
       card({
         name: "ICRG Conference on Gambling and Addiction",
         type: "Research",
-        blurb: "I presented work on interpretable gambler clusters and slot-machine player clustering in Las Vegas.",
+        blurb: "I presented research on utilizing interpretable machine learning to understand different behaviors of slot machine players.",
         href: "/research",
         logo: "/assets/logos/icrg_conference.png"
       }),
@@ -173,22 +173,32 @@ const collaborations = [
       card({
         name: "IEEE Conference on Artificial Intelligence",
         type: "Research",
-        blurb: "I presented Shapley interaction networks work on explaining the clinical course of gambling disorder in Granada.",
+        blurb: "I presented my research on utilizing Shapley interaction networks for understanding comorbidity in gambling disorder.",
         href: "/research",
         logo: "/assets/logos/cai_granada_logo.png"
       }),
       card({
         name: "Club de Convergentes",
         type: "Research",
-        blurb: "I presented work on AI ethics and governance in the gambling sector in Madrid.",
+        blurb: "I presented AI ethics, governance, and applications to various stakeholders in the Spanish land-based gambling industry, including regulators, industry leaders, and law enforcement.",
         href: "/research",
         logo: "/assets/logos/club_convergentes.png"
       }),
       card({
-        name: "Fundacion Patologia Dual",
+        name: "Fundación Patología Dual",
         type: "Research",
-        blurb: "I connected research conversations to dual pathology work in Madrid.",
+        blurb: "I have collaborated with the Fundación Patología Dual on a series of research projects applying AI to detect gambling disorder in a dual disorder context.",
         logo: "/assets/logos/fund_path_dual_transparent.png"
+      }),
+      card({
+        name: "Hospital Gregorio Marañón",
+        type: "Research",
+        blurb: "I collaborated with the psychiatry department to understand the comorbidity of gambling disorder."
+      }),
+      card({
+        name: "Universidad Rey Juan Carlos",
+        type: "Research",
+        blurb: "I worked on various applied AI research projects during a three-month research stay in Madrid."
       })
     ]
   },
@@ -235,7 +245,7 @@ const collaborations = [
       card({
         name: "Webinar on Safer Gambling",
         type: "Research",
-        blurb: "I presented machine learning work on detecting customer transaction decline.",
+        blurb: "I presented my research on applying AI to determine which patrons were most likely to have transaction declines in a casino context.",
         href: "/research",
         logo: "/assets/logos/sgcertified_logo.jpeg"
       })
@@ -296,21 +306,21 @@ const collaborations = [
       card({
         name: "International Conference on Culture, Tourism, and Hospitality",
         type: "Research",
-        blurb: "I presented explainable machine learning work for hotel upselling in Portugal from Macau.",
+        blurb: "I presented some research that applied explainable AI to personalize upselling offers for hotel patrons.",
         href: "/research",
         logo: "/assets/logos/iccth_macau.png"
       }),
       card({
-        name: "Wynn",
+        name: "Wynn Macau",
         type: "Consulting",
-        blurb: "I worked with Wynn-related Macau context across premium integrated resort operations, casino hospitality, and market strategy.",
+        blurb: "I assisted with the development, implementation, and training for data science and data analytics initiatives.",
         href: "/blog/europe-2023",
         logo: "/assets/logos/wynn_macau_logo.png"
       }),
       card({
         name: "Melco",
         type: "Consulting",
-        blurb: "I studied integrated resort positioning and casino hospitality operations across Melco's Macau portfolio.",
+        blurb: "I facilitated the development and implementation of various AI and data science solutions across operations, marketing, and surveillance.",
         logo: "/assets/logos/Melco_logo.png"
       })
     ]
@@ -765,45 +775,45 @@ const usStates = [
       card({
         name: "International Gaming Institute",
         type: "Research",
-        blurb: "I worked on gaming research at the intersection of data, operations, and policy.",
+        blurb: "I serve as a part-time research scientist at the IGI, where I study various applications of AI to the casino and hospitality industry.",
         href: "/research",
         logo: "/assets/logos/unlv_igi_logo.jpeg"
       }),
       card({
         name: "Wynn Resorts",
         type: "Consulting",
-        blurb: "I supported analytics work tied to Wynn and Encore casino and hospitality operations.",
+        blurb: "I supported various international initiatives at the corporate level, including financial analysis, database analysis, and marketing.",
         logo: "/assets/logos/Wynn_Las_Vegas_logo.svg.png"
       }),
       card({
         name: "Resorts World Las Vegas",
         type: "Consulting",
-        blurb: "I supported integrated resort and casino hospitality analytics context in Las Vegas.",
+        blurb: "I analyzed product performance and gave recommendations around operational efficiency and surveillance.",
         logo: "/assets/logos/resorts_world_LV_logo_transparent.png"
       }),
       card({
-        name: "WDTS",
+        name: "Walker Digital Table Systems",
         type: "Consulting",
-        blurb: "I explored gaming technology and data questions connected to operator workflows.",
+        blurb: "I have built out various AI-powered applications for forecasting, discount on loss, operational efficiency, anomalous behavior detection, side bet countability, and player network analysis.",
         logo: "/assets/logos/wdts_logo.png"
       }),
       card({
-        name: "AXES",
+        name: "AXES.ai",
         type: "Research",
-        blurb: "I connected casino payments and player behavior data to applied analytics questions.",
+        blurb: "I worked with AXES to detect slot players that exhibit high-risk behaviors utilizing AI and behavioral tracking data.",
         logo: "/assets/logos/axes_logo.png"
       }),
       card({
         name: "International Conference on Gambling & Risk Taking",
         type: "Research",
-        blurb: "I presented work on baccarat luck quantification and declined gambling payment transactions in Las Vegas.",
+        blurb: "I presented at two conferences in a row, first on predicting gambling payment declines, and subsequently on quantifying how lucky a patron got in their baccarat outcomes.",
         href: "/research",
         logo: "/assets/logos/gambling_risk_taking_logo.jpg"
       }),
       card({
         name: "ICRG Conference on Gambling and Addiction",
         type: "Research",
-        blurb: "I presented work on interpretable gambler clusters and slot-machine player clustering in Las Vegas.",
+        blurb: "I presented research on utilizing interpretable machine learning to understand different behaviors of slot machine players.",
         href: "/research",
         logo: "/assets/logos/icrg_conference.png"
       }),
@@ -1082,6 +1092,15 @@ export default function GlobalExperienceMap() {
     setSelectedWorkIndex(null);
   }
 
+  function backToActiveRegionOverview() {
+    setActiveId("");
+    setPreviewGlobalRegionId(null);
+    setPreviewCountryId(null);
+    setPreviewStateId(null);
+    setSelectedWorkIndex(null);
+    setMapMode("region");
+  }
+
   return (
     <section className="global-experience" aria-labelledby="global-experience-title">
       <div className="section-intro">
@@ -1253,6 +1272,11 @@ export default function GlobalExperienceMap() {
         </div>
 
         <aside className="map-detail-card" key={`${mapMode}-${active.id}-${selectedWork?.name || "list"}`} aria-live="polite">
+          {mapMode === "region" && activeCountry && !selectedWork ? (
+            <button className="map-back-button collaboration-detail-back" onClick={backToActiveRegionOverview} type="button">
+              Back to {activeGlobalRegion.label}
+            </button>
+          ) : null}
           <div className="map-detail-heading">
             {mapMode === "region" && activeCountry ? (
               <AnimatedFlag countryId={activeCountry.id} label={activeCountry.country} />

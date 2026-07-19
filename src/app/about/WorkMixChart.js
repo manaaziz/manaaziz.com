@@ -44,6 +44,9 @@ export default function WorkMixChart({ id, items = defaultWorkMix }) {
   const cardById = new Map(workMix.map((item) => [item.id, item]));
   const leftCards = ["consulting"].map((itemId) => cardById.get(itemId)).filter(Boolean);
   const rightCards = ["teaching", "research"].map((itemId) => cardById.get(itemId)).filter(Boolean);
+  const pieSlices = ["teaching", "research", "consulting"]
+    .map((itemId) => cardById.get(itemId))
+    .filter(Boolean);
 
   function activateItem(itemId) {
     setActiveId(itemId);
@@ -103,8 +106,8 @@ export default function WorkMixChart({ id, items = defaultWorkMix }) {
           <div className="work-pie-node">
             <svg className="work-pie-chart" viewBox="0 0 42 42" role="img" aria-label="Consulting 70 percent, research 20 percent, teaching 10 percent">
               <circle className="work-pie-base" cx="21" cy="21" r="15.9155" />
-              {workMix.map((item, index) => {
-                const offset = workMix.slice(0, index).reduce((total, slice) => total + slice.value, 0);
+              {pieSlices.map((item, index) => {
+                const offset = pieSlices.slice(0, index).reduce((total, slice) => total + slice.value, 0);
 
                 return (
                   <circle
