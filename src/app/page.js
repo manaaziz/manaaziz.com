@@ -74,7 +74,14 @@ export default function Home() {
         </div>
 
         <div className="portrait-panel" aria-label="Portrait of Mana Azizsoltani">
-          <img className="home-portrait" src="/assets/images/mana_home_portrait_bw_cutout.webp" alt="Mana Azizsoltani" />
+          <img
+            className="home-portrait"
+            src="/assets/images/mana_home_portrait_bw_cutout.webp"
+            alt="Mana Azizsoltani"
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
+          />
         </div>
 
         <a className="scroll-cue" href="#selected-areas">

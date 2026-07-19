@@ -63,7 +63,7 @@ export default function ArchiveCarousel({ posts }) {
             type="button"
             aria-label="Previous post"
           >
-            <img className="casino-chip-face" src="/assets/images/black_casino_chip.png" alt="" aria-hidden="true" />
+            <img className="casino-chip-face" src="/assets/images/black_casino_chip.png" alt="" aria-hidden="true" loading="lazy" decoding="async" />
             <span aria-hidden="true">←</span>
           </button>
           <span>{activeIndex + 1} / {posts.length}</span>
@@ -75,7 +75,7 @@ export default function ArchiveCarousel({ posts }) {
             type="button"
             aria-label="Next post"
           >
-            <img className="casino-chip-face" src="/assets/images/black_casino_chip.png" alt="" aria-hidden="true" />
+            <img className="casino-chip-face" src="/assets/images/black_casino_chip.png" alt="" aria-hidden="true" loading="lazy" decoding="async" />
             <span aria-hidden="true">→</span>
           </button>
         </div>
