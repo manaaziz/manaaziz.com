@@ -507,7 +507,7 @@ export default function AboutDistanceFromVegas() {
           <div className="distance-map-fallback">
             <DistanceSearchFallback />
             <span className="distance-map-fallback-label">
-              {mapStatus === "missing-token" ? "Mapbox token missing" : "Looking from home"}
+              {mapStatus === "missing-token" ? "Mapbox token missing" : "Looking for you from Las Vegas"}
             </span>
           </div>
         ) : null}
@@ -520,9 +520,9 @@ export default function AboutDistanceFromVegas() {
             That is roughly <strong className="distance-value">{distance.toLocaleString()} km</strong> from where you are based on your IP address.
           </p>
         ) : status === "loading" ? (
-          <p>I am looking for you from home based on your IP address.</p>
+          <p>I am looking for you from Las Vegas based on your IP address.</p>
         ) : (
-          <p>I couldn&apos;t find you based on your IP address, but I am looking for you from home.</p>
+          <p>I couldn&apos;t find you based on your IP address, but I am in Las Vegas.</p>
         )}
       </div>
     </section>

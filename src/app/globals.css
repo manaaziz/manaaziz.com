@@ -4288,8 +4288,8 @@ h3 {
 
 .distance-search-globe {
   position: relative;
-  --vegas-x: 43%;
-  --vegas-y: 48%;
+  --vegas-x: 23%;
+  --vegas-y: 40%;
   width: min(36rem, 62vw);
   aspect-ratio: 1;
   border-radius: 50%;
