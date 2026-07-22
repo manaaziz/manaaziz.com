@@ -88,10 +88,7 @@ function overviewZoomForDistance(distanceKilometers) {
 }
 
 function midpoint(origin, destination) {
-  return [
-    (origin.longitude + destination.longitude) / 2,
-    (origin.latitude + destination.latitude) / 2
-  ];
+  return greatCirclePoint(origin, destination, 0.5);
 }
 
 function greatCirclePoint(origin, destination, fraction) {
@@ -116,7 +113,25 @@ function greatCirclePoint(origin, destination, fraction) {
 }
 
 function routeCoordinates(origin, destination, steps = 120) {
-  return Array.from({ length: steps + 1 }, (_, index) => greatCirclePoint(origin, destination, index / steps));
+  return Array.from({ length: steps + 1 }, (_, index) => greatCirclePoint(origin, destination, index / steps))
+    .reduce((coordinates, coordinate) => {
+      if (coordinates.length === 0) {
+        return [coordinate];
+      }
+
+      const previous = coordinates[coordinates.length - 1];
+      let [longitude, latitude] = coordinate;
+
+      while (longitude - previous[0] > 180) {
+        longitude -= 360;
+      }
+
+      while (previous[0] - longitude > 180) {
+        longitude += 360;
+      }
+
+      return [...coordinates, [longitude, latitude]];
+    }, []);
 }
 
 function makeMarker({ className, imageSrc, label }) {
