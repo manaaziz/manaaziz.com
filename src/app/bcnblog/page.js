@@ -6,7 +6,7 @@ export const metadata = {
 };
 
 export default function OldBarcelonaBlogPage() {
-  const posts = getSeriesPosts("barcelona");
+  const posts = getSeriesPosts("americanito_bcn");
 
   return (
     <main className="page-shell">

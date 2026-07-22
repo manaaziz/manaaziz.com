@@ -6,7 +6,7 @@ export const metadata = {
 };
 
 export default function OldEuropeBlogPage() {
-  const posts = getSeriesPosts("europe-2023");
+  const posts = getSeriesPosts("travel");
 
   return (
     <main className="page-shell">

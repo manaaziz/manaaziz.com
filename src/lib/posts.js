@@ -5,7 +5,8 @@ const root = process.cwd();
 const contentRoot = path.join(root, "src", "content", "blog");
 
 export const seriesConfig = {
-  "becoming-dr-mana": {
+  becoming_dr_mana: {
+    contentDir: "becoming_dr_mana",
     legacyCategory: "phdblog",
     legacyBase: "phdblog",
     title: "Becoming Dr. Mana",
@@ -15,7 +16,8 @@ export const seriesConfig = {
     startingPointLabel: "First volume",
     archived: true
   },
-  "europe-2023": {
+  travel: {
+    contentDir: path.join("travel", "europe_2023"),
     legacyCategory: "EUblog",
     legacyBase: "EUblog",
     title: "Europe 2023",
@@ -24,7 +26,8 @@ export const seriesConfig = {
     tags: ["Travel", "Europe", "Field Notes"],
     startingPointLabel: "First dispatch"
   },
-  barcelona: {
+  americanito_bcn: {
+    contentDir: "americanito_bcn",
     legacyCategory: "bcnblog",
     legacyBase: "bcnblog",
     title: "Americanito in Barcelona",
@@ -34,23 +37,13 @@ export const seriesConfig = {
     startingPointLabel: "First week",
     archived: true
   },
-  "spain-2025": {
-    legacyCategory: "spain2025",
-    legacyBase: "blog/spain-2025",
-    title: "Spain 2025",
-    description: "A study-abroad course archive for FAB 333 in Spain, built around daily movement through Madrid, Valencia, and Barcelona.",
-    cover: "/assets/photos/fab333_reunion_group.webp",
-    tags: ["Travel", "Teaching", "FAB 333"],
-    startingPointLabel: "Course route",
-    standalone: true
-  },
   consulting: {
     legacyCategory: "consulting",
     legacyBase: "blog/consulting",
-    title: "Analysis",
+    title: "Consulting",
     description: "Short essays on casino analytics, AI, marketing, personalization, and the operator-facing questions behind consulting work.",
     cover: "/assets/images/consultant_pic.webp",
-    tags: ["Analytics", "Casino Marketing"],
+    tags: ["Consulting", "Casino Marketing"],
     startingPointLabel: "First note"
   },
   teaching: {
@@ -180,7 +173,7 @@ function getImages(contentHtml) {
 
 function readSeriesPosts(seriesSlug) {
   const config = seriesConfig[seriesSlug];
-  const seriesDir = path.join(contentRoot, seriesSlug);
+  const seriesDir = path.join(contentRoot, config?.contentDir || seriesSlug);
 
   if (!config || !fs.existsSync(seriesDir)) return [];
 
@@ -201,7 +194,7 @@ function readSeriesPosts(seriesSlug) {
       const tags = uniqueTags([...(config.standalone ? [] : [config.title]), ...seriesTags, ...frontMatterTags]);
       const images = getImages(contentHtml);
       const cover = data.cover || config.cover || "";
-      const previewImage = seriesSlug === "europe-2023" ? images[0] || cover : data.cover || images[0] || config.cover || "";
+      const previewImage = seriesSlug === "travel" ? images[0] || cover : data.cover || images[0] || config.cover || "";
 
       return {
         sourcePath,

@@ -6,7 +6,7 @@ export const metadata = {
 };
 
 export default function OldPhdBlogPage() {
-  const posts = getSeriesPosts("becoming-dr-mana");
+  const posts = getSeriesPosts("becoming_dr_mana");
 
   return (
     <main className="page-shell">

@@ -314,7 +314,7 @@ const collaborations = [
         name: "Wynn Macau",
         type: "Consulting",
         blurb: "I assisted with the development, implementation, and training for data science and data analytics initiatives.",
-        href: "/blog/europe-2023",
+        href: "/blog/travel",
         logo: "/assets/logos/wynn_macau_logo.png"
       }),
       card({

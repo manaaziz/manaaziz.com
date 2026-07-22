@@ -8,7 +8,7 @@ const decisionTreeMarker = '<div data-decision-tree-growth></div>';
 export default function PostContent({ post }) {
   const { previous, next } = getAdjacentPosts(post);
   const relatedPosts = getRelatedPosts(post);
-  const isSpainRecap = post.seriesSlug === "spain-2025" && post.slug === "spain-recap";
+  const isSpainRecap = post.seriesSlug === "teaching" && post.slug === "spain-recap";
   const allowedTags = new Set(["consulting", "teaching", "research", "travel"]);
   const visibleTags = post.tags.filter((tag, index, tags) => {
     const key = tag.toLowerCase();

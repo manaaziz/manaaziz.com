@@ -208,7 +208,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
       topic: "Travel + Teaching",
       title: "Summer School in Spain",
       excerpt: "A city-by-city FAB 333 study-abroad recap from Madrid, Valencia, and Barcelona.",
-      href: "/blog/spain-2025/spain-recap",
+      href: "/blog/teaching/spain-recap",
       image: "/assets/photos/fab333_reunion_group.webp",
       action: "Read recap",
       size: "lead"
@@ -217,7 +217,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
       topic: "Travel Archive",
       title: "Europe 2023",
       excerpt: "A professional and personal archive from a multi-purpose European summer trip.",
-      href: "/blog/europe-2023",
+      href: "/blog/travel",
       image: "/assets/images/EU23cover.webp",
       action: "Open archive",
       size: "standard"
@@ -230,7 +230,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
       date: "2023-06-22",
       place: "Barcelona",
       preview: "A travel note from Barcelona and the return of an older thread in the Manalogue archive.",
-      href: "/blog/europe-2023/Post8",
+      href: "/blog/travel/Post8",
       image: "/assets/photos/eublog/blog8_1.webp",
       tile: "wide"
     },
@@ -240,7 +240,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
       date: "2023",
       place: "Europe",
       preview: "Photos and field notes from the Europe 2023 archive.",
-      href: "/blog/europe-2023/Post1",
+      href: "/blog/travel/Post1",
       image: "/assets/photos/eublog/blog1_2.webp"
     },
     {
@@ -249,7 +249,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
       date: "2023",
       place: "Europe",
       preview: "A visual entry from the European travel archive.",
-      href: "/blog/europe-2023/Post4",
+      href: "/blog/travel/Post4",
       image: "/assets/photos/eublog/blog4_4.webp",
       tile: "wide"
     },
@@ -259,7 +259,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
       date: "2023",
       place: "Europe",
       preview: "Another photo-forward stop from the Europe 2023 posts.",
-      href: "/blog/europe-2023/Post7",
+      href: "/blog/travel/Post7",
       image: "/assets/photos/eublog/blog7_3.webp"
     },
     {
@@ -355,7 +355,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
           topic: "Travel",
           title: "Archived travel writing lives in its own room",
           excerpt: "Older travel and doctoral-life posts are archived under Travel, not promoted as current homepage material.",
-          href: "/blog/europe-2023",
+          href: "/blog/travel",
           image: "/assets/images/EU23cover.webp",
           action: "Open travel",
           size: "standard"

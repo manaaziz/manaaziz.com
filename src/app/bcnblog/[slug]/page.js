@@ -3,7 +3,7 @@ import PostContent from "@/components/PostContent";
 import { getLegacyPost, getSeriesPosts } from "@/lib/posts";
 
 export function generateStaticParams() {
-  return getSeriesPosts("barcelona").map((post) => ({ slug: post.slug }));
+  return getSeriesPosts("americanito_bcn").map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({ params }) {

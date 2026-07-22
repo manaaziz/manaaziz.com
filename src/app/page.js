@@ -64,7 +64,7 @@ export default function Home() {
             <Link className="button" href="/manalogue">
               The Manalogue
             </Link>
-            <a className="button" href="/assets/Azizsoltani_CV.pdf">
+            <a className="button" href="/assets/Azizsoltani_CV.pdf" rel="noreferrer" target="_blank">
               CV
             </a>
             <a className="button" href="mailto:manaazizsoltani@gmail.com">
