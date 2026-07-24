@@ -91,6 +91,10 @@ function midpoint(origin, destination) {
   return greatCirclePoint(origin, destination, 0.5);
 }
 
+function normalizeLongitude(longitude) {
+  return ((longitude + 540) % 360) - 180;
+}
+
 function greatCirclePoint(origin, destination, fraction) {
   const lat1 = toRadians(origin.latitude);
   const lon1 = toRadians(origin.longitude);
@@ -113,25 +117,46 @@ function greatCirclePoint(origin, destination, fraction) {
 }
 
 function routeCoordinates(origin, destination, steps = 120) {
-  return Array.from({ length: steps + 1 }, (_, index) => greatCirclePoint(origin, destination, index / steps))
-    .reduce((coordinates, coordinate) => {
-      if (coordinates.length === 0) {
-        return [coordinate];
-      }
+  return Array.from({ length: steps + 1 }, (_, index) => {
+    const [longitude, latitude] = greatCirclePoint(origin, destination, index / steps);
+    return [normalizeLongitude(longitude), latitude];
+  });
+}
 
-      const previous = coordinates[coordinates.length - 1];
-      let [longitude, latitude] = coordinate;
+function interpolateLatitudeAtLongitude(start, end, boundaryLongitude) {
+  const longitudeDelta = end[0] - start[0];
+  if (longitudeDelta === 0) return start[1];
 
-      while (longitude - previous[0] > 180) {
-        longitude -= 360;
-      }
+  const ratio = (boundaryLongitude - start[0]) / longitudeDelta;
+  return start[1] + (end[1] - start[1]) * ratio;
+}
 
-      while (previous[0] - longitude > 180) {
-        longitude += 360;
-      }
+function splitRouteAtAntimeridian(coordinates) {
+  if (coordinates.length < 2) return coordinates.length ? [coordinates] : [];
 
-      return [...coordinates, [longitude, latitude]];
-    }, []);
+  return coordinates.slice(1).reduce((segments, currentPoint) => {
+    const activeSegment = segments[segments.length - 1];
+    const previousPoint = activeSegment[activeSegment.length - 1];
+    const deltaLongitude = currentPoint[0] - previousPoint[0];
+
+    if (Math.abs(deltaLongitude) <= 180) {
+      activeSegment.push(currentPoint);
+      return segments;
+    }
+
+    const crossesEastward = deltaLongitude < 0;
+    const previousBoundary = crossesEastward ? 180 : -180;
+    const currentBoundary = crossesEastward ? -180 : 180;
+    const adjustedCurrent = [
+      currentPoint[0] + (crossesEastward ? 360 : -360),
+      currentPoint[1]
+    ];
+    const boundaryLatitude = interpolateLatitudeAtLongitude(previousPoint, adjustedCurrent, previousBoundary);
+
+    activeSegment.push([previousBoundary, boundaryLatitude]);
+    segments.push([[currentBoundary, boundaryLatitude], currentPoint]);
+    return segments;
+  }, [[coordinates[0]]]).filter((segment) => segment.length > 1);
 }
 
 function makeMarker({ className, imageSrc, label }) {
@@ -157,7 +182,7 @@ function emptyRoute() {
     type: "Feature",
     properties: {},
     geometry: {
-      type: "LineString",
+      type: "MultiLineString",
       coordinates: []
     }
   };
@@ -178,8 +203,8 @@ function routeFeature(coordinates) {
   return {
     ...emptyRoute(),
     geometry: {
-      type: "LineString",
-      coordinates
+      type: "MultiLineString",
+      coordinates: splitRouteAtAntimeridian(coordinates)
     }
   };
 }
