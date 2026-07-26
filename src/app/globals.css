@@ -1904,7 +1904,7 @@ h3 {
   z-index: 2;
   width: min(100%, 26rem);
   max-width: 100%;
-  transform: rotate(-45deg);
+  transform: rotate(15deg);
   overflow: visible;
 }
 

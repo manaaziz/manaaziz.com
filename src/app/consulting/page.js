@@ -164,7 +164,7 @@ export default function ConsultingPage() {
       <section className="consulting-area-section" aria-labelledby="consulting-areas-title">
         <div className="section-intro">
           <p className="eyebrow">Areas</p>
-          <h2 id="consulting-areas-title">I have experience in various faces of the business</h2>
+          <h2 id="consulting-areas-title">I have experience in various facets of the business</h2>
         </div>
 
         <div className="consulting-area-grid">
