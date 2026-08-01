@@ -1025,6 +1025,7 @@ export default function GlobalExperienceMap() {
     : null;
   const hasPreview = Boolean(previewGlobalRegionId || previewCountryId || previewStateId);
   const selectedWork = hasPreview || selectedWorkIndex === null ? null : active.work[selectedWorkIndex] || null;
+  const isCountryListPanel = mapMode === "region" && activeCountry && !selectedWork;
 
   function previewCountry(locationId) {
     const collaboration = collaborationById.get(locationId);
@@ -1271,8 +1272,12 @@ export default function GlobalExperienceMap() {
           )}
         </div>
 
-        <aside className="map-detail-card" key={`${mapMode}-${active.id}-${selectedWork?.name || "list"}`} aria-live="polite">
-          {mapMode === "region" && activeCountry && !selectedWork ? (
+        <aside
+          className={`map-detail-card${isCountryListPanel ? " is-country-list" : ""}`}
+          key={`${mapMode}-${active.id}-${selectedWork?.name || "list"}`}
+          aria-live="polite"
+        >
+          {isCountryListPanel ? (
             <button className="map-back-button collaboration-detail-back" onClick={backToActiveRegionOverview} type="button">
               Back to {activeGlobalRegion.label}
             </button>

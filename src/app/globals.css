@@ -520,6 +520,11 @@ h3 {
   content: "↗";
 }
 
+.hero-home .button.primary::after {
+  margin-left: 0;
+  content: none;
+}
+
 .button-small {
   min-height: 2.35rem;
   padding: 0.48rem 0.78rem;
@@ -1904,7 +1909,7 @@ h3 {
   z-index: 2;
   width: min(100%, 26rem);
   max-width: 100%;
-  transform: rotate(15deg);
+  transform: rotate(30deg);
   overflow: visible;
 }
 
@@ -5559,12 +5564,27 @@ h3 {
 
 .map-detail-card {
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr);
+  grid-template-rows: auto auto minmax(0, 1fr);
   align-content: start;
+  align-items: start;
   min-height: clamp(29.5rem, 40vw, 35rem);
   padding: clamp(1rem, 2.6vw, 1.4rem);
   animation: map-panel-pop 360ms cubic-bezier(0.32, 0.72, 0, 1) both;
   transform-origin: 18% 12%;
+}
+
+.map-detail-card.is-country-list {
+  grid-template-rows: auto auto auto;
+  align-content: start;
+}
+
+.map-detail-card.is-country-list .map-detail-heading {
+  margin-top: 0.85rem;
+}
+
+.map-detail-card.is-country-list .collaboration-cards {
+  align-self: start;
+  margin-top: 1rem;
 }
 
 .map-detail-heading {
