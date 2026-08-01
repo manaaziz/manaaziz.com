@@ -209,7 +209,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
       title: "Summer School in Spain",
       excerpt: "A city-by-city FAB 333 study-abroad recap from Madrid, Valencia, and Barcelona.",
       href: "/blog/teaching/spain-recap",
-      image: "/assets/photos/fab333_reunion_group.webp",
+      image: "/assets/photos/fab333_madrid/fab_cover.webp",
       action: "Read recap",
       size: "lead"
     },
