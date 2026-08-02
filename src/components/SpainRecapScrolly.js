@@ -57,9 +57,9 @@ const stops = [
     city: "Valencia",
     date: "May 25, 2025",
     day: "Day 1",
-    label: "Train to Valencia and class",
+    label: "Mas Renfe!",
     copy:
-      "Travel by train to Valencia, receive a transit pass, check in, and meet for class. Placeholder for the shift in pace, scenery, and regional identity.",
+      "Many of the students took their first trip by train. We got to Madrid Atocha, where I have shipped myself out so, so many times over the years. We took the short train ride to Valencia, where the students would see a very different version of Spanish scenery.",
     motif: "tiles",
     image: "/assets/photos/fab333_madrid/fab_val_day1.webp"
   },
@@ -67,9 +67,9 @@ const stops = [
     city: "Valencia",
     date: "May 26, 2025",
     day: "Day 2",
-    label: "Class and city tour",
+    label: "Xino-xano",
     copy:
-      "Faculty-led class meeting followed by a guided walk through Valencia's old quarter and central market area. Placeholder for markets, city texture, and local foodways.",
+      "We did a very comprehensive walking tour on a very hot day in Valencia, where we saw the old quarter, the markets, the beautiful city center, and much more. After that, many of the students checked out the Oceanographic Museum of Valencia.",
     motif: "tiles",
     image: "/assets/photos/fab333_madrid/fab_val_day2.webp"
   },
@@ -77,9 +77,9 @@ const stops = [
     city: "Valencia",
     date: "May 27, 2025",
     day: "Day 3",
-    label: "Paella cooking class",
+    label: "Paella!!!!!",
     copy:
-      "Farm-to-table paella cooking class and group lunch at Barraca de Toni Montoliu. Placeholder for cooking, rice, shared meals, and the way food turns strangers into a table.",
+      "We took the bus out to the farm, where as a class we harvested vegetables, cooked a paella, and ate enough to pass out. Along the way, we also met some donkeys, toured ancient Valencian homes, watched an old man ride a bicycle backwards, and took an obligatory siesta. We learned that the art of paella is letting flavors mix together over time, creating a complex flavor palette in your mouth. Similarly, it must be enjoyed with many other people. Good thing we were 21 people.",
     motif: "paella",
     image: "/assets/photos/fab333_madrid/fab_val_day3.webp"
   },
@@ -87,9 +87,9 @@ const stops = [
     city: "Valencia",
     date: "May 28, 2025",
     day: "Day 4",
-    label: "Free day or university activity",
+    label: "Sal, arena i futbol",
     copy:
-      "Independent exploration or a university-sourced activity in Valencia. Placeholder for free-day wandering, small discoveries, and the moments that did not fit the official itinerary.",
+      "After 10 days or so of go, go, go, the students had a free day in Valencia. For those who wanted to join me, I took the bus south to Salou, where the beaches were big, white, and empty. We spent the day enjoying beverages in the sun on the beach, kicking the soccer ball, playing volleyball, and finally eating paella together at a local restaurant in the little beach town. It was the perfect way to wrap up an amazing trip to Valencia.",
     motif: "notes",
     image: "/assets/photos/fab333_madrid/fab_val_day4.webp"
   },
@@ -97,9 +97,9 @@ const stops = [
     city: "Barcelona",
     date: "May 29, 2025",
     day: "Day 1",
-    label: "Travel to Barcelona",
+    label: "BCN bound",
     copy:
-      "Coach transfer to Barcelona with a cheese and wine tour stop, then hotel check-in. Placeholder for the travel day, the food stop, and the transition into the final city.",
+      "We left for Barcelona on a bus, and we made a day out of the road trip. First, we stopped at a local cheese factory in the middle of nowhere. We learned about different techniques for making cheese and had a wine and cheese tasting as a group. Then, we stopped by Peniscola for a few hours, where we hung out on the beach and ate some amazing seafood. It is safe to say we were exhausted by the time we got to Barcelona.",
     motif: "tiles",
     image: "/assets/photos/fab333_madrid/fab_bcn_day1.webp"
   },
