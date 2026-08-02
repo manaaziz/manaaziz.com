@@ -7,9 +7,9 @@ const stops = [
     city: "Madrid",
     date: "May 20, 2025",
     day: "Day 1",
-    label: "Arrival and welcome dinner",
+    label: "\"Y nos fuimos pa Madriddddd\"",
     copy:
-      "Transfer to accommodations, receive the Madrid Metro Pass, and gather for the welcome dinner. Placeholder for the first arrival impressions, first meal, and early group rhythm.",
+      "Nineteen students arrived in Madrid on May 20 with nerves, excitement, and a whole lot of jet lag. For many of them, it was their first time out of the country. Nobody knew it yet, but the new faces in new places would become lifelong friends, and even girlfriend/boyfriend stories.",
     motif: "plaza",
     image: "/assets/photos/fab333_madrid/fab_madrid_day1.webp"
   },
@@ -17,9 +17,9 @@ const stops = [
     city: "Madrid",
     date: "May 21, 2025",
     day: "Day 2",
-    label: "Orientation and city tour",
+    label: "Madrizzzzz",
     copy:
-      "Local orientation, neighborhood walk, guided Habsburg Madrid tour, and group lunch. Placeholder for notes on place, history, and the city becoming the classroom.",
+      "We toured my favorite city in the world. I quickly realized how easy it was to transmit my knowledge and passion for Madrid and Spanish culture to the students, and how strongly they responded to that energy. We walked all through Madrid, checking out the coolest monuments: Plaza Mayor, Sol, Gran Via, Plaza de Espana, Mercado de San Miguel, and so much more.",
     motif: "plaza",
     image: "/assets/photos/fab333_madrid/fab_madrid_day2.webp"
   },
@@ -27,9 +27,9 @@ const stops = [
     city: "Madrid",
     date: "May 22, 2025",
     day: "Day 3",
-    label: "Free day or university activity",
+    label: "The family was forming!",
     copy:
-      "Independent exploration or a university-sourced activity in Madrid. Placeholder for whatever felt worth remembering: museums, meals, walks, and student observations.",
+      "Some students took a day trip to Segovia, which they found, planned, and managed all by themselves on just their third day. I could not believe the cool pictures they got while they were there. The students who stayed back in Madrid took advantage of the rich culture and art, checking out museums, gardens, and historical sites. Some even met up with me for an Iranian lunch.",
     motif: "notes",
     image: "/assets/photos/fab333_madrid/fab_madrid_day3.webp"
   },
@@ -37,9 +37,9 @@ const stops = [
     city: "Madrid",
     date: "May 23, 2025",
     day: "Day 4",
-    label: "Class meeting and vineyard visit",
+    label: "¡Salud!",
     copy:
-      "Faculty-led class meeting followed by a guided vineyard and wine tasting outside Madrid. Placeholder for wine, region, hospitality, and how tasting became a learning method.",
+      "We ventured out of the city and did a special wine tasting at a local vineyard on the outskirts of Madrid. The students learned how wine is produced, tasted, paired with food, and enjoyed with others. The amazing food and drink, especially in a social setting, is such a core component of Spanish culture.",
     motif: "plaza",
     image: "/assets/photos/fab333_madrid/fab_madrid_day4.webp"
   },
@@ -47,9 +47,9 @@ const stops = [
     city: "Madrid",
     date: "May 24, 2025",
     day: "Day 5",
-    label: "Royal Palace",
+    label: "\"Viva el rey, el orden, y la ley\"",
     copy:
-      "Guided visit to the Royal Palace of Madrid with free time afterward. Placeholder for architecture, monarchy, ritual, and the connection between spectacle and culture.",
+      "We toured the Royal Palace of Madrid, where we learned about the Spanish monarchy and its long history. They had some really rare and expensive Stradivarius violins. After the tour, we went to tomar algo as a group, like typical Spaniards.",
     motif: "tiles",
     image: "/assets/photos/fab333_madrid/fab_madrid_day5.webp"
   },
@@ -277,6 +277,10 @@ function getRoutePath(index) {
   return commands.join(" ");
 }
 
+function getLabelPunctuation(label) {
+  return /[.!?]$/.test(label) ? "" : ".";
+}
+
 export default function SpainRecapScrolly() {
   const wrapRef = useRef(null);
   const [progress, setProgress] = useState(0);
@@ -367,7 +371,7 @@ export default function SpainRecapScrolly() {
                 <time>{stop.date}</time>
               </header>
               <h2>{stop.city}: {stop.day}</h2>
-              <p><strong>{stop.label}.</strong> {stop.copy}</p>
+              <p><strong>{stop.label}{getLabelPunctuation(stop.label)}</strong> {stop.copy}</p>
             </article>
 
             <div

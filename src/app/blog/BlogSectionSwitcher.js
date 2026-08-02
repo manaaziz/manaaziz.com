@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { newsItems } from "../news/items";
 import { podcasts } from "../podcast/shows";
 
@@ -24,6 +24,15 @@ const panelHeights = {
   podcasts: "clamp(26rem, 38vw, 34rem)",
   gallery: "clamp(35rem, 52vw, 45rem)"
 };
+
+function formatMastheadDate(date) {
+  return date.toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric"
+  });
+}
 
 function StoryCard({ story }) {
   const content = (
@@ -195,7 +204,12 @@ function fallbackStory({ topic, title, excerpt, href, image, action = "Open", si
 
 export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [mastheadDate, setMastheadDate] = useState("");
   const activeSection = sections[activeIndex];
+
+  useEffect(() => {
+    setMastheadDate(formatMastheadDate(new Date()));
+  }, []);
   const newsItem = newsItems[0];
   const visiblePosts = allPosts.length ? allPosts : posts;
   const analyticsStories = storiesByTag(visiblePosts, "analytics", "Analysis", true);
@@ -470,7 +484,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
     <section className="blog-desk manalogue-desk" aria-labelledby="blog-desk-title">
       <div className="newspaper-masthead manalogue-masthead">
         <div className="newspaper-kicker">
-          <span>Wednesday, June 17, 2026</span>
+          <span>{mastheadDate}</span>
         </div>
         <h1 id="blog-desk-title">The Manalogue</h1>
       </div>
