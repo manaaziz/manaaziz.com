@@ -107,9 +107,9 @@ const stops = [
     city: "Barcelona",
     date: "May 30, 2025",
     day: "Day 2",
-    label: "Gothic Quarter and Sagrada Familia",
+    label: "Full circle",
     copy:
-      "Faculty-led class meeting, Gothic Quarter tour, and guided visit to La Sagrada Familia. Placeholder for architecture, tourism, sacred space, and Barcelona's layered identity.",
+      "We toured Barcelona, my old stomping grounds. Seeing the students take everything in reminded me of myself when I was 15 years old running around Barcelona. We toured a local market and then walked around the Gothic Quarter and some of the main streets of the city. One of the coolest things was stopping by my old high school and taking a picture with all of my students. My old Spanish professor even came to meet the class.",
     motif: "tiles",
     image: "/assets/photos/fab333_madrid/fab_bcn_day2.webp"
   },
@@ -117,9 +117,9 @@ const stops = [
     city: "Barcelona",
     date: "May 31, 2025",
     day: "Day 3",
-    label: "Penedes wine region",
+    label: "Wine & Dine",
     copy:
-      "Full-day visit to the Penedes wine region with free evening time in Barcelona. Placeholder for wine region notes, landscape, hospitality, and group reflections.",
+      "We took the bus, left bustling Barcelona, and went to a family friend's vineyard for a tour of their cava winery. Oscar, the owner of the winery, took care of our group and treated us to a special vintage wine and an amazing lunch. After the tour and meal, every single one of the students fell asleep in the back of the bus.",
     motif: "plaza",
     image: "/assets/photos/fab333_madrid/fab_bcn_day3.webp"
   },
@@ -127,9 +127,9 @@ const stops = [
     city: "Barcelona",
     date: "June 1, 2025",
     day: "Day 4",
-    label: "La Boqueria market",
+    label: "Sagrada Familia",
     copy:
-      "Faculty-led class meeting followed by a guided La Boqueria market visit with tastings. Placeholder for market sensory details, crowds, ingredients, and food as public life.",
+      "I had been to the Sagrada Familia twice, once as a child and once again as a teenager. But for some reason I did not remember how absolutely breathtaking it is from the inside. The students and I learned about the architecture and all of the Easter eggs of the building. Then, those who wanted to join me came along for a walking tour of the city, led by me.",
     motif: "paella",
     image: "/assets/photos/fab333_madrid/fab_bcn_day4.webp"
   },
@@ -137,9 +137,9 @@ const stops = [
     city: "Barcelona",
     date: "June 2, 2025",
     day: "Day 5",
-    label: "Final class and farewell dinner",
+    label: "The Last Supper",
     copy:
-      "Final class meeting, reflection time, and group farewell dinner in Barcelona. Placeholder for the emotional wrap-up, what students noticed, and what the course left behind.",
+      "After a free day to roam around Barcelona, everyone got all dolled up to go to our farewell dinner at the top of what used to be a bullfighting rink. Nineteen students arrived to the welcome dinner in Madrid on the first day anxious, excited, and without knowing anyone else. Nineteen students now left the farewell dinner with an unforgettable experience and people who were now their close friends. And they left together, in a couple of big groups, because nobody was ready for it to be over.",
     motif: "notes",
     image: "/assets/photos/fab333_madrid/fab_bcn_day5.webp"
   },
@@ -147,9 +147,9 @@ const stops = [
     city: "Barcelona",
     date: "June 3, 2025",
     day: "Day 6",
-    label: "Program ends",
+    label: "Adios/Adeu",
     copy:
-      "Check out and transfer to the airport at the most common departure time. Placeholder for departures, final impressions, and the aftertaste of the trip.",
+      "Sad faces all around. From breakfast at the hotel, into the taxi, and all the way to the airport. Everyone was sad that it was over, myself included. But every single one of us will always remember the amazing trip that we had and the people we shared it with.",
     motif: "notes",
     image: "/assets/photos/fab333_madrid/fab_bcn_day6.webp"
   }
