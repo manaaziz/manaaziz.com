@@ -1138,13 +1138,9 @@ export default function GlobalExperienceMap() {
                         className={stateWork ? "us-state is-highlighted" : "us-state"}
                         d={usPath(state)}
                         data-active={stateId && displayedStateId === stateId ? "true" : "false"}
+                        focusable="false"
                         key={state.properties.name}
                         onClick={() => {
-                          if (!stateId) return;
-                          setActiveStateId(stateId);
-                          setSelectedWorkIndex(null);
-                        }}
-                        onFocus={() => {
                           if (!stateId) return;
                           setActiveStateId(stateId);
                           setSelectedWorkIndex(null);
@@ -1153,8 +1149,6 @@ export default function GlobalExperienceMap() {
                           if (!stateId) return;
                           setPreviewStateId(stateId);
                         }}
-                        role={stateWork ? "button" : "presentation"}
-                        tabIndex={stateWork ? 0 : -1}
                       />
                     );
                   })}

@@ -173,13 +173,16 @@ export default function PaperMosaic({ papers }) {
     function resetChip(chip, index, startAbove = true) {
       chip.visualRadius = Math.max(5, chipElements[index].offsetWidth / 2);
       chip.radius = Math.max(4, chipElements[index].offsetWidth * 0.32);
-      const spreadStart = bounds.width * 0.16;
-      const spreadWidth = bounds.width * 0.68;
-      chip.x = spreadStart + Math.random() * spreadWidth;
+      const laneDirection = index % 2 === 0 ? 1 : -1;
+      const leftLaneStart = bounds.width * 0.08;
+      const rightLaneStart = bounds.width * 0.58;
+      const laneWidth = bounds.width * 0.34;
+      chip.x = (laneDirection > 0 ? leftLaneStart : rightLaneStart) + Math.random() * laneWidth;
       chip.y = startAbove ? -chip.radius * (2.5 + Math.random() * 4.5) : -chip.radius * (1 + index * 1.6);
-      const fallSpeed = 44 + Math.random() * 18;
-      const fallAngle = Math.PI / 6;
-      const direction = index % 2 === 0 ? 1 : -1;
+      const fallSpeed = 165 + Math.random() * 55;
+      const fallAngle = (Math.PI / 180) * (30 + Math.random() * 12);
+      const centerDirection = chip.x < bounds.width / 2 ? 1 : -1;
+      const direction = Math.random() > 0.12 ? centerDirection : -centerDirection;
       chip.vx = Math.sin(fallAngle) * fallSpeed * direction;
       chip.vy = Math.cos(fallAngle) * fallSpeed;
       chip.driftDirection = direction;
