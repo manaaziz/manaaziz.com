@@ -261,7 +261,7 @@ const conferencePresentations = [
     date: "May 23-25, 2023",
     venue: "International Conference on Gambling & Risk Taking",
     location: "Las Vegas, Nevada",
-    logo: "/assets/photos/ICGRT_2023.webp",
+    logo: "/assets/photos/conf_gambling_risk_2023.webp",
     photo: true,
     tile: "wide",
     focus: "center 42%"

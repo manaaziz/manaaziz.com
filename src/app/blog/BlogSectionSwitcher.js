@@ -340,7 +340,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
           title: "Conference presentations and published work",
           excerpt: "A running archive of research questions, methods, papers, and presentation moments.",
           href: "/research",
-          image: "/assets/photos/ICGRT_2023.webp",
+          image: "/assets/photos/conf_gambling_risk_2023.webp",
           action: "Open research",
           size: "wide"
         },
@@ -415,7 +415,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
           excerpt:
             "A mosaic of journals, working papers, presentation archives, research questions, and the methods connecting them.",
           href: "/research",
-          image: "/assets/photos/ICGRT_2023.webp",
+          image: "/assets/photos/conf_gambling_risk_2023.webp",
           action: "Open research",
           size: "lead"
         })

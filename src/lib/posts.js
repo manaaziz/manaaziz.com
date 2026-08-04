@@ -46,6 +46,16 @@ export const seriesConfig = {
     tags: ["Consulting", "Casino Marketing"],
     startingPointLabel: "First note"
   },
+  research: {
+    legacyCategory: "research",
+    legacyBase: "blog/research",
+    title: "Research",
+    description: "Notes from research talks, conference rooms, academic communities, and the questions connecting gambling, hospitality, AI, and analytics.",
+    cover: "/assets/photos/conf_gambling_risk_2026.webp",
+    tags: ["Research", "Gaming Research"],
+    startingPointLabel: "First research note",
+    standalone: true
+  },
   teaching: {
     legacyCategory: "teaching",
     legacyBase: "blog/teaching",
