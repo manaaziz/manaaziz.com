@@ -1,4 +1,4 @@
-import FeatureCarousel from "@/components/FeatureCarousel";
+import FeatureCarousel from "@/components/feature_carousel";
 
 export default function StudentReviewCarousel({ reviews }) {
   return (

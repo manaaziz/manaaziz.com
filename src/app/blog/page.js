@@ -1,5 +1,5 @@
 import { getRecentPosts, getSeriesSummaries, getVisiblePosts } from "@/lib/posts";
-import BlogSectionSwitcher from "./BlogSectionSwitcher";
+import BlogSectionSwitcher from "./blog_section_switcher";
 
 export const metadata = {
   title: "The Manalogue"
@@ -14,14 +14,14 @@ export default function MediaPage() {
       const seriesInfo = series.find((item) => item.seriesSlug === post.seriesSlug);
       return {
         ...post,
-        seriesCover: seriesInfo?.cover || "/assets/images/phdblog-cover.webp"
+        seriesCover: seriesInfo?.cover || "/assets/images/phdblog_cover.webp"
       };
     });
   const recentPosts = getRecentPosts(12).map((post) => {
     const seriesInfo = series.find((item) => item.seriesSlug === post.seriesSlug);
     return {
       ...post,
-      seriesCover: seriesInfo?.cover || "/assets/images/phdblog-cover.webp"
+      seriesCover: seriesInfo?.cover || "/assets/images/phdblog_cover.webp"
     };
   });
   return (

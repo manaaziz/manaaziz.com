@@ -23,7 +23,7 @@ function GlobalExperiencePlaceholder() {
   );
 }
 
-const GlobalExperienceMap = dynamic(() => import("./about/GlobalExperienceMap"), {
+const GlobalExperienceMap = dynamic(() => import("./about/global_experience_map"), {
   ssr: false,
   loading: GlobalExperiencePlaceholder
 });

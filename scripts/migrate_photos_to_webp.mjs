@@ -5,7 +5,7 @@ import sharp from "sharp";
 const root = process.cwd();
 const publicRoot = path.join(root, "public");
 const sourceRoots = ["src", "public"].map((directory) => path.join(root, directory));
-const originalRoot = path.join(root, "asset-originals");
+const originalRoot = path.join(root, "asset_originals");
 const photoExtensions = new Set([".jpg", ".jpeg", ".heic", ".png"]);
 const sourceExtensions = new Set([".js", ".jsx", ".md", ".mdx", ".css", ".mjs", ".json", ".html", ".ics"]);
 const protectedImageNames = new Set([

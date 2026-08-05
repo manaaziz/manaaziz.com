@@ -50,13 +50,13 @@ const collaborations = [
         name: "Wynn Resorts",
         type: "Consulting",
         blurb: "I supported various international initiatives at the corporate level, including financial analysis, database analysis, and marketing.",
-        logo: "/assets/logos/Wynn_Las_Vegas_logo.svg.png"
+        logo: "/assets/logos/wynn_las_vegas_logo_svg.png"
       }),
       card({
         name: "Resorts World Las Vegas",
         type: "Consulting",
         blurb: "I analyzed product performance and gave recommendations around operational efficiency and surveillance.",
-        logo: "/assets/logos/resorts_world_LV_logo_transparent.png"
+        logo: "/assets/logos/resorts_world_lv_logo_transparent.png"
       }),
       card({
         name: "Walker Digital Table Systems",
@@ -141,7 +141,7 @@ const collaborations = [
         name: "GMA Consulting",
         type: "Consulting",
         blurb: "I have supported GMA Consulting on drafting strategic marketing recommendations for a billion-dollar casino company.",
-        logo: "/assets/logos/gma_logo.png.webp"
+        logo: "/assets/logos/gma_logo_png.webp"
       }),
       card({
         name: "Bally's Atlantic City",
@@ -321,7 +321,7 @@ const collaborations = [
         name: "Melco",
         type: "Consulting",
         blurb: "I facilitated the development and implementation of various AI and data science solutions across operations, marketing, and surveillance.",
-        logo: "/assets/logos/Melco_logo.png"
+        logo: "/assets/logos/melco_logo.png"
       })
     ]
   },
@@ -783,13 +783,13 @@ const usStates = [
         name: "Wynn Resorts",
         type: "Consulting",
         blurb: "I supported various international initiatives at the corporate level, including financial analysis, database analysis, and marketing.",
-        logo: "/assets/logos/Wynn_Las_Vegas_logo.svg.png"
+        logo: "/assets/logos/wynn_las_vegas_logo_svg.png"
       }),
       card({
         name: "Resorts World Las Vegas",
         type: "Consulting",
         blurb: "I analyzed product performance and gave recommendations around operational efficiency and surveillance.",
-        logo: "/assets/logos/resorts_world_LV_logo_transparent.png"
+        logo: "/assets/logos/resorts_world_lv_logo_transparent.png"
       }),
       card({
         name: "Walker Digital Table Systems",
@@ -894,7 +894,7 @@ const usStates = [
         name: "GMA Consulting",
         type: "Consulting",
         blurb: "I have supported GMA Consulting on drafting strategic marketing recommendations for a billion-dollar casino company.",
-        logo: "/assets/logos/gma_logo.png.webp"
+        logo: "/assets/logos/gma_logo_png.webp"
       })
     ],
     state: "Colorado"

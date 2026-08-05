@@ -1,6 +1,6 @@
 import "./globals.css";
 import Link from "next/link";
-import SiteLogo from "@/components/SiteLogo";
+import SiteLogo from "@/components/site_logo";
 
 const siteTitle = "Mana Azizsoltani";
 const siteDescription =

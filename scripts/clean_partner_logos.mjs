@@ -34,7 +34,7 @@ const logos = [
     maxWidth: 900
   },
   {
-    source: "Melco_logo.png",
+    source: "melco_logo.png",
     output: "melco_logo.png",
     maxWidth: 640
   },

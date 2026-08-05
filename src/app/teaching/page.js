@@ -1,5 +1,5 @@
 import Link from "next/link";
-import StudentReviewCarousel from "./StudentReviewCarousel";
+import StudentReviewCarousel from "./student_review_carousel";
 import { courses } from "./courses";
 import { studentReviews } from "./reviews";
 

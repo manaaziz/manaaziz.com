@@ -1,9 +1,9 @@
 import Link from "next/link";
-import FeatureCarousel from "@/components/FeatureCarousel";
-import LocalizedHello from "@/components/LocalizedHello";
+import FeatureCarousel from "@/components/feature_carousel";
+import LocalizedHello from "@/components/localized_hello";
 import { getRecentPosts, getSeriesSummaries } from "@/lib/posts";
-import HomeGlobalExperience from "./HomeGlobalExperience";
-import WorkMixChart from "./about/WorkMixChart";
+import HomeGlobalExperience from "./home_global_experience";
+import WorkMixChart from "./about/work_mix_chart";
 
 const workAreas = [
   {
@@ -37,12 +37,12 @@ export default function Home() {
       href: post.href,
       title: post.title,
       excerpt: post.excerpt,
-      image: post.previewImage || post.cover || seriesInfo?.cover || "/assets/images/phdblog-cover.webp",
+      image: post.previewImage || post.cover || seriesInfo?.cover || "/assets/images/phdblog_cover.webp",
       imageAlt: "",
       dateLabel: post.date,
       label: "Read post",
       topic: post.seriesTitle || "The Manalogue",
-      seriesCover: seriesInfo?.cover || "/assets/images/phdblog-cover.webp"
+      seriesCover: seriesInfo?.cover || "/assets/images/phdblog_cover.webp"
     };
   });
 
@@ -64,7 +64,7 @@ export default function Home() {
             <Link className="button" href="/manalogue">
               The Manalogue
             </Link>
-            <a className="button" href="/assets/Azizsoltani_CV.pdf" rel="noreferrer" target="_blank">
+            <a className="button" href="/assets/azizsoltani_cv.pdf" rel="noreferrer" target="_blank">
               CV
             </a>
             <a className="button" href="mailto:manaazizsoltani@gmail.com">

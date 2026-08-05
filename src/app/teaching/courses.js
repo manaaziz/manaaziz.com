@@ -191,7 +191,7 @@ export const courses = [
         title: "PDF syllabus",
         kind: "Syllabus",
         description: "Downloadable PDF copy of the Summer 2025 Spain study-abroad syllabus.",
-        href: "/assets/course-materials/fab-333-summer-studies-spain/fab333_summer_2025_syllabus.pdf"
+        href: "/assets/course_materials/fab_333_summer_studies_spain/fab333_summer_2025_syllabus.pdf"
       },
       {
         title: "Field learning",
@@ -357,7 +357,7 @@ export const courses = [
         title: "PDF syllabus",
         kind: "Syllabus",
         description: "Downloadable PDF copy of the course syllabus.",
-        href: "/assets/course-materials/fab-333-culture-and-cuisine/fab333_culture_cuisine_syllabus.pdf"
+        href: "/assets/course_materials/fab_333_culture_and_cuisine/fab333_culture_cuisine_syllabus.pdf"
       },
       {
         title: "Restaurant visit assignment",
@@ -388,7 +388,7 @@ export const courses = [
         title: "Wine tasting scorecard",
         kind: "Activity",
         description: "A structured tasting worksheet for in-class discussion and sensory observation.",
-        href: "/assets/course-materials/fab-333-culture-and-cuisine/wine_scorecard.docx"
+        href: "/assets/course_materials/fab_333_culture_and_cuisine/wine_scorecard.docx"
       }
     ],
     syllabus: {
@@ -689,15 +689,15 @@ export const courses = [
         title: "Syllabus",
         kind: "Syllabus",
         description: "Downloadable syllabus for the graduate hospitality statistics course.",
-        href: "/assets/course-materials/hoa-730-statistical-analysis/hoa730_syllabus.pdf"
+        href: "/assets/course_materials/hoa_730_statistical_analysis/hoa730_syllabus.pdf"
       },
       {
         title: "Applied statistics modules",
         kind: "Videos",
         description: "Sample lecture materials on correlation, ordinary least squares, and ANOVA.",
         links: [
-          { label: "Correlation and OLS", href: "/assets/course-materials/hoa-730-statistical-analysis/correlation_ols_slides.pdf" },
-          { label: "ANOVA", href: "/assets/course-materials/hoa-730-statistical-analysis/anova_slides.pdf" }
+          { label: "Correlation and OLS", href: "/assets/course_materials/hoa_730_statistical_analysis/correlation_ols_slides.pdf" },
+          { label: "ANOVA", href: "/assets/course_materials/hoa_730_statistical_analysis/anova_slides.pdf" }
         ]
       },
       {
@@ -705,8 +705,8 @@ export const courses = [
         kind: "Code",
         description: "Starter R code for working with synthetic hospitality data.",
         links: [
-          { label: "Starter script", href: "/assets/course-materials/hoa-730-statistical-analysis/hospitality_synthetic_starter.R" },
-          { label: "Data 101 script", href: "/assets/course-materials/hoa-730-statistical-analysis/data_101.R" }
+          { label: "Starter script", href: "/assets/course_materials/hoa_730_statistical_analysis/hospitality_synthetic_starter.r" },
+          { label: "Data 101 script", href: "/assets/course_materials/hoa_730_statistical_analysis/data_101.r" }
         ]
       },
       {
@@ -714,33 +714,33 @@ export const courses = [
         kind: "Assignments",
         description: "Homework prompts for summarizing data, confidence intervals, hypothesis tests, correlation, OLS, ANOVA, and multiple regression.",
         links: [
-          { label: "HW1", href: "/assets/course-materials/hoa-730-statistical-analysis/hw1_summarize_data.pdf" },
-          { label: "HW2", href: "/assets/course-materials/hoa-730-statistical-analysis/hw2_ci_hypothesis_tests.pdf" },
-          { label: "HW3", href: "/assets/course-materials/hoa-730-statistical-analysis/hw3_correlation_ols.pdf" },
-          { label: "HW4", href: "/assets/course-materials/hoa-730-statistical-analysis/hw4_anova.pdf" },
-          { label: "HW5", href: "/assets/course-materials/hoa-730-statistical-analysis/hw5_multiple_linear_regression.pdf" }
+          { label: "HW1", href: "/assets/course_materials/hoa_730_statistical_analysis/hw1_summarize_data.pdf" },
+          { label: "HW2", href: "/assets/course_materials/hoa_730_statistical_analysis/hw2_ci_hypothesis_tests.pdf" },
+          { label: "HW3", href: "/assets/course_materials/hoa_730_statistical_analysis/hw3_correlation_ols.pdf" },
+          { label: "HW4", href: "/assets/course_materials/hoa_730_statistical_analysis/hw4_anova.pdf" },
+          { label: "HW5", href: "/assets/course_materials/hoa_730_statistical_analysis/hw5_multiple_linear_regression.pdf" }
         ]
       },
       {
         title: "Midterm project",
         kind: "Project",
         description: "Applied midterm project prompt for graduate hospitality statistics.",
-        href: "/assets/course-materials/hoa-730-statistical-analysis/midterm_project.pdf"
+        href: "/assets/course_materials/hoa_730_statistical_analysis/midterm_project.pdf"
       },
       {
         title: "Final project",
         kind: "Project",
         description: "Final project prompt focused on applied statistical reasoning and communication.",
-        href: "/assets/course-materials/hoa-730-statistical-analysis/final_project.pdf"
+        href: "/assets/course_materials/hoa_730_statistical_analysis/final_project.pdf"
       },
       {
         title: "Hospitality datasets",
         kind: "Data",
         description: "Sample hotel datasets used for applied examples and student practice.",
         links: [
-          { label: "Hotels", href: "/assets/course-materials/hoa-730-statistical-analysis/hotels.csv" },
-          { label: "Hotels ANOVA", href: "/assets/course-materials/hoa-730-statistical-analysis/hotels_anova.csv" },
-          { label: "Hotels MLR", href: "/assets/course-materials/hoa-730-statistical-analysis/hotels_mlr.csv" }
+          { label: "Hotels", href: "/assets/course_materials/hoa_730_statistical_analysis/hotels.csv" },
+          { label: "Hotels ANOVA", href: "/assets/course_materials/hoa_730_statistical_analysis/hotels_anova.csv" },
+          { label: "Hotels MLR", href: "/assets/course_materials/hoa_730_statistical_analysis/hotels_mlr.csv" }
         ]
       }
     ]
@@ -796,25 +796,25 @@ export const courses = [
         title: "Decision tree activity",
         kind: "Assignment",
         description: "A written-in-class activity using decision trees, book club data, and Boston housing data.",
-        href: "/assets/course-materials/hoa-732-advanced-statistical-analysis/decision_tree_wic.pdf"
+        href: "/assets/course_materials/hoa_732_advanced_statistical_analysis/decision_tree_wic.pdf"
       },
       {
         title: "Random forest activity",
         kind: "Assignments",
         description: "A written-in-class activity using random forests and German credit data.",
-        href: "/assets/course-materials/hoa-732-advanced-statistical-analysis/random_forest_wic.pdf"
+        href: "/assets/course_materials/hoa_732_advanced_statistical_analysis/random_forest_wic.pdf"
       },
       {
         title: "Midterm project",
         kind: "Project",
         description: "Midterm project prompt for advanced statistical analysis.",
-        href: "/assets/course-materials/hoa-732-advanced-statistical-analysis/midterm_project.txt"
+        href: "/assets/course_materials/hoa_732_advanced_statistical_analysis/midterm_project.txt"
       },
       {
         title: "Final project",
         kind: "Project",
         description: "Final project prompt for applied modeling, interpretation, and communication.",
-        href: "/assets/course-materials/hoa-732-advanced-statistical-analysis/final_project.pdf"
+        href: "/assets/course_materials/hoa_732_advanced_statistical_analysis/final_project.pdf"
       }
     ]
   }

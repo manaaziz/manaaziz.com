@@ -1,6 +1,6 @@
-import FeatureCarousel from "@/components/FeatureCarousel";
+import FeatureCarousel from "@/components/feature_carousel";
 import { getAllPosts, getSeriesSummaries } from "@/lib/posts";
-import LogoBounceField from "./LogoBounceField";
+import LogoBounceField from "./logo_bounce_field";
 
 export const metadata = {
   title: "Consulting"
@@ -45,13 +45,13 @@ const consultingAreas = [
 ];
 
 const clients = [
-  { name: "Wynn Resorts", logo: "/assets/logos/Wynn_Las_Vegas_logo.svg.png" },
-  { name: "Melco", logo: "/assets/logos/Melco_logo.png" },
+  { name: "Wynn Resorts", logo: "/assets/logos/wynn_las_vegas_logo_svg.png" },
+  { name: "Melco", logo: "/assets/logos/melco_logo.png" },
   { name: "Crown Resorts", logo: "/assets/logos/crown_resorts_logo.png" },
   { name: "The Star", logo: "/assets/logos/the_star_logo.png" },
   { name: "Hoiana", logo: "/assets/logos/hoiana_logo.png" },
   { name: "Inspire", logo: "/assets/logos/inspire_resort_logo.png" },
-  { name: "Resorts World Las Vegas", logo: "/assets/logos/resorts_world_LV_logo_transparent.png" },
+  { name: "Resorts World Las Vegas", logo: "/assets/logos/resorts_world_lv_logo_transparent.png" },
   { name: "Resorts World Sentosa", logo: "/assets/logos/resorts_world_singapore_logo_transparent.png" },
   { name: "Casino Miami", logo: "/assets/logos/casino_miami_logo.png" },
   { name: "Gilley's Park City", logo: "/assets/logos/gilleys_logo_transparent.png" },
@@ -60,7 +60,7 @@ const clients = [
   { name: "AXES", logo: "/assets/logos/axes_logo.png" },
   { name: "Bally's", logo: "/assets/logos/ballys_corporation_logo.svg" },
   { name: "IGT Italia", logo: "/assets/logos/igt_italia_logo.png" },
-  { name: "GMA Consulting", logo: "/assets/logos/gma_logo.png.webp" }
+  { name: "GMA Consulting", logo: "/assets/logos/gma_logo_png.webp" }
 ];
 
 const companyRoles = [
@@ -100,12 +100,12 @@ export default function ConsultingPage() {
       const seriesInfo = series.find((item) => item.seriesSlug === post.seriesSlug);
       return {
         ...post,
-        image: post.previewImage || post.cover || seriesInfo?.cover || "/assets/images/phdblog-cover.webp",
+        image: post.previewImage || post.cover || seriesInfo?.cover || "/assets/images/phdblog_cover.webp",
         imageAlt: "",
         dateLabel: post.date,
         label: "Read post",
         topic: post.seriesTitle || "The Manalogue",
-        seriesCover: seriesInfo?.cover || "/assets/images/phdblog-cover.webp"
+        seriesCover: seriesInfo?.cover || "/assets/images/phdblog_cover.webp"
       };
     });
   const consultingWriting = writingPosts.filter((post) => post.tags.some((tag) => tag.toLowerCase() === "consulting"));

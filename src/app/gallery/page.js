@@ -1,4 +1,4 @@
-import GalleryStack from "@/components/GallerySection";
+import GalleryStack from "@/components/gallery_section";
 
 export const metadata = {
   title: "Gallery"
@@ -16,7 +16,7 @@ const galleries = [
     title: "RIMS Gala",
     body: "Las Vegas, Nevada. A hospitality and student community event from the UNLV orbit, part of the teaching and mentorship side of the archive.",
     images: [
-      "/assets/photos/RIMSgala1.webp"
+      "/assets/photos/rim_sgala1.webp"
     ]
   },
   {
@@ -51,14 +51,14 @@ const galleries = [
     title: "Club de Convergentes",
     body: "Madrid, Spain. A gaming and AI governance presentation connected to translating research into industry conversation.",
     images: [
-      "/assets/photos/CEOE_2025.webp"
+      "/assets/photos/ceoe_2025.webp"
     ]
   },
   {
     title: "Cultural Diversity Foundation Educational Taste of Excellence",
     body: "Las Vegas, Nevada. A community and education event highlighting hospitality, culture, mentorship, and local connection.",
     images: [
-      "/assets/photos/CDF23-2.webp"
+      "/assets/photos/cdf23_2.webp"
     ]
   },
   {

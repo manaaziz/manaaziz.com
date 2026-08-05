@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { courses, getCourse } from "../courses";
-import CourseAssessmentChart from "./CourseAssessmentChart";
+import CourseAssessmentChart from "./course_assessment_chart";
 
 const materialKindOrder = {
   Syllabus: 0,

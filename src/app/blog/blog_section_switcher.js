@@ -232,7 +232,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
       title: "Europe 2023",
       excerpt: "A professional and personal archive from a multi-purpose European summer trip.",
       href: "/blog/travel",
-      image: "/assets/images/EU23cover.webp",
+      image: "/assets/images/eu23cover.webp",
       action: "Open archive",
       size: "standard"
     }
@@ -244,7 +244,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
       date: "2023-06-22",
       place: "Barcelona",
       preview: "A travel note from Barcelona and the return of an older thread in the Manalogue archive.",
-      href: "/blog/travel/Post8",
+      href: "/blog/travel/post8",
       image: "/assets/photos/eublog/blog8_1.webp",
       tile: "wide"
     },
@@ -254,7 +254,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
       date: "2023",
       place: "Europe",
       preview: "Photos and field notes from the Europe 2023 archive.",
-      href: "/blog/travel/Post1",
+      href: "/blog/travel/post1",
       image: "/assets/photos/eublog/blog1_2.webp"
     },
     {
@@ -263,7 +263,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
       date: "2023",
       place: "Europe",
       preview: "A visual entry from the European travel archive.",
-      href: "/blog/travel/Post4",
+      href: "/blog/travel/post4",
       image: "/assets/photos/eublog/blog4_4.webp",
       tile: "wide"
     },
@@ -273,7 +273,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
       date: "2023",
       place: "Europe",
       preview: "Another photo-forward stop from the Europe 2023 posts.",
-      href: "/blog/travel/Post7",
+      href: "/blog/travel/post7",
       image: "/assets/photos/eublog/blog7_3.webp"
     },
     {
@@ -329,7 +329,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
               title: newsItem.title,
               excerpt: newsItem.description,
               href: newsItem.href,
-              image: "/assets/images/LVcover.webp",
+              image: "/assets/images/l_vcover.webp",
               action: "Read coverage",
               size: "lead",
               external: true
@@ -370,7 +370,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
           title: "Archived travel writing lives in its own room",
           excerpt: "Older travel and doctoral-life posts are archived under Travel, not promoted as current homepage material.",
           href: "/blog/travel",
-          image: "/assets/images/EU23cover.webp",
+          image: "/assets/images/eu23cover.webp",
           action: "Open travel",
           size: "standard"
         }
@@ -387,7 +387,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
               title: newsItem.title,
               excerpt: newsItem.description,
               href: newsItem.href,
-              image: "/assets/images/LVcover.webp",
+              image: "/assets/images/l_vcover.webp",
               action: "Read coverage",
               size: "lead",
               external: true

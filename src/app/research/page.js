@@ -1,6 +1,6 @@
 import Image from "next/image";
-import PaperMosaic from "./PaperMosaic";
-import ResearchWordGraph from "./ResearchWordGraph";
+import PaperMosaic from "./paper_mosaic";
+import ResearchWordGraph from "./research_word_graph";
 
 export const metadata = {
   title: "Research"
@@ -14,7 +14,7 @@ const papers = [
     year: "2026",
     doi: "10.1016/j.puhe.2025.106080",
     blogHref: "/manalogue",
-    pdfHref: "/assets/papers/characterising-online-gamblers-risk-thresholds.pdf",
+    pdfHref: "/assets/papers/characterising_online_gamblers_risk_thresholds.pdf",
     blurb: "A retrospective analysis of open banking data to understand financial risk signals among online gamblers.",
     detail: "This paper studies online gamblers who exceed financial risk thresholds using open banking data. It connects gambling behavior, financial signals, and public-health-oriented risk identification."
   },
@@ -25,7 +25,7 @@ const papers = [
     year: "2026",
     doi: "10.1016/j.actpsy.2026.106947",
     blogHref: "/manalogue",
-    pdfHref: "/assets/papers/interpretable-behavioral-clusters-gamblers.pdf",
+    pdfHref: "/assets/papers/interpretable_behavioral_clusters_gamblers.pdf",
     blurb: "An unsupervised learning project identifying behaviorally meaningful gambler clusters.",
     detail: "This study uses unsupervised learning to identify behavioral clusters among gamblers. The goal is to find interpretable subgroups that can support research on gambling behavior and risk."
   },
@@ -36,7 +36,7 @@ const papers = [
     year: "2025",
     doi: "10.2478/ejthr-2025-0022",
     blogHref: "/manalogue",
-    pdfHref: "/assets/papers/systematic-review-ml-hotel-occupancy-forecasting.pdf",
+    pdfHref: "/assets/papers/systematic_review_ml_hotel_occupancy_forecasting.pdf",
     blurb: "A review of how machine learning methods are used across hotel occupancy forecasting research.",
     detail: "This systematic review maps how machine learning has been used in hotel occupancy forecasting. It highlights model families, common prediction tasks, and gaps for future hospitality analytics research."
   },
@@ -47,7 +47,7 @@ const papers = [
     year: "2025",
     doi: "10.1007/s10899-025-10419-6",
     blogHref: "/manalogue",
-    pdfHref: "/assets/papers/across-the-bettor-verse-open-banking-gambling.pdf",
+    pdfHref: "/assets/papers/across_the_bettor_verse_open_banking_gambling.pdf",
     blurb: "An open banking view of gambling behavior, spending patterns, and risk-relevant financial activity.",
     detail: "This study uses open banking data to characterize gambling activity through a financial lens. It helps connect player behavior, spending patterns, and broader questions about gambling-related harm."
   },
@@ -58,7 +58,7 @@ const papers = [
     year: "2025",
     doi: "10.1080/14459795.2025.2529177",
     blogHref: "/manalogue",
-    pdfHref: "/assets/papers/measurement-invariance-pgsi.pdf",
+    pdfHref: "/assets/papers/measurement_invariance_pgsi.pdf",
     blurb: "A measurement study testing whether the PGSI behaves consistently across sociodemographics and gambling modalities.",
     detail: "This paper evaluates whether the Problem Gambling Severity Index measures the same construct across different groups and gambling modalities. The work is about making sure comparisons across people are statistically defensible."
   },
@@ -69,7 +69,7 @@ const papers = [
     year: "2025",
     doi: "10.1016/j.engappai.2025.110664",
     blogHref: "/manalogue",
-    pdfHref: "/assets/papers/towards-explainable-ai-machine-learning.pdf",
+    pdfHref: "/assets/papers/towards_explainable_ai_machine_learning.pdf",
     blurb: "A study of efficient perturbation-based explanations for machine learning models.",
     detail: "This paper contributes to explainable AI by studying efficient perturbation-based explanations. The focus is on making complex machine learning predictions more interpretable without unnecessary computational cost."
   },
@@ -80,7 +80,7 @@ const papers = [
     year: "2025",
     doi: "10.1109/ACCESS.2025.3536094",
     blogHref: "/manalogue",
-    pdfHref: "/assets/papers/ml-hospitality-booking-cancellations.pdf",
+    pdfHref: "/assets/papers/ml_hospitality_booking_cancellations.pdf",
     blurb: "An interpretable machine learning approach to forecasting hotel booking cancellations.",
     detail: "This paper applies machine learning to predict hotel booking cancellations while keeping model interpretation central. It sits at the intersection of forecasting, hospitality operations, and practical decision support."
   },
@@ -146,7 +146,7 @@ const conferencePresentations = [
     date: "October 6, 2025",
     venue: "26th ICRG Conference on Gambling and Addiction",
     location: "Las Vegas, Nevada",
-    logo: "/assets/photos/ICRG_2025.webp",
+    logo: "/assets/photos/icrg_2025.webp",
     photo: true,
     tile: "wide",
     focus: "center 40%"
@@ -157,7 +157,7 @@ const conferencePresentations = [
     date: "October 2, 2025",
     venue: "Club de Convergentes",
     location: "Madrid, Spain",
-    logo: "/assets/photos/CEOE_2025.webp",
+    logo: "/assets/photos/ceoe_2025.webp",
     photo: true,
     tile: "wide",
     focus: "center 38%"
@@ -205,7 +205,7 @@ const conferencePresentations = [
     date: "October 6-7, 2024",
     venue: "25th ICRG Conference on Gambling and Addiction",
     location: "Las Vegas, Nevada",
-    logo: "/assets/photos/ICRG_2024.webp",
+    logo: "/assets/photos/icrg_2024.webp",
     photo: true,
     tile: "tall",
     focus: "center 38%"
@@ -216,7 +216,7 @@ const conferencePresentations = [
     date: "September 10-13, 2024",
     venue: "14th European Conference on Gambling Studies and Policy Issues",
     location: "Rome, Italy",
-    logo: "/assets/photos/EASG_2024.webp",
+    logo: "/assets/photos/easg_2024.webp",
     photo: true,
     tile: "tall",
     focus: "center 42%"
@@ -283,7 +283,7 @@ const conferencePresentations = [
     date: "March 17, 2023",
     venue: "2023 Hawkes Learning Innovative Educators Summit",
     location: "Virtual",
-    logo: "/assets/photos/hawkes3-cropped.webp",
+    logo: "/assets/photos/hawkes3_cropped.webp",
     photo: true,
     tile: "wide",
     fit: "contain",

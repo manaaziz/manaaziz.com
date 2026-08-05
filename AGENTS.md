@@ -12,7 +12,7 @@ This is the working memory for `manaaziz.com`, Mana Azizsoltani's personal websi
 
 ## Validation And Deployment
 
-- Run `npm run lint` after source/content changes. This uses `scripts/validate-site.mjs`.
+- Run `npm run lint` after source/content changes. This uses `scripts/validate_site.mjs`.
 - Run `npm run build` before larger UI/content changes are considered complete.
 - Run `npm run audit:assets` when adding or replacing media-heavy assets.
 - The deploy workflow runs `npm ci`, `npm run lint`, `npm run audit:assets`, `npm run optimize:assets:write`, and `npm run build`.
@@ -40,7 +40,7 @@ This is the working memory for `manaaziz.com`, Mana Azizsoltani's personal websi
 ## Image Assets
 
 - Convert site photos to WebP before adding or replacing them so pages load more lightly.
-- Keep original source photos in `asset-originals/` with the same relative folder shape they would have in `public/assets`; do not leave heavy originals in deployable `public/assets` unless they are explicitly needed for downloads or archival reasons.
+- Keep original source photos in `asset_originals/` with the same relative folder shape they would have in `public/assets`; do not leave heavy originals in deployable `public/assets` unless they are explicitly needed for downloads or archival reasons.
 - Use descriptive, lowercase, hyphenated filenames for optimized images.
 - Prefer responsive image sizing and avoid shipping images much larger than their rendered size.
 - Use `loading="lazy"` and `decoding="async"` for ordinary post/card images where appropriate.
@@ -48,7 +48,7 @@ This is the working memory for `manaaziz.com`, Mana Azizsoltani's personal websi
 
 ## Carousels
 
-- `src/components/FeatureCarousel.js` is the shared feature carousel for student review cards and blog preview cards.
+- `src/components/feature_carousel.js` is the shared feature carousel for student review cards and blog preview cards.
 - Do not introduce page-specific carousel tile-size overrides. Tile sizing should be centralized.
 - Preserve the carousel animation unless the user explicitly asks to change it. The desired behavior is:
   - default state: staggered, layered carousel tiles;
@@ -67,7 +67,7 @@ This is the working memory for `manaaziz.com`, Mana Azizsoltani's personal websi
 
 ## Research Page
 
-- Research paper cards use the honeycomb/hexagon mosaic in `src/app/research/PaperMosaic.js`.
+- Research paper cards use the honeycomb/hexagon mosaic in `src/app/research/paper_mosaic.js`.
 - The current hexagon layout is intentionally a 2-1-2-1 pattern that can keep expanding as papers are added.
 - Hexagons should be same-sized, flat-side-on-top, centered content, no descriptions, and show paper title, journal, DOI, Manalogue, and PDF links.
 - Preserve the honeycomb gutters so small poker chips can fall through the cracks.
@@ -83,7 +83,7 @@ This is the working memory for `manaaziz.com`, Mana Azizsoltani's personal websi
   - the mystery/question mark appears only when it is its turn;
   - graph hover should spotlight only the hovered line, keep that line colored, fade the others, and show a small info tile near the line.
 - Marketing blog decision tree:
-  - implemented through `src/components/DecisionTreeGrowth.js` and inserted via a marker in `src/components/PostContent.js`;
+  - implemented through `src/components/decision_tree_growth.js` and inserted via a marker in `src/components/post_content.js`;
   - title should read `SEGMENTATION LOGIC` and `From segmentation to microsegmentation`;
   - animation should grow continuously from 4 terminal nodes to 8, 16, 32, 64, and 128 rather than cutting between separate trees or resizing the frame.
 - Consulting page cards should keep buttons aligned and panels balanced.
@@ -99,7 +99,7 @@ This is the working memory for `manaaziz.com`, Mana Azizsoltani's personal websi
 
 ## Spain Recap Post
 
-- The Spain recap scrollytelling component is `src/components/SpainRecapScrolly.js`.
+- The Spain recap scrollytelling component is `src/components/spain_recap_scrolly.js`.
 - The desired route/timeline effect has separate dotted red connector lines between tiles, with 90-degree bends, touching the bottom edge of the tile above and the top edge of the tile below.
 - The red dot should move fluidly along the dotted connector as the user scrolls.
 - Photos should appear alongside the relevant text as the reader scrolls, not just swap in one fixed top image.

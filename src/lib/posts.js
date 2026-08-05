@@ -11,7 +11,7 @@ export const seriesConfig = {
     legacyBase: "phdblog",
     title: "Becoming Dr. Mana",
     description: "A graduate-school archive about doctoral work, research identity, academic pressure, and the life I tried to keep building around the PhD.",
-    cover: "/assets/images/phdblog-cover.webp",
+    cover: "/assets/images/phdblog_cover.webp",
     tags: ["Academic Life", "Research", "Doctoral Archive"],
     startingPointLabel: "First volume",
     archived: true
@@ -22,7 +22,7 @@ export const seriesConfig = {
     legacyBase: "EUblog",
     title: "Europe 2023",
     description: "A travel and professional archive from a European summer that moved between universities, conferences, cities, friends, and field notes.",
-    cover: "/assets/images/EU23cover.webp",
+    cover: "/assets/images/eu23cover.webp",
     tags: ["Travel", "Europe", "Field Notes"],
     startingPointLabel: "First dispatch"
   },
@@ -123,7 +123,7 @@ function parseFrontMatter(source) {
 }
 
 function slugFromFile(file) {
-  return path.basename(file).replace(/\.mdx$/, "");
+  return path.basename(file).replace(/\.mdx$/, "").replace(/_/g, "-");
 }
 
 function stripHtml(value) {

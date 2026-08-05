@@ -7,11 +7,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "node scripts/validate-site.mjs",
-    "audit:assets": "node scripts/audit-assets.mjs",
-    "migrate:photos": "node scripts/migrate-photos-to-webp.mjs",
-    "optimize:assets": "node scripts/optimize-public-images.mjs",
-    "optimize:assets:write": "node scripts/optimize-public-images.mjs --write"
+    "lint": "node scripts/validate_site.mjs",
+    "audit:assets": "node scripts/audit_assets.mjs",
+    "migrate:photos": "node scripts/migrate_photos_to_webp.mjs",
+    "optimize:assets": "node scripts/optimize_public_images.mjs",
+    "optimize:assets:write": "node scripts/optimize_public_images.mjs --write"
   },
   "dependencies": {
     "@svg-maps/world": "^2.0.0",

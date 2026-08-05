@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import PostContent from "@/components/PostContent";
+import PostContent from "@/components/post_content";
 import { getAllPosts, getPost } from "@/lib/posts";
 
 export function generateStaticParams() {

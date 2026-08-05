@@ -1,7 +1,7 @@
 import Link from "next/link";
-import DecisionTreeGrowth from "@/components/DecisionTreeGrowth";
+import DecisionTreeGrowth from "@/components/decision_tree_growth";
 import { getAdjacentPosts, getRelatedPosts } from "@/lib/posts";
-import SpainRecapScrolly from "@/components/SpainRecapScrolly";
+import SpainRecapScrolly from "@/components/spain_recap_scrolly";
 
 const decisionTreeMarker = '<div data-decision-tree-growth></div>';
 
