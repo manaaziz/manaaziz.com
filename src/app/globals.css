@@ -1601,6 +1601,7 @@ h3 {
 
 .research-word-graph {
   position: relative;
+  container-type: inline-size;
   overflow: hidden;
   min-height: clamp(23rem, 46vw, 36rem);
   margin-top: 1.25rem;
@@ -1614,6 +1615,33 @@ h3 {
   touch-action: none;
   user-select: none;
   -webkit-user-select: none;
+  --research-word-small: clamp(0.68rem, 0.88vw, 0.95rem);
+  --research-word-medium: clamp(0.76rem, 1vw, 1.08rem);
+  --research-word-large: clamp(1rem, 1.35vw, 1.55rem);
+  --research-word-pad-y: clamp(0.36rem, 0.42vw, 0.58rem);
+  --research-word-pad-x: clamp(0.54rem, 0.66vw, 0.82rem);
+  --research-word-medium-pad-y: clamp(0.42rem, 0.5vw, 0.68rem);
+  --research-word-medium-pad-x: clamp(0.62rem, 0.76vw, 0.95rem);
+  --research-word-large-pad-y: clamp(0.56rem, 0.68vw, 0.82rem);
+  --research-word-large-pad-x: clamp(0.74rem, 0.9vw, 1.1rem);
+  --research-word-width: clamp(7.25rem, 16vw, 15rem);
+  --research-word-large-width: clamp(9.2rem, 18vw, 17rem);
+}
+
+@supports (width: 1cqw) {
+  .research-word-graph {
+    --research-word-small: clamp(0.68rem, 0.9cqw, 0.95rem);
+    --research-word-medium: clamp(0.76rem, 1.02cqw, 1.08rem);
+    --research-word-large: clamp(1rem, 1.45cqw, 1.55rem);
+    --research-word-pad-y: clamp(0.36rem, 0.46cqw, 0.58rem);
+    --research-word-pad-x: clamp(0.54rem, 0.68cqw, 0.82rem);
+    --research-word-medium-pad-y: clamp(0.42rem, 0.54cqw, 0.68rem);
+    --research-word-medium-pad-x: clamp(0.62rem, 0.8cqw, 0.95rem);
+    --research-word-large-pad-y: clamp(0.56rem, 0.74cqw, 0.82rem);
+    --research-word-large-pad-x: clamp(0.74rem, 0.96cqw, 1.1rem);
+    --research-word-width: clamp(7.25rem, 16cqw, 15rem);
+    --research-word-large-width: clamp(9.2rem, 18cqw, 17rem);
+  }
 }
 
 .research-word-graph-lines {
@@ -1637,17 +1665,17 @@ h3 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  max-width: min(15rem, 38vw);
+  max-width: var(--research-word-width);
   border: 1px solid var(--line-strong);
   border-radius: 999px;
   background: var(--surface-raised);
   color: var(--ink);
   cursor: grab;
   font: inherit;
-  font-size: 0.95rem;
+  font-size: var(--research-word-small);
   font-weight: 900;
   line-height: 1.05;
-  padding: 0.58rem 0.82rem;
+  padding: var(--research-word-pad-y) var(--research-word-pad-x);
   text-align: center;
   transform: translate(-50%, -50%);
   transition:
@@ -1660,16 +1688,17 @@ h3 {
 
 .research-word-node.medium {
   z-index: 2;
-  font-size: 1.08rem;
-  padding: 0.68rem 0.95rem;
+  font-size: var(--research-word-medium);
+  padding: var(--research-word-medium-pad-y) var(--research-word-medium-pad-x);
 }
 
 .research-word-node.large {
   z-index: 4;
+  max-width: var(--research-word-large-width);
   background: var(--ink);
   color: var(--cream);
-  font-size: clamp(1.12rem, 2.6vw, 1.55rem);
-  padding: 0.82rem 1.1rem;
+  font-size: var(--research-word-large);
+  padding: var(--research-word-large-pad-y) var(--research-word-large-pad-x);
 }
 
 .research-word-node:hover,
@@ -10406,28 +10435,52 @@ h3 {
     min-height: 18rem;
   }
 
-  .paper-mosaic {
-    display: grid;
-    gap: 0.75rem;
-    grid-template-columns: 1fr;
-    width: min(22rem, 100%);
-    height: auto;
+  .paper-mosaic-wrap {
+    --paper-chip-runway: 1rem;
+    margin-inline: calc(var(--page-pad) * -0.35);
+    overflow-x: visible;
     padding-bottom: 0;
   }
 
-  .paper-tile,
-  .paper-tile:hover,
-  .paper-tile:focus-visible,
-  .paper-tile:nth-child(3n + 2):hover,
-  .paper-tile:nth-child(3n + 2):focus-visible {
-    margin: 0;
-    transform: none;
+  .paper-mosaic {
+    --paper-cell: clamp(7.25rem, 22vw, 9.75rem);
+    --paper-gutter: clamp(0.38rem, 1.35vw, 0.62rem);
+    width: min(100%, calc(var(--paper-cell) + var(--paper-step-x) * 2));
+    min-width: 0;
+    height: calc((var(--paper-slot-rows) - 1) * var(--paper-step-y) + var(--paper-cell) * 0.8660254);
+    margin-inline: auto;
   }
 
-  .paper-tile {
-    position: relative;
-    inset: auto;
-    width: 100%;
+  .paper-tile-inner {
+    gap: clamp(0.2rem, 1.4vw, 0.34rem);
+    padding: clamp(0.58rem, 2.8vw, 0.86rem) clamp(0.88rem, 4.7vw, 1.25rem);
+  }
+
+  .paper-tile-inner > * {
+    width: min(100%, 94%);
+  }
+
+  .paper-tile h3 {
+    font-size: clamp(0.56rem, 2.65vw, 0.78rem);
+    line-height: 0.98;
+  }
+
+  .paper-tile span,
+  .paper-tile small {
+    font-size: clamp(0.4rem, 1.75vw, 0.52rem);
+  }
+
+  .paper-tile-actions {
+    gap: 0.16rem;
+  }
+
+  .paper-tile-actions a {
+    font-size: clamp(0.36rem, 1.55vw, 0.45rem);
+    padding: 0.14rem 0.24rem;
+  }
+
+  .paper-chip-drop span {
+    width: clamp(0.52rem, 1.95vw, 0.66rem);
   }
 
   .manalogue-topic-grid {
