@@ -7,12 +7,12 @@ const outputDir = path.join(process.cwd(), "public/assets/partner-logos");
 
 const logos = [
   {
-    source: "1128.HK_BIG-b02662a0.png",
+    source: "1128_hk_big_b02662a0.png",
     output: "wynn_macau_logo.png",
     maxWidth: 900
   },
   {
-    source: "1691075779109-771fb91b-7411-40e2-ab45-906ce79464bb.jpg",
+    source: "1691075779109_771fb91b_7411_40e2_ab45_906ce79464bb.jpg",
     output: "hoiana_logo.png",
     maxWidth: 800,
     removeWhite: true
@@ -24,12 +24,12 @@ const logos = [
     removeWhite: true
   },
   {
-    source: "Crown_Resorts_logo.svg.png",
+    source: "crown_resorts_logo_svg.png",
     output: "crown_resorts_logo.png",
     maxWidth: 720
   },
   {
-    source: "IER_Logotype_RGB.png",
+    source: "ier_logotype_rgb.png",
     output: "inspire_resort_logo.png",
     maxWidth: 900
   },
@@ -39,27 +39,27 @@ const logos = [
     maxWidth: 640
   },
   {
-    source: "SGR.AX_BIG-d0a53ced.png",
+    source: "sgr_ax_big_d0a53ced.png",
     output: "the_star_logo.png",
     maxWidth: 900
   },
   {
-    source: "Wynn_Al_Marjan_Island_Logo_2025.png",
+    source: "wynn_al_marjan_island_logo_2025.png",
     output: "wynn_al_marjan_logo.png",
     maxWidth: 760
   },
   {
-    source: "CN-Logo.svg",
+    source: "cn_logo.svg",
     output: "casino_miami_logo.png",
     maxWidth: 760
   },
   {
-    source: "WDTS-bug-wht-border.png",
+    source: "wdts_bug_wht_border.png",
     output: "wdts_logo.png",
     maxWidth: 520
   },
   {
-    source: "axes-network-squareLogo-1642546595255.png",
+    source: "axes_network_square_logo_1642546595255.png",
     output: "axes_logo.png",
     maxWidth: 520,
     removeWhite: true
