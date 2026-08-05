@@ -130,6 +130,15 @@ This is the working memory for `manaaziz.com`, Mana Azizsoltani's personal websi
 - If restarting the local site, kill the existing dev process cleanly and restart it rather than stacking multiple servers.
 - If port 3000 is occupied, use the next available port and tell the user the URL.
 
+## Browser QA And Lightpanda
+
+- When the user asks to check the site visually or test functionality, use a browser-capable workflow such as Lightpanda when it is available on the machine.
+- Use the local dev server for QA whenever possible, then inspect both desktop and mobile-sized renders.
+- On mobile QA, check the expandable menu, search, hero layout, blog cards, carousels, maps, and any interactive animations.
+- Actively click, hover, scroll, search, and navigate through the experience rather than only loading pages.
+- Look for cramped text, clipped images, odd whitespace, inconsistent card sizing, broken active states, invisible hit areas, animation glitches, console errors, and desktop-only assumptions that fail on mobile.
+- If Lightpanda is unavailable in the current session, fall back to the best available local browser/testing tools and say what could not be directly verified.
+
 ## User Preference Notes
 
 - The user likes iterative visual tuning with screenshots. Respond by making focused adjustments rather than broad redesigns.

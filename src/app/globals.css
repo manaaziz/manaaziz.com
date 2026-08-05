@@ -2232,6 +2232,10 @@ h3 {
   pointer-events: auto;
 }
 
+.work-mix-mobile-detail {
+  display: none;
+}
+
 .work-mix-card-stack-left {
   grid-column: 1;
   grid-row: 1;
@@ -10743,8 +10747,7 @@ h3 {
   }
 
   .work-pie-node,
-  .work-mix-card-stack-left,
-  .work-mix-card-stack-right {
+  .work-mix-mobile-detail {
     grid-column: 1;
   }
 
@@ -10754,19 +10757,13 @@ h3 {
 
   .work-mix-card-stack-left,
   .work-mix-card-stack-right {
-    position: static;
-    display: grid;
-    gap: 0.85rem;
-    width: 100%;
-    pointer-events: auto;
+    display: none;
   }
 
-  .work-mix-card-stack-left {
+  .work-mix-mobile-detail {
+    display: block;
     grid-row: 2;
-  }
-
-  .work-mix-card-stack-right {
-    grid-row: 3;
+    width: 100%;
   }
 
   .work-mix-card {

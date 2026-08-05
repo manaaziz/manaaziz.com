@@ -38,9 +38,10 @@ export default function WorkMixChart({ id, items = defaultWorkMix }) {
     ...item,
     ...(items.find((override) => override.id === item.id || override.href === item.href) || {})
   }));
-  const [activeId, setActiveId] = useState("consulting");
+  const [activeId, setActiveId] = useState("");
   const [isComparing, setIsComparing] = useState(false);
-  const active = workMix.find((item) => item.id === activeId) || workMix[0];
+  const selected = activeId ? workMix.find((item) => item.id === activeId) : null;
+  const active = selected || workMix[0];
   const cardById = new Map(workMix.map((item) => [item.id, item]));
   const leftCards = ["consulting"].map((itemId) => cardById.get(itemId)).filter(Boolean);
   const rightCards = ["teaching", "research"].map((itemId) => cardById.get(itemId)).filter(Boolean);
@@ -54,7 +55,7 @@ export default function WorkMixChart({ id, items = defaultWorkMix }) {
   }
 
   function resetWorkMix() {
-    setActiveId("consulting");
+    setActiveId("");
     setIsComparing(false);
   }
 
@@ -82,6 +83,13 @@ export default function WorkMixChart({ id, items = defaultWorkMix }) {
         </Link>
       </article>
     );
+  }
+
+  function handleSliceKeyDown(event, itemId) {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      activateItem(itemId);
+    }
   }
 
   return (
@@ -118,6 +126,7 @@ export default function WorkMixChart({ id, items = defaultWorkMix }) {
                     key={item.id}
                     onClick={() => activateItem(item.id)}
                     onFocus={() => activateItem(item.id)}
+                    onKeyDown={(event) => handleSliceKeyDown(event, item.id)}
                     onMouseEnter={() => activateItem(item.id)}
                     r="15.9155"
                     role="button"
@@ -136,6 +145,16 @@ export default function WorkMixChart({ id, items = defaultWorkMix }) {
 
           <div className="work-mix-card-stack work-mix-card-stack-right">
             {rightCards.map(renderCard)}
+          </div>
+
+          <div className="work-mix-mobile-detail" aria-live="polite">
+            {selected ? renderCard(selected) : (
+              <article className="work-mix-card work-mix-card-prompt">
+                <span>Work mix</span>
+                <h3>Tap a section of the chart</h3>
+                <p>Click one of the sections of the chart to learn more about how I spend my time.</p>
+              </article>
+            )}
           </div>
         </div>
       </div>
