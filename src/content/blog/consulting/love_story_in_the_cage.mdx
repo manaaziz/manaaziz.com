@@ -1,0 +1,108 @@
+---
+title: A Love Story in the Cage
+date: 2026-07-31
+seriesTitle: Consulting
+tags: consulting, casino operations, chip attribution, analytics, table games
+cover: /assets/images/consultant_pic.webp
+workType: Consulting
+---
+
+My recent consulting trip to Southeast Asia taught me a lot about the way the cage works at a casino, and also that saying "the lady in the cage" can sound weirdly sadistic out of context.
+
+The business is starting to pick up at the property, and they are starting to run out of tables they can dedicate to a single rolling program. So they wanted to put Walker Digital chip attribution to the test: could we make sure cash players were not able to cash out credit chips after a day of playing and passing chips around?
+
+The problem is that it is not so easy to track. You can end up with a convoluted chain of rolling value allocations.
+
+For example, Player A gives Player B a chip from their rolling program. Player B wagers that chip and wins. Now Player B has a chip that is a non-negotiable chip from Player A and a cashable chip that they won from the wager. Then Player B colors down the non-negotiable chip and gives half of it to Player C, who wants to go to the cage and cash out. I have to know that Player C cannot cash out the value that originally came from Player A.
+
+<section class="cage-chip-flow" aria-label="Chip attribution example from Player A to Player C">
+  <div class="cage-chip-flow-stage">
+    <article class="cage-player-card cage-player-a">
+      <span class="cage-player-label">Player A</span>
+      <strong>Rolling program stack</strong>
+      <p>Five non-negotiable $100 chips begin with Player A.</p>
+      <div class="cage-chip-stack" aria-label="Five red one hundred dollar chips">
+        <span class="cage-chip cage-chip-red">$100</span>
+        <span class="cage-chip cage-chip-red">$100</span>
+        <span class="cage-chip cage-chip-red">$100</span>
+        <span class="cage-chip cage-chip-red">$100</span>
+        <span class="cage-chip cage-chip-red">$100</span>
+      </div>
+    </article>
+    <div class="cage-transfer" aria-hidden="true">
+      <span class="cage-chip cage-chip-red">$100</span>
+      <span>one chip moves</span>
+    </div>
+    <article class="cage-player-card cage-player-b">
+      <span class="cage-player-label">Player B</span>
+      <strong>Cash player plus borrowed value</strong>
+      <p>Player B already has cashable chips, then receives Player A's non-negotiable value.</p>
+      <div class="cage-chip-mix" aria-label="Five black chips and one red chip">
+        <span class="cage-chip cage-chip-black">$100</span>
+        <span class="cage-chip cage-chip-black">$100</span>
+        <span class="cage-chip cage-chip-black">$100</span>
+        <span class="cage-chip cage-chip-black">$100</span>
+        <span class="cage-chip cage-chip-black">$100</span>
+        <span class="cage-chip cage-chip-red">$100</span>
+      </div>
+    </article>
+  </div>
+
+  <div class="cage-chip-flow-stage cage-chip-flow-stage-secondary">
+    <article class="cage-player-card cage-wager-card">
+      <span class="cage-player-label">Wager and win</span>
+      <strong>The inherited chip creates two kinds of value.</strong>
+      <p>One part is still tied to Player A's program. The win is cashable value for Player B.</p>
+      <div class="cage-chip-mix cage-chip-mix-tight" aria-label="Red non-negotiable chip and black winning chip">
+        <span class="cage-chip cage-chip-red">$100</span>
+        <span class="cage-chip cage-chip-black">$100</span>
+      </div>
+    </article>
+    <div class="cage-transfer" aria-hidden="true">
+      <span class="cage-chip cage-chip-red cage-chip-small">$25</span>
+      <span>color down and pass half</span>
+    </div>
+    <article class="cage-player-card cage-player-c">
+      <span class="cage-player-label">Player C</span>
+      <strong>The cage sees a blended pocket.</strong>
+      <p>Player C arrives with cash chips, promotional chips, and two pieces of value that trace back to Player A.</p>
+      <div class="cage-chip-mix cage-chip-mix-wide" aria-label="Black chips, purple promotional chips, and two red twenty five dollar chips">
+        <span class="cage-chip cage-chip-black">$100</span>
+        <span class="cage-chip cage-chip-black">$100</span>
+        <span class="cage-chip cage-chip-purple">PROMO</span>
+        <span class="cage-chip cage-chip-purple">PROMO</span>
+        <span class="cage-chip cage-chip-red cage-chip-small">$25</span>
+        <span class="cage-chip cage-chip-red cage-chip-small">$25</span>
+      </div>
+    </article>
+  </div>
+</section>
+
+All this, mixed with chips not having clean ownership because of some lacking operational SOPs, some peculiarities in the database, and the sheer number of transactions, made things really difficult.
+
+But we were able to figure it out with a little bit of t(h)inkering. And when I presented all of the information back to the person in charge, they told me, "Just show me what you got. I don't need to know your love story."
+
+So I saved them my love story in the cage, and showed them the following:
+
+<section class="cage-settlement-demo" aria-label="Player C cage settlement">
+  <p class="cage-settlement-kicker">Player C at the cage</p>
+  <div class="cage-settlement-grid">
+    <article class="cage-settlement-box cage-settlement-cash">
+      <span>Cashable</span>
+      <strong>Cash out this much</strong>
+      <p>Clean value that belongs to Player C.</p>
+    </article>
+    <article class="cage-settlement-box cage-settlement-program">
+      <span>Program value</span>
+      <strong>This much is from some other program</strong>
+      <p>Value that traces back to Player A's rolling program.</p>
+    </article>
+    <article class="cage-settlement-box cage-settlement-promo">
+      <span>Promotional</span>
+      <strong>Promotional chips</strong>
+      <p>Promo value tracked under separate rules.</p>
+    </article>
+  </div>
+</section>
+
+The whole experience taught me a lot about rolling programs and non-negotiable chips, casino cage operations, and transactional databases as a whole.

@@ -8110,6 +8110,250 @@ h3 {
   }
 }
 
+.cage-chip-flow,
+.cage-settlement-demo {
+  margin: clamp(2rem, 5vw, 3rem) 0;
+  padding: clamp(1rem, 3vw, 1.35rem);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-tight);
+  background:
+    radial-gradient(circle at 15% 12%, rgba(47, 111, 100, 0.12), transparent 34%),
+    linear-gradient(135deg, rgba(255, 250, 241, 0.88), rgba(255, 250, 241, 0.56));
+  box-shadow: var(--shadow-soft);
+}
+
+.cage-chip-flow-stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(6rem, 0.42fr) minmax(0, 1fr);
+  gap: clamp(0.65rem, 2vw, 1rem);
+  align-items: stretch;
+}
+
+.cage-chip-flow-stage + .cage-chip-flow-stage {
+  margin-top: 1rem;
+}
+
+.cage-player-card {
+  display: grid;
+  align-content: start;
+  gap: 0.7rem;
+  min-height: 15.5rem;
+  padding: clamp(1rem, 3vw, 1.25rem);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-tight);
+  background: rgba(255, 250, 241, 0.76);
+}
+
+.cage-player-label,
+.cage-settlement-kicker,
+.cage-settlement-box span {
+  color: var(--green);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cage-player-card strong {
+  color: var(--ink);
+  font-size: clamp(1.15rem, 2.2vw, 1.55rem);
+  line-height: 1.02;
+}
+
+.post-body .cage-player-card p,
+.post-body .cage-settlement-box p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.35;
+}
+
+.cage-chip-stack,
+.cage-chip-mix,
+.cage-chip-mix-wide {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: auto;
+}
+
+.cage-chip-stack .cage-chip + .cage-chip {
+  margin-left: -1.1rem;
+}
+
+.cage-chip {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 3.15rem;
+  aspect-ratio: 1;
+  border: 0.22rem solid currentColor;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at center, rgba(255, 250, 241, 0.98) 0 34%, transparent 35%),
+    conic-gradient(from 8deg, currentColor 0 12deg, #fffaf1 12deg 24deg, currentColor 24deg 48deg, #fffaf1 48deg 60deg, currentColor 60deg 84deg, #fffaf1 84deg 96deg, currentColor 96deg 120deg, #fffaf1 120deg 132deg, currentColor 132deg 156deg, #fffaf1 156deg 168deg, currentColor 168deg 192deg, #fffaf1 192deg 204deg, currentColor 204deg 228deg, #fffaf1 228deg 240deg, currentColor 240deg 264deg, #fffaf1 264deg 276deg, currentColor 276deg 300deg, #fffaf1 300deg 312deg, currentColor 312deg 336deg, #fffaf1 336deg 348deg, currentColor 348deg 360deg);
+  box-shadow: 0 0.24rem 0.6rem rgba(23, 23, 23, 0.16);
+  color: #171717;
+  font-size: 0.58rem;
+  font-weight: 950;
+  line-height: 1;
+}
+
+.cage-chip-red {
+  color: #b91f2f;
+}
+
+.cage-chip-black {
+  color: #171717;
+}
+
+.cage-chip-purple {
+  color: #6d3c97;
+  font-size: 0.48rem;
+}
+
+.cage-chip-small {
+  width: 2.55rem;
+}
+
+.cage-transfer {
+  position: relative;
+  display: grid;
+  place-items: center;
+  align-self: center;
+  min-height: 8rem;
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.cage-transfer::before {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 50%;
+  height: 0.22rem;
+  border-radius: 999px;
+  background: var(--ink);
+  content: "";
+  transform: translateY(-50%);
+}
+
+.cage-transfer::after {
+  position: absolute;
+  right: 4%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border-top: 0.55rem solid transparent;
+  border-bottom: 0.55rem solid transparent;
+  border-left: 0.82rem solid var(--ink);
+  content: "";
+  transform: translateY(-50%);
+}
+
+.cage-transfer .cage-chip {
+  z-index: 1;
+  transform: rotate(-10deg);
+}
+
+.cage-transfer span:last-child {
+  z-index: 1;
+  align-self: end;
+  padding: 0.32rem 0.5rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface-raised);
+}
+
+.cage-settlement-demo {
+  display: grid;
+  gap: 1rem;
+}
+
+.cage-settlement-kicker {
+  margin: 0;
+}
+
+.cage-settlement-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.cage-settlement-box {
+  display: grid;
+  gap: 0.55rem;
+  min-height: 12rem;
+  padding: clamp(1rem, 3vw, 1.2rem);
+  border: 1px solid color-mix(in srgb, var(--box-color) 44%, var(--line));
+  border-radius: var(--radius-tight);
+  background:
+    radial-gradient(circle at 18% 14%, color-mix(in srgb, var(--box-color) 18%, transparent), transparent 42%),
+    rgba(255, 250, 241, 0.84);
+  box-shadow: 0 0.38rem 0 color-mix(in srgb, var(--box-color) 54%, #171717);
+}
+
+.cage-settlement-box strong {
+  color: var(--ink);
+  font-size: clamp(1.25rem, 2.2vw, 1.8rem);
+  line-height: 1;
+}
+
+.cage-settlement-cash {
+  --box-color: #2f6f64;
+}
+
+.cage-settlement-program {
+  --box-color: #b91f2f;
+}
+
+.cage-settlement-promo {
+  --box-color: #6d3c97;
+}
+
+.cage-settlement-program span,
+.cage-settlement-promo span {
+  color: var(--box-color);
+}
+
+@media (max-width: 780px) {
+  .cage-chip-flow-stage,
+  .cage-settlement-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cage-transfer {
+    min-height: 5.5rem;
+  }
+
+  .cage-transfer::before {
+    left: 50%;
+    right: auto;
+    top: 0.35rem;
+    bottom: 0.35rem;
+    width: 0.22rem;
+    height: auto;
+    transform: translateX(-50%);
+  }
+
+  .cage-transfer::after {
+    right: auto;
+    left: 50%;
+    top: auto;
+    bottom: 0;
+    border-top: 0.82rem solid var(--ink);
+    border-right: 0.55rem solid transparent;
+    border-bottom: 0;
+    border-left: 0.55rem solid transparent;
+    transform: translateX(-50%);
+  }
+}
+
 .post-body .center {
   margin-inline: auto;
 }
