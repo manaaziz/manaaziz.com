@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import worldMap from "@svg-maps/world";
 import usAtlas from "us-atlas/states-albers-10m.json";
 import { feature, mesh } from "topojson-client";
@@ -979,6 +979,8 @@ export default function GlobalExperienceMap() {
   const [mapMode, setMapMode] = useState("regions");
   const [activeGlobalRegionId, setActiveGlobalRegionId] = useState("north-america");
   const [activeStateId, setActiveStateId] = useState("nevada");
+  const [isMobileMap, setIsMobileMap] = useState(false);
+  const [mobileDetailOpen, setMobileDetailOpen] = useState(false);
   const [previewGlobalRegionId, setPreviewGlobalRegionId] = useState(null);
   const [previewCountryId, setPreviewCountryId] = useState(null);
   const [previewStateId, setPreviewStateId] = useState(null);
@@ -995,9 +997,9 @@ export default function GlobalExperienceMap() {
     () => new Map(usStates.map((item) => [item.id, item])),
     []
   );
-  const displayedGlobalRegionId = previewGlobalRegionId || activeGlobalRegionId;
-  const displayedCountryId = previewCountryId || activeId;
-  const displayedStateId = previewStateId || activeStateId;
+  const displayedGlobalRegionId = isMobileMap ? activeGlobalRegionId : previewGlobalRegionId || activeGlobalRegionId;
+  const displayedCountryId = isMobileMap ? activeId : previewCountryId || activeId;
+  const displayedStateId = isMobileMap ? activeStateId : previewStateId || activeStateId;
   const activeGlobalRegion = globalRegionById.get(displayedGlobalRegionId) || globalRegions[0];
   const activeCountry = collaborationById.get(displayedCountryId);
   const activeRegionCountries = activeGlobalRegion.countries
@@ -1023,11 +1025,45 @@ export default function GlobalExperienceMap() {
   const activeCountryFloatPosition = activeCountry
     ? countryFloatPositions[activeCountry.id] || { left: "50%", top: "50%" }
     : null;
-  const hasPreview = Boolean(previewGlobalRegionId || previewCountryId || previewStateId);
+  const hasPreview = !isMobileMap && Boolean(previewGlobalRegionId || previewCountryId || previewStateId);
   const selectedWork = hasPreview || selectedWorkIndex === null ? null : active.work[selectedWorkIndex] || null;
   const isCountryListPanel = mapMode === "region" && activeCountry && !selectedWork;
 
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 760px), (hover: none) and (pointer: coarse)");
+    const updateMobileMap = () => {
+      const nextIsMobileMap = mediaQuery.matches;
+      setIsMobileMap(nextIsMobileMap);
+      if (!nextIsMobileMap) {
+        setMobileDetailOpen(false);
+      }
+    };
+
+    updateMobileMap();
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener("change", updateMobileMap);
+    } else {
+      mediaQuery.addListener(updateMobileMap);
+    }
+
+    return () => {
+      if (mediaQuery.removeEventListener) {
+        mediaQuery.removeEventListener("change", updateMobileMap);
+      } else {
+        mediaQuery.removeListener(updateMobileMap);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isMobileMap && mapMode === "us" && !activeStateId) {
+      setActiveStateId("nevada");
+    }
+  }, [activeStateId, isMobileMap, mapMode]);
+
   function previewCountry(locationId) {
+    if (isMobileMap) return;
+
     const collaboration = collaborationById.get(locationId);
     if (!collaboration) return;
 
@@ -1047,13 +1083,17 @@ export default function GlobalExperienceMap() {
     setSelectedWorkIndex(null);
     if (collaboration.drilldown) {
       setMapMode("us");
-      setActiveStateId("nevada");
+      setActiveStateId(isMobileMap ? "" : "nevada");
+      setMobileDetailOpen(false);
     } else {
       setMapMode("region");
+      setMobileDetailOpen(isMobileMap);
     }
   }
 
   function previewGlobalRegion(regionId) {
+    if (isMobileMap) return;
+
     const region = globalRegionById.get(regionId);
     if (!region) return;
 
@@ -1071,7 +1111,17 @@ export default function GlobalExperienceMap() {
     setPreviewStateId(null);
     setSelectedWorkIndex(null);
     setActiveId("");
+    setMobileDetailOpen(false);
     setMapMode("region");
+  }
+
+  function openState(stateId) {
+    if (!stateId) return;
+
+    setActiveStateId(stateId);
+    setPreviewStateId(null);
+    setSelectedWorkIndex(null);
+    setMobileDetailOpen(isMobileMap);
   }
 
   function selectWorkItem(item, index) {
@@ -1091,6 +1141,7 @@ export default function GlobalExperienceMap() {
     setPreviewCountryId(null);
     setPreviewStateId(null);
     setSelectedWorkIndex(null);
+    setMobileDetailOpen(false);
   }
 
   function backToActiveRegionOverview() {
@@ -1099,15 +1150,20 @@ export default function GlobalExperienceMap() {
     setPreviewCountryId(null);
     setPreviewStateId(null);
     setSelectedWorkIndex(null);
+    setMobileDetailOpen(false);
     setMapMode("region");
   }
 
   const mapDetailState = mapMode === "us"
-    ? "us"
+    ? isMobileMap && !mobileDetailOpen
+      ? "region"
+      : "us"
     : mapMode === "regions"
       ? "regions"
       : activeCountry
-        ? "country"
+        ? isMobileMap && !mobileDetailOpen
+          ? "region"
+          : "country"
         : "region";
 
   return (
@@ -1132,7 +1188,10 @@ export default function GlobalExperienceMap() {
                 viewBox="0 0 975 610"
                 role="img"
                 aria-labelledby="us-region-title"
-                onMouseLeave={() => setPreviewStateId(null)}
+                onMouseLeave={() => {
+                  if (isMobileMap) return;
+                  setPreviewStateId(null);
+                }}
               >
                 <title id="us-region-title">United States regions with related clients, projects, and operators</title>
                 <g className="us-state-layer">
@@ -1148,12 +1207,9 @@ export default function GlobalExperienceMap() {
                         data-active={stateId && displayedStateId === stateId ? "true" : "false"}
                         focusable="false"
                         key={state.properties.name}
-                        onClick={() => {
-                          if (!stateId) return;
-                          setActiveStateId(stateId);
-                          setSelectedWorkIndex(null);
-                        }}
+                        onClick={() => openState(stateId)}
                         onMouseEnter={() => {
+                          if (isMobileMap) return;
                           if (!stateId) return;
                           setPreviewStateId(stateId);
                         }}
@@ -1182,6 +1238,7 @@ export default function GlobalExperienceMap() {
                   className="region-overview-map"
                   aria-label="Choose a global region"
                   onMouseLeave={() => {
+                    if (isMobileMap) return;
                     setPreviewGlobalRegionId(null);
                     setPreviewCountryId(null);
                   }}
@@ -1198,8 +1255,14 @@ export default function GlobalExperienceMap() {
                         className={displayedGlobalRegionId === region.id ? "region-hotspot is-active" : "region-hotspot"}
                         key={region.id}
                         onClick={() => openGlobalRegion(region.id)}
-                        onFocus={() => previewGlobalRegion(region.id)}
-                        onMouseEnter={() => previewGlobalRegion(region.id)}
+                        onFocus={() => {
+                          if (isMobileMap) return;
+                          previewGlobalRegion(region.id);
+                        }}
+                        onMouseEnter={() => {
+                          if (isMobileMap) return;
+                          previewGlobalRegion(region.id);
+                        }}
                         style={{
                           "--x": region.position.left,
                           "--y": region.position.top
@@ -1216,6 +1279,7 @@ export default function GlobalExperienceMap() {
                 <div
                   className="country-map-stage"
                   onMouseLeave={() => {
+                    if (isMobileMap) return;
                     setPreviewGlobalRegionId(null);
                     setPreviewCountryId(null);
                   }}
@@ -1239,14 +1303,20 @@ export default function GlobalExperienceMap() {
                             focusable={collaboration ? "true" : "false"}
                             key={location.id}
                             onClick={() => collaboration && openCountry(location.id)}
-                            onFocus={() => collaboration && previewCountry(location.id)}
+                            onFocus={() => {
+                              if (isMobileMap) return;
+                              if (collaboration) previewCountry(location.id);
+                            }}
                             onKeyDown={(event) => {
                               if ((event.key === "Enter" || event.key === " ") && collaboration) {
                                 event.preventDefault();
                                 openCountry(location.id);
                               }
                             }}
-                            onMouseEnter={() => collaboration && previewCountry(location.id)}
+                            onMouseEnter={() => {
+                              if (isMobileMap) return;
+                              if (collaboration) previewCountry(location.id);
+                            }}
                             role={collaboration ? "button" : "presentation"}
                             tabIndex={collaboration ? 0 : -1}
                             data-active={isActiveCountry ? "true" : "false"}
