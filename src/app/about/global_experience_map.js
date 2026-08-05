@@ -1102,6 +1102,14 @@ export default function GlobalExperienceMap() {
     setMapMode("region");
   }
 
+  const mapDetailState = mapMode === "us"
+    ? "us"
+    : mapMode === "regions"
+      ? "regions"
+      : activeCountry
+        ? "country"
+        : "region";
+
   return (
     <section className="global-experience" aria-labelledby="global-experience-title">
       <div className="section-intro">
@@ -1109,7 +1117,7 @@ export default function GlobalExperienceMap() {
         <h2 id="global-experience-title">I bring a wide range of global experience</h2>
       </div>
 
-      <div className="global-map-shell" data-mode={mapMode}>
+      <div className="global-map-shell" data-detail={mapDetailState} data-mode={mapMode}>
         <div className="world-map-panel" aria-label="Interactive world map">
           {mapMode === "us" ? (
             <div className="us-drilldown">

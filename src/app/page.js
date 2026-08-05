@@ -67,9 +67,6 @@ export default function Home() {
             <a className="button" href="/assets/azizsoltani_cv.pdf" rel="noreferrer" target="_blank">
               CV
             </a>
-            <a className="button" href="mailto:manaazizsoltani@gmail.com">
-              Email
-            </a>
           </div>
         </div>
 
