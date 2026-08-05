@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
 const timelineItems = [
   {
     image: "/assets/images/grad_pic.webp",
@@ -18,18 +22,39 @@ const timelineItems = [
 ];
 
 export default function AboutBackgroundTimeline() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const activeItem = timelineItems[activeIndex];
+
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      setActiveIndex((currentIndex) => (currentIndex + 1) % timelineItems.length);
+    }, 5000);
+
+    return () => window.clearInterval(intervalId);
+  }, []);
+
+  const goToSlide = (index) => {
+    setActiveIndex(index);
+  };
+
+  const goToNextSlide = () => {
+    setActiveIndex((currentIndex) => (currentIndex + 1) % timelineItems.length);
+  };
+
   return (
     <section className="about-background" aria-labelledby="about-background-title">
       <p className="eyebrow">Background</p>
       <h1 id="about-background-title">I am a trained data scientist and researcher-turned-consultant.</h1>
 
-      <div className="background-timeline">
-        <div className="timeline-photos">
-          {timelineItems.map((item) => (
-            <figure className="timeline-photo" key={item.caption}>
-              <img className={item.imageClass || undefined} src={item.image} alt={item.alt} loading="lazy" decoding="async" />
-            </figure>
-          ))}
+      <div className="background-timeline" style={{ "--timeline-active-offset": `${activeIndex * -100}%` }}>
+        <div className="timeline-mobile-frame">
+          <div className="timeline-photos">
+            {timelineItems.map((item) => (
+              <figure className="timeline-photo" key={item.caption}>
+                <img className={item.imageClass || undefined} src={item.image} alt={item.alt} loading="lazy" decoding="async" />
+              </figure>
+            ))}
+          </div>
         </div>
 
         <div className="timeline-arrow" aria-hidden="true">
@@ -38,10 +63,37 @@ export default function AboutBackgroundTimeline() {
           </svg>
         </div>
 
-        <div className="timeline-captions">
-          {timelineItems.map((item) => (
-            <p key={item.caption}>{item.caption}</p>
-          ))}
+        <div className="timeline-mobile-caption-frame">
+          <div className="timeline-captions">
+            {timelineItems.map((item) => (
+              <p key={item.caption}>{item.caption}</p>
+            ))}
+          </div>
+        </div>
+
+        <div className="timeline-mobile-controls" aria-label="About background slides">
+          <div className="timeline-mobile-dots" aria-label="Choose a background slide">
+            {timelineItems.map((item, index) => (
+              <button
+                aria-label={`Show slide ${index + 1}: ${item.caption}`}
+                aria-pressed={activeIndex === index}
+                className={activeIndex === index ? "is-active" : ""}
+                key={item.caption}
+                onClick={() => goToSlide(index)}
+                type="button"
+              />
+            ))}
+          </div>
+          <button className="timeline-mobile-next mobile-icon-button" onClick={goToNextSlide} type="button">
+            <span>Next</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M5 12h13" />
+              <path d="m13 6 6 6-6 6" />
+            </svg>
+          </button>
+          <p className="sr-only" aria-live="polite">
+            Showing {activeItem.caption}
+          </p>
         </div>
       </div>
     </section>

@@ -3924,6 +3924,7 @@ h3 {
 .consulting-logo-arena {
   position: relative;
   overflow: hidden;
+  container-type: inline-size;
   height: clamp(18rem, 34vw, 26rem);
   margin-top: 1.5rem;
   border: 1px solid var(--line);
@@ -4806,6 +4807,15 @@ h3 {
 .timeline-photo:nth-child(3),
 .timeline-captions p:nth-child(3) {
   animation-delay: 880ms, 7400ms;
+}
+
+.timeline-mobile-frame,
+.timeline-mobile-caption-frame {
+  display: contents;
+}
+
+.timeline-mobile-controls {
+  display: none;
 }
 
 @keyframes timeline-arrow-grow {
@@ -10680,9 +10690,128 @@ h3 {
     font-size: 1rem;
   }
 
+  .timeline-mobile-frame,
+  .timeline-mobile-caption-frame {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+  }
+
   .timeline-photos,
   .timeline-captions {
-    grid-template-columns: 1fr;
+    display: flex;
+    grid-template-columns: none;
+    gap: 0;
+    align-items: stretch;
+    transform: translateX(var(--timeline-active-offset, 0%));
+    transition: transform 520ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .timeline-photo,
+  .timeline-captions p {
+    flex: 0 0 100%;
+  }
+
+  .timeline-photo {
+    aspect-ratio: 4 / 5;
+    max-height: 34rem;
+    animation: timeline-item-enter 520ms var(--ease-out-back) both;
+  }
+
+  .timeline-photo:nth-child(1),
+  .timeline-photo:nth-child(2),
+  .timeline-photo:nth-child(3) {
+    animation-delay: 0ms;
+  }
+
+  .timeline-arrow {
+    display: none;
+  }
+
+  .timeline-mobile-caption-frame {
+    margin-top: 1rem;
+  }
+
+  .timeline-captions p {
+    max-width: none;
+    color: var(--ink);
+    font-size: clamp(1.05rem, 5.4vw, 1.4rem);
+    line-height: 1.32;
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
+  .timeline-mobile-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.9rem;
+    margin-top: 1.1rem;
+  }
+
+  .timeline-mobile-dots {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  .timeline-mobile-dots button {
+    width: 0.72rem;
+    height: 0.72rem;
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: rgba(23, 23, 23, 0.18);
+    cursor: pointer;
+    transition:
+      width 180ms var(--ease-out-back),
+      background 180ms ease,
+      transform 180ms var(--ease-out-back);
+  }
+
+  .timeline-mobile-dots button:hover,
+  .timeline-mobile-dots button:focus-visible {
+    background: rgba(23, 23, 23, 0.48);
+    transform: scale(1.16);
+  }
+
+  .timeline-mobile-dots button.is-active {
+    width: 2rem;
+    background: var(--ink);
+  }
+
+  .timeline-mobile-next {
+    display: inline-flex;
+    width: auto;
+    min-width: 0;
+    height: 2.7rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    padding: 0 0.95rem 0 1.05rem;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--surface);
+    box-shadow: 0 0.32rem 0 rgba(23, 23, 23, 0.38);
+  }
+
+  .timeline-mobile-next:hover,
+  .timeline-mobile-next:focus-visible,
+  .timeline-mobile-next.is-active {
+    background: var(--ink);
+    color: var(--surface);
+  }
+
+  .timeline-mobile-next span {
+    font-size: 0.92rem;
+    font-weight: 900;
+    letter-spacing: 0;
+  }
+
+  .timeline-mobile-next svg {
+    width: 1.15rem;
+    height: 1.15rem;
   }
 
   .pathway-grid,
@@ -10760,19 +10889,29 @@ h3 {
   }
 
   .consulting-logo-arena {
-    height: 20rem;
+    height: clamp(17rem, 64vw, 20rem);
   }
 
   .consulting-logo-bouncer {
-    width: 4.65rem;
+    width: clamp(3.75rem, 11.5vw, 4.9rem);
+    width: clamp(3.75rem, calc(3.25rem + 2cqw), 4.9rem);
   }
 
   .consulting-client-logo {
-    height: 2.85rem;
+    height: clamp(2.35rem, 7.4vw, 2.85rem);
+    height: clamp(2.35rem, calc(2rem + 1.35cqw), 2.85rem);
+    padding: clamp(0.22rem, 2.4vw, 0.32rem) clamp(0.28rem, 2.8vw, 0.42rem);
+    padding: clamp(0.22rem, 0.9cqw, 0.32rem) clamp(0.28rem, 1.1cqw, 0.42rem);
   }
 
   .consulting-client-logo img {
-    max-height: 1.95rem;
+    max-height: clamp(1.55rem, 5.2vw, 1.95rem);
+    max-height: clamp(1.55rem, calc(1.28rem + 1.15cqw), 1.95rem);
+  }
+
+  .consulting-client-logo strong {
+    font-size: clamp(0.48rem, 1.55vw, 0.58rem);
+    font-size: clamp(0.48rem, calc(0.42rem + 0.45cqw), 0.58rem);
   }
 
   .syllabus-table > div,
@@ -11429,6 +11568,11 @@ h3 {
   .timeline-captions p {
     opacity: 1;
     transform: none;
+  }
+
+  .timeline-photos,
+  .timeline-captions {
+    transition: none;
   }
 
   .us-state,
