@@ -1,6 +1,8 @@
 import "./globals.css";
 import Link from "next/link";
+import MobileSiteNav from "@/components/mobile_site_nav";
 import SiteLogo from "@/components/site_logo";
+import { getVisiblePosts } from "@/lib/posts";
 
 const siteTitle = "Mana Azizsoltani";
 const siteDescription =
@@ -39,6 +41,236 @@ const navItems = [
   { href: "/research", label: "Research" },
   { href: "/teaching", label: "Teaching" },
   { href: "/manalogue", label: "The Manalogue" }
+];
+
+const pageSearchItems = [
+  {
+    href: "/",
+    title: "Home",
+    type: "Page",
+    description: "Main landing page for consulting, research, teaching, and writing.",
+    keywords: ["landing", "work mix", "global experience"]
+  },
+  {
+    href: "/about",
+    title: "About",
+    type: "Page",
+    description: "Background, global experience, CV, and Mana's story.",
+    keywords: ["cv", "resume", "global experience", "map", "countries", "conferences"]
+  },
+  {
+    href: "/consulting",
+    title: "Consulting",
+    type: "Page",
+    description: "Casino AI, analytics, marketing, surveillance, and operator-facing work.",
+    keywords: ["casino", "marketing", "surveillance", "AI", "analytics"]
+  },
+  {
+    href: "/research",
+    title: "Research",
+    type: "Page",
+    description: "Publications, papers, conferences, and research themes.",
+    keywords: ["papers", "publications", "conference", "machine learning", "gambling"]
+  },
+  {
+    href: "/teaching",
+    title: "Teaching",
+    type: "Page",
+    description: "Courses, student reviews, pedagogy, and teaching notes.",
+    keywords: ["students", "course", "FAB 333", "reviews"]
+  },
+  {
+    href: "/manalogue",
+    title: "The Manalogue",
+    type: "Page",
+    description: "Blog home for essays, travel, teaching, consulting, and research notes.",
+    keywords: ["blog", "posts", "writing", "travel"]
+  },
+  {
+    href: "/manalogue?section=gallery",
+    title: "Gallery",
+    type: "Manalogue",
+    description: "Photo gallery and visual archive.",
+    keywords: ["photos", "pictures", "presentations"]
+  },
+  {
+    href: "/assets/azizsoltani_cv.pdf",
+    title: "CV",
+    type: "File",
+    description: "Mana Azizsoltani curriculum vitae.",
+    keywords: ["resume", "vitae", "pdf"]
+  }
+];
+
+const experienceSearchItems = [
+  {
+    href: "/about",
+    title: "International Gaming Institute",
+    type: "Experience",
+    description: "Part-time research scientist studying AI applications in casino and hospitality.",
+    keywords: ["IGI", "UNLV", "Nevada", "Las Vegas", "research"]
+  },
+  {
+    href: "/about",
+    title: "Wynn Resorts",
+    type: "Experience",
+    description: "International initiatives including financial analysis, database analysis, and marketing.",
+    keywords: ["Nevada", "Las Vegas", "consulting", "casino"]
+  },
+  {
+    href: "/about",
+    title: "Resorts World Las Vegas",
+    type: "Experience",
+    description: "Product performance, operational efficiency, and surveillance recommendations.",
+    keywords: ["Nevada", "Las Vegas", "casino", "operations"]
+  },
+  {
+    href: "/about",
+    title: "Walker Digital Table Systems",
+    type: "Experience",
+    description: "AI-powered applications for forecasting, loss discounting, efficiency, and player analytics.",
+    keywords: ["WDTS", "table games", "baccarat", "forecasting", "consulting"]
+  },
+  {
+    href: "/about",
+    title: "AXES.ai",
+    type: "Experience",
+    description: "AI and behavioral tracking work to detect high-risk slot player behavior.",
+    keywords: ["responsible gambling", "slot", "AI", "Canada"]
+  },
+  {
+    href: "/about",
+    title: "International Conference on Gambling and Risk Taking",
+    type: "Experience",
+    description: "Conference presentations on gambling payment declines and baccarat luck.",
+    keywords: ["ICGRT", "research", "Nevada", "gambling"]
+  },
+  {
+    href: "/about",
+    title: "ICRG Conference on Gambling and Addiction",
+    type: "Experience",
+    description: "Research presentation on interpretable machine learning and slot player behavior.",
+    keywords: ["ICRG", "gambling", "addiction", "research"]
+  },
+  {
+    href: "/about",
+    title: "Fundacion Patologia Dual",
+    type: "Experience",
+    description: "Research collaboration applying AI to gambling disorder in a dual disorder context.",
+    keywords: ["Spain", "Madrid", "responsible gambling", "AI"]
+  },
+  {
+    href: "/about",
+    title: "Hospital Gregorio Maranon",
+    type: "Experience",
+    description: "Psychiatry collaboration on gambling disorder comorbidity.",
+    keywords: ["Spain", "Madrid", "hospital", "research"]
+  },
+  {
+    href: "/about",
+    title: "Universidad Rey Juan Carlos",
+    type: "Experience",
+    description: "Applied AI research projects during a three-month research stay in Madrid.",
+    keywords: ["Spain", "Madrid", "university", "research"]
+  },
+  {
+    href: "/about",
+    title: "Club de Convergentes",
+    type: "Experience",
+    description: "AI ethics, governance, and applications for Spanish gambling stakeholders.",
+    keywords: ["Spain", "Madrid", "regulators", "casino"]
+  },
+  {
+    href: "/about",
+    title: "Melco",
+    type: "Experience",
+    description: "AI and data science solutions across operations, marketing, and surveillance.",
+    keywords: ["Macau", "China", "casino", "consulting"]
+  },
+  {
+    href: "/about",
+    title: "Wynn Macau",
+    type: "Experience",
+    description: "Data science and analytics development, implementation, and training.",
+    keywords: ["Macau", "China", "Wynn", "casino"]
+  },
+  {
+    href: "/about",
+    title: "Hoiana",
+    type: "Experience",
+    description: "Training analysts on behavioral tracking data and advising management on its use.",
+    keywords: ["Vietnam", "casino", "analytics", "training"]
+  },
+  {
+    href: "/about",
+    title: "Resorts World Sentosa",
+    type: "Experience",
+    description: "Predictive and generative AI models for casino marketing use cases.",
+    keywords: ["Singapore", "AI", "marketing", "consulting"]
+  },
+  {
+    href: "/about",
+    title: "IGT Italia",
+    type: "Experience",
+    description: "Panel discussion on responsible gambling research with IGT Italia.",
+    keywords: ["Italy", "responsible gambling", "panel", "research"]
+  },
+  {
+    href: "/about",
+    title: "Breda University of Applied Sciences",
+    type: "Experience",
+    description: "Invited guest lectures and applied research conversations with data science students.",
+    keywords: ["Netherlands", "BUAS", "teaching", "hospitality"]
+  },
+  {
+    href: "/about",
+    title: "Belmont University",
+    type: "Experience",
+    description: "Invited teaching and analytics talk for students and professors.",
+    keywords: ["Tennessee", "teaching", "Yeehaw", "analytics"]
+  },
+  {
+    href: "/about",
+    title: "RevME Conference",
+    type: "Experience",
+    description: "Research presentation on machine learning for hotel occupancy forecasting.",
+    keywords: ["conference", "research", "revenue management", "hospitality"]
+  },
+  {
+    href: "/about",
+    title: "EuroCHRIE Conference 2024",
+    type: "Experience",
+    description: "Research presentation on explainable AI for booking cancellations.",
+    keywords: ["conference", "research", "Qatar", "hospitality"]
+  },
+  {
+    href: "/about",
+    title: "Gilley's Wichita",
+    type: "Experience",
+    description: "Financial modeling, loyalty and marketing programs, and market research.",
+    keywords: ["Kansas", "Wichita", "Gilleys", "consulting"]
+  },
+  {
+    href: "/about",
+    title: "Bally's Atlantic City",
+    type: "Experience",
+    description: "Customer database analysis, market research, and strategic recommendations.",
+    keywords: ["New Jersey", "Atlantic City", "casino", "consulting"]
+  },
+  {
+    href: "/about",
+    title: "Casino Miami",
+    type: "Experience",
+    description: "Patron database analysis and AI models for patron lifecycle and lifetime value.",
+    keywords: ["Florida", "Miami", "casino", "AI"]
+  },
+  {
+    href: "/about",
+    title: "Crown Resorts",
+    type: "Experience",
+    description: "Database analysis and strategic insights around marketing, loyalty, and responsible gaming.",
+    keywords: ["Australia", "casino", "responsible gaming"]
+  }
 ];
 
 const footerGroups = [
@@ -136,6 +368,24 @@ function SocialIcon({ icon }) {
 }
 
 export default function RootLayout({ children }) {
+  const postSearchItems = getVisiblePosts().map((post) => ({
+    href: post.href,
+    title: post.title,
+    type: post.seriesTitle || "Post",
+    description: post.excerpt,
+    keywords: [
+      post.category,
+      post.seriesSlug,
+      post.map?.company,
+      post.map?.city,
+      post.map?.country,
+      post.map?.region,
+      post.map?.workType,
+      ...(post.tags || [])
+    ].filter(Boolean)
+  }));
+  const searchItems = [...pageSearchItems, ...experienceSearchItems, ...postSearchItems];
+
   return (
     <html lang="en" data-scroll-behavior="smooth">
       <body>
@@ -148,6 +398,7 @@ export default function RootLayout({ children }) {
               </Link>
             ))}
           </nav>
+          <MobileSiteNav navItems={navItems} searchItems={searchItems} />
         </header>
         {children}
         <footer className="site-footer" id="footer">
