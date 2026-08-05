@@ -981,6 +981,7 @@ export default function GlobalExperienceMap() {
   const [activeStateId, setActiveStateId] = useState("nevada");
   const [isMobileMap, setIsMobileMap] = useState(false);
   const [mobileDetailOpen, setMobileDetailOpen] = useState(false);
+  const [mobileClosePopping, setMobileClosePopping] = useState(false);
   const [previewGlobalRegionId, setPreviewGlobalRegionId] = useState(null);
   const [previewCountryId, setPreviewCountryId] = useState(null);
   const [previewStateId, setPreviewStateId] = useState(null);
@@ -1000,6 +1001,7 @@ export default function GlobalExperienceMap() {
   const displayedGlobalRegionId = isMobileMap ? activeGlobalRegionId : previewGlobalRegionId || activeGlobalRegionId;
   const displayedCountryId = isMobileMap ? activeId : previewCountryId || activeId;
   const displayedStateId = isMobileMap ? activeStateId : previewStateId || activeStateId;
+  const highlightedGlobalRegionId = mapMode === "regions" ? displayedGlobalRegionId : activeGlobalRegionId;
   const activeGlobalRegion = globalRegionById.get(displayedGlobalRegionId) || globalRegions[0];
   const activeCountry = collaborationById.get(displayedCountryId);
   const activeRegionCountries = activeGlobalRegion.countries
@@ -1152,6 +1154,15 @@ export default function GlobalExperienceMap() {
     setSelectedWorkIndex(null);
     setMobileDetailOpen(false);
     setMapMode("region");
+  }
+
+  function closeMobileDetail() {
+    setMobileClosePopping(true);
+    window.setTimeout(() => {
+      setMobileClosePopping(false);
+      setSelectedWorkIndex(null);
+      setMobileDetailOpen(false);
+    }, 140);
   }
 
   const mapDetailState = mapMode === "us"
@@ -1345,10 +1356,20 @@ export default function GlobalExperienceMap() {
         </div>
 
         <aside
-          className={`map-detail-card${isCountryListPanel ? " is-country-list" : ""}`}
+          className={`map-detail-card${isCountryListPanel ? " is-country-list" : ""}${isMobileMap && mobileDetailOpen ? " has-mobile-close" : ""}`}
           key={`${mapMode}-${active.id}-${selectedWork?.name || "list"}`}
           aria-live="polite"
         >
+          {isMobileMap && mobileDetailOpen ? (
+            <button
+              aria-label="Close map details"
+              className={`mobile-map-close mobile-icon-button${mobileClosePopping ? " is-popping" : ""}`}
+              onClick={closeMobileDetail}
+              type="button"
+            >
+              <span aria-hidden="true">X</span>
+            </button>
+          ) : null}
           {isCountryListPanel ? (
             <button className="map-back-button collaboration-detail-back" onClick={backToActiveRegionOverview} type="button">
               Back to {activeGlobalRegion.label}
@@ -1426,9 +1447,27 @@ export default function GlobalExperienceMap() {
       <div className="country-tabs region-tabs" aria-label="Highlighted regions">
         {globalRegions.map((item) => (
           <button
-            className={activeGlobalRegionId === item.id ? "country-tab is-active" : "country-tab"}
+            className={highlightedGlobalRegionId === item.id ? "country-tab is-active" : "country-tab"}
             key={item.id}
             onClick={() => openGlobalRegion(item.id)}
+            onFocus={() => {
+              if (isMobileMap) return;
+              previewGlobalRegion(item.id);
+            }}
+            onBlur={() => {
+              if (isMobileMap) return;
+              setPreviewGlobalRegionId(null);
+              setPreviewCountryId(null);
+            }}
+            onMouseEnter={() => {
+              if (isMobileMap) return;
+              previewGlobalRegion(item.id);
+            }}
+            onMouseLeave={() => {
+              if (isMobileMap) return;
+              setPreviewGlobalRegionId(null);
+              setPreviewCountryId(null);
+            }}
             type="button"
           >
             {item.label}
@@ -1440,7 +1479,7 @@ export default function GlobalExperienceMap() {
         <div className="country-tabs country-tabs-secondary" aria-label={`${activeGlobalRegion.label} countries`}>
           {activeRegionCountries.map((item) => (
             <button
-              className={activeId === item.id || (mapMode === "us" && item.id === "us") ? "country-tab is-active" : "country-tab"}
+              className={displayedCountryId === item.id || (mapMode === "us" && item.id === "us") ? "country-tab is-active" : "country-tab"}
               key={item.id}
               onClick={() => openCountry(item.id)}
               type="button"
