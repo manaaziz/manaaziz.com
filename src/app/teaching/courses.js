@@ -653,48 +653,68 @@ export const courses = [
     courseNumber: "HOA 730",
     courseName: "Statistical Analysis for Hospitality",
     university: "UNLV",
-    semester: "Semester details coming soon",
+    semester: "Spring 2026",
     label: "HOA 730",
     title: "HOA 730: Statistical Analysis for Hospitality",
     shortTitle: "Statistical Analysis for Hospitality",
     summary:
-      "A graduate hospitality statistics course focused on practical quantitative reasoning, applied analysis, and confidence with data.",
+      "A graduate hospitality statistics course that builds practical confidence with R, statistical inference, regression, and evidence-based decision-making.",
     catalogIntro:
-      "A graduate-level applied statistics course for hospitality students. The course focuses on statistical reasoning, interpreting quantitative evidence, and using data analysis to support hospitality research and managerial decisions.",
+      "A graduate-level applied statistics course for hospitality students, covering data summarization, probability, statistical inference, ANOVA, regression, diagnostics, and chi-square analysis through R.",
     description:
-      "This course introduces hospitality students to statistical thinking and applied analysis. The course page can later include the syllabus, modules, assignments, and examples of course materials.",
+      "Students learned to formulate hospitality and business questions statistically, select appropriate methods, verify assumptions, interpret R output, and communicate what the results mean. Examples and projects used hotel, restaurant, airport, wine, retail, and other applied datasets rather than abstract exercises alone.",
     catalogHref: "https://catalog.unlv.edu/search_advanced.php?search=HOA%20730",
     outcomes: [
-      "Build confidence reading, interpreting, and communicating statistical results.",
-      "Apply statistical methods to hospitality, tourism, and gaming examples.",
-      "Use data tools to move from analysis output to defensible decisions."
+      "Summarize and visualize quantitative and categorical data in R before moving to statistical inference.",
+      "Formulate confidence intervals and hypothesis tests for means, proportions, and differences between groups.",
+      "Select and apply t-tests, chi-square tests, ANOVA, simple regression, and multiple regression to real questions.",
+      "Check model assumptions, diagnose multicollinearity, and distinguish statistical association from causation.",
+      "Interpret statistical output in plain language for hospitality research and managerial decision-making.",
+      "Produce clear written analyses that explain the question, method, evidence, limitations, and conclusion."
+    ],
+    photos: [
+      {
+        label: "R for hospitality data",
+        note: "Students worked directly in R and RStudio to summarize, visualize, model, and interpret hospitality data."
+      },
+      {
+        label: "Applied inference",
+        note: "Assignments moved from confidence intervals and hypothesis tests into ANOVA, regression, and model diagnostics."
+      },
+      {
+        label: "Decision-ready reporting",
+        note: "Projects emphasized assumptions and interpretation, not merely producing software output."
+      }
     ],
     gradingComponents: [
-      { task: "Homework and applied practice", percent: "30%" },
-      { task: "Midterm project", percent: "25%" },
-      { task: "Final project", percent: "35%" },
-      { task: "Participation and professional engagement", percent: "10%" }
+      { task: "Class participation and group work", percent: "10%" },
+      { task: "Homework and written-in-class assignments", percent: "20%" },
+      { task: "Midterm project", percent: "30%" },
+      { task: "Final project", percent: "40%" }
     ],
     schedule: [
-      { week: "1", topic: "Statistical thinking, data types, and hospitality research questions" },
-      { week: "2", topic: "Descriptive statistics, visualization, and summarizing hospitality data" },
-      { week: "3", topic: "Sampling, uncertainty, confidence intervals, and hypothesis testing" },
-      { week: "4", topic: "Comparing groups, t-tests, chi-square tests, and ANOVA" },
-      { week: "5", topic: "Correlation, ordinary least squares, and model interpretation" },
-      { week: "6", topic: "Multiple regression, assumptions, diagnostics, and applied reporting" },
-      { week: "7", topic: "Project workshops, communication, and final analysis presentations" }
+      { week: "Jan 20-23", topic: "R and RStudio; data summarization and visualization" },
+      { week: "Jan 26-30", topic: "Casino games, elementary probability, and probability distributions" },
+      { week: "Feb 2-6", topic: "Probability and probability distributions" },
+      { week: "Feb 9-13", topic: "Sampling distributions" },
+      { week: "Feb 16-20", topic: "Confidence intervals" },
+      { week: "Feb 23-27", topic: "Testing hypotheses" },
+      { week: "Mar 2-6", topic: "Hypothesis testing and the midterm project" },
+      { week: "Mar 9-13", topic: "Analysis of variance" },
+      { week: "Mar 16-20", topic: "Spring Break" },
+      { week: "Mar 23-27", topic: "Correlation and simple linear regression" },
+      { week: "Mar 30-Apr 3", topic: "Multiple linear regression" },
+      { week: "Apr 6-10", topic: "Multicollinearity and variance inflation factors" },
+      { week: "Apr 13-17", topic: "Multiple-regression diagnostics" },
+      { week: "Apr 20-24", topic: "Multiple-regression examples and chi-square tests" },
+      { week: "Apr 27-May 1", topic: "Study week and project support" },
+      { week: "May 4-8", topic: "Final project and final assessment" }
     ],
     materials: [
       {
-        title: "Syllabus",
-        kind: "Syllabus",
-        description: "Downloadable syllabus for the graduate hospitality statistics course.",
-        href: "/assets/course_materials/hoa_730_statistical_analysis/hoa730_syllabus.pdf"
-      },
-      {
-        title: "Applied statistics modules",
-        kind: "Videos",
-        description: "Sample lecture materials on correlation, ordinary least squares, and ANOVA.",
+        title: "Applied statistics lecture slides",
+        kind: "Slides",
+        description: "Lecture resources for correlation, ordinary least squares, and analysis of variance.",
         links: [
           { label: "Correlation and OLS", href: "/assets/course_materials/hoa_730_statistical_analysis/correlation_ols_slides.pdf" },
           { label: "ANOVA", href: "/assets/course_materials/hoa_730_statistical_analysis/anova_slides.pdf" }
@@ -712,7 +732,7 @@ export const courses = [
       {
         title: "Practice assignments",
         kind: "Assignments",
-        description: "Homework prompts for summarizing data, confidence intervals, hypothesis tests, correlation, OLS, ANOVA, and multiple regression.",
+        description: "Five applied WIC assignments covering data summaries, confidence intervals, hypothesis tests, correlation, OLS, ANOVA, and multiple regression.",
         links: [
           { label: "HW1", href: "/assets/course_materials/hoa_730_statistical_analysis/hw1_summarize_data.pdf" },
           { label: "HW2", href: "/assets/course_materials/hoa_730_statistical_analysis/hw2_ci_hypothesis_tests.pdf" },
@@ -724,13 +744,13 @@ export const courses = [
       {
         title: "Midterm project",
         kind: "Project",
-        description: "Applied midterm project prompt for graduate hospitality statistics.",
+        description: "An applied analysis of airport satisfaction and coffee-shop spending using confidence intervals and hypothesis tests.",
         href: "/assets/course_materials/hoa_730_statistical_analysis/midterm_project.pdf"
       },
       {
         title: "Final project",
         kind: "Project",
-        description: "Final project prompt focused on applied statistical reasoning and communication.",
+        description: "A multi-part applied project using regression, ANOVA, prediction, diagnostics, and chi-square analysis.",
         href: "/assets/course_materials/hoa_730_statistical_analysis/final_project.pdf"
       },
       {
@@ -743,7 +763,55 @@ export const courses = [
           { label: "Hotels MLR", href: "/assets/course_materials/hoa_730_statistical_analysis/hotels_mlr.csv" }
         ]
       }
-    ]
+    ],
+    syllabus: {
+      instructor: "Mana Azizsoltani, PhD",
+      email: "mana.azizsoltani@unlv.edu",
+      meeting: "Mondays, 2:30 PM - 5:15 PM",
+      room: "HOS 234",
+      credits: "3 credits",
+      prerequisites: "Graduate standing or department approval",
+      description:
+        "HOA 730 introduces statistical thinking and applied analysis for hospitality and leisure-service questions. Students use R and RStudio to summarize and visualize data, conduct statistical inference, fit and diagnose statistical models, and explain results in language useful for research and business decisions.",
+      objectives: [
+        "Develop working knowledge of foundational statistical terms, concepts, and methods.",
+        "Distinguish descriptive statistics from statistical inference and select methods appropriate to the variables and research question.",
+        "Use R and RStudio to summarize data, visualize patterns, test hypotheses, and fit statistical models.",
+        "Apply confidence intervals, t-tests, chi-square tests, ANOVA, simple regression, and multiple regression.",
+        "Verify method and model assumptions, including normality and multicollinearity diagnostics.",
+        "Interpret results and write clear, defensible descriptions of statistical analyses."
+      ],
+      assessments: [
+        { task: "Class participation and group work", percent: "10%", due: "Throughout the semester" },
+        { task: "Homework and written-in-class assignments", percent: "20%", due: "Across five applied modules" },
+        { task: "Midterm project", percent: "30%", due: "Week 7" },
+        { task: "Final project", percent: "40%", due: "Final week" }
+      ],
+      schedule: [
+        { week: "Jan 20-23", topic: "R and RStudio; data summarization and visualization" },
+        { week: "Jan 26-Feb 6", topic: "Probability and probability distributions" },
+        { week: "Feb 9-20", topic: "Sampling distributions and confidence intervals" },
+        { week: "Feb 23-Mar 6", topic: "Hypothesis testing and the midterm project" },
+        { week: "Mar 9-13", topic: "Analysis of variance" },
+        { week: "Mar 23-27", topic: "Correlation and simple linear regression" },
+        { week: "Mar 30-Apr 17", topic: "Multiple regression, multicollinearity, and diagnostics" },
+        { week: "Apr 20-24", topic: "Regression examples and chi-square tests" },
+        { week: "Apr 27-May 8", topic: "Study week, final project, and final assessment" }
+      ],
+      sections: [
+        {
+          label: "Approach",
+          title: "How the course was taught",
+          copy: "The course combined explanation, discussion, hands-on R work, written-in-class assignments, and projects using recognizable hospitality and business settings.",
+          items: [
+            "Begin with the business or research question before selecting a statistical procedure.",
+            "Summarize and visualize the data before moving to hypothesis tests or models.",
+            "Verify assumptions and explain limitations rather than treating output as automatically correct.",
+            "Translate results into a conclusion that a researcher or operator can act on."
+          ]
+        }
+      ]
+    }
   },
   {
     slug: "hoa-732-advanced-statistical-analysis",
@@ -755,43 +823,54 @@ export const courses = [
     title: "HOA 732: Advanced Statistical Analysis for Hospitality",
     shortTitle: "Advanced Statistical Analysis",
     summary:
-      "An advanced graduate hospitality statistics course focused on applied modeling, interpretation, and supporting students through technical material.",
+      "An intensive eight-week graduate course in R spanning statistical learning, machine learning, model comparison, and applied reporting.",
     catalogIntro:
       "An advanced statistics course for hospitality graduate students, emphasizing applied modeling, interpretation, and quantitative methods that support hospitality research. The course builds toward more independent analysis and clearer communication of technical findings.",
     description:
-      "This course builds on statistical analysis for hospitality students and emphasizes clear explanation, applied examples, model interpretation, and student support.",
+      "Students moved from a focused review of inference and multiple regression into binary logistic regression, decision trees, random forests, support vector machines, boosting, neural networks, principal components, clustering, and time-series concepts. Assignments required students to compare models instead of treating prediction accuracy as the only goal.",
     catalogHref: "https://catalog.unlv.edu/search_advanced.php?search=HOA%20732",
     outcomes: [
-      "Use advanced statistical models in hospitality and tourism contexts.",
-      "Interpret model results with attention to assumptions, limitations, and managerial meaning.",
-      "Translate technical analysis into clear explanations for research and practice."
+      "Use R and RStudio to prepare data, fit models, evaluate performance, and report reproducible results.",
+      "Distinguish statistical learning from machine learning and choose an approach suited to inference or prediction.",
+      "Fit and compare logistic regression, decision trees, random forests, support vector machines, and other supervised methods.",
+      "Evaluate classification with precision, recall, and F1, and regression with RMSE and R-squared.",
+      "Use variable importance, assumptions, diagnostics, and validation results to interpret model behavior.",
+      "Formulate real-world hospitality, gaming, finance, and business problems as defensible analytical workflows.",
+      "Write concise reports that explain methods, findings, comparisons, and limitations."
+    ],
+    photos: [
+      {
+        label: "Statistical + machine learning",
+        note: "The course connected interpretable statistical models with predictive machine-learning workflows."
+      },
+      {
+        label: "Model comparison",
+        note: "Students compared methods on held-out data using metrics appropriate to regression and classification."
+      },
+      {
+        label: "Applied R workflows",
+        note: "Projects used R to move from data preparation through modeling, validation, interpretation, and reporting."
+      }
     ],
     gradingComponents: [
-      { task: "Written-in-class activities", percent: "20%" },
-      { task: "Midterm modeling project", percent: "30%" },
-      { task: "Final applied modeling project", percent: "40%" },
-      { task: "Participation and technical preparation", percent: "10%" }
+      { task: "Spring review assignment", points: "75" },
+      { task: "Binary logistic regression and decision trees", points: "75" },
+      { task: "Decision-tree WIC", points: "75" },
+      { task: "Random-forest WIC", points: "75" },
+      { task: "Midterm modeling project", points: "300" },
+      { task: "Final applied modeling project", points: "400" }
     ],
     schedule: [
-      { week: "1", topic: "Advanced modeling review, research design, and applied hospitality examples" },
-      { week: "2", topic: "Decision trees, model splits, validation, and interpretation" },
-      { week: "3", topic: "Random forests, ensemble logic, and variable importance" },
-      { week: "4", topic: "Classification, prediction, and evaluating model performance" },
-      { week: "5", topic: "Model explanation, communication, and methodological limitations" },
-      { week: "6", topic: "Midterm and final project workshops" },
-      { week: "7", topic: "Final presentations and applied model reporting" }
+      { week: "Jan 20-23", topic: "R review, visualization, statistical inference, multiple regression, and multicollinearity" },
+      { week: "Jan 26-30", topic: "Classification with binary logistic regression and decision trees" },
+      { week: "Feb 2-6", topic: "Random-forest and support-vector classifiers; midterm project" },
+      { week: "Feb 9-13", topic: "Regression with decision trees and random forests" },
+      { week: "Feb 17-20", topic: "Support-vector regression and neural networks" },
+      { week: "Feb 23-27", topic: "Boosting methods" },
+      { week: "Mar 2-6", topic: "Principal components, time-series modeling, and ACF/PACF as time allowed" },
+      { week: "Mar 9-13", topic: "Clustering, linear discriminant analysis, and the final project" }
     ],
     materials: [
-      {
-        title: "Syllabus",
-        kind: "Syllabus",
-        description: "Syllabus will be linked here once selected."
-      },
-      {
-        title: "Recorded explanations",
-        kind: "Videos",
-        description: "Students noted the value of detailed recorded explanations and weekly support."
-      },
       {
         title: "Decision tree activity",
         kind: "Assignment",
@@ -807,16 +886,67 @@ export const courses = [
       {
         title: "Midterm project",
         kind: "Project",
-        description: "Midterm project prompt for advanced statistical analysis.",
+        description: "Compare multiple regression with random forest for sales prediction, then compare logistic regression with random forest for book-purchase classification.",
         href: "/assets/course_materials/hoa_732_advanced_statistical_analysis/midterm_project.txt"
       },
       {
         title: "Final project",
         kind: "Project",
-        description: "Final project prompt for applied modeling, interpretation, and communication.",
+        description: "Compare MLR and SVM for real-estate valuation, then compare logistic regression, random forest, and optional boosting for bank-marketing classification.",
         href: "/assets/course_materials/hoa_732_advanced_statistical_analysis/final_project.pdf"
       }
-    ]
+    ],
+    syllabus: {
+      instructor: "Mana Azizsoltani, PhD",
+      email: "mana.azizsoltani@unlv.edu",
+      meeting: "Spring 2026 intensive session",
+      room: "HOS 234",
+      credits: "3 credits",
+      prerequisites: "HOA 730 or equivalent preparation in applied statistics and R",
+      description:
+        "HOA 732 introduces advanced statistical learning and machine-learning methods in R. The course connects inference and interpretable relationships with predictive modeling, validation, and comparison across regression and classification problems.",
+      objectives: [
+        "Use RStudio for statistical analysis, predictive modeling, visualization, and interpretation.",
+        "Formulate real-world hospitality, gaming, finance, and business questions as regression or classification problems.",
+        "Fit and compare logistic regression, decision trees, random forests, support vector machines, boosting, and related methods.",
+        "Evaluate regression models with RMSE and R-squared and classification models with precision, recall, and F1.",
+        "Use training/test splits, diagnostics, assumptions, and variable importance to evaluate model quality.",
+        "Write clear reports that explain the analysis, model comparisons, results, and limitations."
+      ],
+      assessments: [
+        { task: "Spring 2026 review assignment", points: "75", percent: "7.5%", due: "Week 1" },
+        { task: "Binary logistic regression and decision trees", points: "75", percent: "7.5%", due: "Week 2" },
+        { task: "Decision-tree WIC", points: "75", percent: "7.5%", due: "Week 3" },
+        { task: "Random-forest WIC", points: "75", percent: "7.5%", due: "Week 4" },
+        { task: "Midterm modeling project", points: "300", percent: "30%", due: "Mid-session" },
+        { task: "Final applied modeling project", points: "400", percent: "40%", due: "March 11, 2026" }
+      ],
+      schedule: [
+        { week: "1", topic: "R review, inference, multiple regression, and multicollinearity" },
+        { week: "2", topic: "Binary logistic regression and decision-tree classifiers" },
+        { week: "3", topic: "Random-forest and support-vector classifiers; midterm project" },
+        { week: "4", topic: "Decision-tree and random-forest regression" },
+        { week: "5", topic: "Support-vector regression and neural networks" },
+        { week: "6", topic: "Boosting methods" },
+        { week: "7", topic: "Principal components and time-series concepts as time allowed" },
+        { week: "8", topic: "Clustering, linear discriminant analysis, and final project" }
+      ],
+      sections: [
+        {
+          label: "Assessment design",
+          title: "What students were asked to do",
+          copy: "The anonymized grade structure confirms a 1,000-point course built around four 75-point assignments, a 300-point midterm, and a 400-point final project.",
+          items: [
+            "Compare multiple regression and random forest on a sales-prediction problem.",
+            "Compare logistic regression and random forest on book-purchase classification.",
+            "Use decision trees for classification and regression and report RMSE where appropriate.",
+            "Use random forests for credit classification, variable importance, precision, recall, and F1.",
+            "Compare MLR and SVM on a held-out real-estate test set.",
+            "Compare classification models for a bank-marketing response while controlling model complexity."
+          ]
+        }
+      ]
+    }
   }
 ];
 

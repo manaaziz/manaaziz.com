@@ -3559,6 +3559,19 @@ h3 {
   line-height: 1.34;
 }
 
+.course-photo-slot.is-text-only {
+  align-content: stretch;
+  background:
+    radial-gradient(circle at 86% 16%, rgba(47, 111, 100, 0.18), transparent 34%),
+    repeating-linear-gradient(135deg, rgba(47, 111, 100, 0.06) 0 0.7rem, transparent 0.7rem 1.4rem),
+    rgba(255, 250, 241, 0.88);
+}
+
+.course-photo-slot.is-text-only figcaption {
+  align-content: end;
+  background: linear-gradient(180deg, rgba(23, 23, 23, 0.02), rgba(23, 23, 23, 0.9));
+}
+
 .course-description-card {
   display: grid;
   gap: 1rem;
@@ -11002,6 +11015,19 @@ h3 {
     gap: 0.35rem;
   }
 
+  .syllabus-page .syllabus-table:not(.weekly) > div {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.45rem 0.65rem;
+  }
+
+  .syllabus-page .syllabus-table.no-points:not(.weekly) > div {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .syllabus-page .syllabus-table:not(.weekly) > div > :first-child {
+    grid-column: 1 / -1;
+  }
+
   .work-pie-wrap {
     grid-template-columns: 1fr;
     min-height: auto;
@@ -11753,6 +11779,10 @@ h3 {
 }
 
 @media (max-width: 380px) {
+  .work-pie-chart {
+    width: calc(100% - 1.5rem);
+  }
+
   .manalogue-mobile-story.has-image[data-variant="row"] {
     grid-template-columns: 104px minmax(0, 1fr);
     gap: 0.7rem;

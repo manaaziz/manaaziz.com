@@ -272,6 +272,7 @@ export default async function CoursePage({ params }) {
         { label: "Activity", note: "Add a tasting, lab, or field moment" },
         { label: "Student work", note: "Add presentations, travel, or project photos" }
       ];
+  const hasCoursePhotos = photoSlots.some((photo) => photo.src);
 
   return (
     <main className="page-shell course-page">
@@ -287,12 +288,12 @@ export default async function CoursePage({ params }) {
 
       <section className="course-photo-highlight" aria-labelledby="course-photo-highlight-title">
         <div className="section-intro">
-          <p className="eyebrow">Class moments</p>
-          <h2 id="course-photo-highlight-title">Photos and highlights</h2>
+          <p className="eyebrow">{hasCoursePhotos ? "Class moments" : "Course design"}</p>
+          <h2 id="course-photo-highlight-title">{hasCoursePhotos ? "Photos and highlights" : "Course highlights"}</h2>
         </div>
         <div className="course-photo-grid">
           {photoSlots.map((photo) => (
-            <figure className="course-photo-slot" key={photo.label}>
+            <figure className={`course-photo-slot${photo.src ? "" : " is-text-only"}`} key={photo.label}>
               {photo.src ? <img src={photo.src} alt={photo.alt || ""} loading="lazy" decoding="async" /> : null}
               <figcaption>
                 <span>{photo.label}</span>
