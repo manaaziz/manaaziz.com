@@ -7,13 +7,13 @@ cover: /assets/images/consultant_pic.webp
 workType: Consulting
 ---
 
-My recent consulting trip to Southeast Asia taught me a lot about the way the cage works at a casino, and also that saying "the lady in the cage" can sound weirdly sadistic out of context.
+My recent consulting trip to Southeast Asia taught me a LOT about the way that the cage works at the casino, and also that saying "the lady in the cage" can sound weirdly sadistic out of context.
 
-The business is starting to pick up at the property, and they are starting to run out of tables they can dedicate to a single rolling program. So they wanted to put Walker Digital chip attribution to the test: could we make sure cash players were not able to cash out credit chips after a day of playing and passing chips around?
+The business is starting to pick up at the property and they are starting to run out of tables to be able to dedicate to a single rolling program, so they want to put Walker Digital chip attribution to the test to understand how to make sure that cash players are not able to cash out credit chips when they go to the cage after a day of playing and passing chips.
 
-The problem is that it is not so easy to track. You can end up with a convoluted chain of rolling value allocations.
+The problem is that its not so easy to track, because we could have some convoluted chain of rolling value allocations, for example:
 
-For example, Player A gives Player B a chip from their rolling program. Player B wagers that chip and wins. Now Player B has a chip that is a non-negotiable chip from Player A and a cashable chip that they won from the wager. Then Player B colors down the non-negotiable chip and gives half of it to Player C, who wants to go to the cage and cash out. I have to know that Player C cannot cash out the value that originally came from Player A.
+For example, player X gives player Y a chip from their rolling program. player Y wagers that chip and wins. Now player Y has a chip that is a non-neg chip from Player X and a cashable chip that they won from the wager. Lets say now that player Y colors down the non-neg chip and gives half of it to player Z, who wants to go to the cage and cash out. I have to know that player Z cannot cash out the value that was originally from player X....
 
 <section class="cage-chip-flow" aria-label="Chip attribution example from Player A to Player C">
   <div class="cage-chip-flow-stage">
@@ -69,8 +69,8 @@ For example, Player A gives Player B a chip from their rolling program. Player B
       <div class="cage-chip-mix cage-chip-mix-wide" aria-label="Black chips, purple promotional chips, and two red twenty five dollar chips">
         <span class="cage-chip cage-chip-black">$100</span>
         <span class="cage-chip cage-chip-black">$100</span>
-        <span class="cage-chip cage-chip-purple">PROMO</span>
-        <span class="cage-chip cage-chip-purple">PROMO</span>
+        <span class="cage-chip cage-chip-purple">PC</span>
+        <span class="cage-chip cage-chip-purple">PC</span>
         <span class="cage-chip cage-chip-red cage-chip-small">$25</span>
         <span class="cage-chip cage-chip-red cage-chip-small">$25</span>
       </div>
@@ -78,11 +78,9 @@ For example, Player A gives Player B a chip from their rolling program. Player B
   </div>
 </section>
 
-All this, mixed with chips not having clean ownership because of some lacking operational SOPs, some peculiarities in the database, and the sheer number of transactions, made things really difficult.
+All this, mixed with chips not having clean ownership due to some lacking operational SOPs, some peculiarities about the database, and the sheer number of the transactions, made things really difficult.
 
-But we were able to figure it out with a little bit of t(h)inkering. And when I presented all of the information back to the person in charge, they told me, "Just show me what you got. I don't need to know your love story."
-
-So I saved them my love story in the cage, and showed them the following:
+But, we were able to figure it out with a little bit of t(h)inkering. And when I presented all of the information back to the person in charge, they told me "Just show me what you got, I dont need to know your love story". So I saved them my love story in the cage, and showed them the following:
 
 <section class="cage-settlement-demo" aria-label="Player C cage settlement">
   <p class="cage-settlement-kicker">Player C at the cage</p>

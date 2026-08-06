@@ -8167,6 +8167,7 @@ h3 {
 
 .post-body {
   max-width: 760px;
+  min-width: 0;
   margin-top: 0;
   color: var(--ink);
   font-size: 1.05rem;
@@ -8325,6 +8326,9 @@ h3 {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(0.8rem, 2.5vw, 1.2rem);
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   margin: clamp(1.6rem, 4vw, 2.5rem) 0;
 }
 
@@ -8332,6 +8336,7 @@ h3 {
   position: relative;
   aspect-ratio: 16 / 10;
   min-height: clamp(12rem, 23vw, 17rem);
+  min-width: 0;
   margin: 0;
   overflow: hidden;
   border: 1px solid var(--line);
@@ -8345,6 +8350,7 @@ h3 {
 .conference-photo-pair img,
 .conference-photo-placeholder {
   width: 100%;
+  max-width: 100%;
   height: 100%;
   min-height: inherit;
 }
@@ -8448,12 +8454,13 @@ h3 {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.48rem;
   margin-top: auto;
 }
 
-.cage-chip-stack .cage-chip + .cage-chip {
-  margin-left: -1.1rem;
+.cage-player-a .cage-chip-stack {
+  flex-wrap: nowrap;
+  gap: clamp(0.32rem, 0.8vw, 0.52rem);
 }
 
 .cage-chip {
@@ -8465,13 +8472,20 @@ h3 {
   border: 0.22rem solid currentColor;
   border-radius: 999px;
   background:
-    radial-gradient(circle at center, rgba(255, 250, 241, 0.98) 0 34%, transparent 35%),
+    radial-gradient(circle at center, rgba(255, 250, 241, 0.99) 0 47%, transparent 48%),
     conic-gradient(from 8deg, currentColor 0 12deg, #fffaf1 12deg 24deg, currentColor 24deg 48deg, #fffaf1 48deg 60deg, currentColor 60deg 84deg, #fffaf1 84deg 96deg, currentColor 96deg 120deg, #fffaf1 120deg 132deg, currentColor 132deg 156deg, #fffaf1 156deg 168deg, currentColor 168deg 192deg, #fffaf1 192deg 204deg, currentColor 204deg 228deg, #fffaf1 228deg 240deg, currentColor 240deg 264deg, #fffaf1 264deg 276deg, currentColor 276deg 300deg, #fffaf1 300deg 312deg, currentColor 312deg 336deg, #fffaf1 336deg 348deg, currentColor 348deg 360deg);
   box-shadow: 0 0.24rem 0.6rem rgba(23, 23, 23, 0.16);
   color: #171717;
-  font-size: 0.58rem;
+  font-size: 0.72rem;
   font-weight: 950;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
   line-height: 1;
+  text-shadow:
+    0 0.055rem 0 rgba(255, 250, 241, 0.96),
+    0.055rem 0 0 rgba(255, 250, 241, 0.96),
+    -0.055rem 0 0 rgba(255, 250, 241, 0.96),
+    0 -0.055rem 0 rgba(255, 250, 241, 0.96);
 }
 
 .cage-chip-red {
@@ -8484,11 +8498,13 @@ h3 {
 
 .cage-chip-purple {
   color: #6d3c97;
-  font-size: 0.48rem;
+  font-size: 0.78rem;
+  letter-spacing: 0;
 }
 
 .cage-chip-small {
   width: 2.55rem;
+  font-size: 0.66rem;
 }
 
 .cage-transfer {
@@ -8537,11 +8553,16 @@ h3 {
 
 .cage-transfer span:last-child {
   z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   align-self: end;
-  padding: 0.32rem 0.5rem;
+  width: min(8rem, 100%);
+  padding: 0.36rem 0.55rem;
   border: 1px solid var(--line);
   border-radius: 999px;
   background: var(--surface-raised);
+  line-height: 1.12;
 }
 
 .cage-settlement-demo {
