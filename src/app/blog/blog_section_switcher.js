@@ -17,16 +17,6 @@ const sections = [
 
 const sectionLabels = Object.fromEntries(sections.map((section) => [section.id, section.label]));
 
-const panelHeights = {
-  home: "clamp(42rem, 60vw, 54rem)",
-  analytics: "clamp(29rem, 42vw, 37rem)",
-  research: "clamp(29rem, 42vw, 37rem)",
-  teaching: "clamp(29rem, 42vw, 37rem)",
-  travel: "clamp(29rem, 42vw, 37rem)",
-  podcasts: "clamp(26rem, 38vw, 34rem)",
-  gallery: "clamp(35rem, 52vw, 45rem)"
-};
-
 function formatMastheadDate(date) {
   return date.toLocaleDateString("en-US", {
     weekday: "long",
@@ -277,6 +267,100 @@ function ManalogueMobileFeed({ panels, activeIndex, onChange }) {
   );
 }
 
+function EditorialStoryShell({ story, className, children }) {
+  if (story.external) {
+    return <a className={className} href={story.href} rel="noreferrer" target="_blank">{children}</a>;
+  }
+  return <Link className={className} href={story.href}>{children}</Link>;
+}
+
+function EditorialStoryCard({ story, variant = "standard", eager = false }) {
+  return (
+    <EditorialStoryShell story={story} className={`manalogue-editorial-card is-${variant}`}>
+      {story.image ? (
+        <figure className="manalogue-editorial-image">
+          <img src={story.image} alt="" loading={eager ? "eager" : "lazy"} decoding="async" />
+        </figure>
+      ) : null}
+      <div className="manalogue-editorial-copy">
+        <span>{story.topic}</span>
+        <h2>{story.title}</h2>
+        {variant !== "latest" && story.excerpt ? <p>{story.excerpt}</p> : null}
+        <strong>By Mana Azizsoltani{story.minutes ? ` · ${story.minutes} min read` : ""}</strong>
+      </div>
+    </EditorialStoryShell>
+  );
+}
+
+function EditorialSection({ panel }) {
+  const stories = panelStoriesForMobile(panel).slice(0, 4);
+  if (!stories.length) return null;
+
+  return (
+    <section className="manalogue-editorial-section" id={`manalogue-${panel.id}`}>
+      <div className="manalogue-editorial-section-heading">
+        <h2>{sectionLabels[panel.id] || panel.title}</h2>
+        <a href="#manalogue-top">Back to top ↑</a>
+      </div>
+      <div className="manalogue-editorial-grid">
+        {stories.map((story, index) => (
+          <EditorialStoryCard key={`${panel.id}-${story.href || story.title}-${index}`} story={story} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ManalogueEditorialLanding({ panels }) {
+  const homePanel = panels.find((panel) => panel.id === "home") || panels[0];
+  const frontStories = panelStoriesForMobile(homePanel);
+  const lead = frontStories[0];
+  const supporting = frontStories.slice(1, 3);
+  const latest = frontStories.slice(3, 7);
+  const sectionPanels = panels.filter((panel) => panel.id !== "home");
+  const mustReads = frontStories.filter((story) => story.image).slice(0, 2);
+
+  return (
+    <div className="manalogue-editorial" id="manalogue-top">
+      <nav className="manalogue-editorial-nav" aria-label="Manalogue sections">
+        {sections.map((section) => (
+          <a href={section.id === "home" ? "#manalogue-top" : `#manalogue-${section.id}`} key={section.id}>
+            {section.label}
+          </a>
+        ))}
+      </nav>
+
+      <section className="manalogue-editorial-front" aria-label="Featured Manalogue stories">
+        <div className="manalogue-editorial-supporting">
+          {supporting.map((story, index) => (
+            <EditorialStoryCard key={`${story.href}-${index}`} story={story} variant="supporting" eager={index === 0} />
+          ))}
+        </div>
+        {lead ? <div className="manalogue-editorial-lead"><EditorialStoryCard story={lead} variant="lead" eager /></div> : null}
+        <aside className="manalogue-editorial-latest" aria-labelledby="manalogue-latest-title">
+          <h2 id="manalogue-latest-title">The Latest</h2>
+          <div>
+            {latest.map((story, index) => <EditorialStoryCard key={`${story.href}-${index}`} story={story} variant="latest" />)}
+          </div>
+        </aside>
+      </section>
+
+      {sectionPanels.slice(0, 3).map((panel) => <EditorialSection key={panel.id} panel={panel} />)}
+
+      {mustReads.length ? (
+        <section className="manalogue-editorial-section manalogue-must-reads" aria-labelledby="manalogue-must-reads-title">
+          <div className="manalogue-editorial-section-heading"><h2 id="manalogue-must-reads-title">Must Reads</h2></div>
+          <div className="manalogue-must-read-grid">
+            {mustReads.map((story, index) => <EditorialStoryCard key={`must-read-${story.href}-${index}`} story={story} variant="must-read" />)}
+          </div>
+        </section>
+      ) : null}
+
+      {sectionPanels.slice(3).map((panel) => <EditorialSection key={panel.id} panel={panel} />)}
+    </div>
+  );
+}
+
 function storiesByTag(posts, tag, topic, leadFirst = false) {
   const tagKey = tag.toLowerCase();
   const stories = posts
@@ -295,9 +379,7 @@ function fallbackStory({ topic, title, excerpt, href, image, action = "Open", si
 }
 
 export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
-  const [activeIndex, setActiveIndex] = useState(0);
   const [mastheadDate, setMastheadDate] = useState("");
-  const activeSection = sections[activeIndex];
 
   useEffect(() => {
     setMastheadDate(formatMastheadDate(new Date()));
@@ -581,68 +663,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
         <h1 id="blog-desk-title">The Manalogue</h1>
       </div>
 
-      <div
-        className="blog-switcher"
-        style={{
-          "--active-index": activeIndex,
-          "--active-panel-height": panelHeights[activeSection.id],
-          "--section-count": sections.length
-        }}
-      >
-        <div className="blog-switcher-bar" role="tablist" aria-label="Manalogue topics">
-          {sections.map((section, index) => (
-            <button
-              aria-controls={`blog-panel-${section.id}`}
-              aria-selected={activeSection.id === section.id}
-              id={`blog-tab-${section.id}`}
-              key={section.id}
-              onClick={() => setActiveIndex(index)}
-              role="tab"
-              type="button"
-            >
-              {section.label}
-            </button>
-          ))}
-        </div>
-
-        <ManalogueMobileFeed panels={topicPanels} activeIndex={activeIndex} onChange={setActiveIndex} />
-
-        <div className="blog-switcher-window">
-          <div className="blog-switcher-track">
-            {topicPanels.map((panel) => (
-              <section
-                aria-labelledby={`blog-tab-${panel.id}`}
-                className={`blog-switcher-panel newspaper-panel manalogue-panel manalogue-panel-${panel.layout || "topic"}`}
-                id={`blog-panel-${panel.id}`}
-                key={panel.id}
-                role="tabpanel"
-              >
-                <div className="media-newspaper manalogue-topic-page">
-                  <section className="manalogue-topic-front" aria-label={`${panel.title} stories`}>
-                    {panel.showTitle !== false ? (
-                      <div className="manalogue-topic-heading">
-                        <h2>{panel.title}</h2>
-                      </div>
-                    ) : null}
-
-                    {panel.layout === "photo-mosaic" ? (
-                      <PhotoMosaic photos={panel.photos} />
-                    ) : panel.layout === "newspaper-front" ? (
-                      <NewspaperFrontPage stories={panel.stories} />
-                    ) : (
-                      <div className="manalogue-topic-grid" data-count={panel.stories.length} data-layout={panel.layout || "topic"}>
-                        {panel.stories.map((story) => (
-                          <StoryCard key={`${story.topic}-${story.title}`} story={story} />
-                        ))}
-                      </div>
-                    )}
-                  </section>
-                </div>
-              </section>
-            ))}
-          </div>
-        </div>
-      </div>
+      <ManalogueEditorialLanding panels={topicPanels} />
     </section>
   );
 }
