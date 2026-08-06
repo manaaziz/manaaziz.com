@@ -185,6 +185,96 @@ function NewspaperFrontPage({ stories }) {
   );
 }
 
+function panelStoriesForMobile(panel) {
+  if (panel.layout === "photo-mosaic") {
+    return (panel.photos || []).map((photo) => ({
+      topic: photo.place || "Gallery",
+      title: photo.title,
+      excerpt: photo.preview || photo.series || "",
+      href: photo.href,
+      image: photo.image,
+      action: "View gallery",
+      date: photo.date
+    }));
+  }
+
+  return panel.stories || [];
+}
+
+function MobileStoryShell({ story, variant, children }) {
+  const className = `manalogue-mobile-story ${story.image ? "has-image" : "no-image"}`;
+
+  if (story.external) {
+    return (
+      <a className={className} data-variant={variant} href={story.href} rel="noreferrer" target="_blank">
+        {children}
+      </a>
+    );
+  }
+
+  if (story.href) {
+    return (
+      <Link className={className} data-variant={variant} href={story.href}>
+        {children}
+      </Link>
+    );
+  }
+
+  return (
+    <article className={className} data-variant={variant}>
+      {children}
+    </article>
+  );
+}
+
+function ManalogueMobileStory({ story, variant = "row" }) {
+  return (
+    <MobileStoryShell story={story} variant={variant}>
+      {story.image ? (
+        <div className="manalogue-mobile-story-image">
+          <img src={story.image} alt="" loading={variant === "lead" ? "eager" : "lazy"} decoding="async" />
+        </div>
+      ) : null}
+      <div className="manalogue-mobile-story-copy">
+        <span className="manalogue-mobile-story-meta">{story.topic}</span>
+        <h3>{story.title}</h3>
+        {variant === "lead" && story.excerpt ? <p>{story.excerpt}</p> : null}
+        <p className="manalogue-mobile-byline">
+          By <strong>Mana Azizsoltani</strong>
+          {story.minutes ? ` · ${story.minutes} min read` : ""}
+        </p>
+      </div>
+    </MobileStoryShell>
+  );
+}
+
+function ManalogueMobileFeed({ panels, activeIndex, onChange }) {
+  const panel = panels[activeIndex] || panels[0];
+  const stories = panelStoriesForMobile(panel);
+  const [lead, ...rest] = stories;
+
+  return (
+    <div className="manalogue-mobile-feed" aria-label="Mobile Manalogue stories">
+      <label className="manalogue-mobile-section-select">
+        <span>Section</span>
+        <select aria-label="Choose Manalogue section" value={activeIndex} onChange={(event) => onChange(Number(event.target.value))}>
+          {panels.map((section, index) => (
+            <option key={section.id} value={index}>
+              {section.label || section.title}
+            </option>
+          ))}
+        </select>
+      </label>
+      <div className="manalogue-mobile-story-list">
+        {lead ? <ManalogueMobileStory story={lead} variant="lead" /> : null}
+        {rest.slice(0, 12).map((story, index) => (
+          <ManalogueMobileStory key={`mobile-${panel.id}-${story.href || story.title}-${index}`} story={story} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function storiesByTag(posts, tag, topic, leadFirst = false) {
   const tagKey = tag.toLowerCase();
   const stories = posts
@@ -512,6 +602,8 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
             </button>
           ))}
         </div>
+
+        <ManalogueMobileFeed panels={topicPanels} activeIndex={activeIndex} onChange={setActiveIndex} />
 
         <div className="blog-switcher-window">
           <div className="blog-switcher-track">

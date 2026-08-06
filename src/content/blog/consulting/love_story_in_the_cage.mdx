@@ -13,7 +13,11 @@ The business is starting to pick up at the property and they are starting to run
 
 The problem is that its not so easy to track, because we could have some convoluted chain of rolling value allocations, for example:
 
-For example, player X gives player Y a chip from their rolling program. player Y wagers that chip and wins. Now player Y has a chip that is a non-neg chip from Player X and a cashable chip that they won from the wager. Lets say now that player Y colors down the non-neg chip and gives half of it to player Z, who wants to go to the cage and cash out. I have to know that player Z cannot cash out the value that was originally from player X....
+For example, player X gives player Y a chip from their rolling program.
+
+Player Y wagers that chip and wins. Now Player Y has a chip that is a non-neg chip from Player X and a cashable chip that they won from the wager.
+
+Lets say now that Player Y colors down the non-neg chip and gives half of it to Player Z, who wants to go to the cage and cash out. I have to know that Player Z cannot cash out the value that was originally from Player X....
 
 <section class="cage-chip-flow" aria-label="Chip attribution example from Player A to Player C">
   <div class="cage-chip-flow-stage">
@@ -80,25 +84,27 @@ For example, player X gives player Y a chip from their rolling program. player Y
 
 All this, mixed with chips not having clean ownership due to some lacking operational SOPs, some peculiarities about the database, and the sheer number of the transactions, made things really difficult.
 
-But, we were able to figure it out with a little bit of t(h)inkering. And when I presented all of the information back to the person in charge, they told me "Just show me what you got, I dont need to know your love story". So I saved them my love story in the cage, and showed them the following:
+But, we were able to figure it out with a little bit of t(h)inkering. And when I presented all of the information back to the person in charge, they told me "Just show me what you got, I dont need to know your love story".
+
+So I saved them my love story in the cage, and showed them the following:
 
 <section class="cage-settlement-demo" aria-label="Player C cage settlement">
   <p class="cage-settlement-kicker">Player C at the cage</p>
   <div class="cage-settlement-grid">
     <article class="cage-settlement-box cage-settlement-cash">
       <span>Cashable</span>
-      <strong>Cash out this much</strong>
-      <p>Clean value that belongs to Player C.</p>
+      <strong>$200 cashable</strong>
+      <p>Clean value that belongs to Player C and can be cashed out.</p>
     </article>
     <article class="cage-settlement-box cage-settlement-program">
       <span>Program value</span>
-      <strong>This much is from some other program</strong>
+      <strong>$50 from Player A</strong>
       <p>Value that traces back to Player A's rolling program.</p>
     </article>
     <article class="cage-settlement-box cage-settlement-promo">
-      <span>Promotional</span>
-      <strong>Promotional chips</strong>
-      <p>Promo value tracked under separate rules.</p>
+      <span>PC</span>
+      <strong>$200 in PC</strong>
+      <p>Promotional chip value tracked under separate rules.</p>
     </article>
   </div>
 </section>
