@@ -15,6 +15,8 @@ const sections = [
   { id: "gallery", label: "Gallery" }
 ];
 
+const sectionLabels = Object.fromEntries(sections.map((section) => [section.id, section.label]));
+
 const panelHeights = {
   home: "clamp(42rem, 60vw, 54rem)",
   analytics: "clamp(29rem, 42vw, 37rem)",
@@ -258,9 +260,9 @@ function ManalogueMobileFeed({ panels, activeIndex, onChange }) {
       <label className="manalogue-mobile-section-select">
         <span>Section</span>
         <select aria-label="Choose Manalogue section" value={activeIndex} onChange={(event) => onChange(Number(event.target.value))}>
-          {panels.map((section, index) => (
-            <option key={section.id} value={index}>
-              {section.label || section.title}
+          {panels.map((panel, index) => (
+            <option key={panel.id} value={index}>
+              {sectionLabels[panel.id] || panel.title}
             </option>
           ))}
         </select>

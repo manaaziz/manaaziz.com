@@ -23,6 +23,7 @@ const timelineItems = [
 
 export default function AboutBackgroundTimeline() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [timerResetKey, setTimerResetKey] = useState(0);
   const activeItem = timelineItems[activeIndex];
 
   useEffect(() => {
@@ -31,7 +32,7 @@ export default function AboutBackgroundTimeline() {
     }, 5000);
 
     return () => window.clearInterval(intervalId);
-  }, []);
+  }, [timerResetKey]);
 
   const goToSlide = (index) => {
     setActiveIndex(index);
@@ -39,6 +40,7 @@ export default function AboutBackgroundTimeline() {
 
   const goToNextSlide = () => {
     setActiveIndex((currentIndex) => (currentIndex + 1) % timelineItems.length);
+    setTimerResetKey((currentKey) => currentKey + 1);
   };
 
   return (
