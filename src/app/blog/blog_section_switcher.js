@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { newsItems } from "../news/items";
 import { podcasts } from "../podcast/shows";
 
@@ -16,6 +16,10 @@ const sections = [
 ];
 
 const sectionLabels = Object.fromEntries(sections.map((section) => [section.id, section.label]));
+
+function sectionHref(sectionId) {
+  return sectionId === "home" ? "/manalogue" : `/manalogue/${sectionId}`;
+}
 
 function formatMastheadDate(date) {
   return date.toLocaleDateString("en-US", {
@@ -311,6 +315,71 @@ function EditorialSection({ panel }) {
   );
 }
 
+function ManalogueSectionNav({ activeId = "home" }) {
+  const activeIndex = Math.max(0, sections.findIndex((section) => section.id === activeId));
+  const activeLinkRef = useRef(null);
+
+  useEffect(() => {
+    activeLinkRef.current?.scrollIntoView({ block: "nearest", inline: "center" });
+  }, [activeId]);
+
+  return (
+    <nav
+      className="manalogue-section-slider"
+      aria-label="Manalogue sections"
+      style={{ "--active-index": activeIndex, "--section-count": sections.length }}
+    >
+      {sections.map((section) => (
+        <Link
+          aria-current={section.id === activeId ? "page" : undefined}
+          href={sectionHref(section.id)}
+          key={section.id}
+          ref={section.id === activeId ? activeLinkRef : undefined}
+        >
+          {section.label}
+        </Link>
+      ))}
+    </nav>
+  );
+}
+
+function ManalogueGalleryWall({ photos }) {
+  return (
+    <div className="manalogue-gallery-wall">
+      {photos.map((photo) => (
+        <Link className="manalogue-gallery-brick" href={photo.href} key={`${photo.href}-${photo.image}`}>
+          <img src={photo.image} alt="" loading="lazy" decoding="async" />
+          <span><strong>{photo.title}</strong><small>{photo.place}</small></span>
+        </Link>
+      ))}
+    </div>
+  );
+}
+
+function ManalogueSectionPage({ panel }) {
+  const stories = panelStoriesForMobile(panel);
+
+  return (
+    <div className="manalogue-subject-page">
+      <ManalogueSectionNav activeId={panel.id} />
+      <header className="manalogue-subject-heading">
+        <span>{panel.kicker}</span>
+        <h2>{sectionLabels[panel.id] || panel.title}</h2>
+        <p>{panel.title}</p>
+      </header>
+      {panel.layout === "photo-mosaic" ? (
+        <ManalogueGalleryWall photos={panel.photos || []} />
+      ) : (
+        <div className="manalogue-subject-grid">
+          {stories.map((story, index) => (
+            <EditorialStoryCard key={`${panel.id}-${story.href || story.title}-${index}`} story={story} variant={index === 0 ? "subject-lead" : "standard"} eager={index === 0} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function ManalogueEditorialLanding({ panels }) {
   const homePanel = panels.find((panel) => panel.id === "home") || panels[0];
   const frontStories = panelStoriesForMobile(homePanel);
@@ -322,13 +391,7 @@ function ManalogueEditorialLanding({ panels }) {
 
   return (
     <div className="manalogue-editorial" id="manalogue-top">
-      <nav className="manalogue-editorial-nav" aria-label="Manalogue sections">
-        {sections.map((section) => (
-          <a href={section.id === "home" ? "#manalogue-top" : `#manalogue-${section.id}`} key={section.id}>
-            {section.label}
-          </a>
-        ))}
-      </nav>
+      <ManalogueSectionNav />
 
       <section className="manalogue-editorial-front" aria-label="Featured Manalogue stories">
         <div className="manalogue-editorial-supporting">
@@ -378,7 +441,7 @@ function fallbackStory({ topic, title, excerpt, href, image, action = "Open", si
   return { topic, title, excerpt, href, image, action, size };
 }
 
-export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
+export default function BlogSectionSwitcher({ allPosts = [], posts = [], sectionId = "home" }) {
   const [mastheadDate, setMastheadDate] = useState("");
 
   useEffect(() => {
@@ -653,6 +716,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
       stories: []
     }
   ];
+  const activePanel = topicPanels.find((panel) => panel.id === sectionId) || topicPanels[0];
 
   return (
     <section className="blog-desk manalogue-desk" aria-labelledby="blog-desk-title">
@@ -663,7 +727,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [] }) {
         <h1 id="blog-desk-title">The Manalogue</h1>
       </div>
 
-      <ManalogueEditorialLanding panels={topicPanels} />
+      {activePanel.id === "home" ? <ManalogueEditorialLanding panels={topicPanels} /> : <ManalogueSectionPage panel={activePanel} />}
     </section>
   );
 }

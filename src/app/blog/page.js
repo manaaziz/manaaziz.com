@@ -5,7 +5,7 @@ export const metadata = {
   title: "The Manalogue"
 };
 
-export default function MediaPage() {
+export function ManaloguePage({ sectionId = "home" } = {}) {
   const series = getSeriesSummaries();
   const allPosts = getVisiblePosts()
     .slice()
@@ -26,7 +26,11 @@ export default function MediaPage() {
   });
   return (
     <main className="page-shell blog-page">
-      <BlogSectionSwitcher allPosts={allPosts} posts={recentPosts} />
+      <BlogSectionSwitcher allPosts={allPosts} posts={recentPosts} sectionId={sectionId} />
     </main>
   );
+}
+
+export default function MediaPage() {
+  return <ManaloguePage />;
 }

@@ -22,28 +22,22 @@ export const courses = [
     ],
     photos: [
       {
+        label: "Madrid",
+        note: "A class moment from the Madrid portion of the Summer Studies in Spain program.",
+        src: "/assets/photos/fab333_madrid/fab_madrid_day5.webp",
+        alt: "FAB 333 students during the Madrid portion of Summer Studies in Spain"
+      },
+      {
+        label: "Valencia",
+        note: "A class moment from the Valencia portion of the Summer Studies in Spain program.",
+        src: "/assets/photos/fab333_madrid/fab_val_day2.webp",
+        alt: "FAB 333 students during the Valencia portion of Summer Studies in Spain"
+      },
+      {
         label: "FAB 333 reunion",
         note: "A group moment connected to the broader FAB 333 travel and cuisine archive.",
         src: "/assets/photos/fab333_reunion_group.webp",
         alt: "FAB 333 reunion group photo"
-      },
-      {
-        label: "Spain connection",
-        note: "A travel and culture memory tied to the study-abroad version of FAB 333.",
-        src: "/assets/photos/fab333_reunion_manaflag.webp",
-        alt: "Mana with a flag during a FAB 333 reunion moment"
-      },
-      {
-        label: "Course community",
-        note: "Personal and student-facing moments from the FAB 333 extended classroom.",
-        src: "/assets/photos/fab333_reunion_mark.webp",
-        alt: "FAB 333 reunion photo"
-      },
-      {
-        label: "UNLV abroad",
-        note: "A study-abroad visual archive for the Spain-focused FAB 333 course home.",
-        src: "/assets/photos/fab333_reunion_unlvflag.webp",
-        alt: "UNLV flag photo connected to FAB 333 Summer Studies in Spain"
       }
     ],
     gradingComponents: [
@@ -711,6 +705,12 @@ export const courses = [
       { week: "May 4-8", topic: "Final project and final assessment" }
     ],
     materials: [
+      {
+        title: "PDF syllabus",
+        kind: "Syllabus",
+        description: "Downloadable PDF copy of the HOA 730 syllabus.",
+        href: "/assets/course_materials/hoa_730_statistical_analysis/hoa730_syllabus.pdf"
+      },
       {
         title: "Applied statistics lecture slides",
         kind: "Slides",

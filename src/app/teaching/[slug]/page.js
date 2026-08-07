@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { courses, getCourse } from "../courses";
+import { getMaterialHub } from "../material_hubs";
 import CourseAssessmentChart from "./course_assessment_chart";
 
 const materialKindOrder = {
@@ -208,6 +209,33 @@ function buildMonthCalendar(month) {
   return rows;
 }
 
+function buildScheduleCalendar(schedule, semester) {
+  const year = Number(String(semester || "").match(/\b(20\d{2})\b/)?.[1]);
+  if (!year) return [];
+
+  const months = new Map();
+  schedule.forEach((entry, index) => {
+    const startDate = parseCalendarDate(entry.week, null, year);
+    if (!startDate) return;
+    const key = `${startDate.getFullYear()}-${startDate.getMonth()}`;
+    if (!months.has(key)) {
+      months.set(key, {
+        month: startDate.toLocaleDateString("en-US", { month: "long" }),
+        year: startDate.getFullYear(),
+        weeks: []
+      });
+    }
+    months.get(key).weeks.push({
+      week: index + 1,
+      date: entry.week,
+      topic: entry.topic,
+      due: entry.due || []
+    });
+  });
+
+  return [...months.values()];
+}
+
 function MaterialCard({ material }) {
   return (
     <article>
@@ -263,8 +291,10 @@ export default async function CoursePage({ params }) {
   const gradingComponents = course.syllabus?.assessments || course.gradingComponents || [];
   const assessmentItems = buildAssessmentItems(gradingComponents);
   const weeklySchedule = course.syllabus?.schedule || course.schedule || [];
-  const semesterCalendar = course.syllabus?.calendar || course.calendar || [];
+  const semesterCalendar = course.syllabus?.calendar || course.calendar || buildScheduleCalendar(course.schedule || [], course.semester);
   const orderedMaterials = sortCourseMaterials((course.materials || []).filter(materialHasSiteResource)).map(materialWithSiteLinks);
+  const materialHub = getMaterialHub(course.slug);
+  const syllabusDownload = (course.materials || []).find((material) => material.kind === "Syllabus" && material.href?.startsWith("/assets/"));
   const photoSlots = course.photos?.length
     ? course.photos
     : [
@@ -272,8 +302,6 @@ export default async function CoursePage({ params }) {
         { label: "Activity", note: "Add a tasting, lab, or field moment" },
         { label: "Student work", note: "Add presentations, travel, or project photos" }
       ];
-  const hasCoursePhotos = photoSlots.some((photo) => photo.src);
-
   return (
     <main className="page-shell course-page">
       <Link className="button course-back-button" href="/teaching">
@@ -281,15 +309,14 @@ export default async function CoursePage({ params }) {
       </Link>
 
       <section className="course-home-hero">
-        <p className="eyebrow">{course.university} course home</p>
         <h1>{course.title}</h1>
         <p className="lede">{course.summary}</p>
       </section>
 
       <section className="course-photo-highlight" aria-labelledby="course-photo-highlight-title">
         <div className="section-intro">
-          <p className="eyebrow">{hasCoursePhotos ? "Class moments" : "Course design"}</p>
-          <h2 id="course-photo-highlight-title">{hasCoursePhotos ? "Photos and highlights" : "Course highlights"}</h2>
+          <p className="eyebrow">Class moments</p>
+          <h2 id="course-photo-highlight-title">Photos and highlights</h2>
         </div>
         <div className="course-photo-grid">
           {photoSlots.map((photo) => (
@@ -306,7 +333,7 @@ export default async function CoursePage({ params }) {
 
       <section className="course-description-section" aria-labelledby="course-description-title">
         <div className="section-intro">
-          <p className="eyebrow">Description</p>
+          <p className="eyebrow">Course description</p>
           <h2 id="course-description-title">Course description</h2>
         </div>
         <div className="course-description-card">
@@ -318,18 +345,13 @@ export default async function CoursePage({ params }) {
                 UNLV course catalog
               </a>
             ) : null}
-            {course.syllabus ? (
-              <Link className="button" href={`/teaching/${course.slug}/syllabus`}>
-                Read web syllabus
-              </Link>
-            ) : null}
-            {course.materials.find((material) => material.kind === "Syllabus" && material.href) ? (
-              <Link
+            {syllabusDownload ? (
+              <a
                 className="button"
-                href={course.materials.find((material) => material.kind === "Syllabus" && material.href).href}
+                href={syllabusDownload.href}
               >
                 Download syllabus
-              </Link>
+              </a>
             ) : null}
           </div>
         </div>
@@ -338,7 +360,7 @@ export default async function CoursePage({ params }) {
       {objectives.length ? (
         <section className="course-outcomes" aria-labelledby="course-outcomes-title">
           <div className="section-intro">
-            <p className="eyebrow">Objectives</p>
+            <p className="eyebrow">Learning objectives</p>
             <h2 id="course-outcomes-title">Learning objectives</h2>
           </div>
 
@@ -485,14 +507,27 @@ export default async function CoursePage({ params }) {
       <section className="course-materials course-home-materials" aria-labelledby="course-materials-title">
         <div className="section-intro">
           <p className="eyebrow">Materials</p>
-          <h2 id="course-materials-title">Course materials, assignments, and links</h2>
+          <h2 id="course-materials-title">Lectures, assignments, and code</h2>
         </div>
 
-        <div className="course-material-list">
-          {orderedMaterials.map((material) => (
-            <MaterialCard key={material.title} material={material} />
-          ))}
-        </div>
+        {materialHub ? (
+          <div className="course-material-hub-grid">
+            {materialHub.map((section) => (
+              <Link className="course-material-hub-card" href={`/teaching/${course.slug}/materials/${section.id}`} key={section.id}>
+                <span>{section.eyebrow}</span>
+                <h3>{section.title}</h3>
+                <p>{section.description}</p>
+                <strong>Open section <span aria-hidden="true">→</span></strong>
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <div className="course-material-list">
+            {orderedMaterials.map((material) => (
+              <MaterialCard key={material.title} material={material} />
+            ))}
+          </div>
+        )}
       </section>
     </main>
   );
