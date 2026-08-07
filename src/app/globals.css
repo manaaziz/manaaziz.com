@@ -3645,6 +3645,10 @@ h3 {
   margin-bottom: 0;
 }
 
+.course-card h3 {
+  height: calc(1em * 3.12);
+}
+
 .course-card-meta {
   display: flex;
   gap: 0.45rem;
@@ -11913,6 +11917,10 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
   .course-calendar-grid,
   .fab333-post-photo-grid {
     grid-template-columns: 1fr;
+  }
+
+  .course-card h3 {
+    height: auto;
   }
 
   .course-calendar-month,

@@ -822,8 +822,9 @@ export const courses = [
     label: "HOA 732",
     title: "HOA 732: Advanced Statistical Analysis for Hospitality",
     shortTitle: "Advanced Statistical Analysis",
+    cardTitle: "Adv. Statistical Analysis for Hospitality",
     summary:
-      "An intensive eight-week graduate course in R spanning statistical learning, machine learning, model comparison, and applied reporting.",
+      "A graduate course in R covering statistical learning, machine learning, model comparison, and applied reporting for hospitality research and decision-making.",
     catalogIntro:
       "An advanced statistics course for hospitality graduate students, emphasizing applied modeling, interpretation, and quantitative methods that support hospitality research. The course builds toward more independent analysis and clearer communication of technical findings.",
     description:

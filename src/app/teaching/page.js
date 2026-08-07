@@ -77,7 +77,7 @@ export default function TeachingPage() {
                 <span>{course.courseNumber}</span>
                 <span>{course.university}</span>
               </div>
-              <h3>{course.courseName}</h3>
+              <h3>{course.cardTitle || course.courseName}</h3>
               <p>{course.summary}</p>
               <strong>Open course home</strong>
             </Link>
