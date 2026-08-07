@@ -295,13 +295,7 @@ export default async function CoursePage({ params }) {
   const orderedMaterials = sortCourseMaterials((course.materials || []).filter(materialHasSiteResource)).map(materialWithSiteLinks);
   const materialHub = getMaterialHub(course.slug);
   const syllabusDownload = (course.materials || []).find((material) => material.kind === "Syllabus" && material.href?.startsWith("/assets/"));
-  const photoSlots = course.photos?.length
-    ? course.photos
-    : [
-        { label: "Class photo", note: "Add a classroom or group image" },
-        { label: "Activity", note: "Add a tasting, lab, or field moment" },
-        { label: "Student work", note: "Add presentations, travel, or project photos" }
-      ];
+  const photoSlots = (course.photos || []).filter((photo) => photo.src);
   return (
     <main className="page-shell course-page">
       <Link className="button course-back-button" href="/teaching">
@@ -313,23 +307,25 @@ export default async function CoursePage({ params }) {
         <p className="lede">{course.summary}</p>
       </section>
 
-      <section className="course-photo-highlight" aria-labelledby="course-photo-highlight-title">
-        <div className="section-intro">
-          <p className="eyebrow">Class moments</p>
-          <h2 id="course-photo-highlight-title">Photos and highlights</h2>
-        </div>
-        <div className="course-photo-grid">
-          {photoSlots.map((photo) => (
-            <figure className={`course-photo-slot${photo.src ? "" : " is-text-only"}`} key={photo.label}>
-              {photo.src ? <img src={photo.src} alt={photo.alt || ""} loading="lazy" decoding="async" /> : null}
-              <figcaption>
-                <span>{photo.label}</span>
-                <p>{photo.note}</p>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-      </section>
+      {photoSlots.length ? (
+        <section className="course-photo-highlight" aria-labelledby="course-photo-highlight-title">
+          <div className="section-intro">
+            <p className="eyebrow">Class moments</p>
+            <h2 id="course-photo-highlight-title">Photos and highlights</h2>
+          </div>
+          <div className="course-photo-grid">
+            {photoSlots.map((photo) => (
+              <figure className="course-photo-slot" key={photo.label}>
+                <img src={photo.src} alt={photo.alt || ""} loading="lazy" decoding="async" />
+                <figcaption>
+                  <span>{photo.label}</span>
+                  <p>{photo.note}</p>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       <section className="course-description-section" aria-labelledby="course-description-title">
         <div className="section-intro">
@@ -469,21 +465,22 @@ export default async function CoursePage({ params }) {
                               <span>
                                 {/^\d+$/.test(String(row.courseWeek.week)) ? `Week ${row.courseWeek.week}` : row.courseWeek.week}
                               </span>
+                              <strong>Hover or tap for details</strong>
                             </div>
-                            <div className="course-calendar-week-popover">
+                            <div className="course-calendar-week-popover" aria-hidden="true">
+                              <div>
+                                <span>{row.courseWeek.date}</span>
+                                <strong>
+                                  {/^\d+$/.test(String(row.courseWeek.week)) ? `Week ${row.courseWeek.week}` : row.courseWeek.week}
+                                </strong>
+                              </div>
                               <p>{row.courseWeek.topic}</p>
                               {row.courseWeek.due?.length ? (
-                                <div className="course-calendar-week-more">
-                                  <button className="course-calendar-week-more-trigger" type="button">More</button>
-                                  <div className="course-calendar-week-more-popover" role="tooltip">
-                                    <strong>Due this week</strong>
-                                    <ul>
-                                      {row.courseWeek.due.map((item) => (
-                                        <li key={item}>{item}</li>
-                                      ))}
-                                    </ul>
-                                  </div>
-                                </div>
+                                <ul>
+                                  {row.courseWeek.due.map((item) => (
+                                    <li key={item}>{item}</li>
+                                  ))}
+                                </ul>
                               ) : null}
                             </div>
                           </>
