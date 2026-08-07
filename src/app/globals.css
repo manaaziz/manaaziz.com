@@ -302,7 +302,7 @@ main {
   text-decoration: none;
 }
 
-.manalogue-section-slider {
+.section-slider {
   --slider-inset: 0.35rem;
   position: relative;
   display: grid;
@@ -317,20 +317,21 @@ main {
   box-shadow: 0 7px 0 rgba(21, 21, 21, 0.08);
 }
 
-.manalogue-section-slider::before {
+.section-slider::before {
   position: absolute;
   top: var(--slider-inset);
   bottom: var(--slider-inset);
-  left: calc(var(--slider-inset) + var(--active-index) * ((100% - (2 * var(--slider-inset))) / var(--section-count)));
+  left: var(--slider-inset);
   width: calc((100% - (2 * var(--slider-inset))) / var(--section-count));
   border: 1px solid rgba(47, 111, 100, 0.32);
   border-radius: 999px;
   background: rgba(47, 111, 100, 0.11);
   content: "";
-  transition: left 420ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform: translateX(calc(var(--active-index) * 100%));
+  transition: transform 360ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.manalogue-section-slider a {
+.section-slider a {
   position: relative;
   z-index: 1;
   display: grid;
@@ -346,14 +347,14 @@ main {
   transition: color 180ms ease, transform 180ms var(--ease-out-back);
 }
 
-.manalogue-section-slider a[aria-current="page"],
-.manalogue-section-slider a:hover,
-.manalogue-section-slider a:focus-visible {
+.section-slider a[aria-current="page"],
+.section-slider a:hover,
+.section-slider a:focus-visible {
   color: var(--ink);
 }
 
-.manalogue-section-slider a:hover,
-.manalogue-section-slider a:focus-visible {
+.section-slider a:hover,
+.section-slider a:focus-visible {
   outline: none;
   transform: translateY(-1px);
 }
@@ -761,20 +762,21 @@ main {
 }
 
 @media (max-width: 720px) {
-  .manalogue-section-slider {
+  .section-slider {
     grid-template-columns: repeat(var(--section-count), minmax(7rem, 1fr));
     overflow-x: auto;
     border-radius: 1.1rem;
     scrollbar-width: none;
   }
 
-  .manalogue-section-slider::-webkit-scrollbar {
+  .section-slider::-webkit-scrollbar {
     display: none;
   }
 
-  .manalogue-section-slider::before {
-    left: calc(var(--slider-inset) + var(--active-index) * 7rem);
+  .section-slider::before {
+    left: var(--slider-inset);
     width: 7rem;
+    transform: translateX(calc(var(--active-index) * 7rem));
   }
 
   .manalogue-editorial-nav {
@@ -3735,7 +3737,7 @@ h3 {
 
 .course-material-hub-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
   margin-top: 1.5rem;
 }
@@ -3754,7 +3756,7 @@ h3 {
   transition: border-color 180ms ease, transform 180ms var(--ease-out-back), box-shadow 180ms ease;
 }
 
-.course-material-hub-card > span,
+.course-material-hub-card > span:not(.button),
 .course-resource-card > span,
 .course-guide-panel > span,
 .course-github-callout span {
@@ -3776,16 +3778,10 @@ h3 {
   line-height: 1.5;
 }
 
-.course-material-hub-card > strong {
+.course-material-hub-card > .button {
+  width: max-content;
   align-self: end;
   margin-top: 1.4rem;
-  font-size: 0.82rem;
-}
-
-.course-material-hub-card > strong span {
-  display: inline-block;
-  margin-left: 0.25rem;
-  transition: transform 180ms ease;
 }
 
 .course-material-hub-card:hover,
@@ -3794,11 +3790,6 @@ h3 {
   box-shadow: 0 0.45rem 0 rgba(0, 0, 0, 0.12);
   outline: none;
   transform: translateY(-3px);
-}
-
-.course-material-hub-card:hover > strong span,
-.course-material-hub-card:focus-visible > strong span {
-  transform: translateX(0.25rem);
 }
 
 .course-material-page-heading h1 {
@@ -3813,31 +3804,49 @@ h3 {
 }
 
 .course-material-subnav {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0.45rem;
   margin: 2rem 0;
-  padding: 0.4rem;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: var(--panel);
-  box-shadow: var(--shadow);
 }
 
-.course-material-subnav a {
-  padding: 0.75rem 0.6rem;
-  border-radius: 999px;
-  color: var(--muted);
-  font-size: 0.78rem;
-  font-weight: 900;
-  text-align: center;
-  text-decoration: none;
+html.section-route-leaving[data-section-direction="forward"] .course-material-page > :not(.section-slider),
+html.section-route-leaving[data-section-direction="forward"] .manalogue-subject-page > :not(.section-slider),
+html.section-route-leaving[data-section-direction="forward"] .manalogue-editorial > :not(.section-slider) {
+  opacity: 0;
+  transform: translateX(-1.4rem);
 }
 
-.course-material-subnav a[aria-current="page"] {
-  border: 1px solid rgba(47, 111, 100, 0.32);
-  background: rgba(47, 111, 100, 0.11);
-  color: var(--ink);
+html.section-route-leaving[data-section-direction="backward"] .course-material-page > :not(.section-slider),
+html.section-route-leaving[data-section-direction="backward"] .manalogue-subject-page > :not(.section-slider),
+html.section-route-leaving[data-section-direction="backward"] .manalogue-editorial > :not(.section-slider) {
+  opacity: 0;
+  transform: translateX(1.4rem);
+}
+
+.course-material-page > :not(.section-slider),
+.manalogue-subject-page > :not(.section-slider),
+.manalogue-editorial > :not(.section-slider) {
+  transition: opacity 240ms ease, transform 300ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+html.section-route-entering[data-section-direction="forward"] .course-material-page > :not(.section-slider),
+html.section-route-entering[data-section-direction="forward"] .manalogue-subject-page > :not(.section-slider),
+html.section-route-entering[data-section-direction="forward"] .manalogue-editorial > :not(.section-slider) {
+  animation: section-page-enter-forward 320ms ease both;
+}
+
+html.section-route-entering[data-section-direction="backward"] .course-material-page > :not(.section-slider),
+html.section-route-entering[data-section-direction="backward"] .manalogue-subject-page > :not(.section-slider),
+html.section-route-entering[data-section-direction="backward"] .manalogue-editorial > :not(.section-slider) {
+  animation: section-page-enter-backward 320ms ease both;
+}
+
+@keyframes section-page-enter-forward {
+  from { opacity: 0; transform: translateX(1.4rem); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes section-page-enter-backward {
+  from { opacity: 0; transform: translateX(-1.4rem); }
+  to { opacity: 1; transform: none; }
 }
 
 .course-resource-page-grid {
@@ -3949,18 +3958,7 @@ h3 {
   }
 
   .course-material-subnav {
-    display: flex;
-    overflow-x: auto;
-    border-radius: 1rem;
-    scrollbar-width: none;
-  }
-
-  .course-material-subnav::-webkit-scrollbar {
-    display: none;
-  }
-
-  .course-material-subnav a {
-    flex: 0 0 8.5rem;
+    margin-block: 1.5rem;
   }
 
   .course-github-callout {
@@ -4177,7 +4175,7 @@ h3 {
 }
 
 .course-calendar-row.has-course-week {
-  min-height: 4.65rem;
+  min-height: 0;
   cursor: pointer;
 }
 
@@ -4202,7 +4200,8 @@ h3 {
   display: grid;
   gap: 0.24rem;
   align-content: start;
-  min-height: 3.05rem;
+  min-height: 0;
+  aspect-ratio: 1 / 0.9;
   padding: 0.34rem;
   border: 1px solid rgba(23, 23, 23, 0.08);
   border-radius: 6px;
@@ -4310,17 +4309,17 @@ h3 {
 
 .course-calendar-week-hint {
   position: absolute;
-  right: 0.28rem;
+  right: auto;
   bottom: 0.28rem;
   left: 0.28rem;
   z-index: 3;
   display: flex;
   gap: 0.45rem;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: 0.3rem 0.42rem;
   border: 1px solid rgba(47, 111, 100, 0.28);
-  border-radius: 5px;
+  border-radius: 999px;
   background: rgba(232, 241, 237, 0.96);
   color: var(--green);
   font-size: 0.58rem;
@@ -4330,13 +4329,8 @@ h3 {
   pointer-events: none;
 }
 
-.course-calendar-week-hint span,
-.course-calendar-week-hint strong {
+.course-calendar-week-hint span {
   font-weight: 900;
-}
-
-.course-calendar-week-hint strong::after {
-  content: " ↗";
 }
 
 .course-calendar-row:hover .course-calendar-week-hint,
@@ -4350,9 +4344,10 @@ h3 {
   inset: 0.18rem;
   z-index: 4;
   display: grid;
-  gap: 0.42rem;
-  align-content: start;
-  overflow-y: auto;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.65rem;
+  align-content: center;
+  align-items: center;
   padding: 0.62rem 0.72rem;
   border: 1px solid var(--line-strong);
   border-radius: 8px;
@@ -4372,6 +4367,7 @@ h3 {
 .course-calendar-row:focus-visible .course-calendar-week-popover,
 .course-calendar-row:focus-within .course-calendar-week-popover {
   opacity: 1;
+  pointer-events: auto;
   transform: translateY(-0.12rem) scale(1);
 }
 
@@ -4379,26 +4375,6 @@ h3 {
   background:
     repeating-linear-gradient(135deg, rgba(138, 21, 56, 0.08) 0 0.5rem, transparent 0.5rem 1rem),
     rgba(255, 250, 241, 0.96);
-}
-
-.course-calendar-week-popover > div {
-  display: flex;
-  gap: 0.65rem;
-  align-items: baseline;
-  justify-content: space-between;
-}
-
-.course-calendar-week-popover > div span {
-  color: var(--green);
-  font-size: 0.68rem;
-  font-weight: 900;
-  text-transform: uppercase;
-}
-
-.course-calendar-week-popover > div strong {
-  font-size: 0.82rem;
-  line-height: 1;
-  text-transform: uppercase;
 }
 
 .course-calendar-week-popover p {
@@ -4409,25 +4385,60 @@ h3 {
   line-height: 1.18;
 }
 
-.course-calendar-week-popover ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+.course-calendar-week-more {
+  position: relative;
 }
 
-.course-calendar-week-popover li {
-  padding: 0.28rem 0.45rem;
-  border: 1px solid var(--line);
+.course-calendar-week-more-trigger {
+  padding: 0.32rem 0.55rem;
+  border: 1px solid var(--line-strong);
   border-radius: 999px;
-  background: var(--surface-raised);
-  color: var(--muted);
+  background: var(--ink);
+  color: var(--cream);
+  cursor: pointer;
+  font: inherit;
   font-size: 0.66rem;
   font-weight: 900;
-  line-height: 1.1;
   text-transform: uppercase;
+}
+
+.course-calendar-week-more-popover {
+  position: absolute;
+  top: calc(100% + 0.4rem);
+  right: 0;
+  z-index: 50;
+  display: none;
+  width: min(15rem, 70vw);
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  background: #fffaf1;
+  box-shadow: 0 16px 34px rgba(23, 23, 23, 0.2), 0 0.24rem 0 #000;
+}
+
+.course-calendar-week-more:hover .course-calendar-week-more-popover,
+.course-calendar-week-more:focus-within .course-calendar-week-more-popover {
+  display: block;
+}
+
+.course-calendar-week-more-popover > strong {
+  color: var(--ink);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+}
+
+.course-calendar-week-more-popover ul {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0.45rem 0 0;
+  padding-left: 1rem;
+}
+
+.course-calendar-week-more-popover li {
+  color: var(--muted);
+  font-size: 0.7rem;
+  font-weight: 800;
+  line-height: 1.3;
 }
 
 .course-photo-grid {
@@ -7468,6 +7479,8 @@ h3 {
 
 .manalogue-masthead {
   padding-top: clamp(0.35rem, 1vw, 0.85rem);
+  padding-bottom: 0;
+  border-bottom: 0;
 }
 
 .manalogue-masthead .newspaper-kicker {
@@ -8126,6 +8139,11 @@ h3 {
   padding-bottom: 0.8rem;
   border-bottom: 0.2rem double var(--ink);
   text-align: center;
+}
+
+.newspaper-masthead.manalogue-masthead {
+  padding-bottom: 0;
+  border-bottom: 0;
 }
 
 .newspaper-kicker,

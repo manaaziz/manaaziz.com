@@ -469,22 +469,21 @@ export default async function CoursePage({ params }) {
                               <span>
                                 {/^\d+$/.test(String(row.courseWeek.week)) ? `Week ${row.courseWeek.week}` : row.courseWeek.week}
                               </span>
-                              <strong>Hover or tap for details</strong>
                             </div>
-                            <div className="course-calendar-week-popover" aria-hidden="true">
-                              <div>
-                                <span>{row.courseWeek.date}</span>
-                                <strong>
-                                  {/^\d+$/.test(String(row.courseWeek.week)) ? `Week ${row.courseWeek.week}` : row.courseWeek.week}
-                                </strong>
-                              </div>
+                            <div className="course-calendar-week-popover">
                               <p>{row.courseWeek.topic}</p>
                               {row.courseWeek.due?.length ? (
-                                <ul>
-                                  {row.courseWeek.due.map((item) => (
-                                    <li key={item}>{item}</li>
-                                  ))}
-                                </ul>
+                                <div className="course-calendar-week-more">
+                                  <button className="course-calendar-week-more-trigger" type="button">More</button>
+                                  <div className="course-calendar-week-more-popover" role="tooltip">
+                                    <strong>Due this week</strong>
+                                    <ul>
+                                      {row.courseWeek.due.map((item) => (
+                                        <li key={item}>{item}</li>
+                                      ))}
+                                    </ul>
+                                  </div>
+                                </div>
                               ) : null}
                             </div>
                           </>
@@ -525,7 +524,7 @@ export default async function CoursePage({ params }) {
                 <span>{section.eyebrow}</span>
                 <h3>{section.title}</h3>
                 <p>{section.description}</p>
-                <strong>Open section <span aria-hidden="true">→</span></strong>
+                <span className="button button-small">Open section</span>
               </Link>
             ))}
           </div>

@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import SectionSlider from "@/components/section_slider";
 import { newsItems } from "../news/items";
 import { podcasts } from "../podcast/shows";
 
@@ -316,30 +317,13 @@ function EditorialSection({ panel }) {
 }
 
 function ManalogueSectionNav({ activeId = "home" }) {
-  const activeIndex = Math.max(0, sections.findIndex((section) => section.id === activeId));
-  const activeLinkRef = useRef(null);
-
-  useEffect(() => {
-    activeLinkRef.current?.scrollIntoView({ block: "nearest", inline: "center" });
-  }, [activeId]);
-
   return (
-    <nav
+    <SectionSlider
+      activeId={activeId}
+      ariaLabel="Manalogue sections"
       className="manalogue-section-slider"
-      aria-label="Manalogue sections"
-      style={{ "--active-index": activeIndex, "--section-count": sections.length }}
-    >
-      {sections.map((section) => (
-        <Link
-          aria-current={section.id === activeId ? "page" : undefined}
-          href={sectionHref(section.id)}
-          key={section.id}
-          ref={section.id === activeId ? activeLinkRef : undefined}
-        >
-          {section.label}
-        </Link>
-      ))}
-    </nav>
+      items={sections.map((section) => ({ id: section.id, label: section.label, href: sectionHref(section.id) }))}
+    />
   );
 }
 
