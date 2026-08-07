@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { ManaloguePage } from "../../blog/page";
 
 const sectionNames = {
-  analytics: "Analysis",
+  consulting: "Consulting",
   research: "Research",
   teaching: "Teaching",
   travel: "Travel",

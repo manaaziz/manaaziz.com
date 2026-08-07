@@ -655,6 +655,29 @@ main {
   font-size: clamp(1.75rem, 2.7vw, 3rem);
 }
 
+.manalogue-subject-page.is-podcasts .manalogue-subject-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.manalogue-subject-page.is-podcasts .manalogue-editorial-card {
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.manalogue-subject-page.is-podcasts .manalogue-editorial-image {
+  aspect-ratio: 16 / 10;
+}
+
+.manalogue-subject-page.is-podcasts .manalogue-editorial-copy {
+  display: flex;
+  flex-direction: column;
+}
+
+.manalogue-subject-page.is-podcasts .manalogue-editorial-copy strong {
+  margin-top: auto;
+  padding-top: 0.8rem;
+}
+
 .manalogue-gallery-wall {
   columns: 4 15rem;
   column-gap: 0;

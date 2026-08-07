@@ -7,7 +7,7 @@ import { podcasts } from "../podcast/shows";
 
 const sections = [
   { id: "home", label: "Home Page" },
-  { id: "analytics", label: "Analysis" },
+  { id: "consulting", label: "Consulting" },
   { id: "research", label: "Research" },
   { id: "teaching", label: "Teaching" },
   { id: "travel", label: "Travel" },
@@ -104,11 +104,11 @@ function postToStory(post, topic) {
 
 function postTopic(post) {
   const knownTopics = [
-    ["analytics", "Analysis"],
+    ["consulting", "Consulting"],
+    ["analytics", "Consulting"],
     ["research", "Research"],
     ["teaching", "Teaching"],
-    ["travel", "Travel"],
-    ["consulting", "Consulting"]
+    ["travel", "Travel"]
   ];
   const tagSet = new Set(post.tags.map((item) => item.toLowerCase()));
   const topic = knownTopics.find(([key]) => tagSet.has(key));
@@ -360,7 +360,7 @@ function ManalogueSectionPage({ panel }) {
   const stories = panelStoriesForMobile(panel);
 
   return (
-    <div className="manalogue-subject-page">
+    <div className={`manalogue-subject-page is-${panel.id}`}>
       <ManalogueSectionNav activeId={panel.id} />
       <header className="manalogue-subject-heading">
         <span>{panel.kicker}</span>
@@ -372,7 +372,12 @@ function ManalogueSectionPage({ panel }) {
       ) : (
         <div className="manalogue-subject-grid">
           {stories.map((story, index) => (
-            <EditorialStoryCard key={`${panel.id}-${story.href || story.title}-${index}`} story={story} variant={index === 0 ? "subject-lead" : "standard"} eager={index === 0} />
+            <EditorialStoryCard
+              key={`${panel.id}-${story.href || story.title}-${index}`}
+              story={story}
+              variant={panel.id !== "podcasts" && index === 0 ? "subject-lead" : "standard"}
+              eager={index === 0}
+            />
           ))}
         </div>
       )}
@@ -449,7 +454,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [], section
   }, []);
   const newsItem = newsItems[0];
   const visiblePosts = allPosts.length ? allPosts : posts;
-  const analyticsStories = storiesByTag(visiblePosts, "analytics", "Analysis", true);
+  const consultingStories = storiesByTag(visiblePosts, "consulting", "Consulting", true);
   const researchStories = storiesByTag(visiblePosts, "research", "Research", true);
   const teachingStories = storiesByTag(visiblePosts, "teaching", "Teaching", true);
   const travelPostStories = storiesByTag(visiblePosts, "travel", "Travel", true);
@@ -477,39 +482,39 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [], section
   const galleryPhotos = [
     {
       title: "Blog 8 - Barcelona",
-      series: "Europe 2023",
+      series: "Travel",
       date: "2023-06-22",
-      place: "Barcelona",
+      place: "Barcelona, Spain",
       preview: "A travel note from Barcelona and the return of an older thread in the Manalogue archive.",
       href: "/blog/travel/post8",
       image: "/assets/photos/eublog/blog8_1.webp",
       tile: "wide"
     },
     {
-      title: "Blog 1 - Europe 2023",
-      series: "Europe 2023",
+      title: "Blog 1 - Breda",
+      series: "Travel",
       date: "2023",
-      place: "Europe",
-      preview: "Photos and field notes from the Europe 2023 archive.",
+      place: "Breda, Netherlands",
+      preview: "Photos and field notes from a research visit to Breda University of Applied Sciences.",
       href: "/blog/travel/post1",
       image: "/assets/photos/eublog/blog1_2.webp"
     },
     {
-      title: "Blog 4 - Europe 2023",
-      series: "Europe 2023",
+      title: "Blog 4 - Verona",
+      series: "Travel",
       date: "2023",
-      place: "Europe",
-      preview: "A visual entry from the European travel archive.",
+      place: "Verona, Italy",
+      preview: "Food, wine, and field notes from Verona.",
       href: "/blog/travel/post4",
       image: "/assets/photos/eublog/blog4_4.webp",
       tile: "wide"
     },
     {
-      title: "Blog 7 - Europe 2023",
-      series: "Europe 2023",
+      title: "Blog 7 - Madrid",
+      series: "Travel",
       date: "2023",
-      place: "Europe",
-      preview: "Another photo-forward stop from the Europe 2023 posts.",
+      place: "Madrid, Spain",
+      preview: "A return to Madrid and an unforgettable night at the Metropolitano.",
       href: "/blog/travel/post7",
       image: "/assets/photos/eublog/blog7_3.webp"
     },
@@ -614,10 +619,10 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [], section
       ].filter(Boolean)
     },
     {
-      id: "analytics",
-      kicker: "Analysis Desk",
+      id: "consulting",
+      kicker: "Consulting Desk",
       title: "Gaming, hospitality, data, and decision-making",
-      stories: analyticsStories.length ? analyticsStories : [
+      stories: consultingStories.length ? consultingStories : [
         newsItem
           ? {
               topic: "In the News",
