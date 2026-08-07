@@ -656,7 +656,7 @@ export const courses = [
     catalogIntro:
       "A graduate-level applied statistics course for hospitality students, covering data summarization, probability, statistical inference, ANOVA, regression, diagnostics, and chi-square analysis through R.",
     description:
-      "Students learned to formulate hospitality and business questions statistically, select appropriate methods, verify assumptions, interpret R output, and communicate what the results mean. Examples and projects used hotel, restaurant, airport, wine, retail, and other applied datasets rather than abstract exercises alone.",
+      "This course introduces statistical analysis for hospitality, tourism, and leisure research. Students describe and explore real data in R, conduct statistical inference, examine the assumptions behind each method, and communicate credible conclusions to academic and professional audiences.",
     catalogHref: "https://catalog.unlv.edu/search_advanced.php?search=HOA%20730",
     outcomes: [
       "Summarize and visualize quantitative and categorical data in R before moving to statistical inference.",
@@ -681,28 +681,28 @@ export const courses = [
       }
     ],
     gradingComponents: [
-      { task: "Class participation and group work", percent: "10%" },
-      { task: "Homework and written-in-class assignments", percent: "20%" },
-      { task: "Midterm project", percent: "30%" },
-      { task: "Final project", percent: "40%" }
+      { task: "Professionalism and participation", percent: "10%" },
+      { task: "Homework and in-class assignments", percent: "30%" },
+      { task: "Midterm exam/project", percent: "20%" },
+      { task: "Final exam/project (two parts)", percent: "40%" }
     ],
     schedule: [
-      { week: "Jan 20-23", topic: "R and RStudio; data summarization and visualization" },
-      { week: "Jan 26-30", topic: "Casino games, elementary probability, and probability distributions" },
-      { week: "Feb 2-6", topic: "Probability and probability distributions" },
-      { week: "Feb 9-13", topic: "Sampling distributions" },
-      { week: "Feb 16-20", topic: "Confidence intervals" },
-      { week: "Feb 23-27", topic: "Testing hypotheses" },
-      { week: "Mar 2-6", topic: "Hypothesis testing and the midterm project" },
-      { week: "Mar 9-13", topic: "Analysis of variance" },
-      { week: "Mar 16-20", topic: "Spring Break" },
-      { week: "Mar 23-27", topic: "Correlation and simple linear regression" },
-      { week: "Mar 30-Apr 3", topic: "Multiple linear regression" },
-      { week: "Apr 6-10", topic: "Multicollinearity and variance inflation factors" },
-      { week: "Apr 13-17", topic: "Multiple-regression diagnostics" },
-      { week: "Apr 20-24", topic: "Multiple-regression examples and chi-square tests" },
-      { week: "Apr 27-May 1", topic: "Study week and project support" },
-      { week: "May 4-8", topic: "Final project and final assessment" }
+      { week: "Jan 19", topic: "Martin Luther King Jr. Day Recess", blocked: true },
+      { week: "Jan 26", topic: "Course introduction; R and RStudio; importing, summarizing, and visualizing data", due: ["Homework 1 module"] },
+      { week: "Feb 2", topic: "Casino games, elementary probability, random variables, and probability distributions" },
+      { week: "Feb 9", topic: "Sampling distributions, standard error, and the central limit theorem" },
+      { week: "Feb 16", topic: "Presidents’ Day Recess", blocked: true },
+      { week: "Feb 23", topic: "Confidence intervals for means, proportions, and differences between groups", due: ["Homework 2 begins"] },
+      { week: "Mar 2", topic: "Hypothesis tests, p-values, and practical versus statistical significance", due: ["Homework 2", "Midterm project"] },
+      { week: "Mar 9", topic: "Analysis of variance, the F test, assumptions, and follow-up comparisons", due: ["Homework 4 module"] },
+      { week: "Mar 16", topic: "Spring Break Recess", blocked: true },
+      { week: "Mar 23", topic: "Correlation, simple linear regression, prediction, residuals, and model fit", due: ["Homework 3 module"] },
+      { week: "Mar 30", topic: "Multiple linear regression, indicator variables, model comparison, and prediction", due: ["Homework 5 begins"] },
+      { week: "Apr 6", topic: "Multicollinearity, variance inflation factors, and correlated predictors" },
+      { week: "Apr 13", topic: "Multiple-regression diagnostics and model limitations", due: ["Homework 5"] },
+      { week: "Apr 20", topic: "Model selection, chi-square tests, goodness of fit, and independence", due: ["Final project preparation"] },
+      { week: "Apr 27", topic: "Study week, project support, interpretation, and reporting workshop", due: ["Final project work"] },
+      { week: "May 4", topic: "Course synthesis and communicating results", due: ["Final project", "Final quiz"] }
     ],
     materials: [
       {
@@ -732,25 +732,25 @@ export const courses = [
       {
         title: "Practice assignments",
         kind: "Assignments",
-        description: "Five applied WIC assignments covering data summaries, confidence intervals, hypothesis tests, correlation, OLS, ANOVA, and multiple regression.",
+        description: "Five reproducible R assignments covering data visualization, inference, regression, ANOVA, and model diagnostics.",
         links: [
-          { label: "HW1", href: "/assets/course_materials/hoa_730_statistical_analysis/hw1_summarize_data.pdf" },
-          { label: "HW2", href: "/assets/course_materials/hoa_730_statistical_analysis/hw2_ci_hypothesis_tests.pdf" },
-          { label: "HW3", href: "/assets/course_materials/hoa_730_statistical_analysis/hw3_correlation_ols.pdf" },
-          { label: "HW4", href: "/assets/course_materials/hoa_730_statistical_analysis/hw4_anova.pdf" },
-          { label: "HW5", href: "/assets/course_materials/hoa_730_statistical_analysis/hw5_multiple_linear_regression.pdf" }
+          { label: "HW1 · Data summaries", href: "/assets/course_materials/hoa_730_statistical_analysis/hw1_summarize_data.pdf" },
+          { label: "HW2 · Inference", href: "/assets/course_materials/hoa_730_statistical_analysis/hw2_ci_hypothesis_tests.pdf" },
+          { label: "HW3 · Correlation + OLS", href: "/assets/course_materials/hoa_730_statistical_analysis/hw3_correlation_ols.pdf" },
+          { label: "HW4 · ANOVA", href: "/assets/course_materials/hoa_730_statistical_analysis/hw4_anova.pdf" },
+          { label: "HW5 · Multiple regression", href: "/assets/course_materials/hoa_730_statistical_analysis/hw5_multiple_linear_regression.pdf" }
         ]
       },
       {
         title: "Midterm project",
         kind: "Project",
-        description: "An applied analysis of airport satisfaction and coffee-shop spending using confidence intervals and hypothesis tests.",
+        description: "Applied statistical inference using SFO passenger satisfaction and coffee-shop spending data.",
         href: "/assets/course_materials/hoa_730_statistical_analysis/midterm_project.pdf"
       },
       {
         title: "Final project",
         kind: "Project",
-        description: "A multi-part applied project using regression, ANOVA, prediction, diagnostics, and chi-square analysis.",
+        description: "A multi-part analysis combining regression, prediction, diagnostics, ANOVA, and categorical-data methods.",
         href: "/assets/course_materials/hoa_730_statistical_analysis/final_project.pdf"
       },
       {
@@ -772,31 +772,21 @@ export const courses = [
       credits: "3 credits",
       prerequisites: "Graduate standing or department approval",
       description:
-        "HOA 730 introduces statistical thinking and applied analysis for hospitality and leisure-service questions. Students use R and RStudio to summarize and visualize data, conduct statistical inference, fit and diagnose statistical models, and explain results in language useful for research and business decisions.",
+        "HOA 730 introduces the concepts and techniques of statistical analysis used in hospitality, tourism, and leisure research. Students describe and explore data, conduct and interpret statistical inference, analyze real data reproducibly in R, and communicate findings clearly to academic and professional audiences.",
       objectives: [
-        "Develop working knowledge of foundational statistical terms, concepts, and methods.",
-        "Distinguish descriptive statistics from statistical inference and select methods appropriate to the variables and research question.",
-        "Use R and RStudio to summarize data, visualize patterns, test hypotheses, and fit statistical models.",
-        "Apply confidence intervals, t-tests, chi-square tests, ANOVA, simple regression, and multiple regression.",
-        "Verify method and model assumptions, including normality and multicollinearity diagnostics.",
-        "Interpret results and write clear, defensible descriptions of statistical analyses."
+        "Explain foundational concepts in probability, sampling, descriptive statistics, and statistical inference, and select useful numerical and graphical summaries for a dataset.",
+        "Translate hospitality and leisure research questions into testable statistical questions and select methods that fit the study design and variables involved.",
+        "Construct and interpret confidence intervals and conduct hypothesis tests for means and proportions.",
+        "Conduct and interpret analysis of variance, chi-square tests, correlation, simple linear regression, and multiple linear regression.",
+        "Use R and RStudio to manage, summarize, visualize, and analyze data reproducibly while evaluating assumptions and diagnosing common statistical problems.",
+        "Interpret statistical evidence critically and communicate results accurately without overstating causal or practical conclusions."
       ],
       assessments: [
-        { task: "Class participation and group work", percent: "10%", due: "Throughout the semester" },
-        { task: "Homework and written-in-class assignments", percent: "20%", due: "Across five applied modules" },
-        { task: "Midterm project", percent: "30%", due: "Week 7" },
-        { task: "Final project", percent: "40%", due: "Final week" }
-      ],
-      schedule: [
-        { week: "Jan 20-23", topic: "R and RStudio; data summarization and visualization" },
-        { week: "Jan 26-Feb 6", topic: "Probability and probability distributions" },
-        { week: "Feb 9-20", topic: "Sampling distributions and confidence intervals" },
-        { week: "Feb 23-Mar 6", topic: "Hypothesis testing and the midterm project" },
-        { week: "Mar 9-13", topic: "Analysis of variance" },
-        { week: "Mar 23-27", topic: "Correlation and simple linear regression" },
-        { week: "Mar 30-Apr 17", topic: "Multiple regression, multicollinearity, and diagnostics" },
-        { week: "Apr 20-24", topic: "Regression examples and chi-square tests" },
-        { week: "Apr 27-May 8", topic: "Study week, final project, and final assessment" }
+        { task: "Professionalism and participation", percent: "10%", due: "Throughout the semester" },
+        { task: "Homework and in-class assignments", percent: "30%", due: "Across five applied modules" },
+        { task: "Midterm exam/project", percent: "20%", due: "Midsemester" },
+        { task: "Applied take-home final project", percent: "30%", due: "Final week" },
+        { task: "Online multiple-choice final quiz", percent: "10%", due: "Final week" }
       ],
       sections: [
         {

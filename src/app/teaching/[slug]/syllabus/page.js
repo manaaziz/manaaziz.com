@@ -33,6 +33,7 @@ export default async function SyllabusPage({ params }) {
 
   const syllabus = course.syllabus;
   const showAssessmentPoints = syllabus.assessments.some((assessment) => assessment.points);
+  const syllabusSchedule = syllabus.schedule?.length ? syllabus.schedule : course.schedule || [];
 
   return (
     <main className="page-shell course-page syllabus-page">
@@ -129,7 +130,7 @@ export default async function SyllabusPage({ params }) {
             <strong role="columnheader">{syllabus.scheduleLabel || "Week"}</strong>
             <strong role="columnheader">Topic</strong>
           </div>
-          {syllabus.schedule.map((week) => (
+          {syllabusSchedule.map((week) => (
             <div role="row" key={`${week.week}-${week.topic}`}>
               <span role="cell">{week.week}</span>
               <span role="cell">{week.topic}</span>

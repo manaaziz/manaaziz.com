@@ -229,7 +229,8 @@ function buildScheduleCalendar(schedule, semester) {
       week: index + 1,
       date: entry.week,
       topic: entry.topic,
-      due: entry.due || []
+      due: entry.due || [],
+      blocked: Boolean(entry.blocked)
     });
   });
 
@@ -290,7 +291,7 @@ export default async function CoursePage({ params }) {
   const objectives = course.syllabus?.objectives || course.outcomes || [];
   const gradingComponents = course.syllabus?.assessments || course.gradingComponents || [];
   const assessmentItems = buildAssessmentItems(gradingComponents);
-  const weeklySchedule = course.syllabus?.schedule || course.schedule || [];
+  const weeklySchedule = course.syllabus?.schedule?.length ? course.syllabus.schedule : course.schedule || [];
   const semesterCalendar = course.syllabus?.calendar || course.calendar || buildScheduleCalendar(course.schedule || [], course.semester);
   const orderedMaterials = sortCourseMaterials((course.materials || []).filter(materialHasSiteResource)).map(materialWithSiteLinks);
   const materialHub = getMaterialHub(course.slug);
