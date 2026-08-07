@@ -233,7 +233,15 @@ function ManalogueMobileStory({ story, variant = "row" }) {
         </div>
       ) : null}
       <div className="manalogue-mobile-story-copy">
-        <span className="manalogue-mobile-story-meta">{story.topic}</span>
+        <span
+          className="manalogue-mobile-story-meta manalogue-story-topic"
+          onClick={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+          }}
+        >
+          {story.topic}
+        </span>
         <h3>{story.title}</h3>
         {variant === "lead" && story.excerpt ? <p>{story.excerpt}</p> : null}
         <p className="manalogue-mobile-byline">
@@ -288,7 +296,15 @@ function EditorialStoryCard({ story, variant = "standard", eager = false }) {
         </figure>
       ) : null}
       <div className="manalogue-editorial-copy">
-        <span>{story.topic}</span>
+        <span
+          className="manalogue-story-topic"
+          onClick={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+          }}
+        >
+          {story.topic}
+        </span>
         <h2>{story.title}</h2>
         {variant !== "latest" && story.excerpt ? <p>{story.excerpt}</p> : null}
         <strong>By Mana Azizsoltani{story.minutes ? ` · ${story.minutes} min read` : ""}</strong>
@@ -421,6 +437,12 @@ function storiesByTag(posts, tag, topic, leadFirst = false) {
   return stories;
 }
 
+function promoteStory(stories, href) {
+  const promotedIndex = stories.findIndex((story) => story.href === href);
+  if (promotedIndex <= 0) return stories;
+  return [stories[promotedIndex], ...stories.slice(0, promotedIndex), ...stories.slice(promotedIndex + 1)];
+}
+
 function fallbackStory({ topic, title, excerpt, href, image, action = "Open", size = "lead" }) {
   return { topic, title, excerpt, href, image, action, size };
 }
@@ -435,7 +457,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [], section
   const visiblePosts = allPosts.length ? allPosts : posts;
   const consultingStories = storiesByTag(visiblePosts, "consulting", "Consulting", true);
   const researchStories = storiesByTag(visiblePosts, "research", "Research", true);
-  const teachingStories = storiesByTag(visiblePosts, "teaching", "Teaching", true);
+  const teachingStories = promoteStory(storiesByTag(visiblePosts, "teaching", "Teaching", true), "/blog/teaching/spain-recap");
   const travelPostStories = storiesByTag(visiblePosts, "travel", "Travel", true);
   const frontPageStories = visiblePosts.slice(0, 7).map((post) => postToStory(post, postTopic(post)));
   const travelArchives = [

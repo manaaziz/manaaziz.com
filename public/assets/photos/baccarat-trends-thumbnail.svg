@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Baccarat trend board</title>
+  <desc id="desc">A cream baccarat road board with red Banker and blue Player markers forming visible patterns.</desc>
+  <rect width="1200" height="675" fill="#f4f1ed"/>
+  <rect x="78" y="64" width="1044" height="547" rx="28" fill="#fffaf1" stroke="#171717" stroke-width="8"/>
+  <g stroke="#171717" stroke-opacity=".13" stroke-width="3">
+    <path d="M78 155h1044M78 246h1044M78 337h1044M78 428h1044M78 519h1044"/>
+    <path d="M165 64v547M252 64v547M339 64v547M426 64v547M513 64v547M600 64v547M687 64v547M774 64v547M861 64v547M948 64v547M1035 64v547"/>
+  </g>
+  <g fill="#fffaf1" stroke="#a91834" stroke-width="12">
+    <circle cx="122" cy="110" r="28"/><circle cx="122" cy="201" r="28"/><circle cx="122" cy="292" r="28"/><circle cx="122" cy="383" r="28"/><circle cx="122" cy="474" r="28"/>
+    <circle cx="557" cy="110" r="28"/><circle cx="557" cy="201" r="28"/><circle cx="557" cy="292" r="28"/>
+    <circle cx="644" cy="292" r="28"/><circle cx="731" cy="292" r="28"/>
+  </g>
+  <g fill="#fffaf1" stroke="#2559a7" stroke-width="12">
+    <circle cx="296" cy="110" r="28"/><circle cx="296" cy="201" r="28"/><circle cx="296" cy="292" r="28"/><circle cx="296" cy="383" r="28"/><circle cx="296" cy="474" r="28"/>
+    <circle cx="905" cy="110" r="28"/><circle cx="992" cy="110" r="28"/><circle cx="992" cy="201" r="28"/><circle cx="1079" cy="201" r="28"/>
+  </g>
+  <text x="600" y="635" text-anchor="middle" font-family="Arial, sans-serif" font-size="26" font-weight="800" letter-spacing="5" fill="#2f6f64">READING THE ROAD</text>
+</svg>
