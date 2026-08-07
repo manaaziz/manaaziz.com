@@ -464,22 +464,30 @@ export default async function CoursePage({ params }) {
                           </div>
                         ))}
                         {row.courseWeek ? (
-                          <div className="course-calendar-week-popover" aria-hidden="true">
-                            <div>
-                              <span>{row.courseWeek.date}</span>
-                              <strong>
+                          <>
+                            <div className="course-calendar-week-hint" aria-hidden="true">
+                              <span>
                                 {/^\d+$/.test(String(row.courseWeek.week)) ? `Week ${row.courseWeek.week}` : row.courseWeek.week}
-                              </strong>
+                              </span>
+                              <strong>Hover or tap for details</strong>
                             </div>
-                            <p>{row.courseWeek.topic}</p>
-                            {row.courseWeek.due?.length ? (
-                              <ul>
-                                {row.courseWeek.due.map((item) => (
-                                  <li key={item}>{item}</li>
-                                ))}
-                              </ul>
-                            ) : null}
-                          </div>
+                            <div className="course-calendar-week-popover" aria-hidden="true">
+                              <div>
+                                <span>{row.courseWeek.date}</span>
+                                <strong>
+                                  {/^\d+$/.test(String(row.courseWeek.week)) ? `Week ${row.courseWeek.week}` : row.courseWeek.week}
+                                </strong>
+                              </div>
+                              <p>{row.courseWeek.topic}</p>
+                              {row.courseWeek.due?.length ? (
+                                <ul>
+                                  {row.courseWeek.due.map((item) => (
+                                    <li key={item}>{item}</li>
+                                  ))}
+                                </ul>
+                              ) : null}
+                            </div>
+                          </>
                         ) : null}
                       </div>
                     ))}

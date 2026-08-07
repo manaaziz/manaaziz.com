@@ -4176,6 +4176,11 @@ h3 {
     box-shadow 180ms ease;
 }
 
+.course-calendar-row.has-course-week {
+  min-height: 4.65rem;
+  cursor: pointer;
+}
+
 .course-calendar-row.has-course-week:hover::after,
 .course-calendar-row.has-course-week:focus-visible::after,
 .course-calendar-row.has-course-week:focus-within::after {
@@ -4303,13 +4308,51 @@ h3 {
   color: var(--ruby);
 }
 
+.course-calendar-week-hint {
+  position: absolute;
+  right: 0.28rem;
+  bottom: 0.28rem;
+  left: 0.28rem;
+  z-index: 3;
+  display: flex;
+  gap: 0.45rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.3rem 0.42rem;
+  border: 1px solid rgba(47, 111, 100, 0.28);
+  border-radius: 5px;
+  background: rgba(232, 241, 237, 0.96);
+  color: var(--green);
+  font-size: 0.58rem;
+  line-height: 1.1;
+  text-transform: uppercase;
+  transition: opacity 120ms ease;
+  pointer-events: none;
+}
+
+.course-calendar-week-hint span,
+.course-calendar-week-hint strong {
+  font-weight: 900;
+}
+
+.course-calendar-week-hint strong::after {
+  content: " ↗";
+}
+
+.course-calendar-row:hover .course-calendar-week-hint,
+.course-calendar-row:focus-visible .course-calendar-week-hint,
+.course-calendar-row:focus-within .course-calendar-week-hint {
+  opacity: 0;
+}
+
 .course-calendar-week-popover {
   position: absolute;
   inset: 0.18rem;
   z-index: 4;
   display: grid;
   gap: 0.42rem;
-  align-content: center;
+  align-content: start;
+  overflow-y: auto;
   padding: 0.62rem 0.72rem;
   border: 1px solid var(--line-strong);
   border-radius: 8px;
