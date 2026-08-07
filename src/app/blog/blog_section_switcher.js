@@ -346,11 +346,6 @@ function ManalogueSectionPage({ panel }) {
   return (
     <div className={`manalogue-subject-page is-${panel.id}`}>
       <ManalogueSectionNav activeId={panel.id} />
-      <header className="manalogue-subject-heading">
-        <span>{panel.kicker}</span>
-        <h2>{sectionLabels[panel.id] || panel.title}</h2>
-        <p>{panel.title}</p>
-      </header>
       {panel.layout === "photo-mosaic" ? (
         <ManalogueGalleryWall photos={panel.photos || []} />
       ) : (

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 const transitionMs = 360;
 
@@ -14,7 +14,7 @@ export default function SectionSlider({ activeId, ariaLabel, className = "", ite
   const navRef = useRef(null);
   const timerRef = useRef(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setVisualIndex(activeIndex);
     if (activeLinkRef.current && navRef.current) {
       navRef.current.scrollTo({
@@ -26,10 +26,7 @@ export default function SectionSlider({ activeId, ariaLabel, className = "", ite
     document.documentElement.classList.add("section-route-entering");
     const savedScroll = Number.parseFloat(window.sessionStorage.getItem("section-slider-scroll") || "");
     if (Number.isFinite(savedScroll)) {
-      window.requestAnimationFrame(() => {
-        window.scrollTo({ top: savedScroll, behavior: "instant" });
-        window.requestAnimationFrame(() => window.scrollTo({ top: savedScroll, behavior: "instant" }));
-      });
+      window.scrollTo({ top: savedScroll, behavior: "instant" });
       window.sessionStorage.removeItem("section-slider-scroll");
     }
     const timer = window.setTimeout(() => document.documentElement.classList.remove("section-route-entering"), transitionMs);

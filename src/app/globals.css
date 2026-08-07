@@ -602,36 +602,8 @@ main {
   margin: 0 auto;
 }
 
-.manalogue-subject-heading {
-  margin: clamp(2.4rem, 5vw, 4.5rem) 0 2rem;
-  padding-bottom: 0.85rem;
-  border-bottom: 4px solid var(--ink);
-}
-
-.manalogue-subject-heading > span {
-  display: block;
-  margin-bottom: 0.6rem;
-  color: #2b7867;
-  font-size: 0.72rem;
-  font-weight: 900;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.manalogue-subject-heading h2 {
-  margin: 0;
-  font-size: clamp(2.25rem, 4.2vw, 4rem);
-  font-weight: 900;
-  letter-spacing: -0.045em;
-  line-height: 0.95;
-}
-
-.manalogue-subject-heading p {
-  max-width: 52rem;
-  margin: 0.75rem 0 0;
-  color: var(--muted);
-  font-size: clamp(0.95rem, 1.3vw, 1.12rem);
-  line-height: 1.45;
+.manalogue-section-slider {
+  margin-top: clamp(1.1rem, 2.5vw, 2rem);
 }
 
 .manalogue-subject-grid {
@@ -895,10 +867,6 @@ main {
 
   .manalogue-editorial-card.is-must-read .manalogue-editorial-copy h2 {
     font-size: clamp(1.75rem, 8vw, 2.6rem);
-  }
-
-  .manalogue-subject-heading h2 {
-    font-size: clamp(2.1rem, 11vw, 3.1rem);
   }
 
   .manalogue-subject-grid {
@@ -1739,6 +1707,13 @@ h3 {
   border-radius: 0 !important;
   background: transparent !important;
   box-shadow: none !important;
+}
+
+@media (min-width: 921px) {
+  .page-shell {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+  }
 }
 
 .page-shell h1 {
