@@ -4132,7 +4132,7 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
 
 .course-calendar-month-header h3 {
   margin: 0;
-  font-size: clamp(1.25rem, 2vw, 1.8rem);
+  font-size: clamp(1.45rem, 2.15vw, 2rem);
   line-height: 0.95;
 }
 
@@ -4320,21 +4320,21 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
 
 .course-calendar-week-hint {
   position: absolute;
-  right: auto;
-  bottom: 0.28rem;
-  left: 0.28rem;
+  right: 0.12rem;
+  bottom: 0.08rem;
+  left: 0.12rem;
   z-index: 3;
   display: flex;
-  gap: 0.45rem;
   align-items: center;
   justify-content: flex-start;
-  padding: 0.3rem 0.42rem;
-  border: 1px solid rgba(47, 111, 100, 0.28);
-  border-radius: 999px;
-  background: rgba(232, 241, 237, 0.96);
+  min-height: 0.72rem;
+  padding: 0.05rem 0.3rem;
+  border: 1px solid rgba(47, 111, 100, 0.18);
+  border-radius: 4px;
+  background: rgba(232, 241, 237, 0.78);
   color: var(--green);
-  font-size: 0.58rem;
-  line-height: 1.1;
+  font-size: 0.46rem;
+  line-height: 1;
   text-transform: uppercase;
   transition: opacity 120ms ease;
   pointer-events: none;
