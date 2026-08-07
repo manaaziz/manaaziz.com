@@ -1,20 +1,32 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
   <title id="title">Baccarat trend board</title>
-  <desc id="desc">A cream baccarat road board with red Banker and blue Player markers forming visible patterns.</desc>
-  <rect width="1200" height="675" fill="#f4f1ed"/>
-  <rect x="78" y="64" width="1044" height="547" rx="28" fill="#fffaf1" stroke="#171717" stroke-width="8"/>
-  <g stroke="#171717" stroke-opacity=".13" stroke-width="3">
-    <path d="M78 155h1044M78 246h1044M78 337h1044M78 428h1044M78 519h1044"/>
-    <path d="M165 64v547M252 64v547M339 64v547M426 64v547M513 64v547M600 64v547M687 64v547M774 64v547M861 64v547M948 64v547M1035 64v547"/>
+  <desc id="desc">A full-frame baccarat road showing the real Banker and Player sequences analyzed in the article.</desc>
+  <rect width="1200" height="675" fill="#fffaf1"/>
+  <g stroke="#171717" stroke-opacity=".13" stroke-width="2">
+    <path d="M0 112.5h1200M0 225h1200M0 337.5h1200M0 450h1200M0 562.5h1200"/>
+    <path d="M75 0v675M150 0v675M225 0v675M300 0v675M375 0v675M450 0v675M525 0v675M600 0v675M675 0v675M750 0v675M825 0v675M900 0v675M975 0v675M1050 0v675M1125 0v675"/>
   </g>
-  <g fill="#fffaf1" stroke="#a91834" stroke-width="12">
-    <circle cx="122" cy="110" r="28"/><circle cx="122" cy="201" r="28"/><circle cx="122" cy="292" r="28"/><circle cx="122" cy="383" r="28"/><circle cx="122" cy="474" r="28"/>
-    <circle cx="557" cy="110" r="28"/><circle cx="557" cy="201" r="28"/><circle cx="557" cy="292" r="28"/>
-    <circle cx="644" cy="292" r="28"/><circle cx="731" cy="292" r="28"/>
+  <!-- BBBBB and PPPPP: the two highest-agreement continuation trends. -->
+  <g fill="#fffaf1" stroke-width="11">
+    <g stroke="#a91834">
+      <circle cx="38" cy="56" r="27"/><circle cx="38" cy="169" r="27"/><circle cx="38" cy="281" r="27"/><circle cx="38" cy="394" r="27"/><circle cx="38" cy="506" r="27"/>
+    </g>
+    <g stroke="#2559a7">
+      <circle cx="188" cy="56" r="27"/><circle cx="188" cy="169" r="27"/><circle cx="188" cy="281" r="27"/><circle cx="188" cy="394" r="27"/><circle cx="188" cy="506" r="27"/>
+    </g>
+    <!-- BBBPB -->
+    <g stroke="#a91834">
+      <circle cx="338" cy="56" r="27"/><circle cx="338" cy="169" r="27"/><circle cx="338" cy="281" r="27"/><circle cx="488" cy="56" r="27"/>
+    </g>
+    <circle cx="413" cy="56" r="27" stroke="#2559a7"/>
+    <!-- PBBBB -->
+    <circle cx="638" cy="56" r="27" stroke="#2559a7"/>
+    <g stroke="#a91834">
+      <circle cx="713" cy="56" r="27"/><circle cx="713" cy="169" r="27"/><circle cx="713" cy="281" r="27"/><circle cx="713" cy="394" r="27"/>
+    </g>
+    <!-- BBB -->
+    <g stroke="#a91834">
+      <circle cx="1013" cy="56" r="27"/><circle cx="1013" cy="169" r="27"/><circle cx="1013" cy="281" r="27"/>
+    </g>
   </g>
-  <g fill="#fffaf1" stroke="#2559a7" stroke-width="12">
-    <circle cx="296" cy="110" r="28"/><circle cx="296" cy="201" r="28"/><circle cx="296" cy="292" r="28"/><circle cx="296" cy="383" r="28"/><circle cx="296" cy="474" r="28"/>
-    <circle cx="905" cy="110" r="28"/><circle cx="992" cy="110" r="28"/><circle cx="992" cy="201" r="28"/><circle cx="1079" cy="201" r="28"/>
-  </g>
-  <text x="600" y="635" text-anchor="middle" font-family="Arial, sans-serif" font-size="26" font-weight="800" letter-spacing="5" fill="#2f6f64">READING THE ROAD</text>
 </svg>

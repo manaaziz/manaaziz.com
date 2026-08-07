@@ -9964,9 +9964,7 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
   border: 1px solid rgba(23, 23, 23, 0.14);
   border-radius: 8px;
   background: rgba(255, 250, 241, 0.82);
-  opacity: 0.42;
-  animation: trend-card-focus 15s ease-in-out infinite;
-  animation-delay: calc(var(--trend-order) * 3s);
+  opacity: 1;
 }
 
 .mini-road {
@@ -10046,12 +10044,6 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
 .fear-four-arrow { align-self: center; font-size: 2rem; font-weight: 900; }
 .fear-four-high { animation: fear-four-pulse 3s ease-in-out infinite; }
 
-@keyframes trend-card-focus {
-  0%, 16% { opacity: 1; transform: translateX(0); box-shadow: inset 4px 0 0 var(--green); }
-  20%, 96% { opacity: 0.42; transform: translateX(0.15rem); box-shadow: inset 0 0 0 transparent; }
-  100% { opacity: 1; transform: translateX(0); box-shadow: inset 4px 0 0 var(--green); }
-}
-
 @keyframes fear-four-pulse {
   50% { transform: translateY(-0.18rem); box-shadow: 0 0.65rem 0 rgba(47, 111, 100, 0.18); }
 }
@@ -10063,7 +10055,6 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .trend-agreement-card { opacity: 1; animation: none; }
   .fear-four-high { animation: none; }
 }
 

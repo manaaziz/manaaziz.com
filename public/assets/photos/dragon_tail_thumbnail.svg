@@ -22,7 +22,7 @@
 
   <rect width="2400" height="1200" fill="#fffdfa"/>
 
-  <g filter="url(#softShadow)">
+  <g filter="url(#softShadow)" transform="translate(-300 -150) scale(1.25)">
     <path d="M313 587 C488 378 682 364 775 505 C867 641 750 781 869 822 C1029 876 1052 524 1246 549 C1379 567 1378 786 1510 786 C1653 785 1651 581 1792 587 C1943 593 1944 806 2183 712" fill="none" stroke="url(#gold)" stroke-width="190" stroke-linecap="round" stroke-linejoin="round"/>
     <path d="M313 587 C488 378 682 364 775 505 C867 641 750 781 869 822 C1029 876 1052 524 1246 549 C1379 567 1378 786 1510 786 C1653 785 1651 581 1792 587 C1943 593 1944 806 2183 712" fill="none" stroke="url(#dragonRed)" stroke-width="158" stroke-linecap="round" stroke-linejoin="round"/>
     <path d="M313 587 C488 378 682 364 775 505 C867 641 750 781 869 822 C1029 876 1052 524 1246 549 C1379 567 1378 786 1510 786 C1653 785 1651 581 1792 587 C1943 593 1944 806 2183 712" fill="none" stroke="url(#scalePattern)" stroke-width="128" stroke-linecap="round" stroke-linejoin="round" opacity="0.72"/>
