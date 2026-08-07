@@ -23,7 +23,7 @@ export const seriesConfig = {
     title: "Europe 2023",
     description: "A travel and professional archive from a European summer that moved between universities, conferences, cities, friends, and field notes.",
     cover: "/assets/images/eu23cover.webp",
-    tags: ["Travel", "Europe", "Field Notes"],
+    tags: ["Travel"],
     startingPointLabel: "First dispatch"
   },
   americanito_bcn: {
