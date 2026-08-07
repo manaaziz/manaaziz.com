@@ -9275,6 +9275,48 @@ h3 {
   text-transform: uppercase;
 }
 
+.umac-visit-hero,
+.umac-visit-wide,
+.umac-visit-portrait,
+.madrid-research-portrait {
+  margin: clamp(1.8rem, 4vw, 3rem) 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-raised);
+  box-shadow: var(--shadow);
+}
+
+.umac-visit-hero img,
+.umac-visit-wide img,
+.umac-visit-portrait img,
+.madrid-research-portrait img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.umac-visit-hero img {
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+.umac-visit-portrait,
+.madrid-research-portrait {
+  width: min(100%, 36rem);
+  margin-inline: auto;
+}
+
+.umac-visit-hero figcaption,
+.umac-visit-wide figcaption,
+.umac-visit-portrait figcaption,
+.madrid-research-portrait figcaption {
+  padding: 0.75rem 0.9rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
 @media (max-width: 720px) {
   .conference-photo-pair {
     grid-template-columns: 1fr;

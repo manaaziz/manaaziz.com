@@ -44,13 +44,15 @@ export default function PostContent({ post }) {
       <p className="eyebrow">{post.seriesTitle}</p>
       <h1>{post.title}</h1>
       <div className="post-meta">
-        <span>
-          {new Date(`${post.date}T00:00:00`).toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric"
-          })}
-        </span>
+        {post.date ? (
+          <span>
+            {new Date(`${post.date}T00:00:00`).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric"
+            })}
+          </span>
+        ) : null}
         <span>{post.readingMinutes} min read</span>
       </div>
       {visibleTags.length > 0 ? (
