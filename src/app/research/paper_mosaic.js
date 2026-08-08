@@ -413,11 +413,6 @@ export default function PaperMosaic({ papers }) {
                     DOI
                   </a>
                 ) : null}
-                {paper.blogHref ? (
-                  <a href={paper.blogHref}>
-                    Manalogue
-                  </a>
-                ) : null}
                 {paper.pdfHref ? (
                   <a href={paper.pdfHref} target="_blank" rel="noreferrer">
                     PDF
@@ -452,11 +447,6 @@ export default function PaperMosaic({ papers }) {
               {activePaper.doi ? (
                 <a className="button paper-focus-button" href={`https://doi.org/${activePaper.doi}`} target="_blank" rel="noreferrer">
                   DOI
-                </a>
-              ) : null}
-              {activePaper.blogHref ? (
-                <a className="button paper-focus-button" href={activePaper.blogHref}>
-                  Manalogue
                 </a>
               ) : null}
               {activePaper.pdfHref ? (

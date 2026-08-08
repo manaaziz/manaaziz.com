@@ -91,6 +91,22 @@ const links = [
   ["marketing-analytics", "patron-lifecycle"]
 ];
 
+const mobilePositions = {
+  surveillance: { x: 24, y: 12 },
+  "hotel-occupancy": { x: 74, y: 12 },
+  gambling: { x: 24, y: 27 },
+  hospitality: { x: 76, y: 27 },
+  "machine-learning": { x: 50, y: 42 },
+  gaming: { x: 22, y: 57 },
+  forecasting: { x: 78, y: 57 },
+  responsible: { x: 24, y: 71 },
+  revenue: { x: 76, y: 71 },
+  interpretable: { x: 25, y: 84 },
+  statistics: { x: 75, y: 84 },
+  baccarat: { x: 22, y: 95 },
+  cancellations: { x: 76, y: 95 }
+};
+
 function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value));
 }
@@ -282,6 +298,7 @@ export default function ResearchWordGraph() {
           return (
             <button
               className={`research-word-node ${topic.size}`}
+              data-mobile-visible={mobilePositions[topic.id] ? "true" : "false"}
               data-bumped={bumpedIds.includes(topic.id) ? "true" : "false"}
               data-dragging={draggingId === topic.id ? "true" : "false"}
               key={topic.id}
@@ -306,7 +323,12 @@ export default function ResearchWordGraph() {
                 event.currentTarget.releasePointerCapture(event.pointerId);
                 endDrag(topic.id);
               }}
-              style={{ left: `${position.x}%`, top: `${position.y}%` }}
+              style={{
+                left: `${position.x}%`,
+                top: `${position.y}%`,
+                "--mobile-x": `${mobilePositions[topic.id]?.x ?? position.x}%`,
+                "--mobile-y": `${mobilePositions[topic.id]?.y ?? position.y}%`
+              }}
               type="button"
             >
               {topicMap[topic.id].label}
