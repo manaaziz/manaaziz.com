@@ -806,28 +806,27 @@ export const courses = [
   {
     slug: "hoa-732-advanced-statistical-analysis",
     courseNumber: "HOA 732",
-    courseName: "Advanced Statistical Analysis for Hospitality",
+    courseName: "Advanced Statistics in R for Hospitality and Business",
     university: "UNLV",
-    semester: "Spring 2026",
+    semester: "Fall 2026",
     label: "HOA 732",
-    title: "HOA 732: Advanced Statistical Analysis for Hospitality",
-    shortTitle: "Advanced Statistical Analysis",
-    cardTitle: "Adv. Statistical Analysis for Hospitality",
+    title: "HOA 732: Advanced Statistics in R for Hospitality and Business",
+    shortTitle: "Advanced Statistics in R",
+    cardTitle: "Advanced Statistics in R",
     summary:
-      "A graduate course in R covering statistical learning, machine learning, model comparison, and applied reporting for hospitality research and decision-making.",
+      "An eight-week graduate course using R to connect statistical learning, machine learning, model evaluation, and applied hospitality and business decisions.",
     catalogIntro:
       "An advanced statistics course for hospitality graduate students, emphasizing applied modeling, interpretation, and quantitative methods that support hospitality research. The course builds toward more independent analysis and clearer communication of technical findings.",
     description:
-      "Students moved from a focused review of inference and multiple regression into binary logistic regression, decision trees, random forests, support vector machines, boosting, neural networks, principal components, clustering, and time-series concepts. Assignments required students to compare models instead of treating prediction accuracy as the only goal.",
+      "Students move from a focused review of inference and multiple regression into logistic regression, decision trees, random forests, support vector machines, boosting, neural networks, principal components, clustering, and linear discriminant analysis. The course emphasizes honest out-of-sample evaluation, interpretation, and reproducible communication rather than prediction accuracy alone.",
     catalogHref: "https://catalog.unlv.edu/search_advanced.php?search=HOA%20732",
     outcomes: [
-      "Use R and RStudio to prepare data, fit models, evaluate performance, and report reproducible results.",
-      "Distinguish statistical learning from machine learning and choose an approach suited to inference or prediction.",
-      "Fit and compare logistic regression, decision trees, random forests, support vector machines, and other supervised methods.",
-      "Evaluate classification with precision, recall, and F1, and regression with RMSE and R-squared.",
-      "Use variable importance, assumptions, diagnostics, and validation results to interpret model behavior.",
-      "Formulate real-world hospitality, gaming, finance, and business problems as defensible analytical workflows.",
-      "Write concise reports that explain methods, findings, comparisons, and limitations."
+      "Distinguish statistical learning for inference from machine learning for prediction and translate hospitality and business questions into analytical problems.",
+      "Prepare data for modeling and create reproducible workflows in R and RStudio.",
+      "Fit and interpret logistic regression and other generalized linear models.",
+      "Build and compare decision trees, random forests, support vector machines, boosting models, and neural networks.",
+      "Apply dimension reduction, classification, and clustering methods, including principal components analysis and linear discriminant analysis.",
+      "Evaluate model performance, explain limitations and uncertainty, and communicate results to technical and nontechnical audiences."
     ],
     photos: [
       {
@@ -844,12 +843,10 @@ export const courses = [
       }
     ],
     gradingComponents: [
-      { task: "Spring review assignment", points: "75" },
-      { task: "Binary logistic regression and decision trees", points: "75" },
-      { task: "Decision-tree WIC", points: "75" },
-      { task: "Random-forest WIC", points: "75" },
-      { task: "Midterm modeling project", points: "300" },
-      { task: "Final applied modeling project", points: "400" }
+      { task: "Professionalism and participation", percent: "10%" },
+      { task: "Homework and in-class assignments", percent: "20%" },
+      { task: "Midterm project", percent: "30%" },
+      { task: "Final project", percent: "40%" }
     ],
     assessmentChart: [
       { task: "Homework", points: "300" },
@@ -857,88 +854,81 @@ export const courses = [
       { task: "Final", points: "400" }
     ],
     schedule: [
-      { week: "Jan 20-23", topic: "R review, visualization, statistical inference, multiple regression, and multicollinearity" },
-      { week: "Jan 26-30", topic: "Classification with binary logistic regression and decision trees" },
-      { week: "Feb 2-6", topic: "Random-forest and support-vector classifiers; midterm project" },
-      { week: "Feb 9-13", topic: "Regression with decision trees and random forests" },
-      { week: "Feb 17-20", topic: "Support-vector regression and neural networks" },
-      { week: "Feb 23-27", topic: "Boosting methods" },
-      { week: "Mar 2-6", topic: "Principal components, time-series modeling, and ACF/PACF as time allowed" },
-      { week: "Mar 9-13", topic: "Clustering, linear discriminant analysis, and the final project" }
+      { week: "Oct 19-25", topic: "Course introduction; R and RStudio setup; review of visualization, inference, multiple regression, and multicollinearity", due: ["Review work and R practice"] },
+      { week: "Oct 26-Nov 1", topic: "Classification, binary logistic regression, decision-tree classifiers, confusion matrices, and classification metrics", due: ["Decision-tree classification assignment"] },
+      { week: "Nov 2-8", topic: "Random-forest and support-vector classifiers; resampling and out-of-sample evaluation", due: ["Midterm project"] },
+      { week: "Nov 9-15", topic: "Regression trees, random-forest regression, and comparing predictive performance", due: ["Random-forest assignment"] },
+      { week: "Nov 16-22", topic: "Support-vector regression, neural networks, model tuning, and evaluation", due: ["Model tuning and evaluation practice"] },
+      { week: "Nov 23-29", topic: "Boosting for classification and regression; learning rates, tree depth, and tuning", due: ["Boosting practice"] },
+      { week: "Nov 30-Dec 6", topic: "Principal components, dimension reduction, and time-series methods as time permits", due: ["Final project preparation"] },
+      { week: "Dec 7-12", topic: "Clustering, linear discriminant analysis, course synthesis, and model comparison", due: ["Final project"] }
     ],
     materials: [
       {
-        title: "Decision tree activity",
-        kind: "Assignment",
-        description: "A written-in-class activity using decision trees, book club data, and Boston housing data.",
-        href: "/assets/course_materials/hoa_732_advanced_statistical_analysis/decision_tree_wic.pdf"
-      },
-      {
-        title: "Random forest activity",
-        kind: "Assignments",
-        description: "A written-in-class activity using random forests and German credit data.",
-        href: "/assets/course_materials/hoa_732_advanced_statistical_analysis/random_forest_wic.pdf"
-      },
-      {
-        title: "Midterm project",
-        kind: "Project",
-        description: "Compare multiple regression with random forest for sales prediction, then compare logistic regression with random forest for book-purchase classification.",
-        href: "/assets/course_materials/hoa_732_advanced_statistical_analysis/midterm_project.txt"
-      },
-      {
-        title: "Final project",
-        kind: "Project",
-        description: "Compare MLR and SVM for real-estate valuation, then compare logistic regression, random forest, and optional boosting for bank-marketing classification.",
-        href: "/assets/course_materials/hoa_732_advanced_statistical_analysis/final_project.pdf"
+        title: "PDF syllabus",
+        kind: "Syllabus",
+        description: "Downloadable PDF copy of the Fall 2026 HOA 732 syllabus.",
+        href: "/assets/course_materials/hoa_732_advanced_statistical_analysis/hoa732_syllabus_fall_2026.pdf"
       }
     ],
     syllabus: {
       instructor: "Mana Azizsoltani, PhD",
       email: "mana.azizsoltani@unlv.edu",
-      meeting: "Spring 2026 intensive session",
-      room: "HOS 234",
+      meeting: "Online asynchronous · October 19-December 12, 2026",
+      room: "Web-based",
       credits: "3 credits",
       prerequisites: "HOA 730 or equivalent preparation in applied statistics and R",
       description:
-        "HOA 732 introduces advanced statistical learning and machine-learning methods in R. The course connects inference and interpretable relationships with predictive modeling, validation, and comparison across regression and classification problems.",
+        "HOA 732 builds on HOA 730 by introducing advanced statistical learning and machine-learning methods for hospitality and business problems. Students use R and RStudio for classification, regression, ensemble, dimension-reduction, and unsupervised learning methods while evaluating model performance and communicating findings to research and professional audiences.",
       objectives: [
-        "Use RStudio for statistical analysis, predictive modeling, visualization, and interpretation.",
-        "Formulate real-world hospitality, gaming, finance, and business questions as regression or classification problems.",
-        "Fit and compare logistic regression, decision trees, random forests, support vector machines, boosting, and related methods.",
-        "Evaluate regression models with RMSE and R-squared and classification models with precision, recall, and F1.",
-        "Use training/test splits, diagnostics, assumptions, and variable importance to evaluate model quality.",
-        "Write clear reports that explain the analysis, model comparisons, results, and limitations."
+        "Distinguish between statistical learning for inference and machine learning for prediction, and translate hospitality and business questions into appropriate analytical problems.",
+        "Prepare data for modeling and create reproducible analysis workflows in R and RStudio.",
+        "Fit and interpret logistic regression and other generalized linear models.",
+        "Build and compare decision trees, random forests, support vector machines, boosting models, and neural networks.",
+        "Apply dimension-reduction, classification, and clustering methods, including principal components analysis and linear discriminant analysis.",
+        "Evaluate model performance, explain limitations and uncertainty, and communicate results clearly to technical and nontechnical audiences."
       ],
       assessments: [
-        { task: "Spring 2026 review assignment", points: "75", percent: "7.5%", due: "Week 1" },
-        { task: "Binary logistic regression and decision trees", points: "75", percent: "7.5%", due: "Week 2" },
-        { task: "Decision-tree WIC", points: "75", percent: "7.5%", due: "Week 3" },
-        { task: "Random-forest WIC", points: "75", percent: "7.5%", due: "Week 4" },
-        { task: "Midterm modeling project", points: "300", percent: "30%", due: "Mid-session" },
-        { task: "Final applied modeling project", points: "400", percent: "40%", due: "March 11, 2026" }
+        { task: "Professionalism and participation", percent: "10%", due: "Throughout the course" },
+        { task: "Homework and in-class assignments", percent: "20%", due: "Across the eight modules" },
+        { task: "Midterm project", percent: "30%", due: "Week 3" },
+        { task: "Final project", percent: "40%", due: "Week 8" }
+      ],
+      gradingScale: [
+        { grade: "A", range: "93-100%" },
+        { grade: "A-", range: "90-92.9%" },
+        { grade: "B+", range: "87-89.9%" },
+        { grade: "B", range: "83-86.9%" },
+        { grade: "B-", range: "80-82.9%" },
+        { grade: "C+", range: "77-79.9%" },
+        { grade: "C", range: "73-76.9%" },
+        { grade: "C-", range: "70-72.9%" },
+        { grade: "D+", range: "67-69.9%" },
+        { grade: "D", range: "63-66.9%" },
+        { grade: "D-", range: "60-62.9%" },
+        { grade: "F", range: "Below 60%" }
       ],
       schedule: [
-        { week: "1", topic: "R review, inference, multiple regression, and multicollinearity" },
-        { week: "2", topic: "Binary logistic regression and decision-tree classifiers" },
-        { week: "3", topic: "Random-forest and support-vector classifiers; midterm project" },
-        { week: "4", topic: "Decision-tree and random-forest regression" },
-        { week: "5", topic: "Support-vector regression and neural networks" },
-        { week: "6", topic: "Boosting methods" },
-        { week: "7", topic: "Principal components and time-series concepts as time allowed" },
-        { week: "8", topic: "Clustering, linear discriminant analysis, and final project" }
+        { week: "1 · Oct. 19-25", topic: "R setup and review of visualization, inference, multiple regression, and multicollinearity" },
+        { week: "2 · Oct. 26-Nov. 1", topic: "Binary logistic regression, decision-tree classifiers, and classification metrics" },
+        { week: "3 · Nov. 2-8", topic: "Random forests, support vector machines, resampling, and the midterm project" },
+        { week: "4 · Nov. 9-15", topic: "Regression trees, random-forest regression, and predictive performance" },
+        { week: "5 · Nov. 16-22", topic: "Support-vector regression, neural networks, model tuning, and evaluation" },
+        { week: "6 · Nov. 23-29", topic: "Boosting for classification and regression" },
+        { week: "7 · Nov. 30-Dec. 6", topic: "Principal components, dimension reduction, and time series as time permits" },
+        { week: "8 · Dec. 7-12", topic: "Clustering, linear discriminant analysis, synthesis, and the final project" }
       ],
       sections: [
         {
           label: "Assessment design",
           title: "What students were asked to do",
-          copy: "The anonymized grade structure confirms a 1,000-point course built around four 75-point assignments, a 300-point midterm, and a 400-point final project.",
+          copy: "The Fall 2026 course balances regular practice with two larger applied projects and expects students to explain—not merely produce—model output.",
           items: [
-            "Compare multiple regression and random forest on a sales-prediction problem.",
-            "Compare logistic regression and random forest on book-purchase classification.",
-            "Use decision trees for classification and regression and report RMSE where appropriate.",
-            "Use random forests for credit classification, variable importance, precision, recall, and F1.",
-            "Compare MLR and SVM on a held-out real-estate test set.",
-            "Compare classification models for a bank-marketing response while controlling model complexity."
+            "Prepare data and build reproducible modeling workflows in R.",
+            "Frame and compare classification and regression approaches.",
+            "Evaluate out-of-sample performance using appropriate metrics.",
+            "Justify model choices, interpret uncertainty, and explain limitations.",
+            "Communicate findings clearly to research and professional audiences."
           ]
         }
       ]
