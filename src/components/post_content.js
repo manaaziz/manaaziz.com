@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ContextBackLink from "@/components/context_back_link";
 import DecisionTreeGrowth from "@/components/decision_tree_growth";
 import { getAdjacentPosts, getRelatedPosts } from "@/lib/posts";
 import SpainRecapScrolly from "@/components/spain_recap_scrolly";
@@ -15,7 +16,6 @@ export default function PostContent({ post }) {
     return allowedTags.has(key) && tags.findIndex((candidate) => candidate.toLowerCase() === key) === index;
   });
   const backHref = post.isSeries ? `/blog/${post.seriesSlug}` : `/manalogue/${post.subjectSlug}`;
-  const backLabel = post.isSeries ? `Back to ${post.collectionTitle}` : `Back to ${post.subjectTitle}`;
   const postContentSections = post.contentHtml.split(decisionTreeMarker);
 
   function renderPostBody() {
@@ -38,9 +38,7 @@ export default function PostContent({ post }) {
   return (
     <main className="page-shell post-shell">
       <div className="reading-progress" aria-hidden="true" />
-      <Link className="back-link" href={backHref}>
-        {backLabel}
-      </Link>
+      <ContextBackLink fallbackHref={backHref} />
       <p className="eyebrow">{post.isSeries ? post.seriesTitle : post.subjectTitle}</p>
       <h1>{post.title}</h1>
       <div className="post-meta">

@@ -9100,6 +9100,7 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
 
 .back-link {
   display: inline-block;
+  width: max-content;
   margin-bottom: 1.25rem;
   padding: 0.62rem 0.95rem;
   border: 1px solid var(--line-strong);
@@ -9109,6 +9110,9 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
     0 0.32rem 0 rgba(23, 23, 23, 0.78),
     0 0.75rem 1.2rem rgba(23, 23, 23, 0.14);
   color: var(--surface-raised);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.9rem;
   font-weight: 900;
   text-decoration: none;
   transition:
