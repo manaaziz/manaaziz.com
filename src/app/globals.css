@@ -469,11 +469,11 @@ main {
 
 .manalogue-editorial-copy h2 {
   margin: 0;
-  font-family: var(--font-sans), Arial, sans-serif;
+  font-family: inherit;
   font-size: clamp(1.15rem, 1.55vw, 1.65rem);
-  font-weight: 900;
-  letter-spacing: -0.035em;
-  line-height: 1.02;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.04;
 }
 
 .manalogue-editorial-copy p {
@@ -498,7 +498,7 @@ main {
 
 .manalogue-editorial-card.is-lead .manalogue-editorial-copy h2 {
   font-size: clamp(2.15rem, 3.4vw, 4rem);
-  line-height: 0.95;
+  line-height: 0.98;
 }
 
 .manalogue-editorial-card.is-lead .manalogue-editorial-copy p {
@@ -612,6 +612,24 @@ main {
 
 .manalogue-editorial-grid .manalogue-editorial-image {
   aspect-ratio: 4 / 3;
+}
+
+.manalogue-editorial-grid .manalogue-editorial-card,
+.manalogue-subject-grid .manalogue-editorial-card:not(.is-subject-lead) {
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.manalogue-editorial-grid .manalogue-editorial-copy,
+.manalogue-subject-grid .manalogue-editorial-card:not(.is-subject-lead) .manalogue-editorial-copy {
+  display: grid;
+  grid-template-rows: auto minmax(3.55rem, auto) minmax(0, 1fr) auto;
+  height: 100%;
+}
+
+.manalogue-editorial-grid .manalogue-editorial-copy strong,
+.manalogue-subject-grid .manalogue-editorial-card:not(.is-subject-lead) .manalogue-editorial-copy strong {
+  align-self: end;
 }
 
 .manalogue-must-read-grid {
@@ -2240,7 +2258,7 @@ h3 {
   position: relative;
   container-type: inline-size;
   overflow: hidden;
-  min-height: clamp(23rem, 46vw, 36rem);
+  min-height: clamp(23rem, 38vw, 31rem);
   margin-top: 1.25rem;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -2252,9 +2270,9 @@ h3 {
   touch-action: none;
   user-select: none;
   -webkit-user-select: none;
-  --research-word-small: clamp(0.68rem, 0.88vw, 0.95rem);
-  --research-word-medium: clamp(0.76rem, 1vw, 1.08rem);
-  --research-word-large: clamp(1rem, 1.35vw, 1.55rem);
+  --research-word-small: clamp(0.72rem, 0.94vw, 1rem);
+  --research-word-medium: clamp(0.82rem, 1.08vw, 1.14rem);
+  --research-word-large: clamp(1.08rem, 1.46vw, 1.62rem);
   --research-word-pad-y: clamp(0.36rem, 0.42vw, 0.58rem);
   --research-word-pad-x: clamp(0.54rem, 0.66vw, 0.82rem);
   --research-word-medium-pad-y: clamp(0.42rem, 0.5vw, 0.68rem);
@@ -2267,9 +2285,9 @@ h3 {
 
 @supports (width: 1cqw) {
   .research-word-graph {
-    --research-word-small: clamp(0.68rem, 0.9cqw, 0.95rem);
-    --research-word-medium: clamp(0.76rem, 1.02cqw, 1.08rem);
-    --research-word-large: clamp(1rem, 1.45cqw, 1.55rem);
+    --research-word-small: clamp(0.72rem, 0.96cqw, 1rem);
+    --research-word-medium: clamp(0.82rem, 1.1cqw, 1.14rem);
+    --research-word-large: clamp(1.08rem, 1.52cqw, 1.62rem);
     --research-word-pad-y: clamp(0.36rem, 0.46cqw, 0.58rem);
     --research-word-pad-x: clamp(0.54rem, 0.68cqw, 0.82rem);
     --research-word-medium-pad-y: clamp(0.42rem, 0.54cqw, 0.68rem);
@@ -2278,6 +2296,33 @@ h3 {
     --research-word-large-pad-x: clamp(0.74rem, 0.96cqw, 1.1rem);
     --research-word-width: clamp(7.25rem, 16cqw, 15rem);
     --research-word-large-width: clamp(9.2rem, 18cqw, 17rem);
+  }
+}
+
+@media (max-width: 600px) {
+  .research-word-graph {
+    min-height: 20rem;
+    --research-word-small: 0.66rem;
+    --research-word-medium: 0.72rem;
+    --research-word-large: 0.9rem;
+    --research-word-pad-y: 0.3rem;
+    --research-word-pad-x: 0.45rem;
+    --research-word-medium-pad-y: 0.36rem;
+    --research-word-medium-pad-x: 0.52rem;
+    --research-word-large-pad-y: 0.46rem;
+    --research-word-large-pad-x: 0.64rem;
+    --research-word-width: 6.4rem;
+    --research-word-large-width: 8rem;
+  }
+
+  .research-word-graph-lines,
+  .research-word-node[data-mobile-visible="false"] {
+    display: none;
+  }
+
+  .research-word-node[data-mobile-visible="true"] {
+    left: var(--mobile-x) !important;
+    top: var(--mobile-y) !important;
   }
 }
 
@@ -3755,9 +3800,10 @@ h3 {
 
 .course-material-hub-card {
   display: grid;
+  grid-template-rows: auto minmax(4.4rem, auto) 1fr auto;
   min-height: 14rem;
   padding: clamp(1.25rem, 3vw, 1.75rem);
-  align-content: start;
+  align-content: stretch;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--surface-raised);
@@ -3965,6 +4011,7 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
   }
 
   .course-material-hub-card {
+    grid-template-rows: auto;
     min-height: 12rem;
   }
 
@@ -3992,7 +4039,7 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
 
 .course-outcome-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(var(--objective-columns, 4), minmax(0, 1fr));
   gap: 1rem;
   margin-top: 1.5rem;
 }
@@ -4603,7 +4650,7 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
 .course-assessment-pie-base,
 .course-assessment-pie-slice {
   fill: none;
-  stroke-width: 9.8;
+  stroke-width: 10.5;
 }
 
 .course-assessment-pie-base {
@@ -4623,24 +4670,26 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
     transform 180ms var(--ease-out-back);
 }
 
-.course-assessment-pie-slice:not([data-active="true"]) {
+.course-assessment-chart-card[data-comparing="true"] .course-assessment-pie-slice:not([data-active="true"]) {
   opacity: 0.28;
 }
 
 .course-assessment-pie-slice:hover,
 .course-assessment-pie-slice:focus,
 .course-assessment-pie-slice[data-active="true"] {
-  filter: drop-shadow(0 12px 13px rgba(23, 23, 23, 0.18));
+  filter:
+    drop-shadow(0 0 0.55rem rgba(23, 23, 23, 0.18))
+    drop-shadow(0 18px 18px rgba(23, 23, 23, 0.2));
   opacity: 1;
-  stroke-width: 11;
-  transform: translateY(-0.35px) scale(1.025);
+  stroke-width: 11.9;
+  transform: translateY(-0.45px) scale(1.035);
 }
 
 .course-assessment-pie-center {
   position: absolute;
   display: grid;
-  width: clamp(9.6rem, 18vw, 12.2rem);
-  height: clamp(9.6rem, 18vw, 12.2rem);
+  width: clamp(7.4rem, 16vw, 9.4rem);
+  height: clamp(7.4rem, 16vw, 9.4rem);
   place-items: center;
   align-content: center;
   border: 1px solid var(--line);
@@ -4709,6 +4758,10 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
     0 13px 28px rgba(23, 23, 23, 0.12),
     0 0.35rem 0 #000;
   animation: work-mix-card-pop 260ms cubic-bezier(0.32, 0.72, 0, 1) both;
+}
+
+.course-assessment-prompt {
+  display: none;
 }
 
 .course-assessment-active-card.top-right {
@@ -7559,8 +7612,9 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
 
 .media-newspaper .manalogue-briefs h3 {
   margin: 0;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: inherit;
   font-size: clamp(1.05rem, 2vw, 1.45rem);
+  font-weight: 700;
   line-height: 1.05;
 }
 
@@ -7647,8 +7701,9 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
 
 .manalogue-topic-heading h2 {
   margin: 0;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: inherit;
   font-size: var(--compact-heading-size);
+  font-weight: 700;
   line-height: 0.98;
 }
 
@@ -7800,9 +7855,10 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
 
 .manalogue-paper-copy h3 {
   margin: 0;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: inherit;
   font-size: clamp(1.05rem, 1.8vw, 1.7rem);
-  line-height: 1;
+  font-weight: 700;
+  line-height: 1.04;
   overflow-wrap: anywhere;
   text-wrap: balance;
 }
@@ -7971,9 +8027,10 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
 
 .manalogue-topic-card h2 {
   margin: 0;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: inherit;
   font-size: clamp(1.25rem, 2vw, 1.9rem);
-  line-height: 0.98;
+  font-weight: 700;
+  line-height: 1.04;
   overflow-wrap: anywhere;
   text-wrap: balance;
 }
@@ -8221,9 +8278,10 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
 .newspaper-article h2,
 .newspaper-rail h2 {
   margin: 0;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: inherit;
   font-size: clamp(2.8rem, 6vw, 5.6rem);
-  line-height: 0.94;
+  font-weight: 700;
+  line-height: 0.98;
 }
 
 .newspaper-rail h2 {
@@ -10030,6 +10088,21 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
 .fear-four-arrow { align-self: center; font-size: 2rem; font-weight: 900; }
 .fear-four-high { animation: fear-four-pulse 3s ease-in-out infinite; }
 
+.post-body .fear-four-question {
+  margin-top: 1.8rem;
+  color: var(--ink);
+  font-size: clamp(1.2rem, 2.2vw, 1.55rem);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.post-body .fear-four-punchline {
+  margin: -0.35rem 0 1.8rem;
+  color: var(--green);
+  font-size: clamp(1.15rem, 2vw, 1.4rem);
+  font-weight: 900;
+}
+
 @keyframes fear-four-pulse {
   50% { transform: translateY(-0.18rem); box-shadow: 0 0.65rem 0 rgba(47, 111, 100, 0.18); }
 }
@@ -11612,7 +11685,7 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
 
   .paper-mosaic {
     --paper-cell: clamp(7.25rem, 22vw, 9.75rem);
-    --paper-gutter: clamp(0.38rem, 1.35vw, 0.62rem);
+    --paper-gutter: clamp(0.5rem, 1.6vw, 0.7rem);
     width: min(100%, calc(var(--paper-cell) + var(--paper-step-x) * 2));
     min-width: 0;
     height: calc((var(--paper-slot-rows) - 1) * var(--paper-step-y) + var(--paper-cell) * 0.8660254);
@@ -11629,13 +11702,21 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
   }
 
   .paper-tile h3 {
-    font-size: clamp(0.56rem, 2.65vw, 0.78rem);
-    line-height: 0.98;
+    display: block;
+    overflow: visible;
+    -webkit-line-clamp: unset;
+    line-clamp: unset;
+    font-size: clamp(0.5rem, 2.35vw, 0.7rem);
+    line-height: 0.96;
   }
 
   .paper-tile span,
   .paper-tile small {
     font-size: clamp(0.4rem, 1.75vw, 0.52rem);
+  }
+
+  .paper-tile-detail {
+    display: none;
   }
 
   .paper-tile-actions {
@@ -11648,7 +11729,7 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
   }
 
   .paper-chip-drop span {
-    width: clamp(0.52rem, 1.95vw, 0.66rem);
+    width: clamp(0.34rem, 1.2vw, 0.46rem);
   }
 
   .manalogue-topic-grid {
@@ -12098,13 +12179,17 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
   }
 
   .course-assessment-pie-wrap {
-    width: min(100%, 15rem);
+    width: min(100%, 22rem);
     transform: none;
   }
 
   .course-assessment-active-card {
     position: static;
     width: min(100%, 28rem);
+  }
+
+  .course-assessment-prompt {
+    display: grid;
   }
 
   .consulting-area-grid,
@@ -12213,9 +12298,18 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
   }
 
   .review-quote p {
-    max-width: 12.6rem;
-    font-size: 0.55rem;
-    line-height: 1.16;
+    max-width: 15rem;
+    font-size: clamp(0.68rem, 2.7vw, 0.78rem);
+    line-height: 1.2;
+  }
+
+  .student-review-carousel {
+    --carousel-card-width: min(20rem, 86vw);
+    --carousel-card-height: clamp(22rem, 108vw, 25.5rem);
+    --carousel-side-shift: calc(var(--carousel-card-width) * 0.68);
+    --carousel-far-shift: calc(var(--carousel-card-width) * 0.82);
+    --carousel-reel-side-shift: calc(var(--carousel-card-width) * 0.66);
+    --carousel-reel-far-shift: calc(var(--carousel-card-width) * 1.04);
   }
 
   .student-review-stage {
@@ -12256,13 +12350,19 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
     transform: translate(calc(-50% + var(--carousel-side-shift)), -50%) translateZ(-4rem) rotateY(-18deg) scale(0.82);
   }
 
+  .student-review-carousel:not(.is-spinning) .student-review-card.is-far-previous,
+  .student-review-carousel:not(.is-spinning) .student-review-card.is-far-next {
+    opacity: 0;
+    visibility: hidden;
+  }
+
   .student-review-card.is-far-previous {
-    opacity: 0.1;
+    opacity: 0.16;
     transform: translate(calc(-50% - var(--carousel-far-shift)), -50%) translateZ(-8rem) rotateY(28deg) scale(0.68);
   }
 
   .student-review-card.is-far-next {
-    opacity: 0.1;
+    opacity: 0.16;
     transform: translate(calc(-50% + var(--carousel-far-shift)), -50%) translateZ(-8rem) rotateY(-28deg) scale(0.68);
   }
 
@@ -12870,7 +12970,7 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
   .manalogue-mobile-story h3 {
     margin: 0;
     color: #171717;
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: inherit;
     font-weight: 700;
     letter-spacing: 0;
     line-height: 1.08;
