@@ -307,7 +307,12 @@ function EditorialStoryCard({ story, variant = "standard", eager = false }) {
         </span>
         <h2>{story.title}</h2>
         {variant !== "latest" && story.excerpt ? <p>{story.excerpt}</p> : null}
-        <strong>By Mana Azizsoltani{story.minutes ? ` · ${story.minutes} min read` : ""}</strong>
+        <strong>
+          By Mana Azizsoltani
+          {story.minutes ? (
+            variant === "latest" ? <><br />{story.minutes} min read</> : ` · ${story.minutes} min read`
+          ) : null}
+        </strong>
       </div>
     </EditorialStoryShell>
   );
@@ -321,7 +326,9 @@ function EditorialSection({ panel }) {
     <section className="manalogue-editorial-section" id={`manalogue-${panel.id}`}>
       <div className="manalogue-editorial-section-heading">
         <h2>{sectionLabels[panel.id] || panel.title}</h2>
-        <a href="#manalogue-top">Back to top ↑</a>
+        <Link href={sectionHref(panel.id)}>
+          {sectionLabels[panel.id] || panel.title} page →
+        </Link>
       </div>
       <div className="manalogue-editorial-grid">
         {stories.map((story, index) => (
@@ -459,7 +466,10 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [], section
   const researchStories = storiesByTag(visiblePosts, "research", "Research", true);
   const teachingStories = promoteStory(storiesByTag(visiblePosts, "teaching", "Teaching", true), "/blog/teaching/spain-recap");
   const travelPostStories = storiesByTag(visiblePosts, "travel", "Travel", true);
-  const frontPageStories = visiblePosts.slice(0, 7).map((post) => postToStory(post, postTopic(post)));
+  const frontPageStories = promoteStory(
+    visiblePosts.slice(0, 7).map((post) => postToStory(post, postTopic(post))),
+    "/blog/teaching/spain-recap"
+  );
   const travelArchives = [
     {
       topic: "Travel + Teaching",
