@@ -289,7 +289,8 @@ export default async function CoursePage({ params }) {
   }
 
   const objectives = course.syllabus?.objectives || course.outcomes || [];
-  const gradingComponents = course.syllabus?.assessments || course.gradingComponents || [];
+  const visibleObjectives = objectives.slice(0, 8);
+  const gradingComponents = course.assessmentChart || course.syllabus?.assessments || course.gradingComponents || [];
   const assessmentItems = buildAssessmentItems(gradingComponents);
   const weeklySchedule = course.syllabus?.schedule?.length ? course.syllabus.schedule : course.schedule || [];
   const semesterCalendar = course.syllabus?.calendar || course.calendar || buildScheduleCalendar(course.schedule || [], course.semester);
@@ -361,8 +362,8 @@ export default async function CoursePage({ params }) {
             <h2 id="course-outcomes-title">Learning objectives</h2>
           </div>
 
-          <div className="course-outcome-grid">
-            {objectives.slice(0, 8).map((outcome, index) => (
+          <div className="course-outcome-grid" style={visibleObjectives.length === 6 ? { "--objective-columns": 3 } : undefined}>
+            {visibleObjectives.map((outcome, index) => (
               <article key={outcome}>
                 <span>{String(index + 1).padStart(2, "0")}</span>
                 <p>{outcome}</p>

@@ -18,21 +18,45 @@ function getSlicePosition(items, activeIndex) {
 
 export default function CourseAssessmentChart({ items }) {
   const chartItems = items || [];
-  const [activeTask, setActiveTask] = useState(chartItems[0]?.task);
+  const [activeTask, setActiveTask] = useState("");
 
   if (!chartItems.length) {
     return null;
   }
 
-  const active = chartItems.find((item) => item.task === activeTask) || chartItems[0];
+  const selected = chartItems.find((item) => item.task === activeTask) || null;
+  const active = selected || chartItems[0];
   const activeIndex = Math.max(
     chartItems.findIndex((item) => item.task === active.task),
     0
   );
   const activePosition = getSlicePosition(chartItems, activeIndex);
 
+  function resetAssessment() {
+    setActiveTask("");
+  }
+
+  function handleChartBlur(event) {
+    if (!event.currentTarget.contains(event.relatedTarget)) {
+      resetAssessment();
+    }
+  }
+
+  function handleSliceKeyDown(event, task) {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      setActiveTask(task);
+    }
+  }
+
   return (
-    <div className="course-assessment-chart-card" aria-label="Interactive assignment weight pie chart">
+    <div
+      className="course-assessment-chart-card"
+      aria-label="Interactive assignment weight pie chart"
+      data-comparing={selected ? "true" : "false"}
+      onBlur={handleChartBlur}
+      onMouseLeave={resetAssessment}
+    >
       <div className="course-assessment-pie-wrap">
         <svg
           className="course-assessment-pie"
@@ -52,10 +76,11 @@ export default function CourseAssessmentChart({ items }) {
                 className="course-assessment-pie-slice"
                 cx="21"
                 cy="21"
-                data-active={active.task === item.task ? "true" : "false"}
+                data-active={selected?.task === item.task ? "true" : "false"}
                 key={item.task}
                 onClick={() => setActiveTask(item.task)}
                 onFocus={() => setActiveTask(item.task)}
+                onKeyDown={(event) => handleSliceKeyDown(event, item.task)}
                 onMouseEnter={() => setActiveTask(item.task)}
                 r="15.9155"
                 role="button"
@@ -73,11 +98,19 @@ export default function CourseAssessmentChart({ items }) {
         </div>
       </div>
 
-      <article className={`course-assessment-active-card ${activePosition}`} key={active.task}>
-        <span>{active.weightLabel}</span>
-        <h3>{active.task}</h3>
-        <p>{active.due || "Due date TBD"}</p>
-      </article>
+      {selected ? (
+        <article className={`course-assessment-active-card ${activePosition}`} key={active.task} aria-live="polite">
+          <span>{active.weightLabel}</span>
+          <h3>{active.task}</h3>
+          <p>{active.due || "Due date TBD"}</p>
+        </article>
+      ) : (
+        <article className="course-assessment-active-card course-assessment-prompt">
+          <span>Assessment mix</span>
+          <h3>Tap a section of the chart</h3>
+          <p>Choose a slice to see its weight and due date.</p>
+        </article>
+      )}
     </div>
   );
 }

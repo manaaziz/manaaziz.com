@@ -851,6 +851,11 @@ export const courses = [
       { task: "Midterm modeling project", points: "300" },
       { task: "Final applied modeling project", points: "400" }
     ],
+    assessmentChart: [
+      { task: "Homework", points: "300" },
+      { task: "Midterm", points: "300" },
+      { task: "Final", points: "400" }
+    ],
     schedule: [
       { week: "Jan 20-23", topic: "R review, visualization, statistical inference, multiple regression, and multicollinearity" },
       { week: "Jan 26-30", topic: "Classification with binary logistic regression and decision trees" },
