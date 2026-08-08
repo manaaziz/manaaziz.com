@@ -2,7 +2,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { courses, getCourse } from "../../../courses";
 import { getMaterialHub } from "../../../material_hubs";
-import MaterialSubnav from "../material_subnav";
 
 function ResourceCard({ eyebrow, title, description, href, links }) {
   return (
@@ -93,7 +92,6 @@ export default async function CourseMaterialSectionPage({ params }) {
         <h1>{activeSection.title}</h1>
         <p className="lede">{activeSection.description}</p>
       </header>
-      <MaterialSubnav courseSlug={course.slug} currentSection={section} sections={sections} />
       {section === "assignments" ? <AssignmentsPage course={course} /> : null}
       {section === "lectures" ? <LecturesPage course={course} /> : null}
       {section === "code-and-data" ? <CodeDataPage course={course} /> : null}

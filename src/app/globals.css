@@ -3860,37 +3860,28 @@ h3 {
   max-width: 54rem;
 }
 
-.course-material-subnav {
-  margin: 2rem 0;
-}
-
-html.section-route-leaving[data-section-direction="forward"] .course-material-page > :not(.section-slider),
 html.section-route-leaving[data-section-direction="forward"] .manalogue-subject-page > :not(.section-slider),
 html.section-route-leaving[data-section-direction="forward"] .manalogue-editorial > :not(.section-slider) {
   opacity: 0;
   transform: translateX(-1.4rem);
 }
 
-html.section-route-leaving[data-section-direction="backward"] .course-material-page > :not(.section-slider),
 html.section-route-leaving[data-section-direction="backward"] .manalogue-subject-page > :not(.section-slider),
 html.section-route-leaving[data-section-direction="backward"] .manalogue-editorial > :not(.section-slider) {
   opacity: 0;
   transform: translateX(1.4rem);
 }
 
-.course-material-page > :not(.section-slider),
 .manalogue-subject-page > :not(.section-slider),
 .manalogue-editorial > :not(.section-slider) {
   transition: opacity 240ms ease, transform 300ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-html.section-route-entering[data-section-direction="forward"] .course-material-page > :not(.section-slider),
 html.section-route-entering[data-section-direction="forward"] .manalogue-subject-page > :not(.section-slider),
 html.section-route-entering[data-section-direction="forward"] .manalogue-editorial > :not(.section-slider) {
   animation: section-page-enter-forward 320ms ease both;
 }
 
-html.section-route-entering[data-section-direction="backward"] .course-material-page > :not(.section-slider),
 html.section-route-entering[data-section-direction="backward"] .manalogue-subject-page > :not(.section-slider),
 html.section-route-entering[data-section-direction="backward"] .manalogue-editorial > :not(.section-slider) {
   animation: section-page-enter-backward 320ms ease both;
@@ -4013,10 +4004,6 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
   .course-material-hub-card {
     grid-template-rows: auto;
     min-height: 12rem;
-  }
-
-  .course-material-subnav {
-    margin-block: 1.5rem;
   }
 
   .course-github-callout {
