@@ -14,6 +14,8 @@ export const seriesConfig = {
     cover: "/assets/images/phdblog_cover.webp",
     tags: ["Academic Life", "Research", "Doctoral Archive"],
     startingPointLabel: "First volume",
+    subjectSlug: "research",
+    subjectTitle: "Research",
     archived: true
   },
   travel: {
@@ -24,6 +26,8 @@ export const seriesConfig = {
     description: "A travel and professional archive from a European summer that moved between universities, conferences, cities, friends, and field notes.",
     cover: "/assets/images/eu23cover.webp",
     tags: ["Travel"],
+    subjectSlug: "travel",
+    subjectTitle: "Travel",
     startingPointLabel: "First dispatch"
   },
   americanito_bcn: {
@@ -34,6 +38,8 @@ export const seriesConfig = {
     description: "A personal week-by-week archive from life abroad in Spain.",
     cover: "/assets/images/barcapic.webp",
     tags: ["Travel", "Barcelona", "Personal Archive"],
+    subjectSlug: "travel",
+    subjectTitle: "Travel",
     startingPointLabel: "First week",
     archived: true
   },
@@ -44,6 +50,9 @@ export const seriesConfig = {
     description: "Short essays on casino analytics, AI, marketing, personalization, and the operator-facing questions behind consulting work.",
     cover: "/assets/images/consultant_pic.webp",
     tags: ["Consulting", "Casino Marketing"],
+    subject: true,
+    subjectSlug: "consulting",
+    subjectTitle: "Consulting",
     startingPointLabel: "First note"
   },
   research: {
@@ -53,6 +62,9 @@ export const seriesConfig = {
     description: "Notes from research talks, conference rooms, academic communities, and the questions connecting gambling, hospitality, AI, and analytics.",
     cover: "/assets/photos/conf_gambling_risk_2026.webp",
     tags: ["Research", "Gaming Research"],
+    subject: true,
+    subjectSlug: "research",
+    subjectTitle: "Research",
     startingPointLabel: "First research note",
     standalone: true
   },
@@ -63,6 +75,9 @@ export const seriesConfig = {
     description: "Reflections on courses, classrooms, student engagement, hospitality education, and the moments that make teaching feel alive.",
     cover: "/assets/photos/fab333_2026_2.webp",
     tags: ["Teaching", "Hospitality Education", "FAB 333"],
+    subject: true,
+    subjectSlug: "teaching",
+    subjectTitle: "Teaching",
     startingPointLabel: "First reflection",
     standalone: true
   }
@@ -201,7 +216,7 @@ function readSeriesPosts(seriesSlug) {
       const date = data.date || "";
       const frontMatterTags = parseList(data.tags);
       const seriesTags = config.tags || [];
-      const tags = uniqueTags([...(config.standalone ? [] : [config.title]), ...seriesTags, ...frontMatterTags]);
+      const tags = uniqueTags([...(config.subject ? [] : [config.title]), ...seriesTags, ...frontMatterTags]);
       const images = getImages(contentHtml);
       const cover = data.cover || config.cover || "";
       const previewImage = seriesSlug === "travel" ? images[0] || cover : data.cover || images[0] || config.cover || "";
@@ -209,8 +224,11 @@ function readSeriesPosts(seriesSlug) {
       return {
         sourcePath,
         seriesSlug,
-        seriesTitle: data.seriesTitle || (config.standalone ? "The Manalogue" : config.title),
+        seriesTitle: config.subject ? config.subjectTitle : config.title,
         collectionTitle: config.title,
+        isSeries: !config.subject,
+        subjectSlug: config.subjectSlug || "",
+        subjectTitle: config.subjectTitle || "The Manalogue",
         legacyBase: config.legacyBase,
         legacyCategory: config.legacyCategory,
         standalone: Boolean(config.standalone),
@@ -278,7 +296,7 @@ export function getSeriesInfo(seriesSlug) {
 
 export function isPublicSeries(seriesSlug) {
   const info = seriesConfig[seriesSlug];
-  return Boolean(info && !info.archived && !info.standalone);
+  return Boolean(info && !info.archived && !info.standalone && !info.subject);
 }
 
 export function getPost(seriesSlug, slug) {
@@ -323,7 +341,7 @@ export function getRelatedPosts(post, count = 4) {
 
 export function getSeriesSummaries() {
   return Object.entries(seriesConfig)
-    .filter(([, config]) => !config.archived && !config.standalone)
+    .filter(([, config]) => !config.archived && !config.standalone && !config.subject)
     .map(([seriesSlug, config]) => ({
       seriesSlug,
       ...config,

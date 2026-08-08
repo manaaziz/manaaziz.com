@@ -14,8 +14,8 @@ export default function PostContent({ post }) {
     const key = tag.toLowerCase();
     return allowedTags.has(key) && tags.findIndex((candidate) => candidate.toLowerCase() === key) === index;
   });
-  const backHref = post.standalone ? "/manalogue" : `/blog/${post.seriesSlug}`;
-  const backLabel = post.standalone ? "Back to The Manalogue" : `Back to ${post.seriesTitle}`;
+  const backHref = post.isSeries ? `/blog/${post.seriesSlug}` : `/manalogue/${post.subjectSlug}`;
+  const backLabel = post.isSeries ? `Back to ${post.collectionTitle}` : `Back to ${post.subjectTitle}`;
   const postContentSections = post.contentHtml.split(decisionTreeMarker);
 
   function renderPostBody() {
@@ -41,7 +41,7 @@ export default function PostContent({ post }) {
       <Link className="back-link" href={backHref}>
         {backLabel}
       </Link>
-      <p className="eyebrow">{post.seriesTitle}</p>
+      <p className="eyebrow">{post.isSeries ? post.seriesTitle : post.subjectTitle}</p>
       <h1>{post.title}</h1>
       <div className="post-meta">
         {post.date ? (
@@ -71,22 +71,22 @@ export default function PostContent({ post }) {
             <p className="eyebrow">Related</p>
             <h2>Keep reading</h2>
             <div className="post-related-list">
-              {post.standalone ? (
-                <Link href="/manalogue">
-                  <span>Manalogue</span>
-                  <strong>Tagged writing</strong>
-                  <small>Browse by teaching, travel, research, and analytics</small>
+              {!post.isSeries ? (
+                <Link href={`/manalogue/${post.subjectSlug}`}>
+                  <span>Manalogue subject</span>
+                  <strong>{post.subjectTitle}</strong>
+                  <small>Browse all posts tagged {post.subjectTitle.toLowerCase()}</small>
                 </Link>
               ) : (
                 <Link href={`/blog/${post.seriesSlug}`}>
                   <span>Series</span>
-                  <strong>{post.seriesTitle}</strong>
+                  <strong>{post.collectionTitle}</strong>
                   <small>Open the full archive</small>
                 </Link>
               )}
               {relatedPosts.map((related) => (
                 <Link href={related.href} key={related.href}>
-                  <span>{related.seriesTitle}</span>
+                  <span>{related.isSeries ? related.seriesTitle : related.subjectTitle}</span>
                   <strong>{related.title}</strong>
                   <small>{related.readingMinutes} min read</small>
                 </Link>
