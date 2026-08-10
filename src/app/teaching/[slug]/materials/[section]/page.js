@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import SectionSlider from "@/components/section_slider";
 import { courses, getCourse } from "../../../courses";
 import { getMaterialHub } from "../../../material_hubs";
 
@@ -92,6 +93,16 @@ export default async function CourseMaterialSectionPage({ params }) {
         <h1>{activeSection.title}</h1>
         <p className="lede">{activeSection.description}</p>
       </header>
+      <SectionSlider
+        activeId={section}
+        ariaLabel={`${course.courseNumber} material sections`}
+        className="course-material-section-slider"
+        items={sections.map((item) => ({
+          href: `/teaching/${course.slug}/materials/${item.id}`,
+          id: item.id,
+          label: item.eyebrow
+        }))}
+      />
       {section === "assignments" ? <AssignmentsPage course={course} /> : null}
       {section === "lectures" ? <LecturesPage course={course} /> : null}
       {section === "code-and-data" ? <CodeDataPage course={course} /> : null}

@@ -19,6 +19,7 @@ codekit-config.json
 
 # macOS
 .DS_Store
+**/.DS_Store
 
 # Jekyll generated files
 .jekyll-cache
@@ -33,3 +34,7 @@ out
 
 # Local environment variables
 .env*.local
+
+# Browser QA output
+test-results/
+playwright-report/

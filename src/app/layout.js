@@ -1,3 +1,4 @@
+import "mapbox-gl/dist/mapbox-gl.css";
 import "./globals.css";
 import "./phase-two-mobile-first.css";
 import Link from "next/link";

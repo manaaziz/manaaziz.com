@@ -133,7 +133,15 @@ function NewspaperStory({ story, variant = "brief" }) {
     <>
       {story.image ? (
         <div className="manalogue-paper-image">
-          <img src={story.image} alt="" loading={variant === "lead" ? "eager" : "lazy"} decoding="async" />
+          <img
+            src={story.image}
+            alt=""
+            width="1200"
+            height="800"
+            loading={variant === "lead" ? "eager" : "lazy"}
+            fetchPriority={variant === "lead" ? "high" : undefined}
+            decoding="async"
+          />
         </div>
       ) : null}
       <div className="manalogue-paper-copy">
@@ -229,7 +237,15 @@ function ManalogueMobileStory({ story, variant = "row" }) {
     <MobileStoryShell story={story} variant={variant}>
       {story.image ? (
         <div className="manalogue-mobile-story-image">
-          <img src={story.image} alt="" loading={variant === "lead" ? "eager" : "lazy"} decoding="async" />
+          <img
+            src={story.image}
+            alt=""
+            width="1200"
+            height="800"
+            loading={variant === "lead" ? "eager" : "lazy"}
+            fetchPriority={variant === "lead" ? "high" : undefined}
+            decoding="async"
+          />
         </div>
       ) : null}
       <div className="manalogue-mobile-story-copy">
@@ -292,7 +308,15 @@ function EditorialStoryCard({ story, variant = "standard", eager = false }) {
     <EditorialStoryShell story={story} className={`manalogue-editorial-card is-${variant}`}>
       {story.image ? (
         <figure className="manalogue-editorial-image">
-          <img src={story.image} alt="" loading={eager ? "eager" : "lazy"} decoding="async" />
+          <img
+            src={story.image}
+            alt=""
+            width="1200"
+            height="800"
+            loading={eager ? "eager" : "lazy"}
+            fetchPriority={eager ? "high" : undefined}
+            decoding="async"
+          />
         </figure>
       ) : null}
       <div className="manalogue-editorial-copy">

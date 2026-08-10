@@ -6,6 +6,43 @@
  * compositions. Animation geometry remains in globals.css for a later phase.
  */
 
+:root {
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --content-reading: 68ch;
+  --content-wide: 92rem;
+  --text-body-fluid: clamp(1rem, 0.96rem + 0.18vw, 1.1rem);
+  --text-section-fluid: clamp(1.75rem, 1.35rem + 2vw, 3rem);
+  /* 45px preserves a rendered 44px hit area inside the subtly scaled hero. */
+  --target-min: 45px;
+  --breakpoint-content: 37.5rem;
+  --breakpoint-tablet: 45rem;
+  --breakpoint-desktop: 57.5rem;
+}
+
+.button,
+.hero-home .button-row .button,
+.mobile-icon-button,
+.review-arrow,
+.review-spin-button,
+.mobile-map-close {
+  min-height: var(--target-min);
+}
+
+.button,
+.hero-home .button-row .button,
+.mobile-icon-button,
+.review-arrow,
+.review-spin-button,
+.mobile-map-close {
+  min-width: var(--target-min);
+}
+
 /* Shared site chrome */
 .site-header {
   position: sticky;
@@ -121,7 +158,6 @@
 
 /* Teaching and course content */
 .teaching-values,
-.course-card-grid,
 .course-detail-grid,
 .course-material-list,
 .course-material-hub-grid,
@@ -170,7 +206,6 @@
 
 @media (min-width: 601px) {
   .teaching-values,
-  .course-card-grid,
   .course-material-list,
   .course-resource-page-grid,
   .course-guide-layout,
@@ -316,10 +351,6 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .course-card-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
   .course-outcome-grid {
     grid-template-columns: repeat(var(--objective-columns, 4), minmax(0, 1fr));
   }
@@ -349,5 +380,112 @@
 
   .manalogue-subject-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .button:hover {
+    transform: translateY(-3px);
+  }
+
+  .button:hover::before {
+    transform: translateY(5px);
+  }
+
+  .course-card:hover,
+  .consulting-role-card:hover,
+  .consulting-area-card:hover,
+  .consulting-writing-card:hover,
+  .manalogue-editorial-card:hover,
+  .presentation-photo-card:hover {
+    transform: none;
+  }
+
+  .manalogue-gallery-brick span {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* The three-column Work Mix needs more room than an ordinary tablet grid. */
+@media (max-width: 920px) {
+  .work-pie-wrap {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+    min-height: auto;
+  }
+
+  .work-pie-node,
+  .work-mix-mobile-detail {
+    grid-column: 1;
+  }
+
+  .work-pie-node {
+    grid-row: 1;
+  }
+
+  .work-mix-card-stack-left,
+  .work-mix-card-stack-right {
+    display: none;
+  }
+
+  .work-mix-mobile-detail {
+    display: block;
+    grid-row: 2;
+    width: 100%;
+  }
+
+  .work-mix-mobile-detail .work-mix-card {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    min-height: 0;
+    margin-top: 1rem;
+    transform: none;
+  }
+
+  .work-pie-chart {
+    width: min(100%, 22rem);
+  }
+}
+
+@media (max-width: 720px) {
+  .course-material-section-slider {
+    grid-template-columns: repeat(var(--section-count), minmax(0, 1fr));
+    overflow: hidden;
+  }
+
+  .course-material-section-slider::before {
+    width: calc((100% - (2 * var(--slider-inset))) / var(--section-count));
+    transform: translateX(calc(var(--active-index) * 100%));
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .course-card:hover,
+  .course-card:focus-visible {
+    transform: translateY(-3px);
+  }
+
+  .manalogue-gallery-brick:hover img,
+  .manalogue-gallery-brick:focus-visible img {
+    transform: scale(1.025);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-delay: 0s !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-delay: 0s !important;
+    transition-duration: 0.01ms !important;
   }
 }

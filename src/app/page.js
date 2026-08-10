@@ -75,6 +75,8 @@ export default function Home() {
             className="home-portrait"
             src="/assets/images/mana_home_portrait_bw_cutout.webp"
             alt="Mana Azizsoltani"
+            width="1254"
+            height="1250"
             loading="eager"
             decoding="async"
             fetchPriority="high"

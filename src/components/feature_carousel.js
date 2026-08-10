@@ -237,7 +237,7 @@ export default function FeatureCarousel({
             type="button"
             aria-label="Previous item"
           >
-            <img className="casino-chip-face" src="/assets/images/black_casino_chip.png" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+            <img className="casino-chip-face" src="/assets/images/black_casino_chip.png" alt="" aria-hidden="true" width="512" height="512" loading="lazy" decoding="async" />
             <span aria-hidden="true">←</span>
           </button>
           <div className="review-dots" aria-label={`Item ${activeIndex + 1} of ${itemCount}`}>
@@ -261,7 +261,7 @@ export default function FeatureCarousel({
             type="button"
             aria-label="Next item"
           >
-            <img className="casino-chip-face" src="/assets/images/black_casino_chip.png" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+            <img className="casino-chip-face" src="/assets/images/black_casino_chip.png" alt="" aria-hidden="true" width="512" height="512" loading="lazy" decoding="async" />
             <span aria-hidden="true">→</span>
           </button>
           <button className="button review-spin-button" disabled={isSpinning} onClick={spinReel} type="button">

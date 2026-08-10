@@ -2,6 +2,7 @@ import Link from "next/link";
 import StudentReviewCarousel from "./student_review_carousel";
 import { courses } from "./courses";
 import { studentReviews } from "./reviews";
+import styles from "./teaching.module.css";
 
 export const metadata = {
   title: "Teaching"
@@ -70,7 +71,7 @@ export default function TeachingPage() {
           <h2 id="course-link-title">I have taught both graduate and undergraduate courses.</h2>
         </div>
 
-        <div className="course-card-grid">
+        <div className={styles.courseGrid}>
           {sortedCourses.map((course) => (
             <Link className="course-card" href={`/teaching/${course.slug}`} key={course.slug}>
               <div className="course-card-meta">

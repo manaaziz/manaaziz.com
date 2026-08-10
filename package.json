@@ -8,6 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "node scripts/validate_site.mjs",
+    "test:responsive": "playwright test",
+    "test:responsive:update": "playwright test --update-snapshots",
     "audit:assets": "node scripts/audit_assets.mjs",
     "migrate:photos": "node scripts/migrate_photos_to_webp.mjs",
     "optimize:assets": "node scripts/optimize_public_images.mjs",
@@ -24,6 +26,7 @@
     "us-atlas": "^3.0.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.62.1",
     "sharp": "^0.35.1"
   },
   "overrides": {
