@@ -91,10 +91,12 @@ test("mobile search opens, accepts input, and returns navigable results", async 
   await expect(page.getByRole("list").getByRole("listitem").first()).toBeVisible();
 });
 
-test("Work Mix tap selection exposes the correct destination", async ({ page }) => {
+test("Work Mix keyboard selection exposes the correct destination", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/", { waitUntil: "domcontentloaded" });
-  await page.locator(".work-pie-slice.research").click();
+  const researchSlice = page.locator(".work-pie-slice.research");
+  await researchSlice.focus();
+  await researchSlice.press("Enter");
 
   const detail = page.locator(".work-mix-mobile-detail");
   await expect(detail.getByRole("heading", { name: /Data-driven/ })).toBeVisible();
