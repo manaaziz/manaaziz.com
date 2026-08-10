@@ -31,7 +31,9 @@ export default defineConfig({
     }
   ],
   webServer: {
-    command: "npm run dev -- --hostname 127.0.0.1",
+    command: process.env.CI
+      ? "npm run build && python3 -m http.server 3000 --directory out --bind 127.0.0.1 >/dev/null 2>&1"
+      : "npm run dev -- --hostname 127.0.0.1",
     url: "http://127.0.0.1:3000",
     reuseExistingServer: !process.env.CI,
     timeout: 120000

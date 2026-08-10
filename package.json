@@ -9,6 +9,7 @@
     "start": "next start",
     "lint": "node scripts/validate_site.mjs",
     "test:responsive": "playwright test",
+    "test:responsive:ci": "playwright test tests/responsive.spec.js tests/accessibility-responsive.spec.js",
     "test:responsive:update": "playwright test --update-snapshots",
     "audit:assets": "node scripts/audit_assets.mjs",
     "migrate:photos": "node scripts/migrate_photos_to_webp.mjs",

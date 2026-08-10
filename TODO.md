@@ -18,7 +18,8 @@ The stable pre-migration fallback is `main`; active migration work lives on `mob
 - [x] Audit critical and reusable image markup for dimensions and eager/lazy loading.
 - [x] Start incremental CSS Module migration with the ordinary Teaching course grid.
 - [x] Review generated desktop reference screenshots before approving a merge to `main`.
-- [ ] Run the responsive suite in GitHub Actions after the local baseline is approved.
+- [x] Add GitHub Actions coverage for the responsive suite on `main`, `mobile-first-dev`, and pull requests.
+- [ ] Confirm the first remote Responsive browser QA workflow run succeeds.
 
 ## Ongoing architecture
 
@@ -34,11 +35,11 @@ The stable pre-migration fallback is `main`; active migration work lives on `mob
 ## Design and accessibility
 
 - [ ] Verify all ordinary controls meet the 44px internal target and WCAG 2.2 minimum sizing.
-- [ ] Verify focus is visible and not obscured by the sticky mobile header.
+- [x] Verify keyboard reachability and that focus is visible and not obscured by the sticky mobile header.
 - [ ] Verify semantic source order matches reading and keyboard order before desktop repositioning.
 - [ ] Ensure every hover-revealed detail also has a tap, click, or keyboard path.
-- [ ] Test browser zoom at 200% and reflow at a 320px equivalent viewport.
-- [ ] Test portrait and landscape orientations.
+- [x] Test browser zoom at 200% and reflow at a 320px equivalent viewport.
+- [x] Test portrait and landscape orientations.
 - [ ] Test the site with reduced motion, keyboard-only navigation, and screen-reader landmarks.
 - [ ] Provide list-based alternatives for dense map and visualization controls where practical.
 
