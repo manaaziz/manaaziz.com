@@ -79,7 +79,7 @@ export default function TeachingPage() {
               </div>
               <h3>{course.cardTitle || course.courseName}</h3>
               <p>{course.summary}</p>
-              <strong>Open course home</strong>
+              <span className="button button-small">Open course home</span>
             </Link>
           ))}
         </div>

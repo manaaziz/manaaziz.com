@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
 
 const defaultWorkMix = [
@@ -78,9 +77,14 @@ export default function WorkMixChart({ id, items = defaultWorkMix }) {
         <span>{item.label}</span>
         <h3>{item.title}</h3>
         <p>{item.body}</p>
-        <Link className="button" href={item.href}>
+        <a
+          className="button"
+          href={item.href}
+          onClick={(event) => event.stopPropagation()}
+          onPointerDown={(event) => event.stopPropagation()}
+        >
           Explore {item.label}
-        </Link>
+        </a>
       </article>
     );
   }

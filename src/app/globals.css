@@ -297,6 +297,13 @@ main {
   color: #171717;
 }
 
+.newspaper-masthead.manalogue-masthead h1,
+.manalogue-editorial-latest > h2,
+.manalogue-editorial-section-heading h2,
+.manalogue-topic-heading h2 {
+  font-family: inherit;
+}
+
 .manalogue-editorial a {
   color: inherit;
   text-decoration: none;
@@ -531,7 +538,6 @@ main {
   margin: -0.15rem 0 0.8rem;
   padding-bottom: 0.6rem;
   border-bottom: 2px solid #171717;
-  font-family: var(--font-sans), Arial, sans-serif;
   font-size: var(--compact-heading-size);
   font-weight: 900;
   letter-spacing: -0.025em;
@@ -589,7 +595,6 @@ main {
 
 .manalogue-editorial-section-heading h2 {
   margin: 0;
-  font-family: var(--font-sans), Arial, sans-serif;
   font-size: var(--compact-heading-size);
   font-weight: 900;
   letter-spacing: -0.025em;
@@ -950,6 +955,247 @@ main {
   }
 }
 
+/* Mobile-first migration: shared foundations and Home.
+   Keep complex carousel, honeycomb, and map animation rules in their existing layers. */
+.section-slider {
+  grid-template-columns: repeat(var(--section-count), minmax(7rem, 1fr));
+  overflow-x: auto;
+  border-radius: 1.1rem;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.section-slider::-webkit-scrollbar {
+  display: none;
+}
+
+.section-slider::before {
+  width: 7rem;
+  transform: translateX(calc(var(--active-index) * 7rem));
+}
+
+.card-grid,
+.home-work-grid {
+  grid-template-columns: 1fr;
+}
+
+.section-intro {
+  margin-top: 3rem;
+}
+
+.hero-home {
+  width: 100%;
+  max-width: 100%;
+  min-height: auto;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto auto;
+  gap: 1rem;
+  overflow-x: hidden;
+  padding: 1rem 0 0;
+}
+
+.hero-home > * {
+  min-width: 0;
+}
+
+.hero-copy {
+  grid-column: 1;
+  grid-row: 2;
+  max-width: 100%;
+  overflow: hidden;
+  padding: 0.35rem 0 0;
+}
+
+.hero-greeting {
+  max-width: 100%;
+  font-size: clamp(3.15rem, 17vw, 4.35rem);
+}
+
+.localized-greeting {
+  max-width: 100%;
+}
+
+.hero-signature {
+  font-size: 1rem;
+}
+
+.hero-copy .lede {
+  width: 100%;
+  max-width: 100%;
+  font-size: 1rem;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
+.portrait-panel {
+  grid-column: 1;
+  grid-row: 1;
+  width: 100%;
+  max-width: 100%;
+  height: clamp(20rem, 76vw, 25rem);
+}
+
+.home-portrait {
+  width: min(90%, 27rem);
+  height: 100%;
+  object-fit: contain;
+  object-position: center top;
+}
+
+.scroll-cue {
+  display: none;
+  grid-column: 1;
+  grid-row: 3;
+}
+
+.hero-home .button-row {
+  width: 100%;
+  max-width: 100%;
+  flex-wrap: nowrap;
+  gap: 0.5rem;
+}
+
+.hero-home .button-row .button {
+  min-width: 0;
+  min-height: 2.6rem;
+  flex: 0 1 auto;
+  padding: 0.65rem 0.68rem;
+  font-size: 0.82rem;
+}
+
+.home-stream,
+.global-map-shell {
+  grid-template-columns: 1fr;
+}
+
+.home-stream {
+  margin-top: 2.75rem;
+}
+
+@media (min-width: 601px) {
+  .card-grid,
+  .home-work-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .section-intro {
+    margin-top: 4rem;
+  }
+}
+
+@media (min-width: 721px) {
+  .section-slider {
+    grid-template-columns: repeat(var(--section-count), minmax(0, 1fr));
+    overflow: hidden;
+    border-radius: 999px;
+  }
+
+  .section-slider::before {
+    width: calc((100% - (2 * var(--slider-inset))) / var(--section-count));
+    transform: translateX(calc(var(--active-index) * 100%));
+  }
+}
+
+@media (min-width: 761px) {
+  .hero-home {
+    min-height: clamp(520px, 70vh, 680px);
+    grid-template-columns: minmax(0, 0.92fr) minmax(300px, 1.08fr);
+    grid-template-rows: 1fr auto;
+    gap: clamp(1rem, 3.5vw, 2.5rem);
+    padding-top: clamp(1.25rem, 3vw, 2.5rem);
+  }
+
+  .hero-copy {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    align-self: center;
+    justify-content: center;
+    max-width: 44rem;
+    padding: clamp(1rem, 3vw, 2rem) 0;
+  }
+
+  .hero-greeting {
+    max-width: none;
+    font-size: clamp(5.8rem, 15vw, 15.8rem);
+  }
+
+  .localized-greeting {
+    max-width: min(100%, 78vw);
+  }
+
+  .hero-signature {
+    font-size: clamp(1rem, 1.8vw, 1.35rem);
+  }
+
+  .hero-copy .lede {
+    font-size: 1.14rem;
+  }
+
+  .portrait-panel {
+    grid-column: 2 / 3;
+    grid-row: 1 / 3;
+    align-self: center;
+    height: clamp(30rem, 54vw, 38rem);
+  }
+
+  .home-portrait {
+    width: 100%;
+    object-position: center bottom;
+  }
+
+  .scroll-cue {
+    display: inline-flex;
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    margin-top: 0;
+  }
+
+  .hero-home .button-row {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .hero-home .button-row .button {
+    min-height: 2.75rem;
+    padding: 0.65rem 1rem;
+    font-size: inherit;
+  }
+}
+
+@media (min-width: 921px) {
+  .card-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .home-work-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .global-map-shell {
+    grid-template-columns: minmax(0, 1.38fr) minmax(19rem, 0.66fr);
+  }
+}
+
+@media (min-width: 1181px) {
+  .hero-home {
+    min-height: clamp(620px, 78vh, 820px);
+    grid-template-columns: minmax(0, 0.92fr) minmax(360px, 1.08fr);
+    gap: clamp(1.5rem, 5vw, 4rem);
+    padding: clamp(2rem, 5vw, 4rem) 0 0;
+  }
+
+  .hero-copy {
+    align-self: end;
+    justify-content: end;
+    padding: 0 0 clamp(3rem, 8vh, 7rem);
+  }
+
+  .portrait-panel {
+    align-self: end;
+    height: min(720px, 100%);
+  }
+}
+
 .nav-links,
 .footer-links,
 .button-row {
@@ -1194,12 +1440,7 @@ main {
 .hero-home {
   position: relative;
   display: grid;
-  min-height: clamp(620px, 78vh, 820px);
   overflow: hidden;
-  grid-template-columns: minmax(0, 0.92fr) minmax(360px, 1.08fr);
-  grid-template-rows: 1fr auto;
-  gap: clamp(1.5rem, 5vw, 4rem);
-  padding: clamp(2rem, 5vw, 4rem) 0 0;
   background: transparent;
 }
 
@@ -1223,12 +1464,6 @@ main {
   z-index: 2;
   display: flex;
   flex-direction: column;
-  justify-content: end;
-  grid-column: 1 / 2;
-  grid-row: 1 / 2;
-  align-self: end;
-  max-width: 44rem;
-  padding: 0 0 clamp(3rem, 8vh, 7rem);
   border: 0;
   border-radius: 0;
   background: transparent;
@@ -1236,9 +1471,7 @@ main {
 }
 
 .hero-greeting {
-  max-width: none;
   margin: 0;
-  font-size: clamp(5.8rem, 15vw, 15.8rem);
   font-weight: 300;
   letter-spacing: 0;
   line-height: 0.82;
@@ -1248,14 +1481,12 @@ main {
 .localized-greeting {
   display: block;
   font-size: calc(1em * var(--greeting-scale, 1));
-  max-width: min(100%, 78vw);
   white-space: nowrap;
 }
 
 .hero-signature {
   margin: 1rem 0 0;
   color: var(--ink);
-  font-size: clamp(1rem, 1.8vw, 1.35rem);
 }
 
 .eyebrow {
@@ -1495,11 +1726,7 @@ h3 {
   display: flex;
   align-items: end;
   justify-content: center;
-  grid-column: 2 / 3;
-  grid-row: 1 / 3;
-  align-self: end;
   min-height: 0;
-  height: min(720px, 100%);
   margin: 0;
   border: 0;
   border-radius: 0;
@@ -1509,11 +1736,7 @@ h3 {
 
 .home-portrait {
   display: block;
-  width: min(100%, 48rem);
   max-width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center bottom;
   filter: drop-shadow(0 1.4rem 2.4rem rgba(23, 23, 23, 0.16));
 }
 
@@ -1539,8 +1762,6 @@ h3 {
   position: relative;
   z-index: 2;
   display: inline-flex;
-  grid-column: 1 / 2;
-  grid-row: 2 / 3;
   gap: 0.35rem;
   align-self: end;
   width: fit-content;
@@ -1552,7 +1773,9 @@ h3 {
 .section-intro {
   width: 100%;
   max-width: none;
-  margin: 4rem auto 1.5rem 0;
+  margin-right: auto;
+  margin-bottom: 1.5rem;
+  margin-left: 0;
 }
 
 .section-intro h2 {
@@ -1565,7 +1788,6 @@ h3 {
 .card-grid {
   display: grid;
   align-items: start;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1rem;
 }
 
@@ -1632,10 +1854,6 @@ h3 {
 .home-about .button,
 .home-stream .button {
   margin-top: 1.25rem;
-}
-
-.home-work-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .home-work-grid .feature-card {
@@ -2602,30 +2820,16 @@ h3 {
 }
 
 .paper-tile-actions a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  color: var(--ink);
+  min-height: 1.55rem;
   font-size: 0.56rem;
-  font-weight: 900;
   line-height: 1;
   padding: 0.24rem 0.42rem;
-  text-decoration: none;
   text-transform: uppercase;
-  transition:
-    background 160ms ease,
-    border-color 160ms ease,
-    transform 160ms var(--ease-out-back);
 }
 
 .paper-tile-actions a:hover,
 .paper-tile-actions a:focus-visible {
-  border-color: var(--line-strong);
-  background: var(--panel);
-  outline: none;
-  transform: translateY(-2px);
+  transform: translateY(-5px);
 }
 
 .paper-focus-actions .paper-focus-button {
@@ -2897,6 +3101,7 @@ h3 {
   box-shadow: inset 0 0 0 1rem rgba(255, 250, 241, 0.28);
   text-align: center;
   backdrop-filter: blur(7px);
+  pointer-events: none;
 }
 
 .work-pie-center strong {
@@ -3579,6 +3784,10 @@ h3 {
   white-space: nowrap;
 }
 
+.review-spin-button::before {
+  transform: translateY(5px);
+}
+
 .review-spin-button:disabled {
   cursor: wait;
   opacity: 0.72;
@@ -3590,9 +3799,7 @@ h3 {
 }
 
 .student-review-controls > button:not(.review-spin-button):hover,
-.student-review-controls > button:not(.review-spin-button):focus-visible,
-.review-spin-button:hover,
-.review-spin-button:focus-visible {
+.student-review-controls > button:not(.review-spin-button):focus-visible {
   background: var(--ink);
   color: var(--cream);
   box-shadow: 0 0.35rem 0 #000;
@@ -3740,32 +3947,10 @@ h3 {
   transform: translateY(-3px);
 }
 
-.course-card strong {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+.course-card > .button {
   align-self: end;
   justify-self: start;
   margin-top: 1.5rem;
-  border: 1px solid var(--line-strong);
-  border-radius: 999px;
-  background: var(--ink);
-  color: var(--cream);
-  font-size: 0.88rem;
-  font-weight: 900;
-  padding: 0.55rem 0.8rem;
-  text-decoration: none;
-  transition:
-    box-shadow 160ms ease,
-    transform 160ms var(--ease-out-back);
-  user-select: none;
-  -webkit-user-select: none;
-}
-
-.course-card:hover strong,
-.course-card:focus-visible strong {
-  box-shadow: 0 0.32rem 0 #000;
-  transform: translateY(-2px);
 }
 
 .course-detail-hero {
@@ -6131,7 +6316,6 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
 
 .global-map-shell {
   display: grid;
-  grid-template-columns: minmax(0, 1.38fr) minmax(19rem, 0.66fr);
   gap: clamp(0.9rem, 1.8vw, 1.25rem);
   align-items: stretch;
   margin-top: 1.5rem;

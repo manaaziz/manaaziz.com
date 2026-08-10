@@ -409,12 +409,12 @@ export default function PaperMosaic({ papers }) {
               </div>
               <div className="paper-tile-actions" onClick={stopTileOpen}>
                 {paper.doi ? (
-                  <a href={`https://doi.org/${paper.doi}`} target="_blank" rel="noreferrer">
+                  <a className="button button-small" href={`https://doi.org/${paper.doi}`} target="_blank" rel="noreferrer">
                     DOI
                   </a>
                 ) : null}
                 {paper.pdfHref ? (
-                  <a href={paper.pdfHref} target="_blank" rel="noreferrer">
+                  <a className="button button-small" href={paper.pdfHref} target="_blank" rel="noreferrer">
                     PDF
                   </a>
                 ) : null}

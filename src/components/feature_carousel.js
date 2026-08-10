@@ -264,7 +264,7 @@ export default function FeatureCarousel({
             <img className="casino-chip-face" src="/assets/images/black_casino_chip.png" alt="" aria-hidden="true" loading="lazy" decoding="async" />
             <span aria-hidden="true">→</span>
           </button>
-          <button className="review-spin-button" disabled={isSpinning} onClick={spinReel} type="button">
+          <button className="button review-spin-button" disabled={isSpinning} onClick={spinReel} type="button">
             {isSpinning ? "Spinning" : "Spin"}
           </button>
         </div>
