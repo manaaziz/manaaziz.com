@@ -1,4 +1,5 @@
 import "./globals.css";
+import "./phase-two-mobile-first.css";
 import Link from "next/link";
 import MobileSiteNav from "@/components/mobile_site_nav";
 import SiteLogo from "@/components/site_logo";

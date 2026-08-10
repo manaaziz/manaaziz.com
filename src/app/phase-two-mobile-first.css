@@ -1,0 +1,353 @@
+/*
+ * Phase two mobile-first migration.
+ *
+ * This file intentionally loads after globals.css. Small screens are the
+ * baseline; min-width queries rebuild the established tablet and desktop
+ * compositions. Animation geometry remains in globals.css for a later phase.
+ */
+
+/* Shared site chrome */
+.site-header {
+  position: sticky;
+  z-index: 80;
+  top: 0;
+  display: grid;
+  align-items: center;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.55rem 0.65rem;
+  padding: 0.65rem 0;
+  background: rgba(244, 243, 240, 0.88);
+  backdrop-filter: blur(16px);
+}
+
+.mobile-site-controls {
+  display: contents;
+}
+
+.mobile-site-actions {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.mobile-site-panel {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  margin-top: 0.35rem;
+}
+
+.nav-links {
+  display: none;
+}
+
+.footer-main {
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+}
+
+.footer-links-panel {
+  justify-self: stretch;
+  width: 100%;
+}
+
+.footer-bottom {
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.footer-socials {
+  justify-content: flex-start;
+}
+
+/* Manalogue */
+.manalogue-editorial-front {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.manalogue-editorial-lead {
+  order: 1;
+}
+
+.manalogue-editorial-latest {
+  order: 2;
+  width: 100%;
+  margin: 0;
+}
+
+.manalogue-editorial-supporting {
+  order: 3;
+  width: 100%;
+}
+
+.manalogue-editorial-latest > div {
+  display: block;
+}
+
+.manalogue-editorial-grid,
+.manalogue-must-read-grid,
+.manalogue-subject-grid,
+.manalogue-subject-page.is-podcasts .manalogue-subject-grid {
+  grid-template-columns: 1fr;
+}
+
+.manalogue-editorial-grid,
+.manalogue-must-read-grid {
+  gap: 0;
+}
+
+.manalogue-editorial-grid .manalogue-editorial-card {
+  grid-template-columns: 40% minmax(0, 1fr);
+  gap: 1rem;
+  padding: 1.15rem 0;
+  border-bottom: 1px solid #bdb7ad;
+}
+
+.manalogue-editorial-grid .manalogue-editorial-image {
+  margin: 0;
+}
+
+.manalogue-subject-grid {
+  gap: 2.5rem;
+}
+
+.manalogue-subject-grid .is-subject-lead {
+  grid-column: auto;
+}
+
+.manalogue-gallery-wall {
+  columns: 2 9rem;
+}
+
+/* Teaching and course content */
+.teaching-values,
+.course-card-grid,
+.course-detail-grid,
+.course-material-list,
+.course-material-hub-grid,
+.course-resource-page-grid,
+.course-guide-layout,
+.course-outcome-grid,
+.syllabus-grid {
+  grid-template-columns: 1fr;
+}
+
+.course-card {
+  min-height: 0;
+}
+
+.course-card h3 {
+  height: auto;
+}
+
+.course-github-callout {
+  grid-template-columns: 1fr;
+}
+
+.course-syllabus-preview {
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+/* Consulting: ordinary content only. Logo physics are intentionally untouched. */
+.consulting-role-grid,
+.consulting-area-grid,
+.consulting-example-grid {
+  grid-template-columns: 1fr;
+}
+
+/* Research: ordinary presentation content only. */
+.presentation-gallery,
+.research-presentation-gallery {
+  grid-template-columns: 1fr;
+}
+
+.presentation-photo-card.presentation-tile-wide,
+.presentation-photo-card.presentation-tile-tall {
+  grid-column: auto;
+  grid-row: auto;
+}
+
+@media (min-width: 601px) {
+  .teaching-values,
+  .course-card-grid,
+  .course-material-list,
+  .course-resource-page-grid,
+  .course-guide-layout,
+  .course-outcome-grid,
+  .syllabus-grid,
+  .consulting-area-grid,
+  .consulting-example-grid,
+  .presentation-gallery,
+  .research-presentation-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .course-material-hub-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .course-card {
+    min-height: 20rem;
+  }
+
+  .manalogue-gallery-wall {
+    columns: 3 12rem;
+  }
+}
+
+@media (min-width: 721px) {
+  .manalogue-editorial-front {
+    display: grid;
+    grid-template-columns: minmax(13rem, 0.72fr) minmax(25rem, 1.45fr);
+    gap: clamp(1.2rem, 2.2vw, 2.5rem);
+    align-items: start;
+  }
+
+  .manalogue-editorial-lead,
+  .manalogue-editorial-latest,
+  .manalogue-editorial-supporting {
+    order: initial;
+    width: auto;
+  }
+
+  .manalogue-editorial-latest {
+    grid-column: 1 / -1;
+    margin-top: 1.5rem;
+  }
+
+  .manalogue-editorial-latest > div {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 2rem;
+  }
+
+  .manalogue-editorial-grid,
+  .manalogue-subject-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .manalogue-editorial-grid {
+    gap: clamp(1rem, 2.2vw, 2.4rem);
+  }
+
+  .manalogue-editorial-grid .manalogue-editorial-card {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 0;
+    border-bottom: 0;
+  }
+
+  .manalogue-editorial-grid .manalogue-editorial-image {
+    margin: 0 0 0.9rem;
+  }
+
+  .manalogue-must-read-grid,
+  .manalogue-subject-page.is-podcasts .manalogue-subject-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .manalogue-must-read-grid {
+    gap: clamp(1.25rem, 2.5vw, 2.75rem);
+  }
+
+  .manalogue-subject-grid .is-subject-lead {
+    grid-column: span 2;
+  }
+
+  .course-detail-grid,
+  .course-github-callout,
+  .consulting-role-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .course-syllabus-preview {
+    align-items: center;
+    flex-direction: row;
+  }
+}
+
+@media (min-width: 921px) {
+  .site-header {
+    position: static;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.35rem 0 0.5rem;
+    background: transparent;
+    backdrop-filter: none;
+  }
+
+  .mobile-site-controls {
+    display: none;
+  }
+
+  .nav-links {
+    display: flex;
+  }
+
+  .footer-main {
+    grid-template-columns: minmax(18rem, 0.95fr) minmax(24rem, 1fr);
+    gap: clamp(3rem, 9vw, 8rem);
+  }
+
+  .footer-links-panel {
+    justify-self: end;
+    width: min(100%, 31rem);
+  }
+
+  .footer-bottom {
+    align-items: center;
+    flex-direction: row;
+  }
+
+  .footer-socials {
+    justify-content: flex-end;
+  }
+
+  .teaching-values,
+  .consulting-area-grid,
+  .consulting-example-grid,
+  .course-material-list,
+  .syllabus-grid,
+  .research-presentation-gallery {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .course-card-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .course-outcome-grid {
+    grid-template-columns: repeat(var(--objective-columns, 4), minmax(0, 1fr));
+  }
+
+  .manalogue-gallery-wall {
+    columns: 4 15rem;
+  }
+}
+
+@media (min-width: 1101px) {
+  .manalogue-editorial-front {
+    grid-template-columns: minmax(13rem, 0.72fr) minmax(28rem, 1.65fr) minmax(15rem, 0.8fr);
+  }
+
+  .manalogue-editorial-latest {
+    grid-column: auto;
+    margin-top: 0;
+  }
+
+  .manalogue-editorial-latest > div {
+    display: block;
+  }
+
+  .manalogue-editorial-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .manalogue-subject-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
