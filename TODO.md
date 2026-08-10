@@ -19,7 +19,7 @@ The stable pre-migration fallback is `main`; active migration work lives on `mob
 - [x] Start incremental CSS Module migration with the ordinary Teaching course grid.
 - [x] Review generated desktop reference screenshots before approving a merge to `main`.
 - [x] Add GitHub Actions coverage for the responsive suite on `main`, `mobile-first-dev`, and pull requests.
-- [ ] Confirm the first remote Responsive browser QA workflow run succeeds.
+- [x] Confirm the Responsive browser QA workflow succeeds on GitHub Actions.
 
 ## Ongoing architecture
 
