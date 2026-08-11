@@ -44,8 +44,14 @@ jobs:
       - name: Optimize deploy image assets
         run: npm run optimize:assets:write
 
+      - name: Generate responsive image variants
+        run: npm run generate:responsive-images
+
       - name: Build static site
         run: npm run build
+
+      - name: Validate exported routes and files
+        run: npm run validate:export
 
       - name: Remove local metadata from export
         run: find out -name ".DS_Store" -delete

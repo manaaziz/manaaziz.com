@@ -1,0 +1,46 @@
+name: Build and content quality
+
+on:
+  pull_request:
+    branches: ["main"]
+  push:
+    branches: ["main", "mobile-first-dev"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quality-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  static-export:
+    name: Validate production export
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN: ${{ vars.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || secrets.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Validate source and assets
+        run: |
+          npm run lint
+          npm run audit:assets
+
+      - name: Build production-equivalent export
+        run: |
+          npm run generate:responsive-images
+          npm run build
+
+      - name: Validate exported routes and files
+        run: npm run validate:export

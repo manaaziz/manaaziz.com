@@ -86,3 +86,37 @@ test("pages reflow at the 320px CSS-width equivalent of 200% zoom", async ({ pag
     expect(audit.mainRight, route).toBeLessThanOrEqual(321);
   }
 });
+
+test("ordinary mobile controls meet the internal touch-target standard", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  const routes = ["/", "/consulting", "/teaching", "/manalogue", "/teaching/hoa-730-statistical-analysis/materials/lectures"];
+
+  for (const route of routes) {
+    await page.goto(route, { waitUntil: "domcontentloaded" });
+    const undersized = await page.locator(".button, .mobile-icon-button, .mobile-menu-panel a, .mobile-search-result").evaluateAll((elements) =>
+      elements
+        .filter((element) => {
+          const rect = element.getBoundingClientRect();
+          const style = getComputedStyle(element);
+          return style.display !== "none" && style.visibility !== "hidden" && rect.width > 0 && rect.height > 0 && (rect.width < 44 || rect.height < 44);
+        })
+        .map((element) => ({
+          label: element.textContent?.trim() || element.getAttribute("aria-label"),
+          width: element.getBoundingClientRect().width,
+          height: element.getBoundingClientRect().height
+        }))
+    );
+    expect(undersized, route).toEqual([]);
+  }
+});
+
+test("mobile anchor navigation clears the sticky header", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/#selected-areas", { waitUntil: "domcontentloaded" });
+
+  const geometry = await page.evaluate(() => ({
+    headerBottom: document.querySelector(".site-header").getBoundingClientRect().bottom,
+    targetTop: document.querySelector("#selected-areas").getBoundingClientRect().top
+  }));
+  expect(geometry.targetTop).toBeGreaterThanOrEqual(geometry.headerBottom - 1);
+});

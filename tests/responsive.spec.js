@@ -95,6 +95,10 @@ test("Work Mix keyboard selection exposes the correct destination", async ({ pag
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/", { waitUntil: "domcontentloaded" });
   const researchSlice = page.locator(".work-pie-slice.research");
+  await page.waitForFunction(() => {
+    const slice = document.querySelector(".work-pie-slice.research");
+    return slice && Object.keys(slice).some((key) => key.startsWith("__reactProps"));
+  });
   await researchSlice.focus();
   await researchSlice.press("Enter");
 
@@ -109,4 +113,15 @@ test("lazy presentation images load when scrolled into view", async ({ page }) =
   const finalImage = page.locator(".presentation-photo-card img").last();
   await finalImage.scrollIntoViewIfNeeded();
   await expect.poll(() => finalImage.evaluate((image) => image.complete && image.naturalWidth > 0)).toBe(true);
+});
+
+test("home map initializes only as its section approaches the viewport", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 700 });
+  await page.goto("/", { waitUntil: "domcontentloaded" });
+
+  const placeholder = page.locator(".global-experience-loading");
+  await expect(placeholder).toBeAttached();
+  await placeholder.scrollIntoViewIfNeeded();
+  await expect(page.locator(".global-experience:not(.global-experience-loading)")).toBeVisible();
+  await expect(page.locator(".world-map").first()).toBeAttached();
 });
