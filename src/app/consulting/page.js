@@ -1,4 +1,5 @@
 import FeatureCarousel from "@/components/feature_carousel";
+import styles from "./consulting.module.css";
 import { getAllPosts, getSeriesSummaries } from "@/lib/posts";
 import LogoBounceField from "./logo_bounce_field";
 
@@ -128,15 +129,15 @@ export default function ConsultingPage() {
         </p>
       </section>
 
-      <section className="consulting-role-section" aria-labelledby="consulting-roles-title">
+      <section className={styles.section} aria-labelledby="consulting-roles-title">
         <div className="section-intro">
           <p className="eyebrow">Roles</p>
           <h2 id="consulting-roles-title">Where I build casino AI and analytics systems</h2>
         </div>
 
-        <div className="consulting-role-grid">
+        <div className={`${styles.grid} ${styles.roleGrid}`}>
           {companyRoles.map((role) => (
-            <article className="consulting-role-card" key={role.company}>
+            <article className={styles.roleCard} key={role.company}>
               <h3>{role.company}</h3>
               <p>{role.body}</p>
               <ul>
@@ -161,15 +162,15 @@ export default function ConsultingPage() {
         <LogoBounceField clients={clients} />
       </section>
 
-      <section className="consulting-area-section" aria-labelledby="consulting-areas-title">
+      <section className={styles.section} aria-labelledby="consulting-areas-title">
         <div className="section-intro">
           <p className="eyebrow">Areas</p>
           <h2 id="consulting-areas-title">I have experience in various facets of the business</h2>
         </div>
 
-        <div className="consulting-area-grid">
+        <div className={`${styles.grid} ${styles.areaGrid}`}>
           {consultingAreas.map((area) => (
-            <article className="consulting-area-card" key={area.label}>
+            <article className={styles.areaCard} key={area.label}>
               <span>{area.label}</span>
               <h3>{area.title}</h3>
               <p>{area.body}</p>

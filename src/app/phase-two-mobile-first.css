@@ -25,6 +25,14 @@
   --breakpoint-desktop: 57.5rem;
 }
 
+html {
+  scroll-padding-top: 5.5rem;
+}
+
+main :where(section[id], [id]:not(input)) {
+  scroll-margin-top: 5.5rem;
+}
+
 .button,
 .hero-home .button-row .button,
 .mobile-icon-button,
@@ -69,7 +77,30 @@
 .mobile-site-panel {
   grid-column: 1 / -1;
   grid-row: 2;
+  max-height: calc(100dvh - 5.5rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
   margin-top: 0.35rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mobile-menu-panel a,
+.mobile-search-result {
+  min-height: var(--target-min);
+}
+
+.mobile-icon-button,
+.mobile-menu-panel a,
+.mobile-search-result,
+.section-slider a,
+.button {
+  touch-action: manipulation;
+}
+
+/* Safe long-list optimization: static cards only, never geometry-driven interactives. */
+.series-post-list .post-list-item {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 22rem;
 }
 
 .nav-links {
@@ -304,6 +335,14 @@
 }
 
 @media (min-width: 921px) {
+  html {
+    scroll-padding-top: 1.5rem;
+  }
+
+  main :where(section[id], [id]:not(input)) {
+    scroll-margin-top: 1.5rem;
+  }
+
   .site-header {
     position: static;
     display: flex;

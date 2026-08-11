@@ -1,16 +1,17 @@
 import Image from "next/image";
+import styles from "./gallery_section.module.css";
 
 export function GallerySection({ body, images, title }) {
   return (
-    <article className="standard-gallery-section gallery-section">
+    <article className={styles.section}>
       <div className="standard-gallery-copy">
         <span>{title}</span>
         <h2>{title}</h2>
         <p>{body}</p>
       </div>
-      <div className={`standard-gallery-strip gallery-strip${images.length === 1 ? " single" : ""}`}>
+      <div className={`${styles.strip}${images.length === 1 ? ` ${styles.single}` : ""}`}>
         {images.map((image) => (
-          <span className="gallery-image-frame" key={image.src || image}>
+          <span className={styles.frame} key={image.src || image}>
             <Image
               src={image.src || image}
               alt={image.alt || ""}
@@ -26,7 +27,7 @@ export function GallerySection({ body, images, title }) {
 
 export default function GalleryStack({ galleries }) {
   return (
-    <section className="standard-gallery-stack gallery-stack">
+    <section className={styles.stack} aria-label="Photo galleries">
       {galleries.map((gallery) => (
         <GallerySection
           body={gallery.body}

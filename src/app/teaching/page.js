@@ -53,12 +53,13 @@ export default function TeachingPage() {
         </p>
       </section>
 
-      <section className="teaching-values" aria-label="Teaching philosophy and style">
+      <section className={styles.values} aria-labelledby="teaching-values-title">
+        <h2 className="sr-only" id="teaching-values-title">Teaching philosophy and style</h2>
         {teachingValues.map((item) => (
-          <article key={item.label}>
-            <span>{item.label}</span>
-            <h2>{item.title}</h2>
-            <p>{item.body}</p>
+          <article className={styles.valueCard} key={item.label}>
+            <span className={styles.valueLabel}>{item.label}</span>
+            <h3 className={styles.valueTitle}>{item.title}</h3>
+            <p className={styles.valueBody}>{item.body}</p>
           </article>
         ))}
       </section>
@@ -73,14 +74,14 @@ export default function TeachingPage() {
 
         <div className={styles.courseGrid}>
           {sortedCourses.map((course) => (
-            <Link className="course-card" href={`/teaching/${course.slug}`} key={course.slug}>
-              <div className="course-card-meta">
-                <span>{course.courseNumber}</span>
-                <span>{course.university}</span>
+            <Link className={styles.courseCard} href={`/teaching/${course.slug}`} key={course.slug}>
+              <div className={styles.courseMeta}>
+                <span className={styles.courseTag}>{course.courseNumber}</span>
+                <span className={styles.courseTag}>{course.university}</span>
               </div>
-              <h3>{course.cardTitle || course.courseName}</h3>
-              <p>{course.summary}</p>
-              <span className="button button-small">Open course home</span>
+              <h3 className={styles.courseTitle}>{course.cardTitle || course.courseName}</h3>
+              <p className={styles.courseSummary}>{course.summary}</p>
+              <span className={`button button-small ${styles.courseAction}`}>Open course home</span>
             </Link>
           ))}
         </div>

@@ -1,0 +1,163 @@
+.section {
+  margin-top: clamp(3rem, 7vw, 5rem);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.roleCard,
+.areaCard {
+  container-type: inline-size;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-raised);
+  box-shadow: var(--shadow);
+}
+
+.roleCard {
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  gap: clamp(0.8rem, 1.8vw, 1.1rem);
+  align-content: stretch;
+  padding: clamp(1.25rem, 2.6vw, 1.75rem);
+  background: radial-gradient(circle at 9% 18%, rgba(47, 111, 100, 0.09), transparent 27%), var(--surface-raised);
+}
+
+.roleCard h3,
+.areaCard h3 {
+  margin: 0;
+  font-size: clamp(1.35rem, 8cqi, 1.9rem);
+  line-height: 1.04;
+}
+
+.roleCard h3 {
+  max-width: 18ch;
+}
+
+.roleCard p,
+.roleCard li,
+.areaCard p,
+.areaCard ul {
+  color: var(--muted);
+  line-height: 1.48;
+}
+
+.roleCard p,
+.areaCard p {
+  margin: 0;
+}
+
+.roleCard ul,
+.areaCard ul {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.roleCard li::marker,
+.areaCard li::marker {
+  color: var(--green);
+}
+
+.roleCard a {
+  min-height: 44px;
+  justify-self: start;
+  align-self: end;
+  display: inline-flex;
+  align-items: center;
+  margin-top: 0.1rem;
+  padding: 0.55rem 0.82rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--cream);
+  font-size: 0.82rem;
+  font-weight: 900;
+  text-decoration: none;
+  transition: box-shadow 160ms ease, transform 160ms var(--ease-out-back);
+}
+
+.roleCard a:focus-visible {
+  box-shadow: 0 0.32rem 0 #000;
+  outline: 3px solid rgba(47, 111, 100, 0.35);
+  transform: translateY(-2px);
+}
+
+.areaCard {
+  display: grid;
+  gap: 0.85rem;
+  align-content: start;
+  padding: 1.25rem;
+  background: linear-gradient(145deg, rgba(47, 111, 100, 0.07), transparent 58%), var(--surface-raised);
+}
+
+.areaCard > span {
+  color: var(--green);
+  font-size: 0.62rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+@container (max-width: 20rem) {
+  .roleCard h3,
+  .areaCard h3 {
+    font-size: 1.35rem;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .roleCard a:hover {
+    box-shadow: 0 0.32rem 0 #000;
+    transform: translateY(-2px);
+  }
+}
+
+@media (min-width: 37.5rem) {
+  .roleGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .areaGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 57.5rem) {
+  .areaGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .roleCard h3 {
+    font-size: var(--compact-heading-size);
+    line-height: 1.02;
+  }
+
+  .roleCard p {
+    max-width: 35rem;
+    font-size: clamp(1rem, 1.35vw, 1.18rem);
+  }
+
+  .roleCard ul {
+    gap: 0.4rem;
+    padding-left: 1.05rem;
+  }
+
+  .roleCard a {
+    display: block;
+    min-height: 0;
+  }
+
+  .areaCard ul {
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+  }
+
+  .areaCard h3 {
+    font-size: clamp(1.35rem, 2vw, 1.9rem);
+  }
+}

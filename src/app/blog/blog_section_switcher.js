@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import SectionSlider from "@/components/section_slider";
 import { newsItems } from "../news/items";
 import { podcasts } from "../podcast/shows";
+import cardStyles from "./editorial_cards.module.css";
 
 const sections = [
   { id: "home", label: "Home Page" },
@@ -275,7 +276,7 @@ function ManalogueMobileFeed({ panels, activeIndex, onChange }) {
   const [lead, ...rest] = stories;
 
   return (
-    <div className="manalogue-mobile-feed" aria-label="Mobile Manalogue stories">
+    <section className="manalogue-mobile-feed" aria-label="Mobile Manalogue stories">
       <label className="manalogue-mobile-section-select">
         <span>Section</span>
         <select aria-label="Choose Manalogue section" value={activeIndex} onChange={(event) => onChange(Number(event.target.value))}>
@@ -292,7 +293,7 @@ function ManalogueMobileFeed({ panels, activeIndex, onChange }) {
           <ManalogueMobileStory key={`mobile-${panel.id}-${story.href || story.title}-${index}`} story={story} />
         ))}
       </div>
-    </div>
+    </section>
   );
 }
 
@@ -305,9 +306,9 @@ function EditorialStoryShell({ story, className, children }) {
 
 function EditorialStoryCard({ story, variant = "standard", eager = false }) {
   return (
-    <EditorialStoryShell story={story} className={`manalogue-editorial-card is-${variant}`}>
+    <EditorialStoryShell story={story} className={`manalogue-editorial-card is-${variant} ${cardStyles.card}`}>
       {story.image ? (
-        <figure className="manalogue-editorial-image">
+        <figure className={`manalogue-editorial-image ${cardStyles.image}`}>
           <img
             src={story.image}
             alt=""
@@ -319,9 +320,9 @@ function EditorialStoryCard({ story, variant = "standard", eager = false }) {
           />
         </figure>
       ) : null}
-      <div className="manalogue-editorial-copy">
+      <div className={`manalogue-editorial-copy ${cardStyles.copy}`}>
         <span
-          className="manalogue-story-topic"
+          className={`manalogue-story-topic ${cardStyles.topic}`}
           onClick={(event) => {
             event.preventDefault();
             event.stopPropagation();
@@ -329,9 +330,9 @@ function EditorialStoryCard({ story, variant = "standard", eager = false }) {
         >
           {story.topic}
         </span>
-        <h2>{story.title}</h2>
-        {variant !== "latest" && story.excerpt ? <p>{story.excerpt}</p> : null}
-        <strong>
+        <h2 className={cardStyles.title}>{story.title}</h2>
+        {variant !== "latest" && story.excerpt ? <p className={cardStyles.excerpt}>{story.excerpt}</p> : null}
+        <strong className={cardStyles.byline}>
           By Mana Azizsoltani
           {story.minutes ? (
             variant === "latest" ? <><br />{story.minutes} min read</> : ` · ${story.minutes} min read`

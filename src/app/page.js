@@ -1,6 +1,7 @@
 import Link from "next/link";
 import FeatureCarousel from "@/components/feature_carousel";
 import LocalizedHello from "@/components/localized_hello";
+import ResponsiveImage from "@/components/responsive_image";
 import { getRecentPosts, getSeriesSummaries } from "@/lib/posts";
 import HomeGlobalExperience from "./home_global_experience";
 import WorkMixChart from "./about/work_mix_chart";
@@ -71,15 +72,12 @@ export default function Home() {
         </div>
 
         <div className="portrait-panel" aria-label="Portrait of Mana Azizsoltani">
-          <img
+          <ResponsiveImage
             className="home-portrait"
             src="/assets/images/mana_home_portrait_bw_cutout.webp"
             alt="Mana Azizsoltani"
-            width="1254"
-            height="1250"
-            loading="eager"
-            decoding="async"
-            fetchPriority="high"
+            sizes="(max-width: 720px) 88vw, 42vw"
+            eager
           />
         </div>
 

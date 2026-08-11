@@ -1,0 +1,47 @@
+.stack {
+  container-type: inline-size;
+  display: grid;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.section {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.strip {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.6rem;
+  align-items: start;
+}
+
+.frame {
+  position: relative;
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  aspect-ratio: 1;
+  border-radius: 18px;
+}
+
+.frame img {
+  object-fit: cover;
+}
+
+.single .frame {
+  aspect-ratio: 16 / 10;
+}
+
+@container (min-width: 32rem) {
+  .section {
+    grid-template-columns: minmax(0, 0.45fr) minmax(0, 0.55fr);
+  }
+
+  .strip {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

@@ -3,16 +3,17 @@ import { notFound } from "next/navigation";
 import SectionSlider from "@/components/section_slider";
 import { courses, getCourse } from "../../../courses";
 import { getMaterialHub } from "../../../material_hubs";
+import styles from "./materials.module.css";
 
 function ResourceCard({ eyebrow, title, description, href, links }) {
   return (
-    <article className="course-resource-card">
-      <span>{eyebrow}</span>
-      <h2>{title}</h2>
-      {description ? <p>{description}</p> : null}
+    <article className={styles.resourceCard}>
+      <span className={styles.eyebrow}>{eyebrow}</span>
+      <h2 className={styles.title}>{title}</h2>
+      {description ? <p className={styles.description}>{description}</p> : null}
       {href ? <a className="button button-small" href={href}>Open resource</a> : null}
       {links?.length ? (
-        <div className="course-resource-links">
+        <div className={styles.resourceLinks}>
           {links.map((link) => <a className="button button-small" href={link.href} key={link.href}>{link.label}</a>)}
         </div>
       ) : null}
@@ -23,11 +24,13 @@ function ResourceCard({ eyebrow, title, description, href, links }) {
 function AssignmentsPage({ course }) {
   const assignments = course.materials.filter((material) => ["Assignment", "Assignments", "Project", "Activity"].includes(material.kind));
   return (
-    <div className="course-resource-page-grid">
+    <section className={styles.resourceSection} aria-label="Assignments and projects">
+      <div className={styles.resourceGrid}>
       {assignments.length ? assignments.map((material) => <ResourceCard eyebrow={material.kind} key={material.title} {...material} />) : (
-        <article className="course-resource-card"><span>Assignments</span><h2>Assignment library in progress</h2><p>Assignment instructions and supporting files will be organized here as they are prepared for publication.</p></article>
+        <article className={styles.resourceCard}><span className={styles.eyebrow}>Assignments</span><h2 className={styles.title}>Assignment library in progress</h2><p className={styles.description}>Assignment instructions and supporting files will be organized here as they are prepared for publication.</p></article>
       )}
-    </div>
+      </div>
+    </section>
   );
 }
 
@@ -38,14 +41,16 @@ function LecturesPage({ course }) {
     : [{ eyebrow: material.kind, ...material }]);
   return (
     <>
-      <div className="course-format-key" aria-label="Lecture material format key">
-        <span>Slides available now</span><span>Video and transcript slots are ready to add</span>
-      </div>
-      <div className="course-resource-page-grid">
+      <ul className={styles.formatKey} aria-label="Lecture material format key">
+        <li>Slides available now</li><li>Video and transcript slots are ready to add</li>
+      </ul>
+      <section className={styles.resourceSection} aria-label="Lectures and class sessions">
+        <div className={styles.resourceGrid}>
         {lectures.length ? lectures.map((lecture, index) => <ResourceCard key={`${lecture.title}-${index}`} {...lecture} />) : (
-          <article className="course-resource-card"><span>Lectures</span><h2>Lecture library in progress</h2><p>Videos, slide decks, and transcripts will be organized here by class session.</p></article>
+          <article className={styles.resourceCard}><span className={styles.eyebrow}>Lectures</span><h2 className={styles.title}>Lecture library in progress</h2><p className={styles.description}>Videos, slide decks, and transcripts will be organized here by class session.</p></article>
         )}
-      </div>
+        </div>
+      </section>
     </>
   );
 }
@@ -53,17 +58,17 @@ function LecturesPage({ course }) {
 function CodeDataPage({ course }) {
   const resources = course.materials.filter((material) => ["Code", "Data"].includes(material.kind));
   return (
-    <>
-      <article className="course-github-callout">
-        <div><span>GitHub</span><h2>Course repository</h2></div>
+    <section className={styles.githubSection} aria-label="Code, datasets, and course repository">
+      <aside className={styles.githubCallout} aria-label="Course GitHub repository">
+        <div><span className={styles.eyebrow}>GitHub</span><h2>Course repository</h2></div>
         <p>The course repository can be linked here once the {course.courseNumber} folder structure is ready on GitHub.</p>
-      </article>
-      <div className="course-resource-page-grid">
+      </aside>
+      <div className={styles.resourceGrid}>
         {resources.length ? resources.map((material) => <ResourceCard eyebrow={material.kind} key={material.title} {...material} />) : (
-          <article className="course-resource-card"><span>Code</span><h2>Code library in progress</h2><p>Course scripts and datasets will appear here once the repository is organized.</p></article>
+          <article className={styles.resourceCard}><span className={styles.eyebrow}>Code</span><h2 className={styles.title}>Code library in progress</h2><p className={styles.description}>Course scripts and datasets will appear here once the repository is organized.</p></article>
         )}
       </div>
-    </>
+    </section>
   );
 }
 
@@ -87,7 +92,9 @@ export default async function CourseMaterialSectionPage({ params }) {
 
   return (
     <main className="page-shell course-material-page">
-      <Link className="button course-back-button" href={`/teaching/${course.slug}`}>Back to {course.courseNumber}</Link>
+      <nav aria-label="Course breadcrumb">
+        <Link className="button course-back-button" href={`/teaching/${course.slug}`}>Back to {course.courseNumber}</Link>
+      </nav>
       <header className="course-material-page-heading">
         <p className="eyebrow">{course.courseNumber} materials</p>
         <h1>{activeSection.title}</h1>

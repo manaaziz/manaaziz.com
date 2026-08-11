@@ -1,7 +1,9 @@
 import Link from "next/link";
+import ResponsiveImage from "@/components/responsive_image";
 import { notFound } from "next/navigation";
 import { courses, getCourse } from "../courses";
 import { getMaterialHub } from "../material_hubs";
+import styles from "./course_page.module.css";
 import CourseAssessmentChart from "./course_assessment_chart";
 
 const materialKindOrder = {
@@ -318,7 +320,7 @@ export default async function CoursePage({ params }) {
           <div className="course-photo-grid">
             {photoSlots.map((photo) => (
               <figure className="course-photo-slot" key={photo.label}>
-                <img src={photo.src} alt={photo.alt || ""} loading="lazy" decoding="async" />
+                <ResponsiveImage src={photo.src} alt={photo.alt || ""} sizes="(max-width: 720px) 92vw, 31vw" />
                 <figcaption>
                   <span>{photo.label}</span>
                   <p>{photo.note}</p>
@@ -517,9 +519,9 @@ export default async function CoursePage({ params }) {
         </div>
 
         {materialHub ? (
-          <div className="course-material-hub-grid">
+          <div className={styles.materialHubGrid}>
             {materialHub.map((section) => (
-              <Link className="course-material-hub-card" href={`/teaching/${course.slug}/materials/${section.id}`} key={section.id}>
+              <Link className={styles.materialHubCard} href={`/teaching/${course.slug}/materials/${section.id}`} key={section.id}>
                 <span>{section.eyebrow}</span>
                 <h3>{section.title}</h3>
                 <p>{section.description}</p>

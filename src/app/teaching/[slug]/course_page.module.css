@@ -1,0 +1,84 @@
+.materialHubGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.materialHubCard {
+  container-type: inline-size;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  min-height: 12rem;
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-raised);
+  box-shadow: var(--shadow);
+  color: var(--ink);
+  text-decoration: none;
+  transition: border-color 180ms ease, transform 180ms var(--ease-out-back), box-shadow 180ms ease;
+}
+
+.materialHubCard > span:not(:global(.button)) {
+  color: var(--green);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.materialHubCard h3 {
+  margin: 0.5rem 0 0.65rem;
+  font-size: clamp(1.3rem, 8cqi, 1.8rem);
+  line-height: 1.08;
+}
+
+.materialHubCard p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.materialHubCard > :global(.button) {
+  width: max-content;
+  align-self: end;
+  margin-top: 1.4rem;
+}
+
+.materialHubCard:focus-visible {
+  border-color: var(--line-strong);
+  box-shadow: 0 0.45rem 0 rgba(0, 0, 0, 0.12);
+  outline: 3px solid rgba(47, 111, 100, 0.35);
+  transform: translateY(-3px);
+}
+
+@container (max-width: 20rem) {
+  .materialHubCard h3 {
+    font-size: 1.3rem;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .materialHubCard:hover {
+    border-color: var(--line-strong);
+    box-shadow: 0 0.45rem 0 rgba(0, 0, 0, 0.12);
+    transform: translateY(-3px);
+  }
+}
+
+@media (min-width: 37.5rem) {
+  .materialHubGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .materialHubCard {
+    min-height: 14rem;
+  }
+}
+
+@media (min-width: 57.5rem) {
+  .materialHubCard h3 {
+    font-size: clamp(1.3rem, 2vw, 1.8rem);
+  }
+}
