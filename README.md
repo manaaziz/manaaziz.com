@@ -21,10 +21,27 @@ npm run dev
 ## Build
 
 ```bash
+npm run generate:responsive-images
 npm run build
 ```
 
 The site is configured for static export through `next.config.mjs`.
+
+## Performance baseline
+
+After building the static export, run the repeatable mobile and desktop lab profile with:
+
+```bash
+npm run measure:performance -- --write
+```
+
+The command measures Home, Manalogue, Teaching, Research, and one course route under consistent
+mobile and desktop CPU/network profiles. It records navigation timing, FCP, LCP, CLS, a repeatable
+interaction-latency proxy, long tasks, request counts, JavaScript bytes, and image bytes in
+`performance-baseline.json`.
+
+These are local comparison measurements, not field data. Use the same machine and command when
+comparing a future branch to the baseline.
 
 ## Notes
 

@@ -1,7 +1,7 @@
 # Website Roadmap
 
 This roadmap tracks the mobile-first migration and related quality work for `manaaziz.com`.
-The stable pre-migration fallback is `main`; active migration work lives on `mobile-first-phase-two`.
+The stable pre-migration fallback is `main`; active migration work lives on `mobile-first-dev`.
 
 ## Current phase: low-risk mobile foundation
 
@@ -20,37 +20,45 @@ The stable pre-migration fallback is `main`; active migration work lives on `mob
 - [x] Review generated desktop reference screenshots before approving a merge to `main`.
 - [x] Add GitHub Actions coverage for the responsive suite on `main`, `mobile-first-dev`, and pull requests.
 - [x] Confirm the Responsive browser QA workflow succeeds on GitHub Actions.
+- [x] Add production-export contract validation and separate quality/security CI gates.
+- [x] Add weekly production dependency auditing and full-history secret scanning.
 
 ## Ongoing architecture
 
 - [ ] Keep global CSS limited to reset, tokens, typography, shared utilities, and true site-wide rules.
-- [ ] Move component styles into colocated CSS Modules whenever that component is next modified.
+- [x] Move ordinary course-material, Teaching-card, and editorial-card styles into colocated CSS Modules.
+- [x] Move Consulting role/area cards, shared galleries, and course-material hub cards into CSS Modules.
+- [ ] Continue moving component styles into colocated CSS Modules whenever an ordinary component is next modified.
 - [ ] Consolidate duplicate legacy breakpoint rules only after visual-regression coverage exists.
-- [ ] Introduce container queries for reusable cards after their CSS Module migration.
+- [x] Introduce container queries for migrated course-material, Teaching, and editorial cards.
 - [ ] Evaluate a deliberate cascade-layer structure after legacy unlayered CSS has been reduced.
 - [ ] Keep pages as Server Components and isolate `use client` to the smallest interactive boundary.
-- [ ] Audit route-specific JavaScript and dynamically load heavy interactives near the viewport.
+- [x] Audit current route-specific JavaScript and defer the Home map at a wrapper boundary until it nears the viewport.
+- [ ] Continue auditing route-specific JavaScript as complex interactives receive their own focused migrations.
 - [ ] Pause requestAnimationFrame loops, observers, and simulations while offscreen.
 
 ## Design and accessibility
 
-- [ ] Verify all ordinary controls meet the 44px internal target and WCAG 2.2 minimum sizing.
+- [x] Verify ordinary primary controls across the principal mobile routes meet the 44px internal target.
 - [x] Verify keyboard reachability and that focus is visible and not obscured by the sticky mobile header.
-- [ ] Verify semantic source order matches reading and keyboard order before desktop repositioning.
+- [x] Verify semantic source order matches reading and keyboard order for principal routes and migrated course materials.
 - [ ] Ensure every hover-revealed detail also has a tap, click, or keyboard path.
 - [x] Test browser zoom at 200% and reflow at a 320px equivalent viewport.
 - [x] Test portrait and landscape orientations.
-- [ ] Test the site with reduced motion, keyboard-only navigation, and screen-reader landmarks.
+- [x] Test the site with reduced motion, keyboard-only navigation, and screen-reader landmarks.
 - [ ] Provide list-based alternatives for dense map and visualization controls where practical.
 
 ## Images and performance
 
 - [ ] Complete the remaining dynamic-image dimension audit as content models are updated.
 - [ ] Add responsive `srcset`/`sizes` or Next Image where compatible with static export.
+- [x] Add generated 480px/960px `srcset` variants for the Home portrait and course-highlight photos.
 - [ ] Create mobile-specific crops where the desktop crop loses its subject.
 - [ ] Keep likely LCP images eager/high-priority and ordinary offscreen images lazy.
 - [ ] Measure mobile and desktop LCP, INP, and CLS independently.
-- [ ] Test `content-visibility: auto` on long static archives and course schedules.
+- [x] Add a repeatable static-export baseline for mobile/desktop navigation timing, FCP, LCP, CLS, interaction latency, long tasks, JS, images, and requests.
+- [x] Test and apply `content-visibility: auto` to static blog-series lists.
+- [ ] Evaluate course-schedule containment separately because its calendar popovers depend on geometry.
 - [ ] Avoid `content-visibility` on components that measure offscreen geometry until tested.
 
 ## Complex interactive roadmap — deliberately deferred
@@ -80,7 +88,7 @@ interaction specification, mobile design, reduced-motion behavior, and focused i
 
 - [ ] Provide reliable touch targets and an equivalent list-based navigation path.
 - [ ] Audit map-label collisions and phone detail overlays.
-- [ ] Lazy-load map code without delaying the surrounding Home content.
+- [x] Lazy-load the Home map at its existing wrapper boundary without changing the map implementation.
 
 ### Course calendars
 
