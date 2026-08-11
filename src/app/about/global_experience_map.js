@@ -1367,7 +1367,10 @@ export default function GlobalExperienceMap() {
               onClick={closeMobileDetail}
               type="button"
             >
-              <span aria-hidden="true">X</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="m6 6 12 12" />
+                <path d="m18 6-12 12" />
+              </svg>
             </button>
           ) : null}
           {isCountryListPanel ? (

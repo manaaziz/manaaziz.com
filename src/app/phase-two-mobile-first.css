@@ -84,6 +84,11 @@ main :where(section[id], [id]:not(input)) {
   -webkit-overflow-scrolling: touch;
 }
 
+/* Reserve space for the buttons' translated 3D edge inside the clipped hero. */
+.hero-home .button-row {
+  padding-bottom: 0.5rem;
+}
+
 .mobile-menu-panel a,
 .mobile-search-result {
   min-height: var(--target-min);
@@ -236,6 +241,10 @@ main :where(section[id], [id]:not(input)) {
 }
 
 @media (min-width: 601px) {
+  .hero-home .button-row {
+    padding-bottom: 0;
+  }
+
   .teaching-values,
   .course-material-list,
   .course-resource-page-grid,

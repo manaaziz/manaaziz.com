@@ -103,8 +103,8 @@ const mobilePositions = {
   revenue: { x: 76, y: 71 },
   interpretable: { x: 25, y: 84 },
   statistics: { x: 75, y: 84 },
-  baccarat: { x: 22, y: 95 },
-  cancellations: { x: 76, y: 95 }
+  baccarat: { x: 22, y: 90 },
+  cancellations: { x: 76, y: 90 }
 };
 
 function clamp(value, min, max) {
@@ -129,6 +129,23 @@ export default function ResearchWordGraph() {
     if (bumpTimeoutRef.current) {
       window.clearTimeout(bumpTimeoutRef.current);
     }
+  }, []);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 600px)");
+
+    function applyResponsiveLayout() {
+      setPositions(Object.fromEntries(topics.map((topic) => [
+        topic.id,
+        mediaQuery.matches && mobilePositions[topic.id]
+          ? mobilePositions[topic.id]
+          : { x: topic.x, y: topic.y }
+      ])));
+    }
+
+    applyResponsiveLayout();
+    mediaQuery.addEventListener?.("change", applyResponsiveLayout);
+    return () => mediaQuery.removeEventListener?.("change", applyResponsiveLayout);
   }, []);
 
   function markBumped(ids) {
@@ -274,6 +291,8 @@ export default function ResearchWordGraph() {
         <h2 id="research-word-graph-title">My research applies AI and data science to hospitality and gaming contexts</h2>
       </div>
 
+      <p className="research-word-graph-hint">Drag a topic to explore how the ideas connect.</p>
+
       <div className="research-word-graph" ref={graphRef}>
         <svg aria-hidden="true" className="research-word-graph-lines" viewBox="0 0 100 100" preserveAspectRatio="none">
           {links.map(([sourceId, targetId]) => {
@@ -282,6 +301,7 @@ export default function ResearchWordGraph() {
 
             return (
               <line
+                data-mobile-visible={mobilePositions[sourceId] && mobilePositions[targetId] ? "true" : "false"}
                 key={`${sourceId}-${targetId}`}
                 x1={source.x}
                 x2={target.x}
@@ -325,9 +345,7 @@ export default function ResearchWordGraph() {
               }}
               style={{
                 left: `${position.x}%`,
-                top: `${position.y}%`,
-                "--mobile-x": `${mobilePositions[topic.id]?.x ?? position.x}%`,
-                "--mobile-y": `${mobilePositions[topic.id]?.y ?? position.y}%`
+                top: `${position.y}%`
               }}
               type="button"
             >

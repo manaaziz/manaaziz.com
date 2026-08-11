@@ -2472,6 +2472,13 @@ h3 {
   max-width: none;
 }
 
+.research-word-graph-hint {
+  margin: 0.75rem 0 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
 .research-word-graph {
   position: relative;
   container-type: inline-size;
@@ -2519,7 +2526,9 @@ h3 {
 
 @media (max-width: 600px) {
   .research-word-graph {
-    min-height: 20rem;
+    min-height: 25rem;
+    margin-top: 0.65rem;
+    touch-action: pan-y;
     --research-word-small: 0.66rem;
     --research-word-medium: 0.72rem;
     --research-word-large: 0.9rem;
@@ -2533,14 +2542,21 @@ h3 {
     --research-word-large-width: 8rem;
   }
 
-  .research-word-graph-lines,
   .research-word-node[data-mobile-visible="false"] {
     display: none;
   }
 
+  .research-word-graph-lines line[data-mobile-visible="false"] {
+    display: none;
+  }
+
+  .research-word-graph-lines line[data-mobile-visible="true"] {
+    stroke: rgba(47, 111, 100, 0.25);
+    stroke-width: 0.55;
+  }
+
   .research-word-node[data-mobile-visible="true"] {
-    left: var(--mobile-x) !important;
-    top: var(--mobile-y) !important;
+    touch-action: none;
   }
 }
 
@@ -11895,12 +11911,7 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
   }
 
   .paper-tile-actions {
-    gap: 0.16rem;
-  }
-
-  .paper-tile-actions a {
-    font-size: clamp(0.36rem, 1.55vw, 0.45rem);
-    padding: 0.14rem 0.24rem;
+    display: none;
   }
 
   .paper-chip-drop span {
@@ -12431,6 +12442,7 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
 
   .work-pie-node {
     grid-row: 1;
+    width: 100%;
   }
 
   .work-mix-card-stack-left,
@@ -12469,7 +12481,7 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
   }
 
   .work-pie-chart {
-    width: min(100%, 22rem);
+    width: min(calc(100% - 1.75rem), 22rem);
   }
 
   .review-quote p {
@@ -12485,6 +12497,10 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
     --carousel-far-shift: calc(var(--carousel-card-width) * 0.82);
     --carousel-reel-side-shift: calc(var(--carousel-card-width) * 0.66);
     --carousel-reel-far-shift: calc(var(--carousel-card-width) * 1.04);
+  }
+
+  .feature-carousel-blog .student-review-carousel {
+    --carousel-card-height: clamp(18.5rem, 88vw, 20rem);
   }
 
   .student-review-stage {
@@ -12752,31 +12768,21 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
     right: 0.75rem;
     z-index: 7;
     display: inline-grid;
-    width: 2.35rem;
-    height: 2.35rem;
-    border: 1px solid var(--line);
-    background: rgba(255, 252, 246, 0.96);
-    box-shadow:
-      0 0.26rem 0 var(--ink),
-      0 0.8rem 1.2rem rgba(23, 23, 23, 0.16);
-    font-size: 0.86rem;
-    font-weight: 900;
-    line-height: 1;
+    width: 2.75rem;
+    height: 2.75rem;
   }
 
   .mobile-map-close:hover,
   .mobile-map-close:focus-visible {
-    background: var(--paper);
+    background: rgba(255, 250, 241, 0.88);
+    box-shadow: 0 0.35rem 1rem rgba(65, 43, 16, 0.12);
   }
 
   .mobile-map-close:active {
-    box-shadow:
-      0 0.12rem 0 var(--ink),
-      0 0.45rem 0.8rem rgba(23, 23, 23, 0.16);
-    transform: translateY(0.14rem) scale(0.88);
+    transform: scale(0.88);
   }
 
-  .mobile-map-close.is-popping span {
+  .mobile-map-close.is-popping svg {
     animation: mobile-icon-squish 360ms var(--ease-out-back);
   }
 
