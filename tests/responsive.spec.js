@@ -355,6 +355,25 @@ test("mobile map detail uses the shared header-style close control", async ({ pa
 
   const closeButton = page.getByRole("button", { name: "Close map details" });
   await expect(closeButton).toBeVisible();
+  const panelFitsMap = await page.locator(".map-detail-card").evaluate((panel) => {
+    const panelBounds = panel.getBoundingClientRect();
+    const mapBounds = panel.closest(".global-map-shell").getBoundingClientRect();
+    return panelBounds.top >= mapBounds.top - 1 && panelBounds.bottom <= mapBounds.bottom + 1;
+  });
+  expect(panelFitsMap).toBe(true);
+  await page.locator(".collaboration-tile").first().click();
+  const selectedPanel = page.locator(".map-detail-card.has-selected-work");
+  await expect(selectedPanel).toBeVisible();
+  const selectedGeometry = await selectedPanel.evaluate((panel) => {
+    const panelBounds = panel.getBoundingClientRect();
+    const mapBounds = panel.closest(".global-map-shell").getBoundingClientRect();
+    return {
+      fitsMap: panelBounds.top >= mapBounds.top - 1 && panelBounds.bottom <= mapBounds.bottom + 1,
+      hasInternalScroll: panel.scrollHeight > panel.clientHeight + 1
+    };
+  });
+  expect(selectedGeometry.fitsMap).toBe(true);
+  expect(selectedGeometry.hasInternalScroll).toBe(false);
   await expect(closeButton.locator("svg")).toBeVisible();
   await closeButton.click();
   await expect(closeButton).toBeHidden();

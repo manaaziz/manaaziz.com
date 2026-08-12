@@ -1192,7 +1192,7 @@ export default function GlobalExperienceMap() {
                 <button className="map-back-button" onClick={backToRegionMap} type="button">
                   Back to North America
                 </button>
-                <span>United States detail</span>
+                <span>United States</span>
               </div>
               <svg
                 className="us-region-map"
@@ -1356,7 +1356,7 @@ export default function GlobalExperienceMap() {
         </div>
 
         <aside
-          className={`map-detail-card${isCountryListPanel ? " is-country-list" : ""}${isMobileMap && mobileDetailOpen ? " has-mobile-close" : ""}`}
+          className={`map-detail-card${isCountryListPanel ? " is-country-list" : ""}${selectedWork ? " has-selected-work" : ""}${isMobileMap && mobileDetailOpen ? " has-mobile-close" : ""}`}
           key={`${mapMode}-${active.id}-${selectedWork?.name || "list"}`}
           aria-live="polite"
         >
