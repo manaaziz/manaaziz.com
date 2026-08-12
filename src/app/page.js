@@ -6,6 +6,18 @@ import { getRecentPosts, getSeriesSummaries } from "@/lib/posts";
 import HomeGlobalExperience from "./home_global_experience";
 import WorkMixChart from "./about/work_mix_chart";
 
+export const metadata = {
+  alternates: { canonical: "/" }
+};
+
+const profileStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "@id": "https://manaaziz.com/#profile",
+  url: "https://manaaziz.com/",
+  mainEntity: { "@id": "https://manaaziz.com/#mana-azizsoltani" }
+};
+
 const workAreas = [
   {
     id: "consulting",
@@ -49,6 +61,10 @@ export default function Home() {
 
   return (
     <main>
+      <script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(profileStructuredData).replace(/</g, "\\u003c") }}
+        type="application/ld+json"
+      />
       <section className="hero hero-home" aria-label="Mana Azizsoltani introduction">
         <div className="hero-copy">
           <h1 className="hero-greeting">

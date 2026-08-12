@@ -9,6 +9,47 @@ import { getVisiblePosts } from "@/lib/posts";
 const siteTitle = "Mana Azizsoltani";
 const siteDescription =
   "Consultant, researcher, and professor specializing in AI and analytics in the hospitality and gaming industry";
+const canonicalPortrait = "/assets/images/mana_home_portrait_bw_cutout.webp";
+const officialProfiles = [
+  "https://www.linkedin.com/in/manaazizsoltani/",
+  "https://scholar.google.com/citations?user=Qe4izygAAAAJ&hl=en",
+  "https://orcid.org/0009-0001-5193-2823",
+  "https://github.com/manaaziz",
+  "https://instagram.com/mana010"
+];
+
+const personStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": "https://manaaziz.com/#mana-azizsoltani",
+  name: siteTitle,
+  alternateName: "Mana Azizsoltani",
+  url: "https://manaaziz.com/",
+  image: {
+    "@type": "ImageObject",
+    "@id": "https://manaaziz.com/#mana-portrait",
+    url: `https://manaaziz.com${canonicalPortrait}`,
+    contentUrl: `https://manaaziz.com${canonicalPortrait}`,
+    width: 1254,
+    height: 1250,
+    caption: "Portrait of Mana Azizsoltani"
+  },
+  jobTitle: ["AI Consultant", "Researcher", "Professor"],
+  description: siteDescription,
+  sameAs: officialProfiles,
+  knowsAbout: [
+    "Artificial intelligence",
+    "Data science",
+    "Casino analytics",
+    "Hospitality analytics",
+    "Gambling research",
+    "Machine learning"
+  ],
+  alumniOf: {
+    "@type": "CollegeOrUniversity",
+    name: "University of Nevada, Las Vegas"
+  }
+};
 
 export const metadata = {
   title: {
@@ -17,6 +58,7 @@ export const metadata = {
   },
   description: siteDescription,
   metadataBase: new URL("https://manaaziz.com"),
+  authors: [{ name: siteTitle, url: "/" }],
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "64x64", type: "image/x-icon" },
@@ -29,12 +71,19 @@ export const metadata = {
     description: siteDescription,
     url: "https://manaaziz.com",
     siteName: siteTitle,
-    type: "website"
+    type: "profile",
+    images: [{
+      url: canonicalPortrait,
+      width: 1254,
+      height: 1250,
+      alt: "Portrait of Mana Azizsoltani"
+    }]
   },
   twitter: {
     card: "summary",
     title: siteTitle,
-    description: siteDescription
+    description: siteDescription,
+    images: [canonicalPortrait]
   }
 };
 
@@ -235,8 +284,8 @@ const experienceSearchItems = [
     href: "/about",
     title: "Belmont University",
     type: "Experience",
-    description: "Invited teaching and analytics talk for students and professors.",
-    keywords: ["Tennessee", "teaching", "Yeehaw", "analytics"]
+    description: "Invited presentations on explainable AI research and practical business applications of AI.",
+    keywords: ["Tennessee", "explainable AI", "business", "AI use cases", "research"]
   },
   {
     href: "/about",
@@ -398,6 +447,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" data-scroll-behavior="smooth">
       <body>
+        <script
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personStructuredData).replace(/</g, "\\u003c") }}
+          type="application/ld+json"
+        />
         <header className="site-header">
           <SiteLogo />
           <nav className="nav-links" aria-label="Main navigation">

@@ -133,7 +133,7 @@ const collaborations = [
       card({
         name: "Belmont University",
         type: "Teaching",
-        blurb: "I delivered invited talks to Belmont students and professors about data, AI, and applied analytics.",
+        blurb: "I delivered invited presentations to Belmont students and professors on explainable AI research and practical AI use cases in the business world.",
         href: "https://www.belmont.edu/data/workshop/yeehaw_presentation.pdf",
         logo: "/assets/logos/belmont_university_logo.png"
       }),
@@ -878,7 +878,7 @@ const usStates = [
       card({
         name: "Belmont University",
         type: "Teaching",
-        blurb: "I delivered invited talks to Belmont students and professors about data, AI, and applied analytics.",
+        blurb: "I delivered invited presentations to Belmont students and professors on explainable AI research and practical AI use cases in the business world.",
         href: "https://www.belmont.edu/data/workshop/yeehaw_presentation.pdf",
         logo: "/assets/logos/belmont_university_logo.png"
       })

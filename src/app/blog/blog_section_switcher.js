@@ -70,7 +70,7 @@ function PhotoMosaic({ photos }) {
         >
           <div className="presentation-photo-surface">
             <div className="presentation-photo-placeholder has-photo">
-              <img className="presentation-photo-image is-photo" src={photo.image} alt="" loading="lazy" decoding="async" />
+              <img className="presentation-photo-image is-photo" src={photo.image} alt={photo.alt || ""} loading="lazy" decoding="async" />
               <span>{photo.series}</span>
             </div>
             <div className="presentation-photo-copy">
@@ -450,7 +450,7 @@ function ManalogueGalleryWall({ photos }) {
     <div className="manalogue-gallery-wall">
       {photos.map((photo) => (
         <Link className="manalogue-gallery-brick" href={photo.href} key={`${photo.href}-${photo.image}`}>
-          <img src={photo.image} alt="" loading="lazy" decoding="async" />
+          <img src={photo.image} alt={photo.alt || ""} loading="lazy" decoding="async" />
           <span><strong>{photo.title}</strong><small>{photo.place}</small></span>
         </Link>
       ))}
@@ -640,9 +640,10 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [], section
       series: "Research",
       date: "2026",
       place: "Nashville, USA",
-      preview: "Conference presentation moments from the betting, data, and analytics side of the work.",
+      preview: "Invited presentations on explainable AI research and practical AI use cases in the business world.",
       href: "/research",
       image: "/assets/photos/mana_belmont_bdaic.webp",
+      alt: "Mana Azizsoltani presenting explainable AI research and business applications of AI at Belmont University in Nashville",
       tile: "wide"
     },
     {
@@ -652,7 +653,8 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [], section
       place: "Macau, SAR",
       preview: "Presentation photos from research conversations around gaming, data, and hospitality analytics.",
       href: "/research",
-      image: "/assets/photos/mana_davis_umac.webp"
+      image: "/assets/photos/mana_davis_umac.webp",
+      alt: "Mana Azizsoltani with a University of Macau colleague in a casino teaching and research laboratory"
     },
     {
       title: "URJC Research Visit",
@@ -661,7 +663,8 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [], section
       place: "Madrid, Spain",
       preview: "A research and teaching stop from the international side of the archive.",
       href: "/research",
-      image: "/assets/photos/urjc_mana.webp"
+      image: "/assets/photos/urjc_mana.webp",
+      alt: "Mana Azizsoltani during his research stay at Universidad Rey Juan Carlos in Madrid, Spain"
     },
     {
       title: "UMAC Visit",
@@ -671,6 +674,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [], section
       preview: "More presentation-room texture for the gallery view.",
       href: "/research",
       image: "/assets/photos/mana_umac.webp",
+      alt: "Mana Azizsoltani visiting the University of Macau Faculty of Business Administration",
       tile: "wide"
     }
   ];
