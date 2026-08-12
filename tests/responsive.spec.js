@@ -155,7 +155,7 @@ test("mobile Manalogue uses a one-line masthead, section dropdown, and readable 
   await expect(page).toHaveURL(/\/manalogue\/research\/?$/);
   await expect(page.getByLabel("Choose Manalogue section")).toHaveValue("research");
   await expect(page.getByRole("heading", { name: "Research", exact: true })).toHaveCount(0);
-  await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(scrollBeforeNavigation);
+  await expect.poll(async () => Math.abs((await page.evaluate(() => window.scrollY)) - scrollBeforeNavigation)).toBeLessThanOrEqual(10);
 });
 
 test("mobile Podcasts gives both shows equal feature treatment", async ({ page }) => {

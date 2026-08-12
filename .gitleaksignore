@@ -1,0 +1,8 @@
+# Historical example credentials inherited from the Minimal Mistakes theme.
+# These fingerprints are scoped to the exact upstream commits, files, rules, and lines.
+4a033546675e9ce471ea93695d8c799a9b37548e:docs/_config.yml:generic-api-key:64
+fc80042a9e2c78c1c350f6f836e17ef584174bec:docs/_config.travis.yml:generic-api-key:53
+fc80042a9e2c78c1c350f6f836e17ef584174bec:docs/_config.travis.yml:generic-api-key:65
+acdd3443de3152c8098b40bd28580d1634c26639:test/_config.yml:generic-api-key:58
+5ed73b3f1618164b189b8faceb7ee6a2d67d293f:docs/_config.yml:generic-api-key:50
+5ed73b3f1618164b189b8faceb7ee6a2d67d293f:staticfile.yml:generic-api-key:101

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import SectionSlider from "@/components/section_slider";
 import { newsItems } from "../news/items";
 import { podcasts } from "../podcast/shows";
@@ -392,6 +392,35 @@ function EditorialSection({ panel }) {
 function ManalogueSectionNav({ activeId = "home" }) {
   const router = useRouter();
 
+  useLayoutEffect(() => {
+    const savedScroll = window.sessionStorage.getItem("manalogue-section-scroll");
+    if (savedScroll === null) return undefined;
+
+    const scrollTop = Number.parseFloat(savedScroll);
+    if (!Number.isFinite(scrollTop)) {
+      window.sessionStorage.removeItem("manalogue-section-scroll");
+      return undefined;
+    }
+
+    const restoreScroll = () => window.scrollTo(0, scrollTop);
+    restoreScroll();
+    const frame = window.requestAnimationFrame(restoreScroll);
+    const timeout = window.setTimeout(() => {
+      restoreScroll();
+      window.sessionStorage.removeItem("manalogue-section-scroll");
+    }, 120);
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.clearTimeout(timeout);
+    };
+  }, [activeId]);
+
+  function navigateToSection(sectionId) {
+    window.sessionStorage.setItem("manalogue-section-scroll", String(window.scrollY));
+    router.push(sectionHref(sectionId), { scroll: false });
+  }
+
   return (
     <>
       <label className="manalogue-mobile-section-select">
@@ -399,7 +428,7 @@ function ManalogueSectionNav({ activeId = "home" }) {
         <select
           aria-label="Choose Manalogue section"
           value={activeId}
-          onChange={(event) => router.push(sectionHref(event.target.value), { scroll: false })}
+          onChange={(event) => navigateToSection(event.target.value)}
         >
           {sections.map((section) => (
             <option key={section.id} value={section.id}>{section.label}</option>

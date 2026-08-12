@@ -35,7 +35,24 @@ const topics = [
   { id: "patron-lifecycle", label: "patron lifecycle", x: 48, y: 14, size: "small" },
   { id: "hotel-occupancy", label: "hotel occupancy", x: 86, y: 28, size: "small" },
   { id: "service-technology", label: "AI service technology", x: 88, y: 70, size: "small" },
-  { id: "revenue-forecasting", label: "revenue forecasting", x: 70, y: 84, size: "small" }
+  { id: "revenue-forecasting", label: "revenue forecasting", x: 70, y: 84, size: "small" },
+  { id: "smart-tables", label: "smart-table data", x: 30, y: 20, size: "medium" },
+  { id: "game-speed", label: "game speed", x: 34, y: 10, size: "small" },
+  { id: "side-bets", label: "side bets", x: 22, y: 58, size: "small" },
+  { id: "advantage-play", label: "advantage play", x: 8, y: 46, size: "small" },
+  { id: "game-protection", label: "game protection", x: 8, y: 86, size: "small" },
+  { id: "casino-loyalty", label: "casino loyalty", x: 52, y: 8, size: "small" },
+  { id: "self-exclusion", label: "self-exclusion", x: 8, y: 66, size: "small" },
+  { id: "accessible-tourism", label: "accessible tourism", x: 76, y: 16, size: "medium" },
+  { id: "geospatial-routing", label: "geospatial routing", x: 90, y: 20, size: "small" },
+  { id: "smart-tourism", label: "smart tourism", x: 90, y: 36, size: "small" },
+  { id: "forecast-evidence", label: "forecast evidence", x: 64, y: 12, size: "small" },
+  { id: "sports-attendance", label: "sports attendance", x: 90, y: 50, size: "medium" },
+  { id: "womens-soccer", label: "women's soccer", x: 90, y: 84, size: "small" },
+  { id: "dei-practices", label: "DEI practices", x: 66, y: 88, size: "small" },
+  { id: "workplace-wellbeing", label: "workplace well-being", x: 52, y: 88, size: "small" },
+  { id: "school-to-work", label: "school-to-work transitions", x: 38, y: 88, size: "small" },
+  { id: "qualitative-research", label: "qualitative research", x: 17, y: 90, size: "small" }
 ];
 
 const links = [
@@ -88,7 +105,37 @@ const links = [
   ["forecasting", "revenue-forecasting"],
   ["gaming", "marketing-analytics"],
   ["marketing-analytics", "reinvestment"],
-  ["marketing-analytics", "patron-lifecycle"]
+  ["marketing-analytics", "patron-lifecycle"],
+  ["gaming", "smart-tables"],
+  ["smart-tables", "game-speed"],
+  ["smart-tables", "side-bets"],
+  ["smart-tables", "behavioral-analysis"],
+  ["smart-tables", "surveillance"],
+  ["smart-tables", "casino-management"],
+  ["side-bets", "baccarat"],
+  ["side-bets", "advantage-play"],
+  ["advantage-play", "game-protection"],
+  ["surveillance", "game-protection"],
+  ["casino-loyalty", "marketing-analytics"],
+  ["casino-loyalty", "reinvestment"],
+  ["casino-loyalty", "patron-lifecycle"],
+  ["casino-loyalty", "self-exclusion"],
+  ["self-exclusion", "responsible"],
+  ["self-exclusion", "machine-learning"],
+  ["accessible-tourism", "hospitality"],
+  ["accessible-tourism", "geospatial-routing"],
+  ["accessible-tourism", "smart-tourism"],
+  ["geospatial-routing", "operations-research"],
+  ["smart-tourism", "service-technology"],
+  ["forecast-evidence", "forecasting"],
+  ["forecast-evidence", "interpretable"],
+  ["sports-attendance", "forecasting"],
+  ["sports-attendance", "revenue"],
+  ["sports-attendance", "womens-soccer"],
+  ["dei-practices", "hospitality"],
+  ["dei-practices", "workplace-wellbeing"],
+  ["school-to-work", "workplace-wellbeing"],
+  ["school-to-work", "qualitative-research"]
 ];
 
 const mobilePositions = {
@@ -288,7 +335,7 @@ export default function ResearchWordGraph() {
     <section className="research-word-graph-section" aria-labelledby="research-word-graph-title">
       <div className="section-intro">
         <p className="eyebrow">Research map</p>
-        <h2 id="research-word-graph-title">My research applies AI and data science to hospitality and gaming contexts</h2>
+        <h2 id="research-word-graph-title">My research connects analytics and behavioral science across hospitality, gaming, tourism, and work</h2>
       </div>
 
       <p className="research-word-graph-hint">Drag a topic to explore how the ideas connect.</p>
