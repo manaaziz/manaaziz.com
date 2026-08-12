@@ -382,7 +382,10 @@ export default function PaperMosaic({ papers }) {
       <div
         className="paper-mosaic"
         data-expanded={activePaper ? "true" : "false"}
-        style={{ "--paper-slot-rows": maxSlotY + 1 }}
+        style={{
+          "--paper-slot-rows": maxSlotY + 1,
+          "--paper-mobile-rows": Math.ceil(paperSlots.length / 2)
+        }}
       >
         {paperSlots.map(({ paper, slot }, index) => (
           <article
@@ -396,7 +399,10 @@ export default function PaperMosaic({ papers }) {
             role="button"
             style={{
               "--paper-slot-left": slot.x,
-              "--paper-slot-y": slot.y
+              "--paper-slot-y": slot.y,
+              "--paper-mobile-column": index % 2,
+              "--paper-mobile-row": Math.floor(index / 2),
+              "--paper-mobile-grid-row": Math.floor(index / 2) + 1
             }}
             tabIndex={0}
           >
@@ -436,8 +442,10 @@ export default function PaperMosaic({ papers }) {
           }}
         >
           <article className="paper-focus-card" role="dialog" aria-modal="true" aria-labelledby="paper-focus-title" onClick={(event) => event.stopPropagation()}>
-            <button className="paper-focus-back" onClick={() => setActivePaper(null)} type="button">
-              Back
+            <button aria-label="Close paper details" className="paper-focus-close" onClick={() => setActivePaper(null)} type="button">
+              <svg aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M6 6l12 12M18 6 6 18" />
+              </svg>
             </button>
             <span>{activePaper.status} · {activePaper.year}</span>
             <h3 id="paper-focus-title">{activePaper.title}</h3>

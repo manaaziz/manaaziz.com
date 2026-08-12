@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import SectionSlider from "@/components/section_slider";
 import { newsItems } from "../news/items";
@@ -270,27 +271,51 @@ function ManalogueMobileStory({ story, variant = "row" }) {
   );
 }
 
-function ManalogueMobileFeed({ panels, activeIndex, onChange }) {
-  const panel = panels[activeIndex] || panels[0];
+function ManalogueMobileFeed({ panel, supportingLimit = 12 }) {
   const stories = panelStoriesForMobile(panel);
   const [lead, ...rest] = stories;
 
+  if (panel.id === "podcasts") {
+    return (
+      <section className="manalogue-mobile-feed is-podcasts" aria-label="Mobile Manalogue stories">
+        <div className="manalogue-mobile-story-list">
+          {stories.map((story, index) => (
+            <ManalogueMobileStory
+              key={`mobile-${panel.id}-${story.href || story.title}-${index}`}
+              story={story}
+              variant="lead"
+            />
+          ))}
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="manalogue-mobile-feed" aria-label="Mobile Manalogue stories">
-      <label className="manalogue-mobile-section-select">
-        <span>Section</span>
-        <select aria-label="Choose Manalogue section" value={activeIndex} onChange={(event) => onChange(Number(event.target.value))}>
-          {panels.map((panel, index) => (
-            <option key={panel.id} value={index}>
-              {sectionLabels[panel.id] || panel.title}
-            </option>
-          ))}
-        </select>
-      </label>
       <div className="manalogue-mobile-story-list">
         {lead ? <ManalogueMobileStory story={lead} variant="lead" /> : null}
-        {rest.slice(0, 12).map((story, index) => (
+        {rest.slice(0, supportingLimit).map((story, index) => (
           <ManalogueMobileStory key={`mobile-${panel.id}-${story.href || story.title}-${index}`} story={story} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ManalogueMobileSection({ panel }) {
+  const stories = panelStoriesForMobile(panel).slice(0, 3);
+  if (!stories.length) return null;
+
+  return (
+    <section className="manalogue-mobile-desk" aria-labelledby={`manalogue-mobile-${panel.id}`}>
+      <div className="manalogue-mobile-desk-heading">
+        <h2 id={`manalogue-mobile-${panel.id}`}>{sectionLabels[panel.id] || panel.title}</h2>
+        <Link href={sectionHref(panel.id)}>View all →</Link>
+      </div>
+      <div className="manalogue-mobile-story-list">
+        {stories.map((story, index) => (
+          <ManalogueMobileStory key={`mobile-desk-${panel.id}-${story.href || story.title}-${index}`} story={story} />
         ))}
       </div>
     </section>
@@ -365,13 +390,29 @@ function EditorialSection({ panel }) {
 }
 
 function ManalogueSectionNav({ activeId = "home" }) {
+  const router = useRouter();
+
   return (
-    <SectionSlider
-      activeId={activeId}
-      ariaLabel="Manalogue sections"
-      className="manalogue-section-slider"
-      items={sections.map((section) => ({ id: section.id, label: section.label, href: sectionHref(section.id) }))}
-    />
+    <>
+      <label className="manalogue-mobile-section-select">
+        <span>Browse the Manalogue</span>
+        <select
+          aria-label="Choose Manalogue section"
+          value={activeId}
+          onChange={(event) => router.push(sectionHref(event.target.value), { scroll: false })}
+        >
+          {sections.map((section) => (
+            <option key={section.id} value={section.id}>{section.label}</option>
+          ))}
+        </select>
+      </label>
+      <SectionSlider
+        activeId={activeId}
+        ariaLabel="Manalogue sections"
+        className="manalogue-section-slider"
+        items={sections.map((section) => ({ id: section.id, label: section.label, href: sectionHref(section.id) }))}
+      />
+    </>
   );
 }
 
@@ -397,16 +438,21 @@ function ManalogueSectionPage({ panel }) {
       {panel.layout === "photo-mosaic" ? (
         <ManalogueGalleryWall photos={panel.photos || []} />
       ) : (
-        <div className="manalogue-subject-grid">
-          {stories.map((story, index) => (
-            <EditorialStoryCard
-              key={`${panel.id}-${story.href || story.title}-${index}`}
-              story={story}
-              variant={panel.id !== "podcasts" && index === 0 ? "subject-lead" : "standard"}
-              eager={index === 0}
-            />
-          ))}
-        </div>
+        <>
+          <ManalogueMobileFeed panel={panel} />
+          <div className="manalogue-subject-desktop">
+            <div className="manalogue-subject-grid">
+              {stories.map((story, index) => (
+                <EditorialStoryCard
+                  key={`${panel.id}-${story.href || story.title}-${index}`}
+                  story={story}
+                  variant={panel.id !== "podcasts" && index === 0 ? "subject-lead" : "standard"}
+                  eager={index === 0}
+                />
+              ))}
+            </div>
+          </div>
+        </>
       )}
     </div>
   );
@@ -424,34 +470,40 @@ function ManalogueEditorialLanding({ panels }) {
   return (
     <div className="manalogue-editorial" id="manalogue-top">
       <ManalogueSectionNav />
+      <ManalogueMobileFeed panel={homePanel} supportingLimit={3} />
+      <div className="manalogue-mobile-desks">
+        {sectionPanels.map((panel) => <ManalogueMobileSection key={`mobile-desk-${panel.id}`} panel={panel} />)}
+      </div>
 
-      <section className="manalogue-editorial-front" aria-label="Featured Manalogue stories">
-        <div className="manalogue-editorial-supporting">
-          {supporting.map((story, index) => (
-            <EditorialStoryCard key={`${story.href}-${index}`} story={story} variant="supporting" eager={index === 0} />
-          ))}
-        </div>
-        {lead ? <div className="manalogue-editorial-lead"><EditorialStoryCard story={lead} variant="lead" eager /></div> : null}
-        <aside className="manalogue-editorial-latest" aria-labelledby="manalogue-latest-title">
-          <h2 id="manalogue-latest-title">The Latest</h2>
-          <div>
-            {latest.map((story, index) => <EditorialStoryCard key={`${story.href}-${index}`} story={story} variant="latest" />)}
+      <div className="manalogue-desktop-editorial">
+        <section className="manalogue-editorial-front" aria-label="Featured Manalogue stories">
+          <div className="manalogue-editorial-supporting">
+            {supporting.map((story, index) => (
+              <EditorialStoryCard key={`${story.href}-${index}`} story={story} variant="supporting" eager={index === 0} />
+            ))}
           </div>
-        </aside>
-      </section>
-
-      {sectionPanels.slice(0, 3).map((panel) => <EditorialSection key={panel.id} panel={panel} />)}
-
-      {mustReads.length ? (
-        <section className="manalogue-editorial-section manalogue-must-reads" aria-labelledby="manalogue-must-reads-title">
-          <div className="manalogue-editorial-section-heading"><h2 id="manalogue-must-reads-title">Must Reads</h2></div>
-          <div className="manalogue-must-read-grid">
-            {mustReads.map((story, index) => <EditorialStoryCard key={`must-read-${story.href}-${index}`} story={story} variant="must-read" />)}
-          </div>
+          {lead ? <div className="manalogue-editorial-lead"><EditorialStoryCard story={lead} variant="lead" eager /></div> : null}
+          <aside className="manalogue-editorial-latest" aria-labelledby="manalogue-latest-title">
+            <h2 id="manalogue-latest-title">The Latest</h2>
+            <div>
+              {latest.map((story, index) => <EditorialStoryCard key={`${story.href}-${index}`} story={story} variant="latest" />)}
+            </div>
+          </aside>
         </section>
-      ) : null}
 
-      {sectionPanels.slice(3).map((panel) => <EditorialSection key={panel.id} panel={panel} />)}
+        {sectionPanels.slice(0, 3).map((panel) => <EditorialSection key={panel.id} panel={panel} />)}
+
+        {mustReads.length ? (
+          <section className="manalogue-editorial-section manalogue-must-reads" aria-labelledby="manalogue-must-reads-title">
+            <div className="manalogue-editorial-section-heading"><h2 id="manalogue-must-reads-title">Must Reads</h2></div>
+            <div className="manalogue-must-read-grid">
+              {mustReads.map((story, index) => <EditorialStoryCard key={`must-read-${story.href}-${index}`} story={story} variant="must-read" />)}
+            </div>
+          </section>
+        ) : null}
+
+        {sectionPanels.slice(3).map((panel) => <EditorialSection key={panel.id} panel={panel} />)}
+      </div>
     </div>
   );
 }
@@ -555,20 +607,20 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [], section
       image: "/assets/photos/eublog/blog7_3.webp"
     },
     {
-      title: "Betting and Digital Assets Conference",
+      title: "Belmont Presentation",
       series: "Research",
       date: "2026",
-      place: "Belmont",
+      place: "Nashville, USA",
       preview: "Conference presentation moments from the betting, data, and analytics side of the work.",
       href: "/research",
       image: "/assets/photos/mana_belmont_bdaic.webp",
       tile: "wide"
     },
     {
-      title: "UMAC Research Presentation",
+      title: "UMAC Visit",
       series: "Research",
       date: "2026",
-      place: "Las Vegas",
+      place: "Macau, SAR",
       preview: "Presentation photos from research conversations around gaming, data, and hospitality analytics.",
       href: "/research",
       image: "/assets/photos/mana_davis_umac.webp"
@@ -577,16 +629,16 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [], section
       title: "URJC Research Visit",
       series: "Research",
       date: "2026",
-      place: "Madrid",
+      place: "Madrid, Spain",
       preview: "A research and teaching stop from the international side of the archive.",
       href: "/research",
       image: "/assets/photos/urjc_mana.webp"
     },
     {
-      title: "UMAC Session",
+      title: "UMAC Visit",
       series: "Research",
       date: "2026",
-      place: "Las Vegas",
+      place: "Macau, SAR",
       preview: "More presentation-room texture for the gallery view.",
       href: "/research",
       image: "/assets/photos/mana_umac.webp",

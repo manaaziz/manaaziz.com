@@ -106,6 +106,87 @@ test("mobile search opens, accepts input, and returns navigable results", async 
   await expect(page.getByRole("list").getByRole("listitem").first()).toBeVisible();
 });
 
+test("mobile search results are capped near three preview cards", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/", { waitUntil: "load" });
+  await page.getByRole("button", { name: "Open search" }).click();
+
+  const results = page.locator(".mobile-search-results");
+  await expect(results).toBeVisible();
+  const geometry = await results.evaluate((element) => ({
+    clientHeight: element.clientHeight,
+    scrollHeight: element.scrollHeight
+  }));
+  expect(geometry.clientHeight).toBeLessThanOrEqual(360);
+  expect(geometry.scrollHeight).toBeGreaterThan(geometry.clientHeight);
+});
+
+test("mobile Manalogue uses a one-line masthead, section dropdown, and readable feed", async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 812 });
+  await page.goto("/manalogue", { waitUntil: "load" });
+
+  const masthead = page.getByRole("heading", { name: "The Manalogue", exact: true });
+  const mastheadGeometry = await masthead.evaluate((heading) => ({
+    clientWidth: heading.clientWidth,
+    scrollWidth: heading.scrollWidth,
+    height: heading.getBoundingClientRect().height,
+    lineHeight: Number.parseFloat(getComputedStyle(heading).lineHeight)
+  }));
+  expect(mastheadGeometry.scrollWidth).toBeLessThanOrEqual(mastheadGeometry.clientWidth + 1);
+  expect(mastheadGeometry.height).toBeLessThanOrEqual(mastheadGeometry.lineHeight * 1.15);
+
+  await expect(page.getByRole("navigation", { name: "Manalogue sections" })).toBeHidden();
+  const sectionSelect = page.getByLabel("Choose Manalogue section");
+  await expect(sectionSelect).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Top Stories", exact: true })).toHaveCount(0);
+  await expect(page.locator(".manalogue-mobile-feed .manalogue-mobile-story")).toHaveCount(4);
+  await expect(page.locator(".manalogue-mobile-desk")).toHaveCount(6);
+  await expect(page.locator(".manalogue-mobile-desk").first().locator(".manalogue-mobile-story")).toHaveCount(3);
+  await expect(page.locator(".manalogue-mobile-desk").first().getByRole("link", { name: "View all →" })).toBeVisible();
+
+  const narrowTitles = await page.locator(".manalogue-mobile-story h3").evaluateAll((titles) => (
+    titles.filter((title) => title.getBoundingClientRect().width < 120).map((title) => title.textContent)
+  ));
+  expect(narrowTitles).toEqual([]);
+
+  await page.evaluate(() => window.scrollTo(0, 120));
+  const scrollBeforeNavigation = await page.evaluate(() => window.scrollY);
+  await sectionSelect.selectOption("research");
+  await expect(page).toHaveURL(/\/manalogue\/research\/?$/);
+  await expect(page.getByLabel("Choose Manalogue section")).toHaveValue("research");
+  await expect(page.getByRole("heading", { name: "Research", exact: true })).toHaveCount(0);
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(scrollBeforeNavigation);
+});
+
+test("mobile Podcasts gives both shows equal feature treatment", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/manalogue/podcasts", { waitUntil: "load" });
+
+  const features = page.locator(".manalogue-mobile-feed.is-podcasts .manalogue-mobile-story[data-variant='lead']");
+  await expect(features).toHaveCount(2);
+  const widths = await features.evaluateAll((cards) => cards.map((card) => card.getBoundingClientRect().width));
+  expect(Math.abs(widths[0] - widths[1])).toBeLessThanOrEqual(1);
+  await expect(features.nth(0).locator(".manalogue-mobile-story-image")).toBeVisible();
+  await expect(features.nth(1).locator(".manalogue-mobile-story-image")).toBeVisible();
+});
+
+test("mobile Gallery keeps two columns with compact city and country captions", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/manalogue/gallery", { waitUntil: "load" });
+
+  const wall = page.locator(".manalogue-gallery-wall");
+  await expect(wall).toBeVisible();
+  await expect(wall).toHaveCSS("column-count", "2");
+  await expect(page.getByText("Macau, SAR", { exact: true })).toHaveCount(2);
+  await expect(page.getByText("Nashville, USA", { exact: true })).toBeVisible();
+  await expect(page.getByText("Madrid, Spain", { exact: true })).toHaveCount(2);
+
+  const titleSizes = await wall.locator("span strong").evaluateAll((titles) => (
+    titles.map((title) => Number.parseFloat(getComputedStyle(title).fontSize))
+  ));
+  expect(Math.max(...titleSizes)).toBeLessThanOrEqual(15.1);
+});
+
 test("Work Mix keyboard selection exposes the correct destination", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/", { waitUntil: "domcontentloaded" });
@@ -150,6 +231,23 @@ test("mobile blog carousel uses the compact shared card height", async ({ page }
   expect(bounds.height).toBeLessThanOrEqual(320);
 });
 
+test("feature carousel Previous mirrors the Next card movement", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("/", { waitUntil: "load" });
+  const carousel = page.locator(".feature-carousel-blog .feature-carousel");
+  await carousel.scrollIntoViewIfNeeded();
+
+  await page.getByRole("button", { name: "Next item" }).click();
+  await expect(carousel.locator(".student-review-card.is-previous")).toHaveCSS("animation-name", "carousel-card-next-depart");
+  await expect(carousel.locator(".student-review-card.is-active")).toHaveCSS("animation-name", "carousel-card-next-arrive");
+
+  await page.waitForTimeout(850);
+  await page.getByRole("button", { name: "Previous item" }).click();
+  await expect(carousel.locator(".student-review-card.is-next")).toHaveCSS("animation-name", "carousel-card-previous-depart");
+  await expect(carousel.locator(".student-review-card.is-active")).toHaveCSS("animation-name", "carousel-card-previous-arrive");
+});
+
 test("lazy presentation images load when scrolled into view", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/research", { waitUntil: "domcontentloaded" });
@@ -181,13 +279,25 @@ test("mobile paper hexagons reveal publication actions only after opening", asyn
   await page.goto("/research", { waitUntil: "load" });
 
   const firstPaper = page.locator(".paper-tile").first();
+  const mosaic = page.locator(".paper-mosaic");
   await firstPaper.scrollIntoViewIfNeeded();
+  const firstPaperBox = await firstPaper.boundingBox();
+  const secondPaperBox = await page.locator(".paper-tile").nth(1).boundingBox();
+  expect(firstPaperBox.width).toBeGreaterThan(150);
+  expect(Math.abs(firstPaperBox.width - secondPaperBox.width)).toBeLessThan(1);
+  expect(secondPaperBox.x).toBeGreaterThan(firstPaperBox.x);
+  expect(secondPaperBox.y).toBeGreaterThan(firstPaperBox.y + firstPaperBox.height * 0.4);
+  expect(secondPaperBox.y).toBeLessThan(firstPaperBox.y + firstPaperBox.height * 0.6);
   await expect(firstPaper.locator(".paper-tile-actions")).toBeHidden();
-  await firstPaper.click();
+  await firstPaper.press("Enter");
 
   const dialog = page.getByRole("dialog");
   await expect(dialog).toBeVisible();
   await expect(dialog.locator(".paper-focus-actions").getByRole("link").first()).toBeVisible();
+  const closeButton = dialog.getByRole("button", { name: "Close paper details" });
+  await expect(closeButton).toBeVisible();
+  await closeButton.click();
+  await expect(dialog).toBeHidden();
 });
 
 test("home map initializes only as its section approaches the viewport", async ({ page }) => {

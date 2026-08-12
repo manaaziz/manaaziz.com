@@ -101,6 +101,7 @@ export default function FeatureCarousel({
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [isSpinning, setIsSpinning] = useState(false);
+  const [moveDirection, setMoveDirection] = useState("");
   const [chipFlips, setChipFlips] = useState({ previous: 0, next: 0 });
   const spinTimerRef = useRef(null);
 
@@ -117,9 +118,11 @@ export default function FeatureCarousel({
   const itemCount = filteredItems.length;
   const controls = useMemo(() => ({
     next() {
+      setMoveDirection("next");
       setActiveIndex((index) => (index + 1) % itemCount);
     },
     previous() {
+      setMoveDirection("previous");
       setActiveIndex((index) => (index - 1 + itemCount) % itemCount);
     }
   }), [itemCount]);
@@ -157,6 +160,7 @@ export default function FeatureCarousel({
 
     setIsSpinning(true);
     setIsPaused(true);
+    setMoveDirection("");
 
     function advance() {
       step += 1;
@@ -210,7 +214,11 @@ export default function FeatureCarousel({
         </div>
       ) : null}
 
-      <div className={`student-review-carousel feature-carousel ${carouselClassName} ${isSpinning ? "is-spinning" : ""}`.trim()} aria-live="polite">
+      <div
+        className={`student-review-carousel feature-carousel ${carouselClassName} ${isSpinning ? "is-spinning" : ""}`.trim()}
+        data-direction={moveDirection || undefined}
+        aria-live="polite"
+      >
         <div className={`student-review-stage feature-carousel-stage ${stageClassName}`.trim()}>
           {visibleItems.map(({ item, position, index }) => {
             const itemKey = `${item.href || item.courseNumber || item.title}-${index}`;
@@ -247,7 +255,12 @@ export default function FeatureCarousel({
                 className={index === activeIndex ? "is-active" : ""}
                 key={`${item.href || item.courseNumber || item.title}-${index}`}
                 onClick={() => {
-                  if (!isSpinning) setActiveIndex(index);
+                  if (!isSpinning) {
+                    const forwardDistance = wrapIndex(index - activeIndex, itemCount);
+                    const backwardDistance = wrapIndex(activeIndex - index, itemCount);
+                    setMoveDirection(forwardDistance <= backwardDistance ? "next" : "previous");
+                    setActiveIndex(index);
+                  }
                 }}
                 type="button"
               />
