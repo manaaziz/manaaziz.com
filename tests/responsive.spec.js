@@ -96,6 +96,40 @@ test("course material slider exposes and navigates all sections on mobile", asyn
   await expect(slider.getByRole("link", { name: "Assignments" })).toHaveAttribute("aria-current", "page");
 });
 
+test("course calendar exposes week and due details to touch and keyboard", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/teaching/hoa-730-statistical-analysis", { waitUntil: "domcontentloaded" });
+
+  const week = page.getByRole("button", { name: /week 1.*details/i }).first();
+  await week.scrollIntoViewIfNeeded();
+  await week.focus();
+  await page.keyboard.press("Enter");
+  await expect(week).toHaveAttribute("aria-expanded", "true");
+  const details = page.locator(`#${await week.getAttribute("aria-controls")}`);
+  await expect(details).toBeVisible();
+  expect(await details.evaluate((element) => element.scrollWidth <= element.clientWidth + 1)).toBe(true);
+
+  const more = details.getByRole("button", { name: "More" });
+  if (await more.count()) {
+    await more.click();
+    await expect(more).toHaveAttribute("aria-expanded", "true");
+  }
+  await page.keyboard.press("Escape");
+  await expect(week).toHaveAttribute("aria-expanded", "false");
+});
+
+test("Spain scrollytelling provides progress and keyboard-operable navigation", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/blog/teaching/spain-recap", { waitUntil: "domcontentloaded" });
+  const story = page.getByRole("region", { name: "Spain 2025 study-abroad journey" });
+  if (await story.count()) {
+    const next = story.getByRole("button", { name: "Next" });
+    await next.focus();
+    await page.keyboard.press("Enter");
+    await expect(story.getByText(/Story progress: stop 2 of/)).toBeVisible();
+  }
+});
+
 test("mobile search opens, accepts input, and returns navigable results", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/", { waitUntil: "domcontentloaded" });

@@ -55,10 +55,12 @@ The stable pre-migration fallback is `main`; active migration work lives on `mob
 - [x] Add generated 480px/960px `srcset` variants for the Home portrait and course-highlight photos.
 - [ ] Create mobile-specific crops where the desktop crop loses its subject.
 - [ ] Keep likely LCP images eager/high-priority and ordinary offscreen images lazy.
-- [ ] Measure mobile and desktop LCP, INP, and CLS independently.
+- [x] Measure mobile and desktop LCP, INP, and CLS independently.
 - [x] Add a repeatable static-export baseline for mobile/desktop navigation timing, FCP, LCP, CLS, interaction latency, long tasks, JS, images, and requests.
 - [x] Test and apply `content-visibility: auto` to static blog-series lists.
-- [ ] Evaluate course-schedule containment separately because its calendar popovers depend on geometry.
+- [x] Evaluate course-schedule containment separately because its calendar popovers depend on geometry.
+- [x] Pause feature-carousel timers, paper-chip physics, and scrollytelling scroll work while offscreen.
+- [x] Record interactive initialization time under the throttled mobile and desktop performance profiles.
 - [ ] Avoid `content-visibility` on components that measure offscreen geometry until tested.
 
 ## Complex interactive roadmap — deliberately deferred
@@ -92,18 +94,18 @@ interaction specification, mobile design, reduced-motion behavior, and focused i
 
 ### Course calendars
 
-- [ ] Replace hover-dependent discovery with explicit tap/keyboard controls.
-- [ ] Preserve compact week pills and accessible assignment/due-date details.
+- [x] Replace hover-dependent discovery with explicit tap/keyboard controls.
+- [x] Preserve compact week pills and accessible assignment/due-date details.
 - [ ] Reconsider the calendar layout at 320–430px without changing desktop until approved.
 
 ### Reusable scrollytelling template
 
-- [ ] Extract a reusable scrollytelling data model for stops, media, captions, and route connectors.
-- [ ] Separate narrative content from viewport/animation logic.
-- [ ] Define desktop, tablet, and mobile compositions before implementation.
-- [ ] Add progress semantics, keyboard navigation, reduced-motion behavior, and static fallback content.
-- [ ] Use the Spain recap as the first template consumer after its desktop presentation is reworked.
-- [ ] Preserve the current Spain recap connector and moving-dot requirements until that redesign begins.
+- [x] Extract a reusable scrollytelling data model for stops, media, captions, and route connectors.
+- [x] Separate narrative content from viewport/animation logic.
+- [x] Define desktop, tablet, and mobile compositions before implementation.
+- [x] Add progress semantics, keyboard navigation, reduced-motion behavior, and static fallback content.
+- [x] Use the Spain recap as the first template consumer.
+- [x] Preserve the current Spain recap connector and moving-dot requirements.
 
 ### Consulting logo arena
 
