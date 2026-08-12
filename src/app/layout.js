@@ -17,6 +17,13 @@ export const metadata = {
   },
   description: siteDescription,
   metadataBase: new URL("https://manaaziz.com"),
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "64x64", type: "image/x-icon" },
+      { url: "/icon.png", sizes: "512x512", type: "image/png" }
+    ],
+    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }]
+  },
   openGraph: {
     title: siteTitle,
     description: siteDescription,
