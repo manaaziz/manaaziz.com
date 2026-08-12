@@ -4641,7 +4641,9 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
   line-height: 1.1;
   text-transform: uppercase;
   transition: opacity 120ms ease;
-  pointer-events: none;
+  width: auto;
+  font: inherit;
+  cursor: pointer;
 }
 
 .course-calendar-week-hint span,
@@ -4650,13 +4652,18 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
 }
 
 .course-calendar-week-hint strong::after {
-  content: " ↗";
+  content: " +";
 }
 
 .course-calendar-row:hover .course-calendar-week-hint,
 .course-calendar-row:focus-visible .course-calendar-week-hint,
 .course-calendar-row:focus-within .course-calendar-week-hint {
   opacity: 0;
+}
+
+.course-calendar-row.is-open .course-calendar-week-hint {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .course-calendar-week-popover {
@@ -4666,7 +4673,8 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
   display: grid;
   gap: 0.42rem;
   align-content: start;
-  overflow-y: auto;
+  max-height: min(18rem, 72vh);
+  overflow: auto;
   padding: 0.62rem 0.72rem;
   border: 1px solid var(--line-strong);
   border-radius: 8px;
@@ -4686,6 +4694,12 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
 .course-calendar-row:focus-visible .course-calendar-week-popover,
 .course-calendar-row:focus-within .course-calendar-week-popover {
   opacity: 1;
+  transform: translateY(-0.12rem) scale(1);
+}
+
+.course-calendar-row.is-open .course-calendar-week-popover {
+  opacity: 1;
+  pointer-events: auto;
   transform: translateY(-0.12rem) scale(1);
 }
 
@@ -4721,6 +4735,26 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
   font-size: 0.78rem;
   font-weight: 850;
   line-height: 1.18;
+  overflow-wrap: anywhere;
+}
+
+.course-calendar-more {
+  justify-self: start;
+  min-height: 2.1rem;
+  padding: 0.35rem 0.65rem;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  background: var(--ink);
+  box-shadow: 0 0.2rem 0 var(--green);
+  color: var(--surface-raised);
+  font: inherit;
+  font-size: 0.68rem;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.course-calendar-note.is-open .course-calendar-note-popover {
+  display: block;
 }
 
 .course-calendar-week-popover ul {
@@ -10940,6 +10974,31 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
   margin-top: clamp(2rem, 5vw, 4rem);
 }
 
+.spain-scroll-progress {
+  position: sticky;
+  top: 5.5rem;
+  z-index: 20;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.45rem 1rem;
+  align-items: center;
+  margin: 0 0 1.25rem auto;
+  width: min(28rem, 100%);
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-tight);
+  background: color-mix(in srgb, var(--panel) 92%, transparent);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(10px);
+}
+
+.spain-scroll-progress label { grid-column: 1 / -1; color: var(--muted); font-size: 0.76rem; font-weight: 850; }
+.spain-scroll-progress progress { width: 100%; accent-color: var(--scrolly-accent); }
+.spain-scroll-progress div { display: flex; gap: 0.4rem; }
+.spain-scroll-progress button { min-height: 2.75rem; padding: 0.45rem 0.7rem; border: 1px solid var(--ink); border-radius: 999px; background: var(--ink); box-shadow: 0 0.18rem 0 var(--scrolly-accent); color: var(--surface-raised); font: inherit; font-size: 0.75rem; font-weight: 900; cursor: pointer; }
+.spain-scroll-progress button:disabled { opacity: 0.35; cursor: not-allowed; }
+.spain-scroll-progress button:focus-visible { outline: 3px solid var(--green); outline-offset: 3px; }
+
 .spain-scroll-steps {
   display: grid;
 }
@@ -10975,7 +11034,7 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
 
 .spain-scroll-route-line path {
   fill: none;
-  stroke: #da2d3d;
+  stroke: var(--scrolly-accent);
   stroke-width: 4;
   stroke-linecap: round;
   stroke-linejoin: round;
@@ -10985,15 +11044,22 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
 }
 
 .spain-scroll-dot-svg {
-  fill: #da2d3d;
-  filter: drop-shadow(0 0 1.5px rgba(218, 45, 61, 0.28));
+  stroke: rgba(108, 12, 24, 0.72);
+  stroke-width: 0.9;
+  filter:
+    drop-shadow(0 1.7px 1.2px rgba(23, 23, 23, 0.34))
+    drop-shadow(0 0 2.4px rgba(218, 45, 61, 0.32));
 }
+
+.scrolly-dot-highlight { stop-color: #fff7f3; }
+.scrolly-dot-mid { stop-color: var(--scrolly-accent); }
+.scrolly-dot-edge { stop-color: #8f1222; }
 
 .spain-scroll-start,
 .spain-scroll-pin {
   position: absolute;
   z-index: 3;
-  background: #da2d3d;
+  background: var(--scrolly-accent);
 }
 
 .spain-scroll-start {
@@ -11010,7 +11076,7 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
   left: 50%;
   width: 1.65rem;
   height: 1.65rem;
-  border: 0.28rem solid #da2d3d;
+  border: 0.28rem solid var(--scrolly-accent);
   border-radius: 55% 55% 55% 0;
   box-shadow: none;
   transform: translate(-50%, 50%) rotate(-45deg);
@@ -11130,7 +11196,10 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
   box-shadow: 0 26px 80px rgba(23, 23, 23, 0.16);
 }
 
+.spain-scroll-step:focus-visible { outline: 3px solid var(--green); outline-offset: 0.4rem; }
+
 @media (max-width: 900px) {
+  .spain-scroll-progress { position: relative; top: auto; width: 100%; }
   .spain-scroll-step {
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: auto auto auto;
@@ -11172,6 +11241,11 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
   .spain-scroll-visual {
     transition: none;
   }
+
+  .spain-scroll-card,
+  .spain-scroll-visual { opacity: 1; transform: none; }
+
+  .spain-scroll-dot-svg { display: none; }
 }
 
 .post-nav {

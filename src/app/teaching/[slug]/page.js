@@ -5,6 +5,7 @@ import { courses, getCourse } from "../courses";
 import { getMaterialHub } from "../material_hubs";
 import styles from "./course_page.module.css";
 import CourseAssessmentChart from "./course_assessment_chart";
+import CourseCalendar from "@/components/course_calendar";
 
 const materialKindOrder = {
   Syllabus: 0,
@@ -33,7 +34,6 @@ const defaultGradingScale = [
   { grade: "F", range: "Below 60%" }
 ];
 
-const calendarWeekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const monthIndexes = {
   jan: 0,
   january: 0,
@@ -146,70 +146,6 @@ function parseCalendarDate(dateText, fallbackMonth, fallbackYear) {
   return new Date(year, monthIndex, day);
 }
 
-function dateKey(date) {
-  return [date.getFullYear(), date.getMonth(), date.getDate()].join("-");
-}
-
-function buildMonthCalendar(month) {
-  const monthIndex = monthIndexes[String(month.month).toLowerCase()];
-  const year = Number(month.year);
-
-  if (!Number.isInteger(monthIndex) || !year) {
-    return [];
-  }
-
-  const firstDay = new Date(year, monthIndex, 1);
-  const lastDay = new Date(year, monthIndex + 1, 0);
-  const cursor = new Date(firstDay);
-  cursor.setDate(firstDay.getDate() - firstDay.getDay());
-  const end = new Date(lastDay);
-  end.setDate(lastDay.getDate() + (6 - lastDay.getDay()));
-
-  const notesByDate = new Map();
-  (month.notes || []).forEach((note) => {
-    const noteDate = parseCalendarDate(note.date, month.month, month.year);
-    if (!noteDate) return;
-    const key = dateKey(noteDate);
-    notesByDate.set(key, [...(notesByDate.get(key) || []), note]);
-  });
-
-  const eventsByDate = new Map();
-  (month.days || []).forEach((event) => {
-    const eventDate = parseCalendarDate(event.date, month.month, month.year);
-    if (!eventDate) return;
-    const key = dateKey(eventDate);
-    eventsByDate.set(key, [...(eventsByDate.get(key) || []), event]);
-  });
-
-  const weeks = (month.weeks || []).map((week) => ({
-    ...week,
-    startDate: parseCalendarDate(week.date, month.month, month.year)
-  }));
-
-  const rows = [];
-  while (cursor <= end) {
-    const rowStart = new Date(cursor);
-    const days = [];
-
-    for (let index = 0; index < 7; index += 1) {
-      const current = new Date(cursor);
-      days.push({
-        date: current,
-        isCurrentMonth: current.getMonth() === monthIndex,
-        notes: notesByDate.get(dateKey(current)) || [],
-        events: eventsByDate.get(dateKey(current)) || []
-      });
-      cursor.setDate(cursor.getDate() + 1);
-    }
-
-    const rowEnd = new Date(rowStart);
-    rowEnd.setDate(rowStart.getDate() + 6);
-    const courseWeek = weeks.find((week) => week.startDate && week.startDate >= rowStart && week.startDate <= rowEnd);
-    rows.push({ days, courseWeek });
-  }
-
-  return rows;
-}
 
 function buildScheduleCalendar(schedule, semester) {
   const year = Number(String(semester || "").match(/\b(20\d{2})\b/)?.[1]);
@@ -403,98 +339,7 @@ export default async function CoursePage({ params }) {
             <h2 id="course-schedule-title">{semesterCalendar.length ? course.calendarLabel || "Semester calendar" : "Weekly schedule"}</h2>
           </div>
           {semesterCalendar.length ? (
-            <div className="course-calendar-grid" aria-label="Semester calendar with weekly topics and university dates">
-              {semesterCalendar.map((month) => (
-                <article className="course-calendar-month" key={`${month.month}-${month.year}`}>
-                  <div className="course-calendar-month-header">
-                    <h3>{month.month}</h3>
-                    <span>{month.year}</span>
-                  </div>
-                  <div className="course-month-calendar" aria-label={`${month.month} ${month.year} calendar`}>
-                    <div className="course-calendar-weekday-row" aria-hidden="true">
-                      {calendarWeekdays.map((day) => (
-                        <span key={day}>{day}</span>
-                      ))}
-                    </div>
-                    {buildMonthCalendar(month).map((row) => (
-                      <div
-                        aria-label={
-                          row.courseWeek
-                            ? `${/^\d+$/.test(String(row.courseWeek.week)) ? `Week ${row.courseWeek.week}` : row.courseWeek.week}: ${row.courseWeek.topic}`
-                            : undefined
-                        }
-                        className={`course-calendar-row${row.courseWeek ? " has-course-week" : ""}${row.courseWeek?.blocked ? " is-blocked" : ""}`}
-                        key={`${month.month}-${row.days[0].date.toISOString()}`}
-                        tabIndex={row.courseWeek ? 0 : undefined}
-                      >
-                        {row.days.map((day) => (
-                          <div
-                            className={`course-calendar-day${day.isCurrentMonth ? "" : " is-muted"}`}
-                            key={day.date.toISOString()}
-                          >
-                            <span>{day.date.getDate()}</span>
-                            {day.notes.map((note) => (
-                              <div className="course-calendar-note" key={`${note.date}-${note.title}`}>
-                                <button className="course-calendar-note-trigger" type="button">
-                                  {note.title}
-                                </button>
-                                <div className="course-calendar-note-popover" role="tooltip">
-                                  <p>{note.description}</p>
-                                </div>
-                              </div>
-                            ))}
-                            {day.events.map((event) => (
-                              <div className="course-calendar-note course-calendar-event" key={`${event.date}-${event.topic}`}>
-                                <button className="course-calendar-note-trigger" type="button">
-                                  {event.label || event.topic}
-                                </button>
-                                <div className="course-calendar-note-popover" role="tooltip">
-                                  <strong>{event.topic}</strong>
-                                  {event.description ? <p>{event.description}</p> : null}
-                                  {event.due?.length ? (
-                                    <ul>
-                                      {event.due.map((item) => (
-                                        <li key={item}>{item}</li>
-                                      ))}
-                                    </ul>
-                                  ) : null}
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        ))}
-                        {row.courseWeek ? (
-                          <>
-                            <div className="course-calendar-week-hint" aria-hidden="true">
-                              <span>
-                                {/^\d+$/.test(String(row.courseWeek.week)) ? `Week ${row.courseWeek.week}` : row.courseWeek.week}
-                              </span>
-                              <strong>Hover or tap for details</strong>
-                            </div>
-                            <div className="course-calendar-week-popover" aria-hidden="true">
-                              <div>
-                                <span>{row.courseWeek.date}</span>
-                                <strong>
-                                  {/^\d+$/.test(String(row.courseWeek.week)) ? `Week ${row.courseWeek.week}` : row.courseWeek.week}
-                                </strong>
-                              </div>
-                              <p>{row.courseWeek.topic}</p>
-                              {row.courseWeek.due?.length ? (
-                                <ul>
-                                  {row.courseWeek.due.map((item) => (
-                                    <li key={item}>{item}</li>
-                                  ))}
-                                </ul>
-                              ) : null}
-                            </div>
-                          </>
-                        ) : null}
-                      </div>
-                    ))}
-                  </div>
-                </article>
-              ))}
-            </div>
+            <CourseCalendar months={semesterCalendar} label="Semester calendar with weekly topics and university dates" />
           ) : (
             <div className="syllabus-table weekly" role="table" aria-label="Weekly course schedule">
               <div role="row">

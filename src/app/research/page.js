@@ -338,6 +338,8 @@ export default function ResearchPage() {
                 <article
                   className={`presentation-photo-card presentation-tile-${presentation.tile || "standard"}`}
                   key={`${presentation.date}-${presentation.title}`}
+                  tabIndex={0}
+                  aria-label={`${presentation.title}. ${presentation.venue}. ${presentation.location}, ${presentation.date}.`}
                   style={{
                     "--presentation-fit": presentation.fit || "cover",
                     "--presentation-focus": presentation.focus || "center"

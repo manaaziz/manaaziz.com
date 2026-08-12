@@ -2,7 +2,11 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 
-const stops = [
+export const spainRecapStory = {
+  ariaLabel: "Spain 2025 study-abroad journey",
+  eyebrow: "Spain 2025",
+  accent: "#da2d3d",
+  stops: [
   {
     city: "Madrid",
     date: "May 20, 2025",
@@ -153,7 +157,8 @@ const stops = [
     motif: "notes",
     image: "/assets/photos/fab333_madrid/fab_bcn_day6.webp"
   }
-];
+  ]
+};
 
 function clamp(value, min, max) {
   return Math.min(max, Math.max(min, value));
@@ -281,10 +286,13 @@ function getLabelPunctuation(label) {
   return /[.!?]$/.test(label) ? "" : ".";
 }
 
-export default function SpainRecapScrolly() {
+export function Scrollytelling({ story }) {
+  const { stops, ariaLabel, eyebrow, accent = "#da2d3d" } = story;
   const wrapRef = useRef(null);
+  const stepRefs = useRef([]);
   const [progress, setProgress] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
   const segmentPosition = useMemo(() => {
     const scaled = progress * (stops.length - 1);
     const index = clamp(Math.floor(scaled), 0, stops.length - 2);
@@ -331,6 +339,15 @@ export default function SpainRecapScrolly() {
     const wrap = wrapRef.current;
     if (!wrap) return undefined;
 
+    const observer = new IntersectionObserver(([entry]) => setIsVisible(entry.isIntersecting), { rootMargin: "25% 0px" });
+    observer.observe(wrap);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const wrap = wrapRef.current;
+    if (!wrap || !isVisible) return undefined;
+
     let frame;
 
     function update() {
@@ -358,16 +375,31 @@ export default function SpainRecapScrolly() {
       window.removeEventListener("scroll", requestUpdate);
       window.removeEventListener("resize", requestUpdate);
     };
-  }, []);
+  }, [isVisible, stops.length]);
+
+  function goTo(index) {
+    const nextIndex = clamp(index, 0, stops.length - 1);
+    setActiveIndex(nextIndex);
+    stepRefs.current[nextIndex]?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "center" });
+    stepRefs.current[nextIndex]?.focus({ preventScroll: true });
+  }
 
   return (
-    <section className="spain-scroll" ref={wrapRef} aria-label="Spain recap scrollytelling draft">
+    <section className="spain-scroll" ref={wrapRef} aria-label={ariaLabel} style={{ "--scrolly-accent": accent }}>
+      <div className="spain-scroll-progress">
+        <label htmlFor="scrolly-progress">Story progress: stop {activeIndex + 1} of {stops.length}</label>
+        <progress id="scrolly-progress" max={stops.length} value={activeIndex + 1} />
+        <div>
+          <button type="button" onClick={() => goTo(activeIndex - 1)} disabled={activeIndex === 0}>Previous</button>
+          <button type="button" onClick={() => goTo(activeIndex + 1)} disabled={activeIndex === stops.length - 1}>Next</button>
+        </div>
+      </div>
       <div className="spain-scroll-steps">
         {stops.map((stop, index) => (
-          <div className={`spain-scroll-step${activeIndex === index ? " active" : ""}`} key={`${stop.city}-${stop.date}`}>
+          <div className={`spain-scroll-step${activeIndex === index ? " active" : ""}`} key={`${stop.city}-${stop.date}`} ref={(node) => { stepRefs.current[index] = node; }} tabIndex="-1" aria-current={activeIndex === index ? "step" : undefined}>
             <article className="spain-scroll-card">
               <header>
-                <span>Spain 2025</span>
+                <span>{eyebrow}</span>
                 <time>{stop.date}</time>
               </header>
               <h2>{stop.city}: {stop.day}</h2>
@@ -381,9 +413,16 @@ export default function SpainRecapScrolly() {
               {index < stops.length - 1 ? (
                 <>
                   <svg className="spain-scroll-route-line" viewBox="0 0 120 300" preserveAspectRatio="none">
+                    <defs>
+                      <radialGradient id={`scrolly-dot-${index}`} cx="32%" cy="26%" r="68%">
+                        <stop className="scrolly-dot-highlight" offset="0%" />
+                        <stop className="scrolly-dot-mid" offset="34%" />
+                        <stop className="scrolly-dot-edge" offset="100%" />
+                      </radialGradient>
+                    </defs>
                     <path d={getRoutePath(index)} />
                     {segmentPosition.index === index ? (
-                      <circle className="spain-scroll-dot-svg" cx={dotPosition.x} cy={dotPosition.y} r="4.3" />
+                      <circle className="spain-scroll-dot-svg" cx={dotPosition.x} cy={dotPosition.y} r="6.4" fill={`url(#scrolly-dot-${index})`} />
                     ) : null}
                   </svg>
                   <span className="spain-scroll-start" />
@@ -395,11 +434,15 @@ export default function SpainRecapScrolly() {
             </div>
 
             <figure className={`spain-scroll-visual ${stop.motif}`}>
-              <img src={stop.image} alt="" loading={index < 2 ? "eager" : "lazy"} decoding="async" />
+              <img src={stop.image} alt={stop.alt || ""} width={stop.width || 1200} height={stop.height || 1200} loading={index === 0 ? "eager" : "lazy"} fetchPriority={index === 0 ? "high" : "auto"} decoding="async" />
             </figure>
           </div>
         ))}
       </div>
     </section>
   );
+}
+
+export default function SpainRecapScrolly() {
+  return <Scrollytelling story={spainRecapStory} />;
 }
