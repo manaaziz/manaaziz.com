@@ -642,7 +642,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [], section
       place: "Nashville, USA",
       preview: "Invited presentations on explainable AI research and practical AI use cases in the business world.",
       href: "/research",
-      image: "/assets/photos/mana_belmont_bdaic.webp",
+      image: "/assets/photos/mana-azizsoltani-belmont-ai-presentation.webp",
       alt: "Mana Azizsoltani presenting explainable AI research and business applications of AI at Belmont University in Nashville",
       tile: "wide"
     },
@@ -653,7 +653,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [], section
       place: "Macau, SAR",
       preview: "Presentation photos from research conversations around gaming, data, and hospitality analytics.",
       href: "/research",
-      image: "/assets/photos/mana_davis_umac.webp",
+      image: "/assets/photos/mana-azizsoltani-macau-research-lab.webp",
       alt: "Mana Azizsoltani with a University of Macau colleague in a casino teaching and research laboratory"
     },
     {
@@ -663,7 +663,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [], section
       place: "Madrid, Spain",
       preview: "A research and teaching stop from the international side of the archive.",
       href: "/research",
-      image: "/assets/photos/urjc_mana.webp",
+      image: "/assets/photos/mana-azizsoltani-urjc-madrid-research.webp",
       alt: "Mana Azizsoltani during his research stay at Universidad Rey Juan Carlos in Madrid, Spain"
     },
     {
@@ -673,7 +673,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [], section
       place: "Macau, SAR",
       preview: "More presentation-room texture for the gallery view.",
       href: "/research",
-      image: "/assets/photos/mana_umac.webp",
+      image: "/assets/photos/mana-azizsoltani-university-of-macau.webp",
       alt: "Mana Azizsoltani visiting the University of Macau Faculty of Business Administration",
       tile: "wide"
     }

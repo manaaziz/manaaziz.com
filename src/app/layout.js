@@ -9,7 +9,7 @@ import { getVisiblePosts } from "@/lib/posts";
 const siteTitle = "Mana Azizsoltani";
 const siteDescription =
   "Consultant, researcher, and professor specializing in AI and analytics in the hospitality and gaming industry";
-const canonicalPortrait = "/assets/images/mana_home_portrait_bw_cutout.webp";
+const canonicalPortrait = "/assets/images/mana-azizsoltani-professional-portrait.webp";
 const officialProfiles = [
   "https://www.linkedin.com/in/manaazizsoltani/",
   "https://scholar.google.com/citations?user=Qe4izygAAAAJ&hl=en",

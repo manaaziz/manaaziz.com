@@ -8,14 +8,14 @@ export const dynamic = "force-static";
 const siteUrl = "https://manaaziz.com";
 const manalogueSections = ["consulting", "research", "teaching", "travel", "podcasts", "gallery"];
 const identityImages = [
-  "/assets/images/mana_home_portrait_bw_cutout.webp",
-  "/assets/photos/mana_umac.webp",
-  "/assets/photos/mana_davis_umac.webp",
-  "/assets/photos/mana_davis_umac_2.webp",
-  "/assets/photos/urjc_mana.webp",
-  "/assets/photos/mana_belmont_bdaic.webp",
-  "/assets/photos/fab333_mana_mark_spain.webp",
-  "/assets/photos/fab333_reunion_manaflag.webp"
+  "/assets/images/mana-azizsoltani-professional-portrait.webp",
+  "/assets/photos/mana-azizsoltani-university-of-macau.webp",
+  "/assets/photos/mana-azizsoltani-macau-research-lab.webp",
+  "/assets/photos/mana-azizsoltani-macau-campus-visit.webp",
+  "/assets/photos/mana-azizsoltani-urjc-madrid-research.webp",
+  "/assets/photos/mana-azizsoltani-belmont-ai-presentation.webp",
+  "/assets/photos/mana-azizsoltani-spain-study-abroad.webp",
+  "/assets/photos/mana-azizsoltani-fab333-reunion.webp"
 ];
 
 function absolute(path) {
@@ -42,7 +42,7 @@ export default function sitemap() {
     entry("/", { changeFrequency: "weekly", priority: 1, images: identityImages }),
     entry("/about", { priority: 0.9, images: identityImages }),
     entry("/consulting", { priority: 0.85 }),
-    entry("/research", { priority: 0.85, images: ["/assets/photos/mana_belmont_bdaic.webp"] }),
+    entry("/research", { priority: 0.85, images: ["/assets/photos/mana-azizsoltani-belmont-ai-presentation.webp"] }),
     entry("/teaching", { priority: 0.85 }),
     entry("/manalogue", { changeFrequency: "weekly", priority: 0.85 }),
     entry("/gallery", { priority: 0.75, images: identityImages }),

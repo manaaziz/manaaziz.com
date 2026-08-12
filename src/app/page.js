@@ -90,7 +90,7 @@ export default function Home() {
         <div className="portrait-panel" aria-label="Portrait of Mana Azizsoltani">
           <ResponsiveImage
             className="home-portrait"
-            src="/assets/images/mana_home_portrait_bw_cutout.webp"
+            src="/assets/images/mana-azizsoltani-professional-portrait.webp"
             alt="Mana Azizsoltani"
             sizes="(max-width: 720px) 88vw, 42vw"
             eager

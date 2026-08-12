@@ -5,7 +5,7 @@ import sharp from "sharp";
 const root = process.cwd();
 const widths = [480, 960];
 const sources = [
-  "/assets/images/mana_home_portrait_bw_cutout.webp",
+  "/assets/images/mana-azizsoltani-professional-portrait.webp",
   "/assets/photos/fab333_madrid/fab_madrid_day5.webp",
   "/assets/photos/fab333_madrid/fab_val_day2.webp",
   "/assets/photos/fab333_reunion_group.webp",

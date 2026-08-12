@@ -46,6 +46,22 @@ This is the working memory for `manaaziz.com`, Mana Azizsoltani's personal websi
 - Use `loading="lazy"` and `decoding="async"` for ordinary post/card images where appropriate.
 - For thumbnails, prefer wide landscape compositions with no embedded text/logos unless the user asks otherwise.
 
+## SEO And Digital Footprint
+
+- Treat the homepage as Mana Azizsoltani's canonical profile page and keep its `ProfilePage` and `Person` structured data connected through stable `@id` values.
+- Keep `sameAs` links pointed at Mana's exact official profiles. Do not add uncertain, inferred, or third-party profile URLs.
+- Maintain `src/app/sitemap.js` as a data-driven sitemap covering all public, canonical pages. Include important images on the page where they actually appear; never advertise missing, private, duplicate, redirected, or `noindex` URLs.
+- Keep `src/app/robots.js` crawl-friendly and pointing to `https://manaaziz.com/sitemap.xml`.
+- Use short, factual, lowercase, hyphenated image filenames. For identity-focused photos, include `mana-azizsoltani` plus meaningful context such as the institution, city, event, or activity; avoid camera-generated names and keyword stuffing.
+- Give meaningful content images accurate alt text that describes who is pictured, what is happening, and relevant context. Use `alt=""` only when the image is genuinely decorative or the same information is already conveyed immediately beside it.
+- Prefer visible captions and relevant surrounding copy for important professional photos. Do not add hidden SEO text or repeat keywords unnaturally.
+- Preserve one canonical portrait URL in site metadata, Open Graph/Twitter metadata, structured data, responsive-image configuration, and the image sitemap.
+- When a page has a representative image, provide a crawlable high-resolution `src` URL and consistent metadata. Prefer multiple useful crops (1:1, 4:3, and 16:9) when they are genuinely available.
+- Connect blog posts to Mana's canonical `Person` identity when adding `Article` or `BlogPosting` structured data. Include accurate headline, author, dates, canonical URL, and primary image.
+- Use unique, descriptive page titles and descriptions, and provide self-referencing canonical URLs for important landing/profile pages. Do not set a layout-wide homepage canonical that would make child routes appear duplicated.
+- After changes to routes, metadata, posts, or important images, validate the static export, confirm every sitemap page resolves, and check for duplicate sitemap URLs and missing image assets.
+- Never promise rankings or specific Google imagery. Optimize for accurate entity association, accessibility, crawlability, and authoritative first- and third-party context.
+
 ## Carousels
 
 - `src/components/feature_carousel.js` is the shared feature carousel for student review cards and blog preview cards.
