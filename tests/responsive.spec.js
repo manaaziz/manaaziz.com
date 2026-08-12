@@ -317,16 +317,39 @@ test("mobile paper hexagons reveal publication actions only after opening", asyn
   await firstPaper.scrollIntoViewIfNeeded();
   const firstPaperBox = await firstPaper.boundingBox();
   const secondPaperBox = await page.locator(".paper-tile").nth(1).boundingBox();
+  const thirdPaperBox = await page.locator(".paper-tile").nth(2).boundingBox();
+  const fourthPaperBox = await page.locator(".paper-tile").nth(3).boundingBox();
   expect(firstPaperBox.width).toBeGreaterThan(150);
   expect(Math.abs(firstPaperBox.width - secondPaperBox.width)).toBeLessThan(1);
   expect(secondPaperBox.x).toBeGreaterThan(firstPaperBox.x);
   expect(secondPaperBox.y).toBeGreaterThan(firstPaperBox.y + firstPaperBox.height * 0.4);
   expect(secondPaperBox.y).toBeLessThan(firstPaperBox.y + firstPaperBox.height * 0.6);
+  const halfStep = firstPaperBox.height / 2;
+  expect(Math.abs((secondPaperBox.y - firstPaperBox.y) - halfStep)).toBeLessThanOrEqual(1);
+  expect(Math.abs((thirdPaperBox.y - firstPaperBox.y) - firstPaperBox.height)).toBeLessThanOrEqual(1);
+  expect(Math.abs((fourthPaperBox.y - thirdPaperBox.y) - halfStep)).toBeLessThanOrEqual(1);
+  const mobileGutter = await firstPaper.evaluate((tile) => {
+    const tileBounds = tile.getBoundingClientRect();
+    const innerBounds = tile.querySelector(".paper-tile-inner").getBoundingClientRect();
+    const chipWidth = Number.parseFloat(getComputedStyle(tile.closest(".paper-mosaic-wrap").querySelector(".paper-chip-drop span")).width);
+    return {
+      horizontal: (innerBounds.left - tileBounds.left) * Math.sqrt(3),
+      vertical: (innerBounds.top - tileBounds.top) * 2,
+      chipWidth
+    };
+  });
+  expect(Math.abs(mobileGutter.horizontal - mobileGutter.vertical)).toBeLessThanOrEqual(1);
+  expect(mobileGutter.vertical).toBeGreaterThan(mobileGutter.chipWidth);
   await expect(firstPaper.locator(".paper-tile-actions")).toBeHidden();
   await firstPaper.press("Enter");
 
   const dialog = page.getByRole("dialog");
   await expect(dialog).toBeVisible();
+  const titleJournalOrder = await dialog.evaluate((element) => {
+    const children = Array.from(element.children);
+    return children.indexOf(element.querySelector("h3")) < children.indexOf(element.querySelector("small"));
+  });
+  expect(titleJournalOrder).toBe(true);
   await expect(dialog.locator(".paper-focus-actions").getByRole("link").first()).toBeVisible();
   const closeButton = dialog.getByRole("button", { name: "Close paper details" });
   await expect(closeButton).toBeVisible();

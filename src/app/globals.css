@@ -22,6 +22,7 @@
   --page-heading-size: clamp(2.05rem, 3.8vw, 3.8rem);
   --section-heading-size: clamp(1.85rem, 3.15vw, 3.1rem);
   --compact-heading-size: clamp(1.35rem, 2.25vw, 2rem);
+  --section-gap: clamp(3rem, 7vw, 5rem);
   --max: 1180px;
 }
 
@@ -997,7 +998,7 @@ main {
 }
 
 .section-intro {
-  margin-top: 3rem;
+  margin-top: 0;
 }
 
 .hero-home {
@@ -1096,7 +1097,7 @@ main {
   }
 
   .section-intro {
-    margin-top: 4rem;
+    margin-top: 0;
   }
 }
 
@@ -1859,7 +1860,7 @@ h3 {
 }
 
 .home-about {
-  margin-top: 4rem;
+  margin-top: var(--section-gap);
 }
 
 .home-about .button,
@@ -1884,7 +1885,7 @@ h3 {
   grid-template-columns: minmax(0, 1fr);
   gap: clamp(1.25rem, 3vw, 2rem);
   align-items: stretch;
-  margin-top: clamp(2.75rem, 6vw, 4.25rem);
+  margin-top: var(--section-gap);
 }
 
 .home-stream h2 {
@@ -2117,7 +2118,7 @@ h3 {
 }
 
 .presentation-section {
-  margin-top: 4rem;
+  margin-top: var(--section-gap);
 }
 
 .presentation-gallery {
@@ -2476,7 +2477,7 @@ h3 {
 }
 
 .research-word-graph-section {
-  margin-top: 3rem;
+  margin-top: var(--section-gap);
 }
 
 .research-word-graph-section .section-intro h2 {
@@ -2657,7 +2658,7 @@ h3 {
 }
 
 .paper-mosaic-section {
-  margin-top: clamp(3rem, 7vw, 5rem);
+  margin-top: var(--section-gap);
 }
 
 .paper-mosaic-section .section-intro,
@@ -3041,7 +3042,7 @@ h3 {
 }
 
 .work-mix-section {
-  margin-top: clamp(3rem, 5vw, 4rem);
+  margin-top: var(--section-gap);
 }
 
 .work-mix-layout {
@@ -3349,7 +3350,7 @@ h3 {
 .course-outcomes,
 .course-materials,
 .syllabus-section {
-  margin-top: 4rem;
+  margin-top: var(--section-gap);
 }
 
 .teaching-values {
@@ -4380,7 +4381,7 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
 .course-description-section,
 .course-grading-section,
 .course-schedule-section {
-  margin-top: clamp(3rem, 7vw, 5rem);
+  margin-top: var(--section-gap);
 }
 
 .course-calendar-grid {
@@ -5199,7 +5200,7 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
 .consulting-role-section,
 .consulting-area-section,
 .consulting-example-section {
-  margin-top: clamp(3rem, 7vw, 5rem);
+  margin-top: var(--section-gap);
 }
 
 .consulting-role-grid,
@@ -6418,7 +6419,7 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
 }
 
 .global-experience {
-  margin-top: 4rem;
+  margin-top: var(--section-gap);
 }
 
 .global-experience .section-intro {
@@ -9324,7 +9325,7 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
   display: grid;
   grid-template-columns: minmax(0, 0.35fr) minmax(0, 0.65fr);
   gap: 2rem;
-  margin-top: 4rem;
+  margin-top: var(--section-gap);
 }
 
 .post-shell h1 {
@@ -12014,9 +12015,10 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
   }
 
   .paper-mosaic {
+    --paper-mobile-gutter: clamp(0.62rem, 2.8vw, 0.78rem);
     display: grid;
     grid-template-columns: repeat(7, minmax(0, 1fr));
-    gap: clamp(0.42rem, 2vw, 0.7rem) 0;
+    gap: 0;
     width: 100%;
     min-width: 0;
     height: auto;
@@ -12044,6 +12046,8 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
   }
 
   .paper-tile-inner {
+    inset-block: calc(var(--paper-mobile-gutter) / 2);
+    inset-inline: calc(var(--paper-mobile-gutter) / 1.7320508);
     gap: clamp(0.2rem, 1.4vw, 0.34rem);
     padding: clamp(0.58rem, 2.8vw, 0.86rem) clamp(0.88rem, 4.7vw, 1.25rem);
   }

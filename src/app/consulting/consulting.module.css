@@ -1,5 +1,5 @@
 .section {
-  margin-top: clamp(3rem, 7vw, 5rem);
+  margin-top: var(--section-gap);
 }
 
 .grid {

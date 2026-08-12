@@ -155,7 +155,7 @@ export default function PaperMosaic({ papers }) {
     function updateSolidTiles() {
       bounds = wrap.getBoundingClientRect();
       solidTiles = tileElements.map((tile) => {
-        const rect = tile.getBoundingClientRect();
+        const rect = (tile.querySelector(".paper-tile-inner") || tile).getBoundingClientRect();
         const tileRect = {
           x: rect.left - bounds.left,
           y: rect.top - bounds.top,
@@ -174,18 +174,14 @@ export default function PaperMosaic({ papers }) {
     function resetChip(chip, index, startAbove = true) {
       chip.visualRadius = Math.max(5, chipElements[index].offsetWidth / 2);
       chip.radius = Math.max(4, chipElements[index].offsetWidth * 0.32);
-      const laneDirection = index % 2 === 0 ? 1 : -1;
-      const leftLaneStart = bounds.width * 0.08;
-      const rightLaneStart = bounds.width * 0.58;
-      const laneWidth = bounds.width * 0.34;
-      chip.x = (laneDirection > 0 ? leftLaneStart : rightLaneStart) + Math.random() * laneWidth;
+      const launchLanes = [0.23, 0.72, 0.46, 0.59, 0.34, 0.82];
+      const laneCenter = bounds.width * launchLanes[index % launchLanes.length];
+      chip.x = laneCenter + (Math.random() - 0.5) * bounds.width * 0.1;
       chip.y = startAbove ? -chip.radius * (2.5 + Math.random() * 4.5) : -chip.radius * (1 + index * 1.6);
-      const fallSpeed = 165 + Math.random() * 55;
-      const fallAngle = (Math.PI / 180) * (30 + Math.random() * 12);
-      const centerDirection = chip.x < bounds.width / 2 ? 1 : -1;
-      const direction = Math.random() > 0.12 ? centerDirection : -centerDirection;
-      chip.vx = Math.sin(fallAngle) * fallSpeed * direction;
-      chip.vy = Math.cos(fallAngle) * fallSpeed;
+      const topDrop = index % 3 === 0;
+      const direction = index % 2 === 0 ? 1 : -1;
+      chip.vx = topDrop ? (Math.random() - 0.5) * 24 : direction * (42 + Math.random() * 38);
+      chip.vy = 150 + Math.random() * 58;
       chip.driftDirection = direction;
       chip.stuckTime = 0;
       chip.surfaceContact = false;
@@ -219,7 +215,7 @@ export default function PaperMosaic({ papers }) {
       lastFrame = now;
 
       chips.forEach((chip, index) => {
-        const steps = 3;
+        const steps = 5;
         const stepDelta = delta / steps;
         chip.surfaceContact = false;
 
@@ -228,6 +224,8 @@ export default function PaperMosaic({ papers }) {
           chip.vy += 520 * stepDelta;
           chip.x += chip.vx * stepDelta;
           chip.y += chip.vy * stepDelta;
+
+          let deepestCollision = null;
 
           solidTiles.forEach((tile) => {
             const chipPoint = { x: chip.x, y: chip.y };
@@ -271,16 +269,20 @@ export default function PaperMosaic({ papers }) {
               }
             });
 
-            if (!collision) return;
-
-            chip.x += collision.normal.x * (collision.overlap + 0.15);
-            chip.y += collision.normal.y * (collision.overlap + 0.15);
-            resolveChipContact(chip, collision.normal);
-
-            if (collision.normal.y < -0.72) {
-              chip.surfaceContact = true;
+            if (collision?.overlap > 0 && (!deepestCollision || collision.overlap > deepestCollision.overlap)) {
+              deepestCollision = collision;
             }
           });
+
+          if (deepestCollision) {
+            chip.x += deepestCollision.normal.x * (deepestCollision.overlap + 0.08);
+            chip.y += deepestCollision.normal.y * (deepestCollision.overlap + 0.08);
+            resolveChipContact(chip, deepestCollision.normal);
+
+            if (deepestCollision.normal.y < -0.72) {
+              chip.surfaceContact = true;
+            }
+          }
         }
 
         const speed = Math.hypot(chip.vx, chip.vy);
@@ -462,8 +464,8 @@ export default function PaperMosaic({ papers }) {
             </button>
             <span>{activePaper.status} · {activePaper.year}</span>
             <h3 id="paper-focus-title">{activePaper.title}</h3>
-            <p>{activePaper.detail || activePaper.blurb}</p>
             <small>{activePaper.venue}</small>
+            <p>{activePaper.detail || activePaper.blurb}</p>
             <div className="paper-focus-actions">
               {activePaper.doi ? (
                 <a className="button paper-focus-button" href={`https://doi.org/${activePaper.doi}`} target="_blank" rel="noreferrer">
