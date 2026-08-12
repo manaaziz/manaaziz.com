@@ -3400,8 +3400,8 @@ h3 {
 }
 
 .student-review-carousel {
-  --carousel-card-width: min(23.85rem, 43.5vw, calc(100vw - 2rem));
-  --carousel-card-height: clamp(18.4rem, 38vw, 18.75rem);
+  --carousel-card-width: var(--carousel-card-width-override, min(23.85rem, 43.5vw, calc(100vw - 2rem)));
+  --carousel-card-height: var(--carousel-card-height-override, clamp(18.4rem, 38vw, 18.75rem));
   --carousel-side-shift: calc(var(--carousel-card-width) * 0.66);
   --carousel-far-shift: calc(var(--carousel-card-width) * 1.22);
   --carousel-reel-side-shift: calc(var(--carousel-card-width) * 0.8);
@@ -11038,17 +11038,19 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
   vector-effect: non-scaling-stroke;
 }
 
-.spain-scroll-dot-svg {
-  stroke: rgba(108, 12, 24, 0.72);
-  stroke-width: 0.9;
-  filter:
-    drop-shadow(0 1.7px 1.2px rgba(23, 23, 23, 0.34))
-    drop-shadow(0 0 2.4px rgba(218, 45, 61, 0.32));
+.spain-scroll-dot {
+  position: absolute;
+  z-index: 4;
+  display: block;
+  width: 0.82rem;
+  height: 0.82rem;
+  min-width: 0.82rem;
+  min-height: 0.82rem;
+  padding: 0;
+  border-radius: 50%;
+  background: var(--scrolly-accent);
+  transform: translate(-50%, -50%);
 }
-
-.scrolly-dot-highlight { stop-color: #fff7f3; }
-.scrolly-dot-mid { stop-color: var(--scrolly-accent); }
-.scrolly-dot-edge { stop-color: #8f1222; }
 
 .spain-scroll-start,
 .spain-scroll-pin {
@@ -12651,13 +12653,13 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
 
   .review-quote p {
     max-width: 15rem;
-    font-size: clamp(0.68rem, 2.7vw, 0.78rem);
-    line-height: 1.2;
+    font-size: clamp(0.64rem, 2.55vw, 0.76rem);
+    line-height: 1.15;
   }
 
   .student-review-carousel {
-    --carousel-card-width: min(20rem, 86vw);
-    --carousel-card-height: clamp(22rem, 108vw, 25.5rem);
+    --carousel-card-width: var(--carousel-card-mobile-width-override, min(20rem, 86vw));
+    --carousel-card-height: var(--carousel-card-mobile-height-override, clamp(18.5rem, 88vw, 20rem));
     --carousel-side-shift: calc(var(--carousel-card-width) * 0.68);
     --carousel-far-shift: calc(var(--carousel-card-width) * 0.82);
     --carousel-reel-side-shift: calc(var(--carousel-card-width) * 0.66);
@@ -12666,10 +12668,6 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
     --carousel-side-angle: 18deg;
     --carousel-side-angle-reverse: -18deg;
     --carousel-side-scale: 0.82;
-  }
-
-  .feature-carousel-blog .student-review-carousel {
-    --carousel-card-height: clamp(18.5rem, 88vw, 20rem);
   }
 
   .student-review-stage {

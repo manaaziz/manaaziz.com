@@ -265,6 +265,24 @@ test("mobile blog carousel uses the compact shared card height", async ({ page }
   expect(bounds.height).toBeLessThanOrEqual(320);
 });
 
+test("mobile feature carousels share one default card size and reviews fit", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/", { waitUntil: "domcontentloaded" });
+  const blogCard = page.locator(".feature-carousel-card-blog.is-active");
+  await blogCard.scrollIntoViewIfNeeded();
+  const blogBounds = await blogCard.boundingBox();
+
+  await page.goto("/teaching", { waitUntil: "domcontentloaded" });
+  const reviewCard = page.locator(".feature-carousel-card-quote.is-active");
+  await reviewCard.scrollIntoViewIfNeeded();
+  const reviewBounds = await reviewCard.boundingBox();
+  const reviewFits = await reviewCard.evaluate((card) => card.scrollHeight <= card.clientHeight);
+
+  expect(Math.abs(reviewBounds.width - blogBounds.width)).toBeLessThanOrEqual(1);
+  expect(Math.abs(reviewBounds.height - blogBounds.height)).toBeLessThanOrEqual(1);
+  expect(reviewFits).toBe(true);
+});
+
 test("feature carousel Previous mirrors the Next card movement", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.emulateMedia({ reducedMotion: "no-preference" });

@@ -329,7 +329,7 @@ export default function ResearchPage() {
       <section className="presentation-section">
         <div className="section-intro">
           <p className="eyebrow">Research</p>
-          <h2>Conference presentations</h2>
+          <h2>I have presented at conferences far and wide</h2>
         </div>
         <div className="presentation-gallery research-presentation-gallery">
           {presentationColumns.map((column, columnIndex) => (

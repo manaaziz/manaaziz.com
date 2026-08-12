@@ -135,7 +135,9 @@ export default function PaperMosaic({ papers }) {
       const isSlopedEdge = Math.abs(normal.x) > 0.32 && normal.y < 0.12;
       const isTopSurface = normal.y < -0.72;
       const impact = Math.abs(velocityDotNormal);
-      const restitution = isSlopedEdge ? 0.48 : impact > 190 ? 0.72 : 0.58;
+      const lowSpeedBlend = Math.min(1, Math.max(0, (impact - 5) / 75));
+      const baseRestitution = isSlopedEdge ? 0.46 : impact > 190 ? 0.68 : 0.5;
+      const restitution = 0.12 + (baseRestitution - 0.12) * lowSpeedBlend;
       const normalVelocity = impact * restitution;
       const tangentFriction = isSlopedEdge ? 0.982 : 0.964;
 
@@ -143,7 +145,7 @@ export default function PaperMosaic({ papers }) {
       chip.vy = tangent.y * tangentVelocity * tangentFriction + normal.y * normalVelocity;
 
       if (isTopSurface && impact > 90) {
-        chip.vy -= Math.min(38, impact * 0.08);
+        chip.vy -= Math.min(24, impact * 0.05);
       }
     }
 
@@ -172,8 +174,8 @@ export default function PaperMosaic({ papers }) {
     }
 
     function resetChip(chip, index, startAbove = true) {
-      chip.visualRadius = Math.max(5, chipElements[index].offsetWidth / 2);
-      chip.radius = Math.max(4, chipElements[index].offsetWidth * 0.32);
+      chip.visualRadius = chipElements[index].offsetWidth / 2;
+      chip.radius = chip.visualRadius;
       const launchLanes = [0.23, 0.72, 0.46, 0.59, 0.34, 0.82];
       const laneCenter = bounds.width * launchLanes[index % launchLanes.length];
       chip.x = laneCenter + (Math.random() - 0.5) * bounds.width * 0.1;
@@ -182,8 +184,7 @@ export default function PaperMosaic({ papers }) {
       const direction = index % 2 === 0 ? 1 : -1;
       chip.vx = topDrop ? (Math.random() - 0.5) * 24 : direction * (42 + Math.random() * 38);
       chip.vy = 150 + Math.random() * 58;
-      chip.driftDirection = direction;
-      chip.stuckTime = 0;
+      chip.rollDirection = Math.sign(chip.vx) || direction;
       chip.surfaceContact = false;
       chip.angle = Math.random() * 360;
       chip.angularVelocity = chip.vx * (0.88 + Math.random() * 0.58);
@@ -197,10 +198,9 @@ export default function PaperMosaic({ papers }) {
         y: 0,
         vx: 0,
         vy: 0,
-        radius: Math.max(4, element.offsetWidth * 0.32),
-        visualRadius: Math.max(5, element.offsetWidth / 2),
-        driftDirection: index % 2 === 0 ? 1 : -1,
-        stuckTime: 0,
+        radius: element.offsetWidth / 2,
+        visualRadius: element.offsetWidth / 2,
+        rollDirection: index % 2 === 0 ? 1 : -1,
         surfaceContact: false,
         angle: 0,
         angularVelocity: 0
@@ -239,7 +239,11 @@ export default function PaperMosaic({ papers }) {
                 if (!collision || signedDistance > collision.signedDistance) {
                   collision = {
                     signedDistance,
-                    overlap: chip.radius - signedDistance,
+                    // Points inside a clockwise polygon have a negative signed
+                    // distance from its outward-facing edges. Only collide when
+                    // the chip overlaps the closest edge, rather than treating
+                    // the full distance inside the tile as penetration.
+                    overlap: chip.radius + signedDistance,
                     normal: edge.normal
                   };
                 }
@@ -285,18 +289,19 @@ export default function PaperMosaic({ papers }) {
           }
         }
 
-        const speed = Math.hypot(chip.vx, chip.vy);
-        if (chip.surfaceContact && speed < 22) {
-          chip.stuckTime += delta;
-          chip.vx += chip.driftDirection * 22 * delta;
-
-          if (chip.stuckTime > 0.42) {
-            chip.vx += chip.driftDirection * (46 + Math.random() * 18);
-            chip.vy -= 42 + Math.random() * 24;
-            chip.stuckTime = 0;
+        if (chip.surfaceContact) {
+          // Preserve the direction and inertia the chip arrived with. Rolling
+          // friction reduces that existing motion without letting it die on a
+          // flat surface or introducing a new left/right direction.
+          if (Math.abs(chip.vx) > 0.5) {
+            chip.rollDirection = Math.sign(chip.vx);
           }
-        } else {
-          chip.stuckTime = Math.max(0, chip.stuckTime - delta * 2);
+
+          chip.vx *= Math.pow(0.992, delta * 60);
+
+          if (Math.abs(chip.vx) < 8) {
+            chip.vx = chip.rollDirection * 8;
+          }
         }
 
         const rollingSpin = (chip.vx / Math.max(chip.visualRadius, 1)) * 44;

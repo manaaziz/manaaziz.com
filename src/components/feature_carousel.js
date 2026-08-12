@@ -89,6 +89,7 @@ const tileContentByVariant = {
 export default function FeatureCarousel({
   ariaLabel = "Carousel controls",
   cardClassName = "",
+  cardSize,
   carouselClassName = "",
   eyebrow,
   filterTag,
@@ -156,6 +157,12 @@ export default function FeatureCarousel({
 
   if (!itemCount) return null;
   const TileContent = tileContentByVariant[variant] || tileContentByVariant.quote;
+  const carouselSizeStyle = cardSize ? {
+    "--carousel-card-width-override": cardSize.desktopWidth,
+    "--carousel-card-height-override": cardSize.desktopHeight,
+    "--carousel-card-mobile-width-override": cardSize.mobileWidth,
+    "--carousel-card-mobile-height-override": cardSize.mobileHeight
+  } : undefined;
 
   function spinReel() {
     if (isSpinning || itemCount < 2) return;
@@ -229,6 +236,7 @@ export default function FeatureCarousel({
         className={`student-review-carousel feature-carousel ${carouselClassName} ${isSpinning ? "is-spinning" : ""}`.trim()}
         data-direction={moveDirection || undefined}
         aria-live="polite"
+        style={carouselSizeStyle}
       >
         <div className={`student-review-stage feature-carousel-stage ${stageClassName}`.trim()}>
           {visibleItems.map(({ item, position, index }) => {

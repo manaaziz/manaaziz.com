@@ -413,18 +413,17 @@ export function Scrollytelling({ story }) {
               {index < stops.length - 1 ? (
                 <>
                   <svg className="spain-scroll-route-line" viewBox="0 0 120 300" preserveAspectRatio="none">
-                    <defs>
-                      <radialGradient id={`scrolly-dot-${index}`} cx="32%" cy="26%" r="68%">
-                        <stop className="scrolly-dot-highlight" offset="0%" />
-                        <stop className="scrolly-dot-mid" offset="34%" />
-                        <stop className="scrolly-dot-edge" offset="100%" />
-                      </radialGradient>
-                    </defs>
                     <path d={getRoutePath(index)} />
-                    {segmentPosition.index === index ? (
-                      <circle className="spain-scroll-dot-svg" cx={dotPosition.x} cy={dotPosition.y} r="6.4" fill={`url(#scrolly-dot-${index})`} />
-                    ) : null}
                   </svg>
+                  {segmentPosition.index === index ? (
+                    <span
+                      className="spain-scroll-dot"
+                      style={{
+                        left: `${(dotPosition.x / 120) * 100}%`,
+                        top: `${(dotPosition.y / 300) * 100}%`
+                      }}
+                    />
+                  ) : null}
                   <span className="spain-scroll-start" />
                   <span className="spain-scroll-pin" />
                 </>
