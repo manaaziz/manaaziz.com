@@ -313,7 +313,7 @@ export default function ResearchPage() {
       <p className="eyebrow">Research</p>
       <h1>A voracious appetite for high-impact research</h1>
       <p className="lede">
-        My research uses statistics, machine learning, and applied analytics to study hospitality, tourism, gaming, and education. Recent work focuses on hotel demand forecasting, booking cancellations, revenue management, gambling behavior, and quantitative methods for hospitality students.
+        My research uses statistics, machine learning, and applied analytics to study hospitality, tourism, gaming, and education.
       </p>
 
       <ResearchWordGraph />

@@ -335,10 +335,8 @@ export default function ResearchWordGraph() {
     <section className="research-word-graph-section" aria-labelledby="research-word-graph-title">
       <div className="section-intro">
         <p className="eyebrow">Research map</p>
-        <h2 id="research-word-graph-title">My research connects analytics and behavioral science across hospitality, gaming, tourism, and work</h2>
+        <h2 id="research-word-graph-title">My research applies AI and data science to hospitality and gaming contexts</h2>
       </div>
-
-      <p className="research-word-graph-hint">Drag a topic to explore how the ideas connect.</p>
 
       <div className="research-word-graph" ref={graphRef}>
         <svg aria-hidden="true" className="research-word-graph-lines" viewBox="0 0 100 100" preserveAspectRatio="none">
