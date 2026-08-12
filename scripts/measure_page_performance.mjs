@@ -51,7 +51,8 @@ try {
         connectionType: profile.name === "mobile" ? "cellular4g" : "wifi"
       });
       await page.addInitScript(() => {
-        window.__sitePerformance = { cls: 0, lcp: 0, longTasks: 0, longestTask: 0, interactionLatency: 0 };
+        window.__sitePerformance = { cls: 0, lcp: 0, longTasks: 0, longestTask: 0, inp: 0, interactiveReady: 0 };
+        performance.mark("site-measurement-start");
         new PerformanceObserver((list) => {
           for (const entry of list.getEntries()) window.__sitePerformance.lcp = entry.startTime;
         }).observe({ type: "largest-contentful-paint", buffered: true });
@@ -68,12 +69,16 @@ try {
         }).observe({ type: "longtask", buffered: true });
         new PerformanceObserver((list) => {
           for (const entry of list.getEntries()) {
-            window.__sitePerformance.interactionLatency = Math.max(window.__sitePerformance.interactionLatency, entry.duration);
+            window.__sitePerformance.inp = Math.max(window.__sitePerformance.inp, entry.duration);
           }
         }).observe({ type: "event", buffered: true, durationThreshold: 16 });
       });
 
       await page.goto(`${baseURL}${route}`, { waitUntil: "networkidle" });
+      await page.evaluate(() => {
+        performance.mark("site-interactive-ready");
+        window.__sitePerformance.interactiveReady = performance.measure("interactive-initialization", "site-measurement-start", "site-interactive-ready").duration;
+      });
       await page.waitForTimeout(750);
       await page.getByRole("button", { name: "Spin the Dr. Mana poker chip logo" }).click();
       await page.waitForTimeout(250);
@@ -93,7 +98,8 @@ try {
           cls: window.__sitePerformance.cls,
           longTasks: window.__sitePerformance.longTasks,
           longestTask: window.__sitePerformance.longestTask,
-          interactionLatency: window.__sitePerformance.interactionLatency,
+          inp: window.__sitePerformance.inp,
+          interactiveInitialization: window.__sitePerformance.interactiveReady,
           transferredBytes: resources.reduce((total, entry) => total + (entry.transferSize || entry.encodedBodySize || 0), 0),
           javascriptBytes: bytesFor(/\.js$/),
           imageBytes: bytesFor(/\.(?:avif|gif|jpe?g|png|webp)$/i),
@@ -123,7 +129,8 @@ console.table(results.map((result) => ({
   jsKb: Math.round(result.javascriptBytes / 1024),
   imageKb: Math.round(result.imageBytes / 1024),
   longestTaskMs: Math.round(result.longestTask),
-  interactionMs: Math.round(result.interactionLatency)
+  inpMs: Math.round(result.inp),
+  interactiveMs: Math.round(result.interactiveInitialization)
 })));
 
 if (shouldWrite) {

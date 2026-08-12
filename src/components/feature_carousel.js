@@ -100,10 +100,12 @@ export default function FeatureCarousel({
 }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const [isSpinning, setIsSpinning] = useState(false);
   const [moveDirection, setMoveDirection] = useState("");
   const [chipFlips, setChipFlips] = useState({ previous: 0, next: 0 });
   const spinTimerRef = useRef(null);
+  const sectionRef = useRef(null);
 
   const filteredItems = useMemo(() => {
     if (!filterTag) return items;
@@ -132,11 +134,19 @@ export default function FeatureCarousel({
   }, [itemCount]);
 
   useEffect(() => {
-    if (isPaused || isSpinning || itemCount < 2) return undefined;
+    if (!isVisible || isPaused || isSpinning || itemCount < 2) return undefined;
 
     const timer = window.setInterval(controls.next, 6500);
     return () => window.clearInterval(timer);
-  }, [controls, isPaused, isSpinning, itemCount]);
+  }, [controls, isVisible, isPaused, isSpinning, itemCount]);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return undefined;
+    const observer = new IntersectionObserver(([entry]) => setIsVisible(entry.isIntersecting), { rootMargin: "15% 0px" });
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => () => {
     if (spinTimerRef.current) {
@@ -201,6 +211,7 @@ export default function FeatureCarousel({
 
   return (
     <section
+      ref={sectionRef}
       className={`student-review-section feature-carousel-section feature-carousel-${variant} ${sectionClassName}`.trim()}
       onBlur={() => setIsPaused(false)}
       onFocus={() => setIsPaused(true)}

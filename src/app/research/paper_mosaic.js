@@ -119,6 +119,7 @@ export default function PaperMosaic({ papers }) {
     if (reducedMotion.matches) return undefined;
 
     let animationFrame;
+    let isVisible = false;
     let lastFrame = performance.now();
     let bounds = wrap.getBoundingClientRect();
     let tileElements = [];
@@ -213,6 +214,7 @@ export default function PaperMosaic({ papers }) {
     });
 
     function update(now) {
+      if (!isVisible) return;
       const delta = Math.min(0.034, (now - lastFrame) / 1000);
       lastFrame = now;
 
@@ -318,12 +320,23 @@ export default function PaperMosaic({ papers }) {
     }
 
     const resizeObserver = new ResizeObserver(refreshPolygons);
+    const visibilityObserver = new IntersectionObserver(([entry]) => {
+      isVisible = entry.isIntersecting;
+      if (isVisible) {
+        lastFrame = performance.now();
+        cancelAnimationFrame(animationFrame);
+        animationFrame = requestAnimationFrame(update);
+      } else {
+        cancelAnimationFrame(animationFrame);
+      }
+    }, { rootMargin: "15% 0px" });
     resizeObserver.observe(wrap);
-    animationFrame = requestAnimationFrame(update);
+    visibilityObserver.observe(wrap);
 
     return () => {
       cancelAnimationFrame(animationFrame);
       resizeObserver.disconnect();
+      visibilityObserver.disconnect();
     };
   }, [activePaper]);
 
