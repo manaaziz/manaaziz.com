@@ -12653,7 +12653,7 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
 
   .review-quote p {
     max-width: 15rem;
-    font-size: clamp(0.64rem, 2.55vw, 0.76rem);
+    font-size: clamp(0.7rem, 2.8vw, 0.82rem);
     line-height: 1.15;
   }
 
