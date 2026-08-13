@@ -38,3 +38,6 @@ out
 # Browser QA output
 test-results/
 playwright-report/
+
+# Local working drafts
+drafts/
