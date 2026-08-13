@@ -61,8 +61,8 @@ export const metadata = {
   authors: [{ name: siteTitle, url: "/" }],
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "64x64", type: "image/x-icon" },
-      { url: "/icon.png", sizes: "512x512", type: "image/png" }
+      { url: "/mana-poker-chip-favicon.ico", sizes: "64x64", type: "image/x-icon" },
+      { url: "/icon.png?v=mana-poker-chip", sizes: "512x512", type: "image/png" }
     ],
     apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }]
   },
