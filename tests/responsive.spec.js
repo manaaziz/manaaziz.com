@@ -234,8 +234,28 @@ test("Work Mix keyboard selection exposes the correct destination", async ({ pag
 
   const detail = page.locator(".work-mix-mobile-detail");
   await expect(detail.getByRole("heading", { name: /Data-driven/ })).toBeVisible();
-  await expect(detail.getByRole("link", { name: "Explore Research" })).toHaveAttribute("href", "/research");
+  await expect(detail.getByRole("link", { name: "Explore Research" })).toHaveAttribute("href", "/research/");
 });
+
+for (const destination of ["Consulting", "Research", "Teaching"]) {
+  test(`mobile Work Mix Explore ${destination.toLowerCase()} link navigates`, async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("/", { waitUntil: "domcontentloaded" });
+
+    const slug = destination.toLowerCase();
+    const slice = page.locator(`.work-pie-slice.${slug}`);
+    await page.waitForFunction((selector) => {
+      const element = document.querySelector(selector);
+      return element && Object.keys(element).some((key) => key.startsWith("__reactProps"));
+    }, `.work-pie-slice.${slug}`);
+    await slice.focus();
+    await slice.press("Enter");
+
+    const detail = page.locator(".work-mix-mobile-detail");
+    await detail.getByRole("link", { name: `Explore ${destination}` }).click();
+    await expect(page).toHaveURL(new RegExp(`/${slug}/?$`));
+  });
+}
 
 for (const width of [320, 390]) {
   test(`selected Work Mix slice stays inside the ${width}px viewport`, async ({ page }) => {

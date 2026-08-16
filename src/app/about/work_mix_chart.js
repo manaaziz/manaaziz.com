@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import Link from "next/link";
+import { useRef, useState } from "react";
 
 const defaultWorkMix = [
   {
@@ -39,6 +40,7 @@ export default function WorkMixChart({ id, items = defaultWorkMix }) {
   }));
   const [activeId, setActiveId] = useState("");
   const [isComparing, setIsComparing] = useState(false);
+  const navigationPending = useRef(false);
   const selected = activeId ? workMix.find((item) => item.id === activeId) : null;
   const active = selected || workMix[0];
   const cardById = new Map(workMix.map((item) => [item.id, item]));
@@ -59,7 +61,7 @@ export default function WorkMixChart({ id, items = defaultWorkMix }) {
   }
 
   function handleWrapBlur(event) {
-    if (!event.currentTarget.contains(event.relatedTarget)) {
+    if (!navigationPending.current && !event.currentTarget.contains(event.relatedTarget)) {
       resetWorkMix();
     }
   }
@@ -77,14 +79,16 @@ export default function WorkMixChart({ id, items = defaultWorkMix }) {
         <span>{item.label}</span>
         <h3>{item.title}</h3>
         <p>{item.body}</p>
-        <a
+        <Link
           className="button"
           href={item.href}
           onClick={(event) => event.stopPropagation()}
-          onPointerDown={(event) => event.stopPropagation()}
+          onPointerDown={() => {
+            navigationPending.current = true;
+          }}
         >
           Explore {item.label}
-        </a>
+        </Link>
       </article>
     );
   }
@@ -109,7 +113,9 @@ export default function WorkMixChart({ id, items = defaultWorkMix }) {
           aria-label="Clickable work mix pie chart"
           data-comparing={isComparing ? "true" : "false"}
           onBlur={handleWrapBlur}
-          onMouseLeave={resetWorkMix}
+          onPointerLeave={(event) => {
+            if (event.pointerType === "mouse" && !navigationPending.current) resetWorkMix();
+          }}
         >
           <div className="work-mix-card-stack work-mix-card-stack-left">
             {leftCards.map(renderCard)}
