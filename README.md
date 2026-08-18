@@ -48,6 +48,29 @@ The DSN is a public client identifier rather than a secret, but Sentry project r
 allowed-domain settings should still be enabled. Local development remains quiet unless the DSN
 is deliberately added to `.env.local`.
 
+## Privacy-first product analytics
+
+PostHog provides anonymous page, interaction, acquisition, device, geography, heatmap, and session
+replay analytics. It is disabled until a visitor explicitly selects **Allow analytics**. Visitors
+can change that decision from **Analytics preferences** in the footer. The site does not identify
+visitors or create person profiles, strips query strings and URL fragments before events are sent,
+masks every form/search input in replay, excludes those forms from autocapture, and records only a
+stable 15% sample of consenting visits. Sentry error telemetry remains independent of this choice.
+
+To activate PostHog in production:
+
+1. Create a PostHog Cloud project and copy its project token and regional ingest host.
+2. In **GitHub → Settings → Secrets and variables → Actions → Variables**, add
+   `NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN` and `NEXT_PUBLIC_POSTHOG_HOST` (for example,
+   `https://us.i.posthog.com`, using the exact host shown by PostHog).
+3. Deploy the site. Accept analytics in the consent panel, move through a few pages, and confirm
+   pageviews and the custom carousel/navigation events in PostHog's live events view.
+4. Enable Web Analytics, Heatmaps, and Session Replay in the PostHog project. Keep replay network
+   payload capture and console-log capture disabled unless the privacy model is revisited.
+
+The public project token is designed for browser use; it is not a private API key. Local analytics
+remain disabled unless both variables are deliberately added to `.env.local`.
+
 ## Performance baseline
 
 After building the static export, run the repeatable mobile and desktop lab profile with:

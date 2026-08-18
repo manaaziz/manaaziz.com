@@ -1,8 +1,11 @@
 import * as Sentry from "@sentry/browser";
+import { analyticsConsentKey, posthog, startSampledReplay, stripAnalyticsUrl } from "@/lib/analytics";
 
 const dsn = process.env.NEXT_PUBLIC_SENTRY_DSN;
 const environment = process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT || process.env.NODE_ENV || "production";
 const release = process.env.NEXT_PUBLIC_SENTRY_RELEASE;
+const posthogToken = process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN;
+const posthogHost = process.env.NEXT_PUBLIC_POSTHOG_HOST;
 
 function stripUrlDetails(value) {
   if (!value || typeof value !== "string") return value;
@@ -79,6 +82,45 @@ if (dsn) {
   } catch (error) {
     // Monitoring must always fail open so it can never prevent the site loading.
     console.warn("Website telemetry could not initialize.", error);
+  }
+}
+
+if (posthogToken && posthogHost) {
+  try {
+    posthog.init(posthogToken, {
+      api_host: posthogHost,
+      defaults: "2026-05-30",
+      autocapture: true,
+      capture_pageview: "history_change",
+      capture_pageleave: true,
+      person_profiles: "never",
+      opt_out_capturing_by_default: true,
+      opt_out_capturing_persistence_type: "localStorage",
+      disable_session_recording: true,
+      session_recording: {
+        maskAllInputs: true,
+        blockClass: "ph-no-capture"
+      },
+      before_send(event) {
+        if (!event?.properties) return event;
+
+        for (const property of ["$current_url", "$referrer", "$initial_current_url", "$initial_referrer"]) {
+          if (event.properties[property]) {
+            event.properties[property] = stripAnalyticsUrl(event.properties[property]);
+          }
+        }
+        return event;
+      },
+      loaded(instance) {
+        if (window.localStorage.getItem(analyticsConsentKey) === "accepted") {
+          instance.opt_in_capturing();
+          startSampledReplay();
+        }
+      }
+    });
+  } catch (error) {
+    // Analytics must never interfere with rendering or interaction.
+    console.warn("Website analytics could not initialize.", error);
   }
 }
 

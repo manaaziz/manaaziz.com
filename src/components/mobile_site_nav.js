@@ -129,7 +129,7 @@ export default function MobileSiteNav({ navItems, searchItems }) {
       </div>
 
       {searchOpen ? (
-        <section id="mobile-site-search-panel" className="mobile-site-panel mobile-search-panel" aria-label="Site search">
+        <section id="mobile-site-search-panel" className="mobile-site-panel mobile-search-panel ph-no-capture" aria-label="Site search">
           <label className="sr-only" htmlFor="mobile-site-search">
             Search the site
           </label>

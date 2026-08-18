@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { captureAnalyticsEvent } from "@/lib/analytics";
 
 const reelPositions = [
   { offset: -2, position: "far-previous" },
@@ -178,6 +179,10 @@ export default function FeatureCarousel({
     setIsSpinning(true);
     setIsPaused(true);
     setMoveDirection("");
+    captureAnalyticsEvent("feature carousel spun", {
+      carousel_type: variant,
+      item_count: itemCount
+    });
 
     function advance() {
       step += 1;
@@ -204,6 +209,10 @@ export default function FeatureCarousel({
       [direction]: current[direction] + 1
     }));
     controls[direction]();
+    captureAnalyticsEvent("feature carousel navigated", {
+      carousel_type: variant,
+      direction
+    });
   }
 
   const visibleReelPositions = reelPositionsByCount[itemCount] || reelPositions;

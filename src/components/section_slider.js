@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { captureAnalyticsEvent } from "@/lib/analytics";
 
 const transitionMs = 360;
 
@@ -63,6 +64,10 @@ export default function SectionSlider({ activeId, ariaLabel, className = "", ite
     document.documentElement.classList.add("section-route-leaving");
     window.sessionStorage.setItem("section-slider-scroll", String(window.scrollY));
     setVisualIndex(index);
+    captureAnalyticsEvent("section navigation selected", {
+      section: item.id,
+      navigation_label: ariaLabel
+    });
     timerRef.current = window.setTimeout(() => router.push(item.href, { scroll: false }), transitionMs - 80);
   }
 

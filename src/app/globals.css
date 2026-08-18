@@ -11628,6 +11628,100 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
   font-size: 0.92rem;
 }
 
+.analytics-preferences-button,
+.analytics-decline-button {
+  min-height: 44px;
+  padding: 0.55rem 0.2rem;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 750;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.analytics-preferences-button:hover,
+.analytics-preferences-button:focus-visible,
+.analytics-decline-button:hover,
+.analytics-decline-button:focus-visible {
+  color: var(--ink);
+}
+
+.analytics-consent-panel {
+  position: fixed;
+  z-index: 1200;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1.5rem;
+  align-items: end;
+  width: min(44rem, calc(100vw - 2rem));
+  padding: 1.35rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 1rem;
+  outline: 0;
+  background: rgba(255, 250, 241, 0.98);
+  box-shadow:
+    0 7px 0 #171717,
+    0 22px 52px rgba(23, 23, 23, 0.22);
+  backdrop-filter: blur(14px);
+}
+
+.analytics-consent-panel .eyebrow {
+  margin: 0 0 0.35rem;
+}
+
+.analytics-consent-panel h2 {
+  margin: 0;
+  font-size: clamp(1.35rem, 3vw, 1.8rem);
+  line-height: 1.05;
+}
+
+.analytics-consent-panel div > p:last-child {
+  max-width: 34rem;
+  margin: 0.65rem 0 0;
+  color: var(--muted);
+  font-size: 0.98rem;
+  line-height: 1.42;
+}
+
+.analytics-consent-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.analytics-consent-actions .button {
+  white-space: nowrap;
+}
+
+@media (max-width: 620px) {
+  .footer-bottom {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .analytics-consent-panel {
+    right: 0.75rem;
+    bottom: max(0.75rem, env(safe-area-inset-bottom));
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    width: calc(100vw - 1.5rem);
+    padding: 1.15rem;
+  }
+
+  .analytics-consent-actions {
+    justify-content: flex-start;
+  }
+}
+
 .footer-socials {
   display: flex;
   flex-wrap: wrap;

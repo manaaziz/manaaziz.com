@@ -2,6 +2,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import "./globals.css";
 import "./phase-two-mobile-first.css";
 import Link from "next/link";
+import AnalyticsConsent from "@/components/analytics_consent";
 import MobileSiteNav from "@/components/mobile_site_nav";
 import SiteLogo from "@/components/site_logo";
 import { getVisiblePosts } from "@/lib/posts";
@@ -471,7 +472,7 @@ export default function RootLayout({ children }) {
                 <p>Enter your email to join my newsletter:</p>
                 <form
                   action={newsletterAction || undefined}
-                  className="newsletter-form"
+                  className="newsletter-form ph-no-capture"
                   data-provider="surveymonkey"
                   method={newsletterAction ? "post" : "get"}
                 >
@@ -517,6 +518,7 @@ export default function RootLayout({ children }) {
 
             <div className="footer-bottom">
               <p>© 2026 Mana Azizsoltani. All rights reserved.</p>
+              <AnalyticsConsent />
             </div>
           </div>
         </footer>

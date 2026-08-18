@@ -20,6 +20,10 @@ This is the working memory for `manaaziz.com`, Mana Azizsoltani's personal websi
 - Production browser telemetry is initialized in `src/instrumentation-client.js` when
   `NEXT_PUBLIC_SENTRY_DSN` is present. Keep telemetry fail-open, avoid collecting default PII,
   and do not enable session replay without explicit approval.
+- Privacy-first PostHog analytics is initialized from the same file only when both
+  `NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN` and `NEXT_PUBLIC_POSTHOG_HOST` are present. Preserve explicit
+  opt-in, anonymous/no-person-profile collection, input masking, URL sanitization, and 15% replay
+  sampling. Keep search and newsletter inputs excluded with `ph-no-capture`.
 - Do not commit generated `out/` or `.next/` output unless the project explicitly changes to require it.
 
 ## Git Workflow
