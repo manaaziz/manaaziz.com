@@ -481,20 +481,32 @@ export function Scrollytelling({
     let y = path[0].y;
     let facing = 1;
 
+    for (let routeIndex = 0; routeIndex < segmentPosition.index; routeIndex += 1) {
+      const previousPath = getRoundedRoutePoints(routeIndex);
+      for (let pointIndex = 0; pointIndex < previousPath.length - 1; pointIndex += 1) {
+        const horizontalTravel = previousPath[pointIndex + 1].x - previousPath[pointIndex].x;
+        const verticalTravel = previousPath[pointIndex + 1].y - previousPath[pointIndex].y;
+        if (Math.abs(horizontalTravel) > Math.abs(verticalTravel)) {
+          facing = Math.sign(horizontalTravel) || facing;
+        }
+      }
+    }
+
     for (let index = 0; index < lengths.length; index += 1) {
       const length = lengths[index];
       const start = path[index];
       const end = path[index + 1];
+      const horizontalTravel = end.x - start.x;
+      const verticalTravel = end.y - start.y;
+
+      if (Math.abs(horizontalTravel) > Math.abs(verticalTravel)) {
+        facing = Math.sign(horizontalTravel) || facing;
+      }
 
       if (remaining <= length) {
         const ratio = length === 0 ? 0 : remaining / length;
         x = start.x + (end.x - start.x) * ratio;
         y = start.y + (end.y - start.y) * ratio;
-        const horizontalTravel = end.x - start.x;
-        const verticalTravel = end.y - start.y;
-        facing = Math.abs(horizontalTravel) > Math.abs(verticalTravel)
-          ? Math.sign(horizontalTravel) || 1
-          : 1;
         break;
       }
 
@@ -581,9 +593,9 @@ export function Scrollytelling({
               {renderHeading ? renderHeading(stop, index) : <h2>{stop.title || `${stop.city}: ${stop.day}`}</h2>}
               {renderNarrative ? renderNarrative(stop, index) : <p><strong>{stop.label}{getLabelPunctuation(stop.label)}</strong> {stop.copy}</p>}
               <nav aria-label={`Story navigation for stop ${index + 1}`} className="spain-scroll-card-nav">
-                <button type="button" tabIndex={activeIndex === index ? 0 : -1} onClick={() => goTo(index - 1)} disabled={index === 0}>{previousLabel}</button>
+                <button className="button button-small" type="button" tabIndex={activeIndex === index ? 0 : -1} onClick={() => goTo(index - 1)} disabled={index === 0}>{previousLabel}</button>
                 <span aria-current={activeIndex === index ? "step" : undefined}>{index + 1} of {stops.length}</span>
-                <button type="button" tabIndex={activeIndex === index ? 0 : -1} onClick={() => goTo(index + 1)} disabled={index === stops.length - 1}>{nextLabel}</button>
+                <button className="button button-small" type="button" tabIndex={activeIndex === index ? 0 : -1} onClick={() => goTo(index + 1)} disabled={index === stops.length - 1}>{nextLabel}</button>
               </nav>
             </article>
 

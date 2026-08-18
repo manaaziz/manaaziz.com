@@ -949,9 +949,9 @@ const usOutline = mesh(usAtlas, usAtlas.objects.nation, (a, b) => a === b);
 const usPath = geoPath();
 
 export default function GlobalExperienceMap() {
-  const [activeId, setActiveId] = useState("us");
+  const [activeId, setActiveId] = useState("");
   const [mapMode, setMapMode] = useState("regions");
-  const [activeGlobalRegionId, setActiveGlobalRegionId] = useState("north-america");
+  const [activeGlobalRegionId, setActiveGlobalRegionId] = useState(null);
   const [activeStateId, setActiveStateId] = useState("nevada");
   const [isMobileMap, setIsMobileMap] = useState(false);
   const [mobileDetailOpen, setMobileDetailOpen] = useState(false);
@@ -972,20 +972,35 @@ export default function GlobalExperienceMap() {
     () => new Map(usStates.map((item) => [item.id, item])),
     []
   );
-  const displayedGlobalRegionId = isMobileMap ? activeGlobalRegionId : previewGlobalRegionId || activeGlobalRegionId;
+  const displayedGlobalRegionId = mapMode === "regions"
+    ? previewGlobalRegionId
+    : isMobileMap
+      ? activeGlobalRegionId
+      : previewGlobalRegionId || activeGlobalRegionId;
   const displayedCountryId = isMobileMap ? activeId : previewCountryId || activeId;
   const displayedStateId = isMobileMap ? activeStateId : previewStateId || activeStateId;
   const highlightedGlobalRegionId = mapMode === "regions" ? displayedGlobalRegionId : activeGlobalRegionId;
-  const activeGlobalRegion = globalRegionById.get(displayedGlobalRegionId) || globalRegions[0];
+  const activeGlobalRegion = globalRegionById.get(displayedGlobalRegionId) || null;
   const activeCountry = collaborationById.get(displayedCountryId);
-  const activeRegionCountries = activeGlobalRegion.countries
+  const activeRegionCountries = (activeGlobalRegion?.countries || [])
     .map((countryId) => collaborationById.get(countryId))
     .filter(Boolean);
-  const activeRegionMapCountryIds = new Set(activeGlobalRegion.mapCountries || activeGlobalRegion.countries);
+  const activeRegionMapCountryIds = new Set(activeGlobalRegion?.mapCountries || activeGlobalRegion?.countries || []);
+  const globalOverview = {
+    country: "Global experience",
+    id: "global",
+    summary: "Countries where I have taught, researched, studied, presented, or consulted.",
+    work: collaborations.map((country) => card({
+      name: country.country,
+      type: country.drilldown ? "Drilldown" : "Projects",
+      blurb: country.summary,
+      countryId: country.id
+    }))
+  };
   const activeRegionOverview = {
-    country: activeGlobalRegion.label,
-    id: activeGlobalRegion.id,
-    summary: activeGlobalRegion.summary,
+    country: activeGlobalRegion?.label || globalOverview.country,
+    id: activeGlobalRegion?.id || globalOverview.id,
+    summary: activeGlobalRegion?.summary || globalOverview.summary,
     work: activeRegionCountries.map((country) => card({
       name: country.country,
       type: country.drilldown ? "Drilldown" : "Projects",
@@ -995,8 +1010,10 @@ export default function GlobalExperienceMap() {
   };
   const active = mapMode === "us"
     ? stateById.get(displayedStateId) || usStates[0]
-    : mapMode === "regions" || !activeCountry
-      ? activeRegionOverview
+    : mapMode === "regions"
+      ? previewGlobalRegionId ? activeRegionOverview : globalOverview
+      : !activeCountry
+        ? activeRegionOverview
       : activeCountry;
   const activeCountryFloatPosition = activeCountry
     ? countryFloatPositions[activeCountry.id] || { left: "50%", top: "50%" }
@@ -1269,8 +1286,8 @@ export default function GlobalExperienceMap() {
                     setPreviewCountryId(null);
                   }}
                 >
-                  <svg className="world-map region-country-map" viewBox={activeGlobalRegion.viewBox || worldMap.viewBox} role="img" aria-labelledby="world-map-title">
-                    <title id="world-map-title">{`${activeGlobalRegion.label} countries where Mana has worked or collaborated`}</title>
+                  <svg className="world-map region-country-map" viewBox={activeGlobalRegion?.viewBox || worldMap.viewBox} role="img" aria-labelledby="world-map-title">
+                    <title id="world-map-title">{`${activeGlobalRegion?.label || "Global"} countries where Mana has worked or collaborated`}</title>
                     {worldMap.locations
                       .filter((location) => activeRegionMapCountryIds.has(location.id))
                       .map((location) => {
