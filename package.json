@@ -20,6 +20,7 @@
     "optimize:assets:write": "node scripts/optimize_public_images.mjs --write"
   },
   "dependencies": {
+    "@sentry/browser": "^10.70.0",
     "@svg-maps/world": "^2.0.0",
     "d3-geo": "^3.1.1",
     "mapbox-gl": "^3.24.1",

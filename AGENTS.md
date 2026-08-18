@@ -17,6 +17,9 @@ This is the working memory for `manaaziz.com`, Mana Azizsoltani's personal websi
 - Run `npm run audit:assets` when adding or replacing media-heavy assets.
 - The deploy workflow runs `npm ci`, `npm run lint`, `npm run audit:assets`, `npm run optimize:assets:write`, and `npm run build`.
 - The About page Mapbox globe needs `NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN` available during deploy.
+- Production browser telemetry is initialized in `src/instrumentation-client.js` when
+  `NEXT_PUBLIC_SENTRY_DSN` is present. Keep telemetry fail-open, avoid collecting default PII,
+  and do not enable session replay without explicit approval.
 - Do not commit generated `out/` or `.next/` output unless the project explicitly changes to require it.
 
 ## Git Workflow
