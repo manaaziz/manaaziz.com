@@ -12,7 +12,7 @@ test("analytics requires consent and preferences remain reversible", async ({ pa
 
   const consentPanel = page.getByRole("region", { name: "Analytics preferences" });
   await expect(consentPanel).toBeVisible();
-  await consentPanel.getByRole("button", { name: "Allow analytics" }).click();
+  await consentPanel.getByRole("button", { name: "Sure, help out" }).click();
   await expect(consentPanel).toBeHidden();
   await expect.poll(() => page.evaluate(() => window.localStorage.getItem("mana_analytics_consent"))).toBe("accepted");
 

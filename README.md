@@ -51,7 +51,7 @@ is deliberately added to `.env.local`.
 ## Privacy-first product analytics
 
 PostHog provides anonymous page, interaction, acquisition, device, geography, heatmap, and session
-replay analytics. It is disabled until a visitor explicitly selects **Allow analytics**. Visitors
+replay analytics. It is disabled until a visitor explicitly selects **Sure, help out**. Visitors
 can change that decision from **Analytics preferences** in the footer. The site does not identify
 visitors or create person profiles, strips query strings and URL fragments before events are sent,
 masks every form/search input in replay, excludes those forms from autocapture, and records only a

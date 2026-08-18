@@ -286,16 +286,44 @@ async function lookupVisitorLocation(signal) {
 }
 
 export default function AboutDistanceFromVegas() {
+  const sectionRef = useRef(null);
   const mapNodeRef = useRef(null);
   const mapRef = useRef(null);
   const frameRef = useRef(null);
   const timeoutRefs = useRef([]);
+  const [hasEnteredViewport, setHasEnteredViewport] = useState(false);
   const [visitorLocation, setVisitorLocation] = useState(null);
-  const [status, setStatus] = useState("loading");
-  const [mapStatus, setMapStatus] = useState(mapboxToken ? "loading" : "missing-token");
+  const [status, setStatus] = useState("idle");
+  const [mapStatus, setMapStatus] = useState(mapboxToken ? "idle" : "missing-token");
 
   useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return undefined;
+
+    if (!("IntersectionObserver" in window)) {
+      setHasEnteredViewport(true);
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      setHasEnteredViewport(true);
+      observer.disconnect();
+    }, {
+      rootMargin: "0px 0px -10% 0px",
+      threshold: 0.05
+    });
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!hasEnteredViewport) return undefined;
+
     const controller = new AbortController();
+    setStatus("loading");
+    if (mapboxToken) setMapStatus("loading");
 
     lookupVisitorLocation(controller.signal)
       .then((location) => {
@@ -312,7 +340,7 @@ export default function AboutDistanceFromVegas() {
     return () => {
       controller.abort();
     };
-  }, []);
+  }, [hasEnteredViewport]);
 
   const distance = useMemo(() => (
     visitorLocation ? Math.round(haversineKilometers(lasVegas, visitorLocation)) : null
@@ -321,7 +349,7 @@ export default function AboutDistanceFromVegas() {
   useEffect(() => {
     const showHomeFallback = status === "unavailable";
 
-    if (!mapboxToken || !mapNodeRef.current || (!visitorLocation && !showHomeFallback)) return undefined;
+    if (!hasEnteredViewport || !mapboxToken || !mapNodeRef.current || (!visitorLocation && !showHomeFallback)) return undefined;
 
     let isCancelled = false;
     let map = null;
@@ -537,17 +565,21 @@ export default function AboutDistanceFromVegas() {
       }
       mapRef.current = null;
     };
-  }, [status, visitorLocation]);
+  }, [hasEnteredViewport, status, visitorLocation]);
 
   return (
-    <section className="about-distance-card" data-map-status={mapStatus} data-status={status} aria-labelledby="about-distance-title">
+    <section ref={sectionRef} className="about-distance-card" data-map-status={mapStatus} data-status={status} aria-labelledby="about-distance-title">
       <div className="distance-map mapbox-distance-map" aria-hidden="true">
         <div className="distance-mapbox-canvas" ref={mapNodeRef} />
         {mapStatus !== "ready" ? (
           <div className="distance-map-fallback">
             <DistanceSearchFallback />
             <span className="distance-map-fallback-label">
-              {mapStatus === "missing-token" ? "Mapbox token missing" : "Looking for you from Las Vegas"}
+              {mapStatus === "missing-token"
+                ? "Mapbox token missing"
+                : mapStatus === "idle"
+                  ? "Scroll here to start the trip from Las Vegas"
+                  : "Looking for you from Las Vegas"}
             </span>
           </div>
         ) : null}
@@ -561,6 +593,8 @@ export default function AboutDistanceFromVegas() {
           </p>
         ) : status === "loading" ? (
           <p>I am looking for you from Las Vegas based on your IP address.</p>
+        ) : status === "idle" ? (
+          <p>Scroll down to see how far you are from Las Vegas.</p>
         ) : (
           <p>I couldn&apos;t find you based on your IP address, but I am in Las Vegas.</p>
         )}

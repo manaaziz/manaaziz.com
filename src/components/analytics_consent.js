@@ -68,14 +68,14 @@ export default function AnalyticsConsent() {
         >
           <div>
             <p className="eyebrow">Your privacy</p>
-            <h2>Help improve this website?</h2>
+            <h2>Help me make this site better?</h2>
             <p>
-              Anonymous analytics show which pages and interactions are useful. A small sample of
-              visits may be replayed to reveal layout problems; form and search inputs are always masked.
+              Opting in would let me see where people click and scroll—but I cannot see who they are
+              or anything they type.
             </p>
           </div>
           <div className="analytics-consent-actions">
-            <button className="button" type="button" onClick={accept}>Allow analytics</button>
+            <button className="button" type="button" onClick={accept}>Sure, help out</button>
             <button className="analytics-decline-button" type="button" onClick={decline}>No thanks</button>
           </div>
         </aside>

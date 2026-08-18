@@ -134,7 +134,7 @@ main {
 }
 
 .brand-chip.is-spinning .brand-chip-inner {
-  animation: brand-chip-flick 1800ms cubic-bezier(0.2, 0.72, 0.2, 1);
+  animation: brand-chip-flick 1100ms linear;
 }
 
 .brand-chip-face {
@@ -274,16 +274,20 @@ main {
     transform: rotateY(0deg) translateY(0) scale(1);
   }
 
-  24% {
-    transform: rotateY(180deg) translateY(-0.18rem) scale(1.04);
+  30% {
+    transform: rotateY(155deg) translateY(-0.18rem) scale(1.04);
+  }
+
+  42% {
+    transform: rotateY(175deg) translateY(-0.15rem) scale(1.035);
+  }
+
+  52% {
+    transform: rotateY(185deg) translateY(-0.12rem) scale(1.03);
   }
 
   64% {
-    transform: rotateY(180deg) translateY(-0.12rem) scale(1.03);
-  }
-
-  84% {
-    transform: rotateY(360deg) translateY(0.04rem) scale(0.99);
+    transform: rotateY(205deg) translateY(-0.08rem) scale(1.02);
   }
 
   100% {
