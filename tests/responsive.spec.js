@@ -138,7 +138,7 @@ test("course calendar exposes week and due details to touch and keyboard", async
   await expect(week).toHaveAttribute("aria-expanded", "false");
 });
 
-test("Spain scrollytelling provides progress and keyboard-operable navigation", async ({ page }) => {
+test("Spain scrollytelling provides per-stop navigation and keyboard-operable photo decks", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/blog/teaching/spain-recap", { waitUntil: "domcontentloaded" });
   const story = page.getByRole("region", { name: "Spain 2025 study-abroad journey" });
@@ -147,10 +147,15 @@ test("Spain scrollytelling provides progress and keyboard-operable navigation", 
     await expect(story.getByRole("img", { name: "Valencia flag" }).first()).toBeAttached();
     await expect(story.getByRole("img", { name: "Catalonia flag" }).first()).toBeAttached();
     await expect(story.locator(".spain-scroll-dot.has-traveler img")).toBeAttached();
-    const next = story.getByRole("button", { name: "Next" });
+    const next = story.getByRole("button", { name: "Next" }).first();
     await next.focus();
     await page.keyboard.press("Enter");
-    await expect(story.getByText(/Story progress: stop 2 of/)).toBeVisible();
+    await expect(story.locator(".spain-scroll-step").nth(1).getByText("2 of 15")).toBeVisible();
+
+    const photoDeck = story.locator(".has-photo-deck").first();
+    await expect(photoDeck.getByRole("button", { name: "Next photo" })).toBeAttached();
+    await photoDeck.getByRole("button", { name: "Next photo" }).click();
+    await expect(photoDeck.getByText("2 / 2")).toBeVisible();
   }
 });
 

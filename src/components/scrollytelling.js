@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 export const spainRecapStory = {
   ariaLabel: "Spain 2025 study-abroad journey",
@@ -60,7 +60,20 @@ export const spainRecapStory = {
     copy:
       "We toured the Royal Palace of Madrid, where we learned about the Spanish monarchy and its long history. They had some really rare and expensive Stradivarius violins. After the tour, we went to tomar algo as a group, like typical Spaniards.",
     motif: "tiles",
-    image: "/assets/photos/fab333_madrid/fab_madrid_day5.webp"
+    photos: [
+      {
+        src: "/assets/photos/fab333_madrid/fab_madrid_day5.webp",
+        alt: "FAB 333 students with a UNLV banner outside the Royal Palace of Madrid",
+        width: 2048,
+        height: 2048
+      },
+      {
+        src: "/assets/photos/mana-azizsoltani-spain-study-abroad.webp",
+        alt: "Mana Azizsoltani and a student posing outside the Royal Palace of Madrid",
+        width: 1126,
+        height: 2000
+      }
+    ]
   },
   {
     city: "Valencia",
@@ -90,7 +103,20 @@ export const spainRecapStory = {
     copy:
       "We took the bus out to the farm, where as a class we harvested vegetables, cooked a paella, and ate enough to pass out. Along the way, we also met some donkeys, toured ancient Valencian homes, watched an old man ride a bicycle backwards, and took an obligatory siesta. We learned that the art of paella is letting flavors mix together over time, creating a complex flavor palette in your mouth. Similarly, it must be enjoyed with many other people. Good thing we were 21 people.",
     motif: "paella",
-    image: "/assets/photos/fab333_madrid/fab_val_day3.webp"
+    photos: [
+      {
+        src: "/assets/photos/fab333_madrid/fab_val_day3.webp",
+        alt: "FAB 333 students relaxing together after making paella in Valencia",
+        width: 4284,
+        height: 4284
+      },
+      {
+        src: "/assets/photos/fab333_paella.webp",
+        alt: "A finished seafood paella prepared during the FAB 333 Valencia class experience",
+        width: 2200,
+        height: 1650
+      }
+    ]
   },
   {
     city: "Valencia",
@@ -323,7 +349,7 @@ function ScrollyMediaDeck({ eager = false, stop }) {
   }
 
   function handlePointerDown(event) {
-    if (!hasMultiplePhotos) return;
+    if (!hasMultiplePhotos || event.target.closest("button")) return;
     pointerStart.current = { x: event.clientX, y: event.clientY };
     event.currentTarget.setPointerCapture?.(event.pointerId);
   }
@@ -427,13 +453,11 @@ export function Scrollytelling({
     eyebrow,
     accent = "#da2d3d",
     traveler,
-    progressLabel = "Story progress",
     previousLabel = "Previous",
     nextLabel = "Next"
   } = story;
   const wrapRef = useRef(null);
   const stepRefs = useRef([]);
-  const progressId = useId();
   const [progress, setProgress] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
@@ -455,6 +479,7 @@ export function Scrollytelling({
     let remaining = segmentPosition.progress * totalLength;
     let x = path[0].x;
     let y = path[0].y;
+    let facing = 1;
 
     for (let index = 0; index < lengths.length; index += 1) {
       const length = lengths[index];
@@ -465,6 +490,11 @@ export function Scrollytelling({
         const ratio = length === 0 ? 0 : remaining / length;
         x = start.x + (end.x - start.x) * ratio;
         y = start.y + (end.y - start.y) * ratio;
+        const horizontalTravel = end.x - start.x;
+        const verticalTravel = end.y - start.y;
+        facing = Math.abs(horizontalTravel) > Math.abs(verticalTravel)
+          ? Math.sign(horizontalTravel) || 1
+          : 1;
         break;
       }
 
@@ -473,9 +503,17 @@ export function Scrollytelling({
       y = end.y;
     }
 
+    const handoffFade = 0.09;
+    const fadeIn = segmentPosition.index === 0
+      ? 1
+      : clamp(segmentPosition.progress / handoffFade, 0, 1);
+    const fadeOut = clamp((1 - segmentPosition.progress) / handoffFade, 0, 1);
+
     return {
       x,
-      y
+      y,
+      facing,
+      opacity: Math.min(fadeIn, fadeOut)
     };
   }, [segmentPosition]);
 
@@ -530,14 +568,6 @@ export function Scrollytelling({
 
   return (
     <section className={`spain-scroll ${className}`.trim()} ref={wrapRef} aria-label={ariaLabel} style={{ "--scrolly-accent": accent }}>
-      <div className="spain-scroll-progress">
-        <label htmlFor={progressId}>{progressLabel}: stop {activeIndex + 1} of {stops.length}</label>
-        <progress id={progressId} aria-valuetext={`Stop ${activeIndex + 1} of ${stops.length}`} max={stops.length} value={activeIndex + 1} />
-        <div>
-          <button type="button" onClick={() => goTo(activeIndex - 1)} disabled={activeIndex === 0}>{previousLabel}</button>
-          <button type="button" onClick={() => goTo(activeIndex + 1)} disabled={activeIndex === stops.length - 1}>{nextLabel}</button>
-        </div>
-      </div>
       <div className="spain-scroll-steps">
         {stops.map((stop, index) => (
           <div className={`spain-scroll-step${activeIndex === index ? " active" : ""}`} key={`${stop.city}-${stop.date}`} ref={(node) => { stepRefs.current[index] = node; }} tabIndex="-1" aria-current={activeIndex === index ? "step" : undefined}>
@@ -550,6 +580,11 @@ export function Scrollytelling({
               ) : null}
               {renderHeading ? renderHeading(stop, index) : <h2>{stop.title || `${stop.city}: ${stop.day}`}</h2>}
               {renderNarrative ? renderNarrative(stop, index) : <p><strong>{stop.label}{getLabelPunctuation(stop.label)}</strong> {stop.copy}</p>}
+              <nav aria-label={`Story navigation for stop ${index + 1}`} className="spain-scroll-card-nav">
+                <button type="button" tabIndex={activeIndex === index ? 0 : -1} onClick={() => goTo(index - 1)} disabled={index === 0}>{previousLabel}</button>
+                <span aria-current={activeIndex === index ? "step" : undefined}>{index + 1} of {stops.length}</span>
+                <button type="button" tabIndex={activeIndex === index ? 0 : -1} onClick={() => goTo(index + 1)} disabled={index === stops.length - 1}>{nextLabel}</button>
+              </nav>
             </article>
 
             <div
@@ -566,7 +601,9 @@ export function Scrollytelling({
                       className={`spain-scroll-dot${traveler?.src ? " has-traveler" : ""}`}
                       style={{
                         "--scrolly-traveler-aspect": `${traveler?.width || 512} / ${traveler?.height || 512}`,
+                        "--scrolly-traveler-facing": dotPosition.facing,
                         left: `${(dotPosition.x / 120) * 100}%`,
+                        opacity: dotPosition.opacity,
                         top: `${(dotPosition.y / 300) * 100}%`
                       }}
                     >

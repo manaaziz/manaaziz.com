@@ -10937,31 +10937,6 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
   margin-top: clamp(2rem, 5vw, 4rem);
 }
 
-.spain-scroll-progress {
-  position: sticky;
-  top: 5.5rem;
-  z-index: 20;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 0.45rem 1rem;
-  align-items: center;
-  margin: 0 0 1.25rem auto;
-  width: min(28rem, 100%);
-  padding: 0.65rem 0.75rem;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-tight);
-  background: color-mix(in srgb, var(--panel) 92%, transparent);
-  box-shadow: var(--shadow-soft);
-  backdrop-filter: blur(10px);
-}
-
-.spain-scroll-progress label { grid-column: 1 / -1; color: var(--muted); font-size: 0.76rem; font-weight: 850; }
-.spain-scroll-progress progress { width: 100%; accent-color: var(--scrolly-accent); }
-.spain-scroll-progress div { display: flex; gap: 0.4rem; }
-.spain-scroll-progress button { min-height: 2.75rem; padding: 0.45rem 0.7rem; border: 1px solid var(--ink); border-radius: 999px; background: var(--ink); box-shadow: 0 0.18rem 0 var(--scrolly-accent); color: var(--surface-raised); font: inherit; font-size: 0.75rem; font-weight: 900; cursor: pointer; }
-.spain-scroll-progress button:disabled { opacity: 0.35; cursor: not-allowed; }
-.spain-scroll-progress button:focus-visible { outline: 3px solid var(--green); outline-offset: 3px; }
-
 .spain-scroll-steps {
   display: grid;
 }
@@ -11021,7 +10996,7 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
 }
 
 .spain-scroll-dot.has-traveler {
-  width: clamp(4.5rem, 7.5vw, 6.4rem);
+  width: clamp(3.15rem, 5.25vw, 4.48rem);
   height: auto;
   aspect-ratio: var(--scrolly-traveler-aspect, 1);
   min-width: 0;
@@ -11029,6 +11004,7 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
   background: transparent;
   filter: drop-shadow(0 0.22rem 0.16rem rgba(23, 23, 23, 0.24));
   transform: translate(-50%, -58%);
+  transition: opacity 90ms linear;
 }
 
 .spain-scroll-dot.has-traveler img {
@@ -11036,6 +11012,8 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
   width: 100%;
   height: 100%;
   object-fit: contain;
+  transform: scaleX(var(--scrolly-traveler-facing, 1));
+  transition: transform 160ms ease;
 }
 
 .spain-scroll-start,
@@ -11158,9 +11136,9 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
   padding: 0 clamp(1.2rem, 3vw, 2rem) clamp(1.2rem, 3vw, 2rem);
   border: 1px solid var(--line);
   border-top: 0;
-  border-radius: 0 0 var(--radius-tight) var(--radius-tight);
+  border-bottom: 0;
+  border-radius: 0;
   background: var(--panel);
-  box-shadow: var(--shadow-soft);
   color: var(--muted);
   font-size: clamp(1rem, 1.45vw, 1.22rem);
   line-height: 1.5;
@@ -11169,6 +11147,51 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
 .spain-scroll-card p strong {
   color: var(--ink);
   font-weight: 900;
+}
+
+.spain-scroll-card-nav {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.75rem clamp(1.2rem, 3vw, 2rem) 1rem;
+  border: 1px solid var(--line);
+  border-top: 0;
+  border-radius: 0 0 var(--radius-tight) var(--radius-tight);
+  background: var(--panel);
+  box-shadow: var(--shadow-soft);
+}
+
+.spain-scroll-card-nav span {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-align: center;
+}
+
+.spain-scroll-card-nav button {
+  min-width: 5rem;
+  min-height: 2.75rem;
+  padding: 0.45rem 0.8rem;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  background: var(--ink);
+  box-shadow: 0 0.18rem 0 var(--scrolly-accent);
+  color: var(--surface-raised);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 900;
+}
+
+.spain-scroll-card-nav button:disabled {
+  cursor: not-allowed;
+  opacity: 0.3;
+}
+
+.spain-scroll-card-nav button:focus-visible {
+  outline: 3px solid var(--green);
+  outline-offset: 3px;
 }
 
 .spain-scroll-visual {
@@ -11321,7 +11344,6 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
 .spain-scroll-step:focus-visible { outline: 3px solid var(--green); outline-offset: 0.4rem; }
 
 @media (max-width: 900px) {
-  .spain-scroll-progress { position: relative; top: auto; width: 100%; }
   .spain-scroll-step {
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: auto auto auto;
@@ -11362,7 +11384,7 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
   }
 
   .spain-scroll-dot.has-traveler {
-    width: 4.65rem;
+    width: 3.25rem;
     height: auto;
   }
 }
