@@ -11,6 +11,7 @@ export default function SectionSlider({ activeId, ariaLabel, className = "", ite
   const activeIndex = Math.max(0, items.findIndex((item) => item.id === activeId));
   const [visualIndex, setVisualIndex] = useState(activeIndex);
   const activeLinkRef = useRef(null);
+  const linkRefs = useRef([]);
   const navRef = useRef(null);
   const timerRef = useRef(null);
 
@@ -34,6 +35,23 @@ export default function SectionSlider({ activeId, ariaLabel, className = "", ite
   }, [activeIndex]);
 
   useEffect(() => () => window.clearTimeout(timerRef.current), []);
+
+  useLayoutEffect(() => {
+    const nav = navRef.current;
+    const link = linkRefs.current[visualIndex];
+    if (!nav || !link) return undefined;
+
+    const alignPill = () => {
+      nav.style.setProperty("--slider-pill-left", `${link.offsetLeft}px`);
+      nav.style.setProperty("--slider-pill-width", `${link.offsetWidth}px`);
+    };
+
+    alignPill();
+    const observer = new ResizeObserver(alignPill);
+    observer.observe(nav);
+    observer.observe(link);
+    return () => observer.disconnect();
+  }, [items.length, visualIndex]);
 
   function navigate(event, item, index) {
     if (item.id === activeId || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
@@ -61,7 +79,10 @@ export default function SectionSlider({ activeId, ariaLabel, className = "", ite
           href={item.href}
           key={item.id}
           onClick={(event) => navigate(event, item, index)}
-          ref={item.id === activeId ? activeLinkRef : undefined}
+          ref={(node) => {
+            linkRefs.current[index] = node;
+            if (item.id === activeId) activeLinkRef.current = node;
+          }}
         >
           {item.label}
         </Link>

@@ -6,6 +6,11 @@ export const spainRecapStory = {
   ariaLabel: "Spain 2025 study-abroad journey",
   eyebrow: "Spain 2025",
   accent: "#da2d3d",
+  traveler: {
+    src: "/assets/images/mana-azizsoltani-cartoon-road-trip-car.webp",
+    width: 768,
+    height: 512
+  },
   stops: [
   {
     city: "Madrid",
@@ -286,6 +291,129 @@ function getLabelPunctuation(label) {
   return /[.!?]$/.test(label) ? "" : ".";
 }
 
+function getStopPhotos(stop) {
+  if (Array.isArray(stop.photos) && stop.photos.length > 0) {
+    return stop.photos.map((photo) => typeof photo === "string" ? { src: photo } : photo);
+  }
+
+  return stop.image ? [{
+    src: stop.image,
+    alt: stop.alt,
+    caption: stop.caption,
+    width: stop.width,
+    height: stop.height
+  }] : [];
+}
+
+function ScrollyMediaDeck({ eager = false, stop }) {
+  const photos = getStopPhotos(stop);
+  const [activePhoto, setActivePhoto] = useState(0);
+  const [dragOffset, setDragOffset] = useState(0);
+  const pointerStart = useRef(null);
+  const dragOffsetRef = useRef(0);
+  const hasMultiplePhotos = photos.length > 1;
+  const photo = photos[activePhoto];
+
+  if (!photo) return null;
+
+  function showPhoto(index) {
+    setActivePhoto((index + photos.length) % photos.length);
+    dragOffsetRef.current = 0;
+    setDragOffset(0);
+  }
+
+  function handlePointerDown(event) {
+    if (!hasMultiplePhotos) return;
+    pointerStart.current = { x: event.clientX, y: event.clientY };
+    event.currentTarget.setPointerCapture?.(event.pointerId);
+  }
+
+  function handlePointerMove(event) {
+    if (!pointerStart.current) return;
+    const horizontal = event.clientX - pointerStart.current.x;
+    const vertical = event.clientY - pointerStart.current.y;
+    if (Math.abs(horizontal) > Math.abs(vertical)) {
+      dragOffsetRef.current = horizontal;
+      setDragOffset(horizontal);
+    }
+  }
+
+  function finishSwipe() {
+    if (dragOffsetRef.current <= -45) showPhoto(activePhoto + 1);
+    else if (dragOffsetRef.current >= 45) showPhoto(activePhoto - 1);
+    else setDragOffset(0);
+    dragOffsetRef.current = 0;
+    pointerStart.current = null;
+  }
+
+  function handleKeyDown(event) {
+    if (!hasMultiplePhotos) return;
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      showPhoto(activePhoto - 1);
+    }
+    if (event.key === "ArrowRight") {
+      event.preventDefault();
+      showPhoto(activePhoto + 1);
+    }
+  }
+
+  return (
+    <figure
+      aria-label={hasMultiplePhotos ? `${stop.city || "Story"} photo ${activePhoto + 1} of ${photos.length}` : undefined}
+      aria-description={hasMultiplePhotos ? "Swipe the photo or use the left and right arrow keys to browse." : undefined}
+      className={`spain-scroll-visual ${stop.motif || ""}${hasMultiplePhotos ? " has-photo-deck" : ""}`.trim()}
+      onKeyDown={handleKeyDown}
+      tabIndex={hasMultiplePhotos ? 0 : undefined}
+    >
+      <div
+        className="scrolly-photo-deck"
+        data-dragging={dragOffset !== 0 ? "true" : "false"}
+        onPointerCancel={finishSwipe}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={finishSwipe}
+      >
+        {hasMultiplePhotos ? <span aria-hidden="true" className="scrolly-photo-card-back back-one" /> : null}
+        {hasMultiplePhotos ? <span aria-hidden="true" className="scrolly-photo-card-back back-two" /> : null}
+        <img
+          alt={photo.alt || ""}
+          decoding="async"
+          draggable="false"
+          fetchPriority={eager && activePhoto === 0 ? "high" : "auto"}
+          height={photo.height || stop.height || 1200}
+          loading={eager && activePhoto === 0 ? "eager" : "lazy"}
+          src={photo.src}
+          style={{ transform: `translateX(${dragOffset}px) rotate(${dragOffset * 0.025}deg)` }}
+          width={photo.width || stop.width || 1200}
+        />
+        {hasMultiplePhotos ? (
+          <>
+            <button aria-label="Previous photo" className="scrolly-photo-arrow previous" onClick={() => showPhoto(activePhoto - 1)} type="button">←</button>
+            <button aria-label="Next photo" className="scrolly-photo-arrow next" onClick={() => showPhoto(activePhoto + 1)} type="button">→</button>
+            <span aria-live="polite" className="scrolly-photo-count">{activePhoto + 1} / {photos.length}</span>
+          </>
+        ) : null}
+      </div>
+      {photo.caption ? <figcaption>{photo.caption}</figcaption> : null}
+      {hasMultiplePhotos ? (
+        <div aria-label="Choose a photo" className="scrolly-photo-dots" role="group">
+          {photos.map((item, index) => (
+            <button
+              aria-label={`Show photo ${index + 1}`}
+              aria-pressed={activePhoto === index}
+              className={activePhoto === index ? "active" : ""}
+              key={`${item.src}-${index}`}
+              onClick={() => showPhoto(index)}
+              type="button"
+            />
+          ))}
+        </div>
+      ) : null}
+    </figure>
+  );
+}
+
 export function Scrollytelling({
   story,
   className = "",
@@ -298,6 +426,7 @@ export function Scrollytelling({
     ariaLabel,
     eyebrow,
     accent = "#da2d3d",
+    traveler,
     progressLabel = "Story progress",
     previousLabel = "Previous",
     nextLabel = "Next"
@@ -434,12 +563,24 @@ export function Scrollytelling({
                   </svg>
                   {segmentPosition.index === index ? (
                     <span
-                      className="spain-scroll-dot"
+                      className={`spain-scroll-dot${traveler?.src ? " has-traveler" : ""}`}
                       style={{
+                        "--scrolly-traveler-aspect": `${traveler?.width || 512} / ${traveler?.height || 512}`,
                         left: `${(dotPosition.x / 120) * 100}%`,
                         top: `${(dotPosition.y / 300) * 100}%`
                       }}
-                    />
+                    >
+                      {traveler?.src ? (
+                        <img
+                          alt=""
+                          aria-hidden="true"
+                          decoding="async"
+                          height={traveler.height || 512}
+                          src={traveler.src}
+                          width={traveler.width || 512}
+                        />
+                      ) : null}
+                    </span>
                   ) : null}
                   <span className="spain-scroll-start" />
                   <span className="spain-scroll-pin" />
@@ -449,12 +590,7 @@ export function Scrollytelling({
               )}
             </div>
 
-            {renderMedia ? renderMedia(stop, index) : (
-              <figure className={`spain-scroll-visual ${stop.motif || ""}`.trim()}>
-                <img src={stop.image} alt={stop.alt || ""} width={stop.width || 1200} height={stop.height || 1200} loading={index === 0 ? "eager" : "lazy"} fetchPriority={index === 0 ? "high" : "auto"} decoding="async" />
-                {stop.caption ? <figcaption>{stop.caption}</figcaption> : null}
-              </figure>
-            )}
+            {renderMedia ? renderMedia(stop, index) : <ScrollyMediaDeck eager={index === 0} stop={stop} />}
           </div>
         ))}
       </div>

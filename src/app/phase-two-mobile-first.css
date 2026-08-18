@@ -433,11 +433,8 @@ main :where(section[id], [id]:not(input)) {
 
 @media (hover: none), (pointer: coarse) {
   .button:hover {
-    transform: translateY(-3px);
-  }
-
-  .button:hover::before {
-    transform: translateY(5px);
+    box-shadow: 0 0.22rem 0 rgba(23, 23, 23, 0.78);
+    transform: none;
   }
 
   .course-card:hover,
@@ -504,8 +501,8 @@ main :where(section[id], [id]:not(input)) {
   }
 
   .course-material-section-slider::before {
-    width: calc((100% - (2 * var(--slider-inset))) / var(--section-count));
-    transform: translateX(calc(var(--active-index) * 100%));
+    width: var(--slider-pill-width, calc((100% - (2 * var(--slider-inset))) / var(--section-count)));
+    transform: none;
   }
 }
 

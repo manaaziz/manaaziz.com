@@ -5,6 +5,7 @@ import worldMap from "@svg-maps/world";
 import usAtlas from "us-atlas/states-albers-10m.json";
 import { feature, mesh } from "topojson-client";
 import { geoPath } from "d3-geo";
+import AnimatedFlagBase from "@/components/animated_flag";
 
 const card = ({ name, type, blurb, href, logo, countryId, hideCaseNote = false }) => ({
   name,
@@ -506,9 +507,6 @@ const countryFloatPositions = {
   au: { left: "42%", top: "58%" }
 };
 
-const flagColumnCount = 12;
-const flagSvgViewBox = "0 0 120 80";
-
 function Star({ cx, cy, fill = "#fff", points = 5, outer = 6, inner = 2.5, rotate = -90 }) {
   const path = Array.from({ length: points * 2 }).map((_, index) => {
     const angle = ((Math.PI * 2 * index) / (points * 2)) + (rotate * Math.PI / 180);
@@ -729,33 +727,9 @@ function FlagArt({ countryId }) {
 
 function AnimatedFlag({ countryId, label }) {
   return (
-    <span
-      aria-label={`${label} flag`}
-      className="mini-flag"
-      role="img"
-    >
-      {Array.from({ length: flagColumnCount }).map((_, index) => (
-        <span
-          aria-hidden="true"
-          className="mini-flag-column"
-          key={index}
-          style={{
-            "--column-index": index,
-            "--column-count": flagColumnCount,
-            "--column-offset": index
-          }}
-        >
-          <svg
-            aria-hidden="true"
-            className="mini-flag-art"
-            preserveAspectRatio="none"
-            viewBox={flagSvgViewBox}
-          >
-            <FlagArt countryId={countryId} />
-          </svg>
-        </span>
-      ))}
-    </span>
+    <AnimatedFlagBase label={label}>
+      <FlagArt countryId={countryId} />
+    </AnimatedFlagBase>
   );
 }
 

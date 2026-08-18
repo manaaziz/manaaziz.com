@@ -68,6 +68,26 @@ test("mobile hero preserves the complete 3D button edge", async ({ page }) => {
   expect(geometry.clearance).toBeGreaterThanOrEqual(5);
 });
 
+test("shared buttons use the feature carousel 3D edge direction", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/", { waitUntil: "domcontentloaded" });
+
+  const sharedButton = page.getByRole("link", { name: "Open The Manalogue" });
+  const featureButton = page.locator(".feature-blog-body strong").first();
+  await sharedButton.scrollIntoViewIfNeeded();
+
+  const styles = await Promise.all([sharedButton, featureButton].map((locator) => locator.evaluate((element) => {
+    const style = getComputedStyle(element);
+    return {
+      backgroundColor: style.backgroundColor,
+      boxShadow: style.boxShadow
+    };
+  })));
+
+  expect(styles[0]).toEqual(styles[1]);
+  expect(await sharedButton.evaluate((element) => getComputedStyle(element, "::before").content)).toBe("none");
+});
+
 test("mobile navigation opens and exposes its links", async ({ page, isMobile }) => {
   test.skip(!isMobile, "Touch navigation check runs in the mobile project.");
   await page.goto("/", { waitUntil: "domcontentloaded" });
@@ -123,6 +143,10 @@ test("Spain scrollytelling provides progress and keyboard-operable navigation", 
   await page.goto("/blog/teaching/spain-recap", { waitUntil: "domcontentloaded" });
   const story = page.getByRole("region", { name: "Spain 2025 study-abroad journey" });
   if (await story.count()) {
+    await expect(story.getByRole("img", { name: "Madrid flag" }).first()).toBeVisible();
+    await expect(story.getByRole("img", { name: "Valencia flag" }).first()).toBeAttached();
+    await expect(story.getByRole("img", { name: "Catalonia flag" }).first()).toBeAttached();
+    await expect(story.locator(".spain-scroll-dot.has-traveler img")).toBeAttached();
     const next = story.getByRole("button", { name: "Next" });
     await next.focus();
     await page.keyboard.press("Enter");
@@ -318,6 +342,35 @@ test("feature carousel Previous mirrors the Next card movement", async ({ page }
   await page.getByRole("button", { name: "Previous item" }).click();
   await expect(carousel.locator(".student-review-card.is-next")).toHaveCSS("animation-name", "carousel-card-previous-depart");
   await expect(carousel.locator(".student-review-card.is-active")).toHaveCSS("animation-name", "carousel-card-previous-arrive");
+});
+
+test("feature carousel controls keep standard sizing and synchronized motion", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("/", { waitUntil: "load" });
+
+  const carousel = page.locator(".feature-carousel-blog .feature-carousel");
+  const spinButton = carousel.getByRole("button", { name: "Spin" });
+  await carousel.scrollIntoViewIfNeeded();
+
+  const restingBounds = await spinButton.boundingBox();
+  expect(restingBounds.width).toBeGreaterThanOrEqual(112);
+  expect(restingBounds.height).toBeGreaterThanOrEqual(44);
+
+  await spinButton.click();
+  const spinningBounds = await carousel.getByRole("button", { name: "Spinning" }).boundingBox();
+  expect(Math.abs(spinningBounds.width - restingBounds.width)).toBeLessThanOrEqual(1);
+  expect(Math.abs(spinningBounds.height - restingBounds.height)).toBeLessThanOrEqual(1);
+
+  await page.reload({ waitUntil: "load" });
+  const reloadedCarousel = page.locator(".feature-carousel-blog .feature-carousel");
+  await reloadedCarousel.scrollIntoViewIfNeeded();
+  await reloadedCarousel.getByRole("button", { name: "Next item" }).click();
+  const durations = await reloadedCarousel.evaluate((element) => ({
+    card: getComputedStyle(element.querySelector(".student-review-card.is-active")).animationDuration,
+    chip: getComputedStyle(element.querySelector(".casino-chip.next")).animationDuration
+  }));
+  expect(durations.chip).toBe(durations.card);
 });
 
 test("lazy presentation images load when scrolled into view", async ({ page }) => {
