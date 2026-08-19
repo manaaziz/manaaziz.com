@@ -7,14 +7,13 @@ import { feature, mesh } from "topojson-client";
 import { geoPath } from "d3-geo";
 import AnimatedFlagBase from "@/components/animated_flag";
 
-const card = ({ name, type, blurb, href, logo, countryId, hideCaseNote = false }) => ({
+const card = ({ name, type, blurb, href, logo, countryId }) => ({
   name,
   type,
   blurb,
   href,
   logo,
-  countryId,
-  hideCaseNote
+  countryId
 });
 
 const tileInitials = (name) =>
@@ -75,7 +74,7 @@ const collaborations = [
         name: "International Conference on Gambling & Risk Taking",
         type: "Research",
         blurb: "I presented at two conferences in a row, first on predicting gambling payment declines, and subsequently on quantifying how lucky a patron got in their baccarat outcomes.",
-        href: "/research",
+        href: "/blog/research/international-conference-gambling-risk-taking",
         logo: "/assets/logos/gambling_risk_taking_logo.jpg"
       }),
       card({
@@ -161,8 +160,7 @@ const collaborations = [
         name: "Student statistical consultant",
         type: "Consulting",
         blurb: "I served as a student statistical consultant for the NC State Department of Public Administration while completing my master's degree.",
-        logo: "/assets/logos/nc_state_logo.svg",
-        hideCaseNote: true
+        logo: "/assets/logos/nc_state_logo.svg"
       })
     ]
   },
@@ -194,12 +192,15 @@ const collaborations = [
       card({
         name: "Hospital Gregorio Marañón",
         type: "Research",
-        blurb: "I collaborated with the psychiatry department to understand the comorbidity of gambling disorder."
+        blurb: "I collaborated with the psychiatry department to understand the comorbidity of gambling disorder.",
+        logo: "/assets/logos/hospital-gregorio-maranon-logo.webp"
       }),
       card({
         name: "Universidad Rey Juan Carlos",
         type: "Research",
-        blurb: "I worked on various applied AI research projects during a three-month research stay in Madrid."
+        blurb: "I worked on various applied AI research projects during a three-month research stay in Madrid.",
+        href: "/blog/research/madrid-mola-mazo",
+        logo: "/assets/logos/universidad-rey-juan-carlos-logo.webp"
       })
     ]
   },
@@ -212,7 +213,7 @@ const collaborations = [
         name: "Breda University of Applied Sciences",
         type: "Teaching",
         blurb: "I was an invited guest at BUAS, where I had conversations about applied research and gave lectures to undergraduate data science students.",
-        href: "https://pure.buas.nl/en/activities/mana-azizsoltani/",
+        href: "/blog/travel/post1",
         logo: "/assets/logos/buas_logo.png"
       })
     ]
@@ -233,8 +234,7 @@ const collaborations = [
         name: "IGT Italia",
         type: "Research",
         blurb: "I was on a panel hosted by the IGT Italia team discussing research in the responsible gambling space.",
-        logo: "/assets/logos/igt_italia_logo.png",
-        hideCaseNote: true
+        logo: "/assets/logos/igt_italia_logo.png"
       })
     ]
   },
@@ -267,8 +267,7 @@ const collaborations = [
         name: "Wynn Mayfair",
         type: "Consulting",
         blurb: "I worked on understanding the database and cross marketing with other properties in the company portfolio.",
-        logo: "/assets/logos/wynn_mayfair_logo.png",
-        hideCaseNote: true
+        logo: "/assets/logos/wynn_mayfair_logo.png"
       })
     ]
   },
@@ -315,7 +314,6 @@ const collaborations = [
         name: "Wynn Macau",
         type: "Consulting",
         blurb: "I assisted with the development, implementation, and training for data science and data analytics initiatives.",
-        href: "/blog/travel",
         logo: "/assets/logos/wynn_macau_logo.png"
       }),
       card({
@@ -781,7 +779,7 @@ const usStates = [
         name: "International Conference on Gambling & Risk Taking",
         type: "Research",
         blurb: "I presented at two conferences in a row, first on predicting gambling payment declines, and subsequently on quantifying how lucky a patron got in their baccarat outcomes.",
-        href: "/research",
+        href: "/blog/research/international-conference-gambling-risk-taking",
         logo: "/assets/logos/gambling_risk_taking_logo.jpg"
       }),
       card({
@@ -931,8 +929,7 @@ const usStates = [
         name: "Student statistical consultant",
         type: "Consulting",
         blurb: "I served as a student statistical consultant for the NC State Department of Public Administration while completing my master's degree.",
-        logo: "/assets/logos/nc_state_logo.svg",
-        hideCaseNote: true
+        logo: "/assets/logos/nc_state_logo.svg"
       })
     ],
     state: "North Carolina"
@@ -1399,9 +1396,7 @@ export default function GlobalExperienceMap() {
                       <a className="case-link" href={selectedWork.href}>
                         Read more
                       </a>
-                    ) : selectedWork.hideCaseNote ? null : (
-                      <span className="case-link disabled">Case note coming soon</span>
-                    )}
+                    ) : null}
                   </div>
                 </article>
               ) : (
