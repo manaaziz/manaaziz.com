@@ -15,7 +15,7 @@ export default function PostContent({ post }) {
     const key = tag.toLowerCase();
     return allowedTags.has(key) && tags.findIndex((candidate) => candidate.toLowerCase() === key) === index;
   });
-  const seriesHref = post.archived ? `/${post.legacyBase}` : `/blog/${post.seriesSlug}`;
+  const seriesHref = post.landingHref || (post.archived ? `/${post.legacyBase}` : `/blog/${post.seriesSlug}`);
   const backHref = post.isSeries ? seriesHref : `/manalogue/${post.subjectSlug}`;
   const postContentSections = post.contentHtml.split(decisionTreeMarker);
 

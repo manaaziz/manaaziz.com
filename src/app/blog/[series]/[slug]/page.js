@@ -3,10 +3,12 @@ import PostContent from "@/components/post_content";
 import { getAllPosts, getPost } from "@/lib/posts";
 
 export function generateStaticParams() {
-  return getAllPosts().map((post) => ({
-    series: post.seriesSlug,
-    slug: post.slug
-  }));
+  return getAllPosts()
+    .filter((post) => post.href.startsWith("/blog/"))
+    .map((post) => ({
+      series: post.seriesSlug,
+      slug: post.slug
+    }));
 }
 
 export async function generateMetadata({ params }) {

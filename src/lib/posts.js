@@ -18,17 +18,31 @@ export const seriesConfig = {
     subjectTitle: "Research",
     archived: true
   },
-  travel: {
+  europe_2023: {
     contentDir: path.join("travel", "europe_2023"),
     legacyCategory: "EUblog",
-    legacyBase: "EUblog",
+    legacyBase: "e_ublog",
     title: "Europe 2023",
-    description: "A travel and professional archive from a European summer that moved between universities, conferences, cities, friends, and field notes.",
+    description: "A professional and personal archive from a multi-purpose European summer trip.",
     cover: "/assets/images/eu23cover.webp",
     tags: ["Travel"],
     subjectSlug: "travel",
     subjectTitle: "Travel",
-    startingPointLabel: "First dispatch"
+    startingPointLabel: "First dispatch",
+    landingHref: "/e_ublog",
+    postBase: "/e_ublog"
+  },
+  travel: {
+    contentDir: "travel",
+    legacyCategory: "travel",
+    legacyBase: "blog/travel",
+    title: "Travel",
+    description: "Travel writing from the Manalogue.",
+    cover: "/assets/images/eu23cover.webp",
+    tags: ["Travel"],
+    subject: true,
+    subjectSlug: "travel",
+    subjectTitle: "Travel"
   },
   americanito_bcn: {
     contentDir: "americanito_bcn",
@@ -219,7 +233,7 @@ function readSeriesPosts(seriesSlug) {
       const tags = uniqueTags([...(config.subject ? [] : [config.title]), ...seriesTags, ...frontMatterTags]);
       const images = getImages(contentHtml);
       const cover = data.cover || config.cover || "";
-      const previewImage = seriesSlug === "travel" ? images[0] || cover : data.cover || images[0] || config.cover || "";
+      const previewImage = data.cover || images[0] || config.cover || "";
 
       return {
         sourcePath,
@@ -229,6 +243,7 @@ function readSeriesPosts(seriesSlug) {
         isSeries: !config.subject,
         subjectSlug: config.subjectSlug || "",
         subjectTitle: config.subjectTitle || "The Manalogue",
+        landingHref: config.landingHref || "",
         legacyBase: config.legacyBase,
         legacyCategory: config.legacyCategory,
         standalone: Boolean(config.standalone),
@@ -238,7 +253,7 @@ function readSeriesPosts(seriesSlug) {
         cover,
         previewImage,
         archived: Boolean(config.archived),
-        href: `/blog/${seriesSlug}/${slug}`,
+        href: config.postBase ? `${config.postBase}/${slug}` : `/blog/${seriesSlug}/${slug}`,
         legacyHref: data.legacyPath || `/${config.legacyBase}/${slug}`,
         contentHtml,
         excerpt: makeExcerpt(contentHtml),
@@ -296,7 +311,7 @@ export function getSeriesInfo(seriesSlug) {
 
 export function isPublicSeries(seriesSlug) {
   const info = seriesConfig[seriesSlug];
-  return Boolean(info && !info.archived && !info.standalone && !info.subject);
+  return Boolean(info && !info.archived && !info.standalone && !info.subject && !info.landingHref);
 }
 
 export function getPost(seriesSlug, slug) {

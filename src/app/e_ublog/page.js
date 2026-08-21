@@ -6,13 +6,13 @@ export const metadata = {
 };
 
 export default function OldEuropeBlogPage() {
-  const posts = getSeriesPosts("travel");
+  const posts = getSeriesPosts("europe_2023");
 
   return (
     <main className="page-shell">
       <p className="eyebrow">Blog series</p>
       <h1>Europe 2023</h1>
-      <p className="lede">This series now lives inside the media section. The old URL is preserved here for compatibility.</p>
+      <p className="lede">A professional and personal archive from a multi-purpose European summer trip.</p>
       <section className="post-list">
         {posts.map((post) => (
           <Link className="post-list-item" href={`/e_ublog/${post.slug}`} key={post.slug}>

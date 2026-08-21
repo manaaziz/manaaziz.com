@@ -590,7 +590,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [], section
       topic: "Travel Archive",
       title: "Europe 2023",
       excerpt: "A professional and personal archive from a multi-purpose European summer trip.",
-      href: "/blog/travel",
+      href: "/e_ublog",
       image: "/assets/images/eu23cover.webp",
       action: "Open archive",
       size: "standard"
@@ -603,7 +603,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [], section
       date: "2023-06-22",
       place: "Barcelona, Spain",
       preview: "A travel note from Barcelona and the return of an older thread in the Manalogue archive.",
-      href: "/blog/travel/post8",
+      href: "/e_ublog/post8",
       image: "/assets/photos/eublog/blog8_1.webp",
       tile: "wide"
     },
@@ -613,7 +613,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [], section
       date: "2023",
       place: "Breda, Netherlands",
       preview: "Photos and field notes from a research visit to Breda University of Applied Sciences.",
-      href: "/blog/travel/post1",
+      href: "/e_ublog/post1",
       image: "/assets/photos/eublog/blog1_2.webp"
     },
     {
@@ -622,7 +622,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [], section
       date: "2023",
       place: "Verona, Italy",
       preview: "Food, wine, and field notes from Verona.",
-      href: "/blog/travel/post4",
+      href: "/e_ublog/post4",
       image: "/assets/photos/eublog/blog4_4.webp",
       tile: "wide"
     },
@@ -632,7 +632,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [], section
       date: "2023",
       place: "Madrid, Spain",
       preview: "A return to Madrid and an unforgettable night at the Metropolitano.",
-      href: "/blog/travel/post7",
+      href: "/e_ublog/post7",
       image: "/assets/photos/eublog/blog7_3.webp"
     },
     {
@@ -732,7 +732,7 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [], section
           topic: "Travel",
           title: "Archived travel writing lives in its own room",
           excerpt: "Older travel and doctoral-life posts are archived under Travel, not promoted as current homepage material.",
-          href: "/blog/travel",
+          href: "/e_ublog",
           image: "/assets/images/eu23cover.webp",
           action: "Open travel",
           size: "standard"

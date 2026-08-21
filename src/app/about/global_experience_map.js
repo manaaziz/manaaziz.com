@@ -213,7 +213,7 @@ const collaborations = [
         name: "Breda University of Applied Sciences",
         type: "Teaching",
         blurb: "I was an invited guest at BUAS, where I had conversations about applied research and gave lectures to undergraduate data science students.",
-        href: "/blog/travel/post1",
+        href: "/e_ublog/post1",
         logo: "/assets/logos/buas_logo.png"
       })
     ]

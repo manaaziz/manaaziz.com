@@ -56,7 +56,7 @@ export default function sitemap() {
     priority: 0.72
   }));
 
-  const seriesPages = getSeriesSummaries().map((series) => entry(`/blog/${series.seriesSlug}`, {
+  const seriesPages = getSeriesSummaries().map((series) => entry(series.landingHref || `/blog/${series.seriesSlug}`, {
     changeFrequency: "weekly",
     priority: 0.68,
     images: [series.cover]
