@@ -9554,6 +9554,29 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
   border-radius: 8px;
 }
 
+.post-photo-natural {
+  margin: clamp(1.6rem, 4vw, 2.5rem) 0;
+}
+
+.post-photo-natural > img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.post-photo-natural-pair > div {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.65rem, 2vw, 0.9rem);
+  align-items: start;
+}
+
+.post-photo-natural-pair img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .fab333-post-photo-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -10925,8 +10948,14 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
   gap: 0.75rem;
 }
 
+.post-gallery-two div {
+  grid-template-columns: repeat(2, minmax(0, calc((100% - 1.5rem) / 3)));
+  justify-content: center;
+}
+
 .post-gallery img {
   width: 100%;
+  height: auto;
   aspect-ratio: 1;
   object-fit: cover;
 }
