@@ -9555,7 +9555,8 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
 }
 
 .post-photo-natural {
-  margin: clamp(1.6rem, 4vw, 2.5rem) 0;
+  width: min(88%, 42rem);
+  margin: clamp(1.6rem, 4vw, 2.5rem) auto;
 }
 
 .post-photo-natural > img {
@@ -9569,6 +9570,11 @@ html.section-route-entering[data-section-direction="backward"] .manalogue-editor
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(0.65rem, 2vw, 0.9rem);
   align-items: start;
+}
+
+.post-photo-natural-pair {
+  width: 100%;
+  max-width: none;
 }
 
 .post-photo-natural-pair img {
