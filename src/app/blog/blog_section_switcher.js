@@ -397,9 +397,8 @@ function ManalogueSectionNav({ activeId = "home" }) {
     const activeIndex = sections.findIndex((section) => section.id === activeId);
     const nextIndex = sections.findIndex((section) => section.id === sectionId);
     document.documentElement.dataset.sectionDirection = nextIndex > activeIndex ? "forward" : "backward";
-    document.documentElement.classList.remove("section-route-entering");
-    document.documentElement.classList.add("section-route-leaving");
     window.sessionStorage.setItem("section-slider-scroll", String(window.scrollY));
+    window.sessionStorage.setItem("section-slider-from-index", String(activeIndex));
     router.push(sectionHref(sectionId), { scroll: false });
   }
 

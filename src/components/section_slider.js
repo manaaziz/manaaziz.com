@@ -23,32 +23,54 @@ export default function SectionSlider({ activeId, ariaLabel, className = "", ite
         behavior: "auto"
       });
     }
-    document.documentElement.classList.remove("section-route-leaving");
-    document.documentElement.classList.add("section-route-entering");
     const savedScroll = Number.parseFloat(window.sessionStorage.getItem("section-slider-scroll") || "");
     if (Number.isFinite(savedScroll)) {
       window.scrollTo({ top: savedScroll, behavior: "auto" });
       window.sessionStorage.removeItem("section-slider-scroll");
     }
-    const timer = window.setTimeout(() => document.documentElement.classList.remove("section-route-entering"), transitionMs);
-    return () => window.clearTimeout(timer);
   }, [activeIndex]);
 
   useLayoutEffect(() => {
     const nav = navRef.current;
-    const link = linkRefs.current[visualIndex];
-    if (!nav || !link) return undefined;
+    if (!nav) return undefined;
 
-    const alignPill = () => {
+    const alignPill = (index) => {
+      const link = linkRefs.current[index];
+      if (!link) return;
       nav.style.setProperty("--slider-pill-left", `${link.offsetLeft}px`);
       nav.style.setProperty("--slider-pill-width", `${link.offsetWidth}px`);
     };
 
-    alignPill();
-    const observer = new ResizeObserver(alignPill);
+    const savedIndex = Number.parseInt(window.sessionStorage.getItem("section-slider-from-index") || "", 10);
+    let animationFrame;
+    let cleanupTimer;
+
+    if (Number.isInteger(savedIndex) && savedIndex !== visualIndex && linkRefs.current[savedIndex]) {
+      nav.classList.add("is-positioning");
+      alignPill(savedIndex);
+      nav.getBoundingClientRect();
+      nav.classList.remove("is-positioning");
+      animationFrame = window.requestAnimationFrame(() => alignPill(visualIndex));
+      cleanupTimer = window.setTimeout(() => {
+        window.sessionStorage.removeItem("section-slider-from-index");
+      }, transitionMs + 80);
+    } else {
+      nav.classList.add("is-positioning");
+      alignPill(visualIndex);
+      nav.getBoundingClientRect();
+      nav.classList.remove("is-positioning");
+    }
+
+    const observer = new ResizeObserver(() => alignPill(visualIndex));
     observer.observe(nav);
-    observer.observe(link);
-    return () => observer.disconnect();
+    linkRefs.current.forEach((link) => {
+      if (link) observer.observe(link);
+    });
+    return () => {
+      observer.disconnect();
+      if (animationFrame) window.cancelAnimationFrame(animationFrame);
+      if (cleanupTimer) window.clearTimeout(cleanupTimer);
+    };
   }, [items.length, visualIndex]);
 
   function navigate(event, item, index) {
@@ -56,9 +78,8 @@ export default function SectionSlider({ activeId, ariaLabel, className = "", ite
     event.preventDefault();
     const direction = index > activeIndex ? "forward" : "backward";
     document.documentElement.dataset.sectionDirection = direction;
-    document.documentElement.classList.remove("section-route-entering");
-    document.documentElement.classList.add("section-route-leaving");
     window.sessionStorage.setItem("section-slider-scroll", String(window.scrollY));
+    window.sessionStorage.setItem("section-slider-from-index", String(activeIndex));
     setVisualIndex(index);
     captureAnalyticsEvent("section navigation selected", {
       section: item.id,

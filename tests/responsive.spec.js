@@ -235,6 +235,21 @@ test("desktop Manalogue slider changes sections without a stale transition or sc
   await expect(slider.getByRole("link", { name: "Research" })).toHaveAttribute("aria-current", "page");
   await expect.poll(async () => page.locator("html").evaluate((element) => element.classList.contains("section-route-leaving"))).toBe(false);
   await expect.poll(async () => Math.abs((await page.evaluate(() => window.scrollY)) - scrollBeforeNavigation)).toBeLessThanOrEqual(10);
+
+  const researchPillLeft = await slider.evaluate((element) => Number.parseFloat(getComputedStyle(element, "::before").left));
+  await slider.getByRole("link", { name: "Teaching" }).click();
+  await expect(page).toHaveURL(/\/manalogue\/teaching\/?$/);
+  const carriedPillLeft = await page.getByRole("navigation", { name: "Manalogue sections" })
+    .evaluate((element) => Number.parseFloat(getComputedStyle(element, "::before").left));
+  expect(carriedPillLeft).toBeGreaterThanOrEqual(researchPillLeft - 2);
+  await expect.poll(async () => page.getByRole("navigation", { name: "Manalogue sections" })
+    .evaluate((element) => Number.parseFloat(getComputedStyle(element, "::before").left)))
+    .toBeGreaterThan(researchPillLeft + 2);
+
+  const pageTransitionAnimations = await page.locator(".manalogue-subject-page").evaluate((element) =>
+    element.getAnimations({ subtree: true }).filter((animation) => animation.animationName?.startsWith("section-page-enter")).length
+  );
+  expect(pageTransitionAnimations).toBe(0);
 });
 
 test("mobile Podcasts gives both shows equal feature treatment", async ({ page }) => {
