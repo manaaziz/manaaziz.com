@@ -3,10 +3,22 @@ import PaperMosaic from "./paper_mosaic";
 import ResearchWordGraph from "./research_word_graph";
 
 export const metadata = {
-  title: "Research"
+  title: "Research",
+  alternates: { canonical: "/research" }
 };
 
 const papers = [
+  {
+    title: "Building a Brief Multidomain Questionnaire for Gambling Dual Disorder: Psychometric Validation and RDoC-Based Dimensional Structure",
+    status: "Published",
+    venue: "International Journal of Methods in Psychiatric Research",
+    year: "2026",
+    doi: "10.1002/mpr.70078",
+    blogHref: "/manalogue",
+    pdfHref: "/assets/papers/gambling_dual_disorder_rdoc_questionnaire_validation.pdf",
+    blurb: "Development and psychometric validation of a brief RDoC-aligned questionnaire for assessing gambling dual disorder severity.",
+    detail: "This study develops and validates a brief multidomain questionnaire for gambling dual disorder. Its RDoC-based structure captures emotional distress and gambling impairment, impulsivity and behavioral activation, social anxiety and interpersonal suspiciousness, and executive dysfunction with negative self-perception."
+  },
   {
     title: "Characterising online gamblers exceeding financial risk thresholds in the UK",
     status: "Published",

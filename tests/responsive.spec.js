@@ -221,6 +221,22 @@ test("mobile Manalogue uses a one-line masthead, section dropdown, and readable 
   await expect.poll(async () => Math.abs((await page.evaluate(() => window.scrollY)) - scrollBeforeNavigation)).toBeLessThanOrEqual(10);
 });
 
+test("desktop Manalogue slider changes sections without a stale transition or scroll jump", async ({ page }) => {
+  await page.setViewportSize({ width: 1024, height: 900 });
+  await page.goto("/manalogue", { waitUntil: "load" });
+
+  await page.evaluate(() => window.scrollTo(0, 120));
+  await expect.poll(async () => page.evaluate(() => window.scrollY)).toBe(120);
+  const scrollBeforeNavigation = await page.evaluate(() => window.scrollY);
+  const slider = page.getByRole("navigation", { name: "Manalogue sections" });
+  await slider.getByRole("link", { name: "Research" }).click();
+
+  await expect(page).toHaveURL(/\/manalogue\/research\/?$/);
+  await expect(slider.getByRole("link", { name: "Research" })).toHaveAttribute("aria-current", "page");
+  await expect.poll(async () => page.locator("html").evaluate((element) => element.classList.contains("section-route-leaving"))).toBe(false);
+  await expect.poll(async () => Math.abs((await page.evaluate(() => window.scrollY)) - scrollBeforeNavigation)).toBeLessThanOrEqual(10);
+});
+
 test("mobile Podcasts gives both shows equal feature treatment", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/manalogue/podcasts", { waitUntil: "load" });

@@ -214,7 +214,8 @@ export async function generateMetadata({ params }) {
   }
 
   return {
-    title: course.shortTitle
+    title: course.shortTitle,
+    alternates: { canonical: `/teaching/${course.slug}` }
   };
 }
 

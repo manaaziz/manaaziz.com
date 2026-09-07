@@ -48,3 +48,19 @@ test("course materials follow heading order in source order", async ({ page }) =
   const skippedLevel = levels.some((level, index) => index > 0 && level > levels[index - 1] + 1);
   expect(skippedLevel).toBe(false);
 });
+
+test("canonical URLs identify current pages and retire duplicate archive routes", async ({ page }) => {
+  await page.goto("/blog", { waitUntil: "domcontentloaded" });
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://manaaziz.com/manalogue/");
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
+
+  await page.goto("/manalogue/research", { waitUntil: "domcontentloaded" });
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://manaaziz.com/manalogue/research/");
+
+  await page.goto("/blog/americanito_bcn/week-10", { waitUntil: "domcontentloaded" });
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://manaaziz.com/bcnblog/week-10/");
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
+
+  await page.goto("/bcnblog/week-10", { waitUntil: "domcontentloaded" });
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://manaaziz.com/bcnblog/week-10/");
+});

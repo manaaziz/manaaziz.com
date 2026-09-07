@@ -1,7 +1,8 @@
 import GalleryStack from "@/components/gallery_section";
 
 export const metadata = {
-  title: "Gallery"
+  title: "Gallery",
+  alternates: { canonical: "/gallery" }
 };
 
 const galleries = [

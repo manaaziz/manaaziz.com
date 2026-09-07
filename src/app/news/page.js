@@ -2,7 +2,8 @@ import Link from "next/link";
 import { newsItems } from "./items";
 
 export const metadata = {
-  title: "In the News"
+  title: "In the News",
+  alternates: { canonical: "/news" }
 };
 
 export default function NewsPage() {

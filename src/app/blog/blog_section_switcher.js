@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import SectionSlider from "@/components/section_slider";
 import { newsItems } from "../news/items";
 import { podcasts } from "../podcast/shows";
@@ -392,32 +392,14 @@ function EditorialSection({ panel }) {
 function ManalogueSectionNav({ activeId = "home" }) {
   const router = useRouter();
 
-  useLayoutEffect(() => {
-    const savedScroll = window.sessionStorage.getItem("manalogue-section-scroll");
-    if (savedScroll === null) return undefined;
-
-    const scrollTop = Number.parseFloat(savedScroll);
-    if (!Number.isFinite(scrollTop)) {
-      window.sessionStorage.removeItem("manalogue-section-scroll");
-      return undefined;
-    }
-
-    const restoreScroll = () => window.scrollTo(0, scrollTop);
-    restoreScroll();
-    const frame = window.requestAnimationFrame(restoreScroll);
-    const timeout = window.setTimeout(() => {
-      restoreScroll();
-      window.sessionStorage.removeItem("manalogue-section-scroll");
-    }, 120);
-
-    return () => {
-      window.cancelAnimationFrame(frame);
-      window.clearTimeout(timeout);
-    };
-  }, [activeId]);
-
   function navigateToSection(sectionId) {
-    window.sessionStorage.setItem("manalogue-section-scroll", String(window.scrollY));
+    if (sectionId === activeId) return;
+    const activeIndex = sections.findIndex((section) => section.id === activeId);
+    const nextIndex = sections.findIndex((section) => section.id === sectionId);
+    document.documentElement.dataset.sectionDirection = nextIndex > activeIndex ? "forward" : "backward";
+    document.documentElement.classList.remove("section-route-entering");
+    document.documentElement.classList.add("section-route-leaving");
+    window.sessionStorage.setItem("section-slider-scroll", String(window.scrollY));
     router.push(sectionHref(sectionId), { scroll: false });
   }
 

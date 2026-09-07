@@ -2,7 +2,9 @@ import Link from "next/link";
 import { getSeriesPosts } from "@/lib/posts";
 
 export const metadata = {
-  title: "Becoming Dr. Mana"
+  title: "Becoming Dr. Mana",
+  alternates: { canonical: "/phdblog" },
+  robots: { index: false, follow: true }
 };
 
 export default function OldPhdBlogPage() {

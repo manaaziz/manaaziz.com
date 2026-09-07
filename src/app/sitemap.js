@@ -46,8 +46,6 @@ export default function sitemap() {
     entry("/teaching", { priority: 0.85 }),
     entry("/manalogue", { changeFrequency: "weekly", priority: 0.85 }),
     entry("/gallery", { priority: 0.75, images: identityImages }),
-    entry("/podcast", { priority: 0.7, images: podcasts.map((podcast) => podcast.logo) }),
-    entry("/media", { priority: 0.6 }),
     entry("/news", { priority: 0.6 })
   ];
 
@@ -62,7 +60,7 @@ export default function sitemap() {
     images: [series.cover]
   }));
 
-  const postPages = getAllPosts().map((post) => entry(post.href, {
+  const postPages = getAllPosts().map((post) => entry(post.canonicalHref || post.href, {
     changeFrequency: "yearly",
     priority: 0.64,
     lastModified: post.date || undefined,

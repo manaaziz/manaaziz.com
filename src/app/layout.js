@@ -146,7 +146,7 @@ const pageSearchItems = [
     keywords: ["blog", "posts", "writing", "travel"]
   },
   {
-    href: "/manalogue?section=gallery",
+    href: "/manalogue/gallery",
     title: "Gallery",
     type: "Manalogue",
     description: "Photo gallery and visual archive.",

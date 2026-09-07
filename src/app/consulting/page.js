@@ -4,7 +4,8 @@ import { getAllPosts, getSeriesSummaries } from "@/lib/posts";
 import LogoBounceField from "./logo_bounce_field";
 
 export const metadata = {
-  title: "Consulting"
+  title: "Consulting",
+  alternates: { canonical: "/consulting" }
 };
 
 const consultingAreas = [

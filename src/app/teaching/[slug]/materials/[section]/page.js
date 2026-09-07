@@ -80,7 +80,10 @@ export async function generateMetadata({ params }) {
   const { slug, section } = await params;
   const course = getCourse(slug);
   const entry = getMaterialHub(slug)?.find((item) => item.id === section);
-  return { title: course && entry ? `${entry.title} | ${course.courseNumber}` : "Course materials" };
+  return {
+    title: course && entry ? `${entry.title} | ${course.courseNumber}` : "Course materials",
+    alternates: { canonical: `/teaching/${slug}/materials/${section}` }
+  };
 }
 
 export default async function CourseMaterialSectionPage({ params }) {

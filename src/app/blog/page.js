@@ -2,7 +2,10 @@ import { getRecentPosts, getSeriesSummaries, getVisiblePosts } from "@/lib/posts
 import BlogSectionSwitcher from "./blog_section_switcher";
 
 export const metadata = {
-  title: "The Manalogue"
+  title: "The Manalogue",
+  description: "Essays, travel stories, teaching reflections, consulting ideas, research notes, podcasts, and photography from Mana Azizsoltani.",
+  alternates: { canonical: "/manalogue" },
+  robots: { index: false, follow: true }
 };
 
 export function ManaloguePage({ sectionId = "home" } = {}) {

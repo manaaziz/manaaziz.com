@@ -10,7 +10,9 @@ export async function generateMetadata({ params }) {
   const { slug } = await params;
   const post = getLegacyPost("phdblog", slug);
   return {
-    title: post?.title || "Becoming Dr. Mana"
+    title: post?.title || "Becoming Dr. Mana",
+    description: post?.excerpt,
+    alternates: { canonical: post?.canonicalHref || `/phdblog/${slug}` }
   };
 }
 

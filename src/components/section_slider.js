@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { captureAnalyticsEvent } from "@/lib/analytics";
 
 const transitionMs = 360;
@@ -14,7 +14,6 @@ export default function SectionSlider({ activeId, ariaLabel, className = "", ite
   const activeLinkRef = useRef(null);
   const linkRefs = useRef([]);
   const navRef = useRef(null);
-  const timerRef = useRef(null);
 
   useLayoutEffect(() => {
     setVisualIndex(activeIndex);
@@ -28,14 +27,12 @@ export default function SectionSlider({ activeId, ariaLabel, className = "", ite
     document.documentElement.classList.add("section-route-entering");
     const savedScroll = Number.parseFloat(window.sessionStorage.getItem("section-slider-scroll") || "");
     if (Number.isFinite(savedScroll)) {
-      window.scrollTo({ top: savedScroll, behavior: "instant" });
+      window.scrollTo({ top: savedScroll, behavior: "auto" });
       window.sessionStorage.removeItem("section-slider-scroll");
     }
     const timer = window.setTimeout(() => document.documentElement.classList.remove("section-route-entering"), transitionMs);
     return () => window.clearTimeout(timer);
   }, [activeIndex]);
-
-  useEffect(() => () => window.clearTimeout(timerRef.current), []);
 
   useLayoutEffect(() => {
     const nav = navRef.current;
@@ -57,7 +54,6 @@ export default function SectionSlider({ activeId, ariaLabel, className = "", ite
   function navigate(event, item, index) {
     if (item.id === activeId || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     event.preventDefault();
-    window.clearTimeout(timerRef.current);
     const direction = index > activeIndex ? "forward" : "backward";
     document.documentElement.dataset.sectionDirection = direction;
     document.documentElement.classList.remove("section-route-entering");
@@ -68,7 +64,7 @@ export default function SectionSlider({ activeId, ariaLabel, className = "", ite
       section: item.id,
       navigation_label: ariaLabel
     });
-    timerRef.current = window.setTimeout(() => router.push(item.href, { scroll: false }), transitionMs - 80);
+    router.push(item.href, { scroll: false });
   }
 
   return (

@@ -17,7 +17,10 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }) {
   const { section } = await params;
   const title = sectionNames[section];
-  return title ? { title: `${title} | The Manalogue` } : {};
+  return title ? {
+    title: `${title} | The Manalogue`,
+    alternates: { canonical: `/manalogue/${section}` }
+  } : {};
 }
 
 export default async function ManalogueSectionPage({ params }) {

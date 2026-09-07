@@ -19,7 +19,8 @@ export async function generateMetadata({ params }) {
   }
 
   return {
-    title: `${course.courseNumber} Syllabus`
+    title: `${course.courseNumber} Syllabus`,
+    alternates: { canonical: `/teaching/${course.slug}/syllabus` }
   };
 }
 

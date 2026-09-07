@@ -234,6 +234,10 @@ function readSeriesPosts(seriesSlug) {
       const images = getImages(contentHtml);
       const cover = data.cover || config.cover || "";
       const previewImage = data.cover || images[0] || config.cover || "";
+      const routeHref = config.postBase ? `${config.postBase}/${slug}` : `/blog/${seriesSlug}/${slug}`;
+      const legacyHref = data.legacyPath || `/${config.legacyBase}/${slug}`;
+      const canonicalHref = config.archived ? `/${config.legacyBase}/${slug}` : routeHref;
+      const href = canonicalHref;
 
       return {
         sourcePath,
@@ -253,8 +257,10 @@ function readSeriesPosts(seriesSlug) {
         cover,
         previewImage,
         archived: Boolean(config.archived),
-        href: config.postBase ? `${config.postBase}/${slug}` : `/blog/${seriesSlug}/${slug}`,
-        legacyHref: data.legacyPath || `/${config.legacyBase}/${slug}`,
+        href,
+        routeHref,
+        legacyHref,
+        canonicalHref,
         contentHtml,
         excerpt: makeExcerpt(contentHtml),
         images,

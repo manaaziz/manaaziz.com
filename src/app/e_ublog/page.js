@@ -2,7 +2,8 @@ import Link from "next/link";
 import { getSeriesPosts } from "@/lib/posts";
 
 export const metadata = {
-  title: "Europe 2023"
+  title: "Europe 2023",
+  alternates: { canonical: "/e_ublog" }
 };
 
 export default function OldEuropeBlogPage() {

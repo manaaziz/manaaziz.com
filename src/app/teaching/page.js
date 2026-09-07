@@ -5,7 +5,8 @@ import { studentReviews } from "./reviews";
 import styles from "./teaching.module.css";
 
 export const metadata = {
-  title: "Teaching"
+  title: "Teaching",
+  alternates: { canonical: "/teaching" }
 };
 
 const teachingValues = [

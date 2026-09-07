@@ -10,7 +10,9 @@ export async function generateMetadata({ params }) {
   const { slug } = await params;
   const post = getLegacyPost("bcnblog", slug);
   return {
-    title: post?.title || "Americanito in Barcelona"
+    title: post?.title || "Americanito in Barcelona",
+    description: post?.excerpt,
+    alternates: { canonical: post?.canonicalHref || `/bcnblog/${slug}` }
   };
 }
 

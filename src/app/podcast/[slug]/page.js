@@ -11,7 +11,8 @@ export async function generateMetadata({ params }) {
   const podcast = getPodcast(slug);
 
   return {
-    title: podcast?.title || "Podcast"
+    title: podcast?.title || "Podcast",
+    alternates: { canonical: `/podcast/${slug}` }
   };
 }
 

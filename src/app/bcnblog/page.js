@@ -2,7 +2,9 @@ import Link from "next/link";
 import { getSeriesPosts } from "@/lib/posts";
 
 export const metadata = {
-  title: "Americanito in Barcelona"
+  title: "Americanito in Barcelona",
+  alternates: { canonical: "/bcnblog" },
+  robots: { index: false, follow: true }
 };
 
 export default function OldBarcelonaBlogPage() {

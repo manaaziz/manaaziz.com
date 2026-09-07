@@ -10,7 +10,9 @@ export async function generateMetadata({ params }) {
   const { slug } = await params;
   const post = getLegacyPost("EUblog", slug);
   return {
-    title: post?.title || "Europe 2023"
+    title: post?.title || "Europe 2023",
+    description: post?.excerpt,
+    alternates: { canonical: post?.canonicalHref || `/e_ublog/${slug}` }
   };
 }
 
