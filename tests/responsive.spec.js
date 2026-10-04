@@ -100,7 +100,21 @@ test("tablet Work Mix uses the contained detail layout", async ({ page }) => {
   await page.goto("/", { waitUntil: "domcontentloaded" });
 
   await expect(page.locator(".work-mix-card-stack-left")).toBeHidden();
-  await expect(page.locator(".work-mix-mobile-detail")).toBeVisible();
+  const detail = page.locator(".work-mix-mobile-detail");
+  await expect(detail).toBeEmpty();
+  const slice = page.locator(".work-pie-slice.research");
+  await expect.poll(() => slice.evaluate((element) =>
+    Object.keys(element).some((key) => key.startsWith("__reactProps"))
+  )).toBe(true);
+  await slice.focus();
+  await slice.press("Enter");
+  await expect(detail).toBeVisible();
+  await expect(detail.getByRole("link", { name: "Explore Research" })).toHaveAttribute("href", "/research/");
+  const fits = await detail.evaluate((element) => {
+    const bounds = element.getBoundingClientRect();
+    return bounds.left >= 0 && bounds.right <= window.innerWidth;
+  });
+  expect(fits).toBe(true);
 });
 
 test("course material slider exposes and navigates all sections on mobile", async ({ page }) => {
@@ -494,41 +508,46 @@ test("home map initializes only as its section approaches the viewport", async (
 
   const placeholder = page.locator(".global-experience-loading");
   await expect(placeholder).toBeAttached();
-  await placeholder.scrollIntoViewIfNeeded();
+  // The placeholder is replaced as soon as it approaches the viewport.
+  // Its React boundary remains mounted throughout the lazy-load transition.
+  await page.locator(".global-experience").locator("..").scrollIntoViewIfNeeded();
   await expect(page.locator(".global-experience:not(.global-experience-loading)")).toBeVisible();
   await expect(page.locator(".world-map").first()).toBeAttached();
 });
 
-test("mobile map detail uses the shared header-style close control", async ({ page }) => {
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/", { waitUntil: "load" });
-  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight * 0.55));
-  await expect(page.locator(".region-overview-map")).toBeVisible({ timeout: 15_000 });
-  await page.getByRole("button", { name: /^Open Europe:/ }).click();
-  await page.getByRole("button", { name: /^United Kingdom:/ }).click();
+for (const width of [390, 768, 1024]) {
+  test(`map details overlay the map with a close control at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 844 });
+    await page.goto("/", { waitUntil: "load" });
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight * 0.55));
+    await expect(page.locator(".region-overview-map")).toBeVisible({ timeout: 15_000 });
+    await page.getByRole("button", { name: /^Open Europe:/ }).click();
+    await page.getByRole("button", { name: /^United Kingdom:/ }).click();
 
-  const closeButton = page.getByRole("button", { name: "Close map details" });
-  await expect(closeButton).toBeVisible();
-  const panelFitsMap = await page.locator(".map-detail-card").evaluate((panel) => {
-    const panelBounds = panel.getBoundingClientRect();
-    const mapBounds = panel.closest(".global-map-shell").getBoundingClientRect();
-    return panelBounds.top >= mapBounds.top - 1 && panelBounds.bottom <= mapBounds.bottom + 1;
+    await expect(page.locator(".map-detail-card")).toHaveCSS("position", "absolute");
+    const closeButton = page.getByRole("button", { name: "Close map details" });
+    await expect(closeButton).toBeVisible();
+    const panelFitsMap = await page.locator(".map-detail-card").evaluate((panel) => {
+      const panelBounds = panel.getBoundingClientRect();
+      const mapBounds = panel.closest(".global-map-shell").getBoundingClientRect();
+      return panelBounds.top >= mapBounds.top - 1 && panelBounds.bottom <= mapBounds.bottom + 1;
+    });
+    expect(panelFitsMap).toBe(true);
+    await page.locator(".collaboration-tile").first().click();
+    const selectedPanel = page.locator(".map-detail-card.has-selected-work");
+    await expect(selectedPanel).toBeVisible();
+    const selectedGeometry = await selectedPanel.evaluate((panel) => {
+      const panelBounds = panel.getBoundingClientRect();
+      const mapBounds = panel.closest(".global-map-shell").getBoundingClientRect();
+      return {
+        fitsMap: panelBounds.top >= mapBounds.top - 1 && panelBounds.bottom <= mapBounds.bottom + 1,
+        hasInternalScroll: panel.scrollHeight > panel.clientHeight + 1
+      };
+    });
+    expect(selectedGeometry.fitsMap).toBe(true);
+    expect(selectedGeometry.hasInternalScroll).toBe(false);
+    await expect(closeButton.locator("svg")).toBeVisible();
+    await closeButton.click();
+    await expect(closeButton).toBeHidden();
   });
-  expect(panelFitsMap).toBe(true);
-  await page.locator(".collaboration-tile").first().click();
-  const selectedPanel = page.locator(".map-detail-card.has-selected-work");
-  await expect(selectedPanel).toBeVisible();
-  const selectedGeometry = await selectedPanel.evaluate((panel) => {
-    const panelBounds = panel.getBoundingClientRect();
-    const mapBounds = panel.closest(".global-map-shell").getBoundingClientRect();
-    return {
-      fitsMap: panelBounds.top >= mapBounds.top - 1 && panelBounds.bottom <= mapBounds.bottom + 1,
-      hasInternalScroll: panel.scrollHeight > panel.clientHeight + 1
-    };
-  });
-  expect(selectedGeometry.fitsMap).toBe(true);
-  expect(selectedGeometry.hasInternalScroll).toBe(false);
-  await expect(closeButton.locator("svg")).toBeVisible();
-  await closeButton.click();
-  await expect(closeButton).toBeHidden();
-});
+}

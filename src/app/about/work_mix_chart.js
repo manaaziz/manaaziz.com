@@ -60,8 +60,18 @@ export default function WorkMixChart({ id, items = defaultWorkMix }) {
     setIsComparing(false);
   }
 
+  function supportsHover() {
+    return window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  }
+
+  function handlePointerEnter(event, itemId) {
+    if (event.pointerType === "mouse" && supportsHover()) activateItem(itemId);
+  }
+
   function handleWrapBlur(event) {
-    if (!navigationPending.current && !event.currentTarget.contains(event.relatedTarget)) {
+    // Touch browsers can blur the SVG before dispatching a link's tap.
+    // Keep the selected detail mounted throughout that interaction.
+    if (supportsHover() && !navigationPending.current && !event.currentTarget.contains(event.relatedTarget)) {
       resetWorkMix();
     }
   }
@@ -74,7 +84,7 @@ export default function WorkMixChart({ id, items = defaultWorkMix }) {
         data-muted={isComparing && activeId !== item.id ? "true" : "false"}
         key={item.id}
         onFocus={() => activateItem(item.id)}
-        onMouseEnter={() => activateItem(item.id)}
+        onPointerEnter={(event) => handlePointerEnter(event, item.id)}
       >
         <span>{item.label}</span>
         <h3>{item.title}</h3>
@@ -113,7 +123,7 @@ export default function WorkMixChart({ id, items = defaultWorkMix }) {
           data-comparing={isComparing ? "true" : "false"}
           onBlur={handleWrapBlur}
           onPointerLeave={(event) => {
-            if (event.pointerType === "mouse" && !navigationPending.current) resetWorkMix();
+            if (event.pointerType === "mouse" && supportsHover() && !navigationPending.current) resetWorkMix();
           }}
         >
           <div className="work-mix-card-stack work-mix-card-stack-left">
@@ -136,7 +146,7 @@ export default function WorkMixChart({ id, items = defaultWorkMix }) {
                     onClick={() => activateItem(item.id)}
                     onFocus={() => activateItem(item.id)}
                     onKeyDown={(event) => handleSliceKeyDown(event, item.id)}
-                    onMouseEnter={() => activateItem(item.id)}
+                    onPointerEnter={(event) => handlePointerEnter(event, item.id)}
                     r="15.9155"
                     role="button"
                     strokeDasharray={`${item.value} ${100 - item.value}`}
