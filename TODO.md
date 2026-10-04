@@ -38,7 +38,7 @@ Dependency order: email evidence → research tracker → CV/resume → website 
 
 ## 4. Add color to the Work Mix pie chart
 
-- [x] Use the approved coordinated green palette: deep green for Consulting, medium sage for Research, and pale sage for Teaching.
+- [x] Use the requested contrasting red palette: very dark garnet for Consulting, medium ruby for Research, and light ruby rose for Teaching.
 - [x] Update slice colors in `src/app/globals.css` and simplify the heading to “Tap a section of the chart to see how I spend my time”.
 - [x] Preserve the 70/20/10 proportions, established motion, hover spotlight/reset, labels, keyboard selection, and mobile tap-to-detail behavior in `src/app/about/work_mix_chart.js`.
 - [x] Inspect desktop/mobile colors and retain category labels; existing Work Mix interaction checks pass, with a fractional-pixel 320px failure on the first run that passed on recheck.

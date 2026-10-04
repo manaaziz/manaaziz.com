@@ -1050,7 +1050,7 @@ export default function GlobalExperienceMap() {
   const isCountryListPanel = mapMode === "region" && activeCountry && !selectedWork;
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(max-width: 760px), (hover: none) and (pointer: coarse)");
+    const mediaQuery = window.matchMedia("(max-width: 1180px), (hover: none) and (pointer: coarse)");
     const updateMobileMap = () => {
       const nextIsMobileMap = mediaQuery.matches;
       setIsMobileMap(nextIsMobileMap);

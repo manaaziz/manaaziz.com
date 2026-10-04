@@ -3066,15 +3066,15 @@ h3 {
 }
 
 .work-pie-slice.consulting {
-  stroke: #285e53;
+  stroke: #49091e;
 }
 
 .work-pie-slice.research {
-  stroke: #739c91;
+  stroke: #ab2146;
 }
 
 .work-pie-slice.teaching {
-  stroke: #c3d6cf;
+  stroke: #e69aaa;
 }
 
 .work-pie-wrap[data-comparing="true"] .work-pie-slice:not([data-active="true"]) {
@@ -13093,82 +13093,6 @@ h3 {
     padding: 1rem;
   }
 
-  .global-map-shell {
-    position: relative;
-    gap: 0;
-  }
-
-  .global-map-shell[data-detail="regions"] .map-detail-card,
-  .global-map-shell[data-detail="region"] .map-detail-card {
-    display: none;
-  }
-
-  .global-map-shell[data-detail="country"] .map-detail-card,
-  .global-map-shell[data-detail="us"] .map-detail-card {
-    position: absolute;
-    z-index: 5;
-    left: 0.7rem;
-    right: 0.7rem;
-    bottom: 0.7rem;
-    display: grid;
-    max-height: calc(100% - 1.4rem);
-    min-height: 0;
-    overflow: auto;
-    box-shadow: 0 22px 48px rgba(23, 23, 23, 0.22);
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .global-map-shell .map-detail-card.has-selected-work {
-    overflow: hidden;
-  }
-
-  .global-map-shell[data-detail="country"] .map-detail-card.has-mobile-close,
-  .global-map-shell[data-detail="us"] .map-detail-card.has-mobile-close {
-    padding-top: 1rem;
-  }
-
-  .global-map-shell[data-detail="country"] .map-detail-card.has-mobile-close .map-detail-heading,
-  .global-map-shell[data-detail="us"] .map-detail-card.has-mobile-close .map-detail-heading {
-    padding-right: 3rem;
-  }
-
-  .mobile-map-close {
-    position: absolute;
-    top: 0.75rem;
-    right: 0.75rem;
-    z-index: 7;
-    display: inline-grid;
-    width: 2.75rem;
-    height: 2.75rem;
-  }
-
-  .mobile-map-close:hover,
-  .mobile-map-close:focus-visible {
-    background: rgba(255, 250, 241, 0.88);
-    box-shadow: 0 0.35rem 1rem rgba(65, 43, 16, 0.12);
-  }
-
-  .mobile-map-close:active {
-    transform: scale(0.88);
-  }
-
-  .mobile-map-close.is-popping svg {
-    animation: mobile-icon-squish 360ms var(--ease-out-back);
-  }
-
-  .global-map-shell[data-detail="country"] .map-detail-card.is-country-list {
-    grid-template-rows: auto auto minmax(0, 1fr);
-  }
-
-  .global-map-shell[data-detail="country"] .map-detail-card.is-country-list .map-detail-heading {
-    margin-top: 0.65rem;
-  }
-
-  .global-map-shell[data-detail="country"] .collaboration-tile-list,
-  .global-map-shell[data-detail="us"] .collaboration-tile-list {
-    max-height: 15rem;
-  }
-
   .region-tabs,
   .country-tabs-secondary {
     display: none;
@@ -13769,4 +13693,86 @@ h3 {
   .archive-carousel-track {
     transition: none;
   }
+}
+
+/* The map uses the same overlay interaction on phones and tablets.
+   Keep this breakpoint aligned with GlobalExperienceMap matchMedia. */
+@media (max-width: 1180px), (hover: none) and (pointer: coarse) {
+  .global-map-shell {
+    position: relative;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .global-map-shell[data-detail="regions"] .map-detail-card,
+  .global-map-shell[data-detail="region"] .map-detail-card {
+    display: none;
+  }
+
+  .global-map-shell[data-detail="country"] .map-detail-card,
+  .global-map-shell[data-detail="us"] .map-detail-card {
+    position: absolute;
+    z-index: 5;
+    left: 0.7rem;
+    right: 0.7rem;
+    bottom: 0.7rem;
+    display: grid;
+    max-height: calc(100% - 1.4rem);
+    min-height: 0;
+    overflow: auto;
+    box-shadow: 0 22px 48px rgba(23, 23, 23, 0.22);
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .global-map-shell .map-detail-card.has-selected-work {
+    overflow: hidden;
+  }
+
+  .global-map-shell[data-detail="country"] .map-detail-card.has-mobile-close,
+  .global-map-shell[data-detail="us"] .map-detail-card.has-mobile-close {
+    padding-top: 1rem;
+  }
+
+  .global-map-shell[data-detail="country"] .map-detail-card.has-mobile-close .map-detail-heading,
+  .global-map-shell[data-detail="us"] .map-detail-card.has-mobile-close .map-detail-heading {
+    padding-right: 3rem;
+  }
+
+  .mobile-map-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    z-index: 7;
+    display: inline-grid;
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  .mobile-map-close:hover,
+  .mobile-map-close:focus-visible {
+    background: rgba(255, 250, 241, 0.88);
+    box-shadow: 0 0.35rem 1rem rgba(65, 43, 16, 0.12);
+  }
+
+  .mobile-map-close:active {
+    transform: scale(0.88);
+  }
+
+  .mobile-map-close.is-popping svg {
+    animation: mobile-icon-squish 360ms var(--ease-out-back);
+  }
+
+  .global-map-shell[data-detail="country"] .map-detail-card.is-country-list {
+    grid-template-rows: auto auto minmax(0, 1fr);
+  }
+
+  .global-map-shell[data-detail="country"] .map-detail-card.is-country-list .map-detail-heading {
+    margin-top: 0.65rem;
+  }
+
+  .global-map-shell[data-detail="country"] .collaboration-tile-list,
+  .global-map-shell[data-detail="us"] .collaboration-tile-list {
+    max-height: 15rem;
+  }
+
 }
