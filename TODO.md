@@ -1,128 +1,63 @@
-# Website Roadmap
+# Website To-Do List
 
-This roadmap tracks the mobile-first migration and related quality work for `manaaziz.com`.
-The stable pre-migration fallback is `main`; active migration work lives on `mobile-first-dev`.
+Updated October 4, 2026. Current priorities for `manaaziz.com`, followed by remaining maintenance work.
+Code audit performed against local `main`. Source and test coverage were inspected; this was not a fresh browser test, performance measurement, or CI run.
 
-## Current phase: low-risk mobile foundation
+## 1. Add recent media coverage
 
-- [x] Add Playwright as a development dependency.
-- [x] Add a responsive QA matrix covering 320, 375, 390, 430, 768, 1024, and 1440 CSS pixels.
-- [x] Add a 320px page-overflow and content-reflow test.
-- [x] Add desktop visual-regression coverage at 1024px and 1440px.
-- [x] Formalize shared spacing, typography, content-width, breakpoint, and touch-target tokens.
-- [x] Use mobile-first defaults with `min-width` enhancements for newly migrated components.
-- [x] Gate optional hover treatments for devices with a fine pointer and convenient hover.
-- [x] Establish a 44px internal target for ordinary buttons and icon controls.
-- [x] Preserve documented exceptions for dense maps, calendars, and research visualizations.
-- [x] Add a comprehensive reduced-motion fallback.
-- [x] Audit critical and reusable image markup for dimensions and eager/lazy loading.
-- [x] Start incremental CSS Module migration with the ordinary Teaching course grid.
-- [x] Review generated desktop reference screenshots before approving a merge to `main`.
-- [x] Add GitHub Actions coverage for the responsive suite on `main`, `mobile-first-dev`, and pull requests.
-- [x] Confirm the Responsive browser QA workflow succeeds on GitHub Actions.
-- [x] Add production-export contract validation and separate quality/security CI gates.
-- [x] Add weekly production dependency auditing and full-history secret scanning.
+Use the existing `newsItems` data in `src/app/news/items.js`, which feeds In the News. `/media` currently redirects to `/manalogue`; avoid creating a duplicate media page.
 
-## Ongoing architecture
+- [ ] Add Inside Asian Gaming — [Loyalty in Numbers](https://asgam.com/2026/09/30/loyalty-in-numbers/) (September 30, 2026). Describe Mana's comments on AI, loyalty, and casino analytics at the IAG Academy Summit in Manila.
+- [ ] Add GGRAsia — [AI a defence as well as risk regarding ‘advantage play’ in land-based casinos: Differential Labs](https://www.ggrasia.com/ai-a-defence-as-well-as-risk-regarding-advantage-play-in-land-based-casinos-differential-labs) (September 21, 2026). Describe Mana's comments on smart-table data and real-time advantage-play detection.
+- [ ] Add Inside Asian Gaming — [Study finds AI-backed advantage play on baccarat side bets becoming an increasing problem for casinos in Asia](https://asgam.com/2026/08/30/study-finds-ai-backed-advantage-play-on-baccarat-side-bets-becoming-an-increasing-problem-for-casinos-in-asia/) (August 30, 2026). Describe this as coverage of Differential Labs' analysis; the article does not name Mana individually.
+- [ ] Keep existing coverage, order entries newest first, and check titles, dates, descriptions, and outbound links.
 
-- [ ] Keep global CSS limited to reset, tokens, typography, shared utilities, and true site-wide rules.
-- [x] Move ordinary course-material, Teaching-card, and editorial-card styles into colocated CSS Modules.
-- [x] Move Consulting role/area cards, shared galleries, and course-material hub cards into CSS Modules.
-- [ ] Continue moving component styles into colocated CSS Modules whenever an ordinary component is next modified.
-- [ ] Consolidate duplicate legacy breakpoint rules only after visual-regression coverage exists.
-- [x] Introduce container queries for migrated course-material, Teaching, and editorial cards.
-- [ ] Evaluate a deliberate cascade-layer structure after legacy unlayered CSS has been reduced.
-- [ ] Keep pages as Server Components and isolate `use client` to the smallest interactive boundary.
-- [x] Audit current route-specific JavaScript and defer the Home map at a wrapper boundary until it nears the viewport.
-- [ ] Continue auditing route-specific JavaScript as complex interactives receive their own focused migrations.
-- [ ] Pause requestAnimationFrame loops, observers, and simulations while offscreen.
+Titles and dates were checked against the linked sources during this audit. None of these three links is in the current news data.
 
-## Design and accessibility
+## 2. Write the Manila / IAG Expo blog post and add a presentation photo
 
-- [x] Verify ordinary primary controls across the principal mobile routes meet the 44px internal target.
-- [x] Verify keyboard reachability and that focus is visible and not obscured by the sticky mobile header.
-- [x] Verify semantic source order matches reading and keyboard order for principal routes and migrated course materials.
-- [ ] Ensure every hover-revealed detail also has a tap, click, or keyboard path.
-- [x] Test browser zoom at 200% and reflow at a 320px equivalent viewport.
-- [x] Test portrait and landscape orientations.
-- [x] Test the site with reduced motion, keyboard-only navigation, and screen-reader landmarks.
-- [ ] Provide list-based alternatives for dense map and visualization controls where practical.
+- [ ] Gather Mana's trip notes, highlights, presentation topic, event dates, and selected photos. Confirm the session name: the linked IAG coverage calls the panel the IAG Academy Summit, while the recap can cover the wider IAG Expo experience.
+- [ ] Draft a personal Manalogue post about the Manila visit, presentation, conversations, and takeaways using the existing MDX structure in `src/content/blog`.
+- [ ] Add a photo of Mana presenting, with an accurate visible caption and alt text. Decide whether it should also appear in the Research presentation gallery once the photo and session details are available.
+- [ ] Save the original under `asset_originals/assets/photos/`; publish a suitably sized WebP with a descriptive name such as `mana-azizsoltani-iag-manila-presentation.webp`.
+- [ ] Add the thumbnail, publication date, canonical metadata, and relevant media links. Check the post in the Manalogue, search, and sitemap, including its representative image.
 
-## Images and performance
+Progress October 4: created the `killa_in_manila.mdx` draft shell with the presentation and trip photos. Also created `wyatts_wedding.mdx` and `day_in_sf.mdx` draft shells. All 19 uploaded photos are now WebP, with originals archived. Draft shells are excluded from routes, search, and the sitemap until `draft: false` and a publication date are set. The two consulting posts, `baccarat_countability_ai.mdx` and `loyalty_in_numbers.mdx`, are implemented locally. Personal narratives still need to be supplied. Draft dates are September 17 for Manila, September 19 for Wyatt’s Wedding, and September 20 for San Francisco (all 2026).
 
-- [ ] Complete the remaining dynamic-image dimension audit as content models are updated.
-- [ ] Add responsive `srcset`/`sizes` or Next Image where compatible with static export.
-- [x] Add generated 480px/960px `srcset` variants for the Home portrait and course-highlight photos.
-- [ ] Create mobile-specific crops where the desktop crop loses its subject.
-- [ ] Keep likely LCP images eager/high-priority and ordinary offscreen images lazy.
-- [x] Measure mobile and desktop LCP, INP, and CLS independently.
-- [x] Add a repeatable static-export baseline for mobile/desktop navigation timing, FCP, LCP, CLS, interaction latency, long tasks, JS, images, and requests.
-- [x] Test and apply `content-visibility: auto` to static blog-series lists.
-- [x] Evaluate course-schedule containment separately because its calendar popovers depend on geometry.
-- [x] Pause feature-carousel timers, paper-chip physics, and scrollytelling scroll work while offscreen.
-- [x] Record interactive initialization time under the throttled mobile and desktop performance profiles.
-- [ ] Avoid `content-visibility` on components that measure offscreen geometry until tested.
+San Francisco update: interactive Mapbox photo journey presented as one day, with all eight photo pins and a subtly animated dotted route. Uber photo is assigned to Dumpling House (335 Noe St); original capture metadata stays in the content file but is not displayed. No photo strip or route note. City view opens first; Show all stops includes the airport. Edit each stop's `blurb` in `src/content/photo_maps/san_francisco.json` before publishing. Direct draft URLs work locally only; drafts remain excluded from production exports.
 
-## Complex interactive roadmap — deliberately deferred
+## 3. Reconcile paper statuses, then update the CV / resume
 
-Do not refactor these systems during the low-risk migration. Each needs its own reference captures,
-interaction specification, mobile design, reduced-motion behavior, and focused implementation branch.
+- [ ] In the planned email-review session, locate the research tracker and editable CV/resume source, and review journal/editor/coauthor messages for papers in progress.
+- [ ] Reconcile each paper's title, authors, journal, latest status, and status date. Record supporting message/date references in the private tracker and flag ambiguous or conflicting updates.
+- [ ] Update the research tracker first, distinguishing in preparation, submitted, under review, revise and resubmit, accepted/in press, and published papers as supported by the correspondence.
+- [ ] Update the CV and any separate resume from the reconciled tracker, including an appropriately labeled under-review section; keep unpublished work distinct from publications.
+- [ ] Export and replace `public/assets/azizsoltani_cv.pdf`, preserving its existing URL; check the homepage CV link and any research-page entries affected by confirmed changes.
 
-### Feature and student-review carousels
+Dependency order: email evidence → research tracker → CV/resume → website PDF and relevant public entries. Email review and document updates are future tasks. The repo contains the public CV PDF; no editable CV/resume or research tracker was identified in the file inventory.
 
-- [ ] Preserve the established connected reel/spin motion on desktop.
-- [ ] Design touch-first navigation, swipe behavior, card sizing, and reduced-motion substitution.
-- [ ] Measure initialization and interaction cost on mid-range mobile hardware.
+## 4. Add color to the Work Mix pie chart
 
-### Research honeycomb and falling poker chips
+- [x] Use the approved coordinated green palette: deep green for Consulting, medium sage for Research, and pale sage for Teaching.
+- [x] Update slice colors in `src/app/globals.css` and simplify the heading to “Tap a section of the chart to see how I spend my time”.
+- [x] Preserve the 70/20/10 proportions, established motion, hover spotlight/reset, labels, keyboard selection, and mobile tap-to-detail behavior in `src/app/about/work_mix_chart.js`.
+- [x] Inspect desktop/mobile colors and retain category labels; existing Work Mix interaction checks pass, with a fractional-pixel 320px failure on the first run that passed on recheck.
 
-- [ ] Redesign hexagon sizing and text density around container width.
-- [ ] Preserve the 2-1-2-1 desktop composition and visible gutters.
-- [ ] Create an accessible mobile alternative for paper links.
-- [ ] Rework chip physics only after layout geometry is stable.
+Post/category pills are standardized through `src/components/topic_pill.js` across carousels, post headers, Manalogue cards, archives, search results, and map details. Desktop/mobile style checks, lint, build, and export validation passed.
 
-### Research word graph
+## 5. Remaining maintenance — actual gaps and focused checks
 
-- [ ] Define touch selection, keyboard navigation, label collision, and mobile starting positions.
-- [ ] Keep the three primary themes visually forward on initial load.
+- [ ] Pause the Consulting logo arena and decision-tree animation when offscreen. `logo_bounce_field.js` and `decision_tree_growth.js` already check reduced motion, but lack the visibility gating used by the carousel and paper chips. Check other loops when their components are touched.
+- [ ] Audit remaining hover-only information, especially casino/blog graph tooltips and research word-graph keyboard interaction. Buttons and pointer dragging alone do not establish keyboard equivalence.
+- [ ] Verify complete navigation parity for Global Experience's region/country buttons and collaboration list, including US-state drilldown; check phone overlays and label collisions. Extend demonstrated gaps in existing navigation.
+- [ ] Verify research paper dialog focus handling and return, plus word-graph label collisions on small screens. Mobile paper layout, tap/Enter-to-open details, and a reduced mobile graph already exist.
+- [ ] Extend image dimensions and responsive variants to remaining dynamic/content images as their models are edited. Reuse `ResponsiveImage` and the generator; add mobile crops only where an actual image needs one.
+- [ ] Profile remaining complex interactives if performance issues arise. Existing baseline tooling measures mobile/desktop load and scripted interactions; this is not real-device or field INP verification.
 
-### Global Experience maps
+## Standing rules, not standalone projects
 
-- [ ] Provide reliable touch targets and an equivalent list-based navigation path.
-- [ ] Audit map-label collisions and phone detail overlays.
-- [x] Lazy-load the Home map at its existing wrapper boundary without changing the map implementation.
-
-### Course calendars
-
-- [x] Replace hover-dependent discovery with explicit tap/keyboard controls.
-- [x] Preserve compact week pills and accessible assignment/due-date details.
-- [ ] Reconsider the calendar layout at 320–430px without changing desktop until approved.
-
-### Reusable scrollytelling template
-
-- [x] Extract a reusable scrollytelling data model for stops, media, captions, and route connectors.
-- [x] Separate narrative content from viewport/animation logic.
-- [x] Define desktop, tablet, and mobile compositions before implementation.
-- [x] Add progress semantics, keyboard navigation, reduced-motion behavior, and static fallback content.
-- [x] Use the Spain recap as the first template consumer.
-- [x] Preserve the current Spain recap connector and moving-dot requirements.
-
-### Consulting logo arena
-
-- [ ] Define mobile bounds, collision behavior, pausing, and reduced-motion fallback.
-
-### Casino and blog interactives
-
-- [ ] Audit baccarat animations, charts, tooltips, and decision-tree interactions for touch and keyboard use.
-- [ ] Replace hover-only graph information with selectable states.
-- [ ] Profile long tasks and layout work during animation.
-
-## Release checklist for mobile-first branches
-
-- [x] `npm run lint`
-- [x] `npm run audit:assets`
-- [x] `npm run build`
-- [x] `npm run test:responsive`
-- [x] Review desktop screenshot differences at 1024px and 1440px.
-- [ ] Manually test Home, Manalogue, Teaching, Consulting, Research, About, and one course page.
-- [ ] Confirm the worktree is clean and the branch is pushed before requesting merge approval.
+- Move ordinary component styles into colocated CSS Modules when those components are next changed; consolidate duplicate breakpoints with visual coverage. Global CSS still has component rules, so migration is incremental.
+- Keep pages as Server Components where practical and isolate interactive client boundaries.
+- Keep likely LCP images eager and ordinary offscreen images lazy. Avoid untested containment on geometry-dependent components.
+- Preserve carousel motion, desktop research honeycomb/gutters, foreground research themes, and Spain recap connectors. These are design constraints, not unfinished features.
+- Maintain existing accessibility, responsive, performance, and security checks.
