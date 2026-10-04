@@ -1,4 +1,5 @@
 import * as Sentry from "@sentry/browser";
+import { failedStylesheetUrl, installStylesheetRecovery } from "@/lib/stylesheet_recovery";
 import { analyticsConsentKey, posthog, startSampledReplay, stripAnalyticsUrl } from "@/lib/analytics";
 
 const dsn = process.env.NEXT_PUBLIC_SENTRY_DSN;
@@ -18,7 +19,11 @@ function stripUrlDetails(value) {
   }
 }
 
-function sanitizeEvent(event) {
+function sanitizeEvent(event, hint) {
+  const stylesheetUrl = failedStylesheetUrl(hint?.originalException, window.location.origin);
+  if (stylesheetUrl) {
+    event.extra = { ...event.extra, failed_stylesheet_url: stylesheetUrl };
+  }
   if (event.request) {
     event.request.url = stripUrlDetails(event.request.url);
     delete event.request.cookies;
@@ -84,6 +89,9 @@ if (dsn) {
     console.warn("Website telemetry could not initialize.", error);
   }
 }
+
+// Recovery is independent of whether analytics/monitoring is configured.
+installStylesheetRecovery(window);
 
 if (posthogToken && posthogHost) {
   try {

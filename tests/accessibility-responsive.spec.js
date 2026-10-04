@@ -34,6 +34,9 @@ test("mobile navigation supports keyboard open, Escape, and focus return", async
   await page.goto("/", { waitUntil: "networkidle" });
 
   const menuButton = page.getByRole("button", { name: "Open menu" });
+  await expect.poll(() => menuButton.evaluate((element) =>
+    Object.keys(element).some((key) => key.startsWith("__reactProps"))
+  )).toBe(true);
   await tabTo(page, menuButton);
   await page.keyboard.press("Enter");
   await expect(page.getByRole("navigation", { name: "Mobile navigation" })).toBeVisible();

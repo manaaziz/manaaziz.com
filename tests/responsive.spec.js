@@ -121,6 +121,9 @@ test("course calendar exposes week and due details to touch and keyboard", async
   await page.goto("/teaching/hoa-730-statistical-analysis", { waitUntil: "domcontentloaded" });
 
   const week = page.getByRole("button", { name: /week 1.*details/i }).first();
+  await expect.poll(() => week.evaluate((element) =>
+    Object.keys(element).some((key) => key.startsWith("__reactProps"))
+  )).toBe(true);
   await week.scrollIntoViewIfNeeded();
   await week.focus();
   await page.keyboard.press("Enter");
@@ -213,6 +216,7 @@ test("mobile Manalogue uses a one-line masthead, section dropdown, and readable 
   expect(narrowTitles).toEqual([]);
 
   await page.evaluate(() => window.scrollTo(0, 120));
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(120);
   const scrollBeforeNavigation = await page.evaluate(() => window.scrollY);
   await sectionSelect.selectOption("research");
   await expect(page).toHaveURL(/\/manalogue\/research\/?$/);
