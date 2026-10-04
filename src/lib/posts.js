@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import sanFranciscoJourney from "@/content/photo_maps/san_francisco.json";
 
 const root = process.cwd();
 const contentRoot = path.join(root, "src", "content", "blog");
@@ -210,7 +211,7 @@ function getImages(contentHtml) {
     .filter(Boolean);
 }
 
-function readSeriesPosts(seriesSlug) {
+function readSeriesPosts(seriesSlug, { includeDrafts = false } = {}) {
   const config = seriesConfig[seriesSlug];
   const seriesDir = path.join(contentRoot, config?.contentDir || seriesSlug);
 
@@ -224,6 +225,8 @@ function readSeriesPosts(seriesSlug) {
       const sourcePath = path.join(seriesDir, file);
       const source = fs.readFileSync(sourcePath, "utf8");
       const { data, body } = parseFrontMatter(source);
+      // Unfinished shells must not generate routes, search entries, or sitemap URLs.
+      if (parseBoolean(data.draft) && !includeDrafts) return null;
       const slug = slugFromFile(file);
       const contentHtml = normalizeBody(body);
       const title = data.title || slug;
@@ -231,7 +234,9 @@ function readSeriesPosts(seriesSlug) {
       const frontMatterTags = parseList(data.tags);
       const seriesTags = config.tags || [];
       const tags = uniqueTags([...(config.subject ? [] : [config.title]), ...seriesTags, ...frontMatterTags]);
-      const images = getImages(contentHtml);
+      const images = seriesSlug === "travel" && slug === "day-in-sf"
+        ? sanFranciscoJourney.stops.map((stop) => stop.image)
+        : getImages(contentHtml);
       const cover = data.cover || config.cover || "";
       const previewImage = data.cover || images[0] || config.cover || "";
       const routeHref = config.postBase ? `${config.postBase}/${slug}` : `/blog/${seriesSlug}/${slug}`;
@@ -278,11 +283,11 @@ function readSeriesPosts(seriesSlug) {
           coordinates: parseList(data.coordinates).map(Number).filter(Number.isFinite)
         }
       };
-    });
+    }).filter(Boolean);
 }
 
-export function getAllPosts() {
-  return Object.keys(seriesConfig).flatMap(readSeriesPosts);
+export function getAllPosts({ includeDrafts = false } = {}) {
+  return Object.keys(seriesConfig).flatMap((series) => readSeriesPosts(series, { includeDrafts }));
 }
 
 export function getVisiblePosts() {
@@ -321,7 +326,9 @@ export function isPublicSeries(seriesSlug) {
 }
 
 export function getPost(seriesSlug, slug) {
-  return getSeriesPosts(seriesSlug).find((post) => post.slug === slug) || null;
+  // Allow direct local previews without publishing drafts into any index/export.
+  return readSeriesPosts(seriesSlug, { includeDrafts: process.env.NODE_ENV === "development" })
+    .find((post) => post.slug === slug) || null;
 }
 
 export function getLegacyPost(category, slug) {

@@ -3,6 +3,7 @@ import ContextBackLink from "@/components/context_back_link";
 import DecisionTreeGrowth from "@/components/decision_tree_growth";
 import { getAdjacentPosts, getRelatedPosts } from "@/lib/posts";
 import SpainRecapScrolly from "@/components/spain_recap_scrolly";
+import SanFranciscoPhotoMap from "@/components/san_francisco_photo_map";
 
 const decisionTreeMarker = '<div data-decision-tree-growth></div>';
 
@@ -10,6 +11,7 @@ export default function PostContent({ post }) {
   const { previous, next } = getAdjacentPosts(post);
   const relatedPosts = getRelatedPosts(post);
   const isSpainRecap = post.seriesSlug === "teaching" && post.slug === "spain-recap";
+  const isSanFrancisco = post.seriesSlug === "travel" && post.slug === "day-in-sf";
   const allowedTags = new Set(["consulting", "teaching", "research", "travel"]);
   const visibleTags = post.tags.filter((tag, index, tags) => {
     const key = tag.toLowerCase();
@@ -52,7 +54,7 @@ export default function PostContent({ post }) {
             })}
           </span>
         ) : null}
-        <span>{post.readingMinutes} min read</span>
+        <span>{isSanFrancisco ? "An interactive photo journey" : `${post.readingMinutes} min read`}</span>
       </div>
       {visibleTags.length > 0 ? (
         <div className="post-tag-row" aria-label="Post tags">
@@ -61,7 +63,7 @@ export default function PostContent({ post }) {
           ))}
         </div>
       ) : null}
-      {isSpainRecap ? (
+      {isSanFrancisco ? <SanFranciscoPhotoMap /> : isSpainRecap ? (
         <SpainRecapScrolly />
       ) : (
         <div className="post-content-grid">

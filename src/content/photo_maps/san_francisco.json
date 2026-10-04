@@ -1,0 +1,110 @@
+{
+  "title": "A Day in San Francisco",
+  "stops": [
+    {
+      "id": "car-ride",
+      "title": "Dumpling House",
+      "image": "/assets/photos/day_in_sf/mana-azizsoltani-san-francisco-car-ride.webp",
+      "alt": "Mana Azizsoltani with companions in a car in San Francisco",
+      "date": "2026-09-20",
+      "time": "11:45",
+      "coordinates": [
+        -122.4328,
+        37.7636
+      ],
+      "blurb": "",
+      "locationSource": "https://dumplinghouse-sf.com/"
+    },
+    {
+      "id": "painted-ladies",
+      "title": "The Painted Ladies",
+      "image": "/assets/photos/day_in_sf/mana-azizsoltani-san-francisco-painted-ladies.webp",
+      "alt": "Mana Azizsoltani with a companion overlooking San Francisco’s Painted Ladies",
+      "date": "2026-09-20",
+      "time": "15:15",
+      "coordinates": [
+        -122.433753,
+        37.776183
+      ],
+      "blurb": ""
+    },
+    {
+      "id": "flower-garden",
+      "title": "The flower garden",
+      "image": "/assets/photos/day_in_sf/mana-azizsoltani-san-francisco-flower-garden.webp",
+      "alt": "Mana Azizsoltani and a companion in a San Francisco flower garden",
+      "date": "2026-09-20",
+      "time": "15:59",
+      "coordinates": [
+        -122.459267,
+        37.772431
+      ],
+      "blurb": ""
+    },
+    {
+      "id": "coffee",
+      "title": "A coffee stop",
+      "image": "/assets/photos/day_in_sf/mana-azizsoltani-san-francisco-coffee.webp",
+      "alt": "Mana Azizsoltani and a companion holding coffee in San Francisco",
+      "date": "2026-09-20",
+      "time": "16:30",
+      "coordinates": [
+        -122.467911,
+        37.770442
+      ],
+      "blurb": ""
+    },
+    {
+      "id": "heron",
+      "title": "A heron along the way",
+      "image": "/assets/photos/day_in_sf/san-francisco-heron.webp",
+      "alt": "A heron standing among trees in San Francisco",
+      "date": "2026-09-20",
+      "time": "17:31",
+      "coordinates": [
+        -122.495317,
+        37.765622
+      ],
+      "blurb": ""
+    },
+    {
+      "id": "cartwheel",
+      "title": "Time for a cartwheel",
+      "image": "/assets/photos/day_in_sf/mana-azizsoltani-san-francisco-cartwheel.webp",
+      "alt": "Mana Azizsoltani doing a cartwheel in San Francisco",
+      "date": "2026-09-20",
+      "time": "17:58",
+      "coordinates": [
+        -122.510567,
+        37.764378
+      ],
+      "blurb": ""
+    },
+    {
+      "id": "philip",
+      "title": "Out with Philip",
+      "image": "/assets/photos/day_in_sf/mana-azizsoltani-philip-san-francisco.webp",
+      "alt": "Mana Azizsoltani and Philip in San Francisco",
+      "date": "2026-09-21",
+      "time": "16:26",
+      "coordinates": [
+        -122.416908,
+        37.774661
+      ],
+      "blurb": ""
+    },
+    {
+      "id": "airport",
+      "title": "Heading home",
+      "image": "/assets/photos/day_in_sf/san-francisco-airport-gate-g6.webp",
+      "alt": "Travelers waiting at airport gate G6",
+      "date": "2026-09-22",
+      "time": "18:14",
+      "coordinates": [
+        -122.391525,
+        37.618156
+      ],
+      "blurb": ""
+    }
+  ]
+}

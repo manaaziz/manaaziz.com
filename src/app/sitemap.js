@@ -42,7 +42,10 @@ export default function sitemap() {
     entry("/", { changeFrequency: "weekly", priority: 1, images: identityImages }),
     entry("/about", { priority: 0.9, images: identityImages }),
     entry("/consulting", { priority: 0.85 }),
-    entry("/research", { priority: 0.85, images: ["/assets/photos/mana-azizsoltani-belmont-ai-presentation.webp"] }),
+    entry("/research", { priority: 0.85, images: [
+      "/assets/photos/mana-azizsoltani-belmont-ai-presentation.webp",
+      "/assets/photos/manila_blog/mana-azizsoltani-iag-manila-panel.webp"
+    ] }),
     entry("/teaching", { priority: 0.85 }),
     entry("/manalogue", { changeFrequency: "weekly", priority: 0.85 }),
     entry("/gallery", { priority: 0.75, images: identityImages }),

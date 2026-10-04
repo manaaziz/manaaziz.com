@@ -118,6 +118,18 @@ const papers = [
 
 const conferencePresentations = [
   {
+    title: "AI today (Panel discussion)",
+    type: "Panel",
+    date: "September 16, 2026",
+    venue: "IAG Academy Summit · IAG EXPO 2026",
+    location: "Manila, Philippines",
+    logo: "/assets/photos/manila_blog/mana-azizsoltani-iag-manila-panel.webp",
+    alt: "Mana Azizsoltani speaking on the AI Today panel at the IAG Academy Summit in Manila",
+    photo: true,
+    tile: "wide",
+    focus: "center"
+  },
+  {
     title: "Quantifying luck: Determining the probability of baccarat wins given player bet mix",
     type: "Paper",
     date: "May 27, 2026",
@@ -363,7 +375,7 @@ export default function ResearchPage() {
                         <Image
                           className={`presentation-photo-image${presentation.photo ? " is-photo" : ""}`}
                           src={presentation.logo}
-                          alt=""
+                          alt={presentation.alt || ""}
                           fill
                           sizes={presentation.tile === "wide" ? "(max-width: 920px) 100vw, 40vw" : "(max-width: 920px) 100vw, 24vw"}
                         />

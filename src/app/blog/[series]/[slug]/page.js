@@ -3,7 +3,7 @@ import PostContent from "@/components/post_content";
 import { getAllPosts, getPost } from "@/lib/posts";
 
 export function generateStaticParams() {
-  return getAllPosts()
+  return getAllPosts({ includeDrafts: process.env.NODE_ENV === "development" })
     .filter((post) => post.routeHref.startsWith("/blog/"))
     .map((post) => ({
       series: post.seriesSlug,

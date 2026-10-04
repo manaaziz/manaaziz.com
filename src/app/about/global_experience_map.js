@@ -338,6 +338,20 @@ const collaborations = [
     ]
   },
   {
+    country: "Philippines",
+    id: "ph",
+    summary: "Industry discussions on AI, smart tables, and casino loyalty in Manila.",
+    work: [
+      card({
+        name: "IAG Academy Summit",
+        type: "Consulting",
+        blurb: "I joined the AI Today panel at the IAG Academy Summit in Manila on September 16, 2026, discussing AI, smart-table data, and casino loyalty.",
+        href: "/blog/consulting/loyalty-in-numbers",
+        logo: "/assets/photos/manila_blog/mana-azizsoltani-iag-manila-panel.webp"
+      })
+    ]
+  },
+  {
     country: "Vietnam",
     id: "vn",
     summary: "Integrated resort and hospitality connections in Southeast Asia.",
@@ -467,7 +481,7 @@ const globalRegions = [
     id: "asia",
     label: "Asia",
     summary: "Integrated resort, casino, and hospitality analytics work across East and Southeast Asia.",
-    countries: ["cn", "kr", "vn", "sg"],
+    countries: ["cn", "kr", "vn", "sg", "ph"],
     defaultCountry: "cn",
     position: { left: "76%", top: "43%" },
     mapCountries: [
@@ -536,6 +550,21 @@ function UnionJack({ x = 0, y = 0, width = 120, height = 80 }) {
 
 function FlagArt({ countryId }) {
   switch (countryId) {
+    case "ph":
+      return (
+        <>
+          <rect width="120" height="40" fill="#0038a8" />
+          <rect y="40" width="120" height="40" fill="#ce1126" />
+          <path d="M0 0 L60 40 L0 80 Z" fill="#fff" />
+          <circle cx="22" cy="40" r="7" fill="#fcd116" />
+          {Array.from({ length: 8 }, (_, index) => (
+            <path key={index} d="M20 30 L22 25 L24 30 Z" fill="#fcd116" transform={`rotate(${index * 45} 22 40)`} />
+          ))}
+          <Star cx={9} cy={13} outer={4} inner={1.7} points={5} fill="#fcd116" />
+          <Star cx={9} cy={67} outer={4} inner={1.7} points={5} fill="#fcd116" />
+          <Star cx={48} cy={40} outer={4} inner={1.7} points={5} fill="#fcd116" />
+        </>
+      );
     case "us":
       return (
         <>
