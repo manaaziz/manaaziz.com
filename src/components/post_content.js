@@ -1,3 +1,4 @@
+import TopicPill from "@/components/topic_pill";
 import Link from "next/link";
 import ContextBackLink from "@/components/context_back_link";
 import DecisionTreeGrowth from "@/components/decision_tree_growth";
@@ -59,7 +60,7 @@ export default function PostContent({ post }) {
       {visibleTags.length > 0 ? (
         <div className="post-tag-row" aria-label="Post tags">
           {visibleTags.map((tag) => (
-            <span key={tag}>{tag}</span>
+            <TopicPill key={tag}>{tag}</TopicPill>
           ))}
         </div>
       ) : null}

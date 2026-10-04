@@ -1,5 +1,6 @@
 "use client";
 
+import TopicPill from "@/components/topic_pill";
 import { useEffect, useMemo, useState } from "react";
 import worldMap from "@svg-maps/world";
 import usAtlas from "us-atlas/states-albers-10m.json";
@@ -1418,7 +1419,7 @@ export default function GlobalExperienceMap() {
                     )}
                   </div>
                   <div>
-                    <span className={`work-tag ${selectedWork.type.toLowerCase()}`}>{selectedWork.type}</span>
+                    <TopicPill>{selectedWork.type}</TopicPill>
                     <h4>{selectedWork.name}</h4>
                     <p>{selectedWork.blurb}</p>
                     {selectedWork.href ? (
@@ -1440,7 +1441,7 @@ export default function GlobalExperienceMap() {
                     >
                       <span>
                         <strong>{item.name}</strong>
-                        <small>{item.type}</small>
+                        {!item.countryId ? <TopicPill>{item.type}</TopicPill> : null}
                       </span>
                       <span className="collaboration-tile-logo" aria-hidden="true">
                         {item.logo ? (

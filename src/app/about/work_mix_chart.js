@@ -103,8 +103,7 @@ export default function WorkMixChart({ id, items = defaultWorkMix }) {
   return (
     <section className="work-mix-section" id={id} aria-labelledby="work-mix-title">
       <div className="section-intro">
-        <p className="eyebrow">Work mix</p>
-        <h2 id="work-mix-title">I am a consultant with passion for research and teaching</h2>
+        <h2 id="work-mix-title">Tap a section of the chart to see how I spend my time</h2>
       </div>
 
       <div className="work-mix-layout">
@@ -158,13 +157,7 @@ export default function WorkMixChart({ id, items = defaultWorkMix }) {
           </div>
 
           <div className="work-mix-mobile-detail" aria-live="polite">
-            {selected ? renderCard(selected) : (
-              <article className="work-mix-card work-mix-card-prompt">
-                <span>Work mix</span>
-                <h3>Tap a section of the chart</h3>
-                <p>Click one of the sections of the chart to learn more about how I spend my time.</p>
-              </article>
-            )}
+            {selected ? renderCard(selected) : null}
           </div>
         </div>
       </div>

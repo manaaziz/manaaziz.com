@@ -1,5 +1,6 @@
 "use client";
 
+import TopicPill from "@/components/topic_pill";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
@@ -93,7 +94,8 @@ export default function ArchiveCarousel({ posts }) {
           >
             <img src={post.previewImage || post.cover || post.seriesCover} alt="" loading="lazy" decoding="async" />
             <div>
-              <span>{post.seriesTitle} · {post.date} · {post.readingMinutes} min read</span>
+              <TopicPill>{post.seriesTitle}</TopicPill>
+              <span>{post.date} · {post.readingMinutes} min read</span>
               <h3>{post.title}</h3>
               <p>{post.excerpt}</p>
             </div>

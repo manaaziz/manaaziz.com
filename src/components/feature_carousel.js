@@ -1,5 +1,6 @@
 "use client";
 
+import TopicPill from "@/components/topic_pill";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { captureAnalyticsEvent } from "@/lib/analytics";
@@ -66,12 +67,12 @@ function BlogPreviewCard({ item }) {
         {image ? (
           <img src={image} alt={item.imageAlt || ""} loading="lazy" decoding="async" />
         ) : (
-          <span>{topic}</span>
+          <TopicPill>{topic}</TopicPill>
         )}
       </figure>
       <div className="feature-blog-body">
         <div className="feature-blog-meta">
-          <span>{topic}</span>
+          <TopicPill>{topic}</TopicPill>
           {dateLabel ? <time>{dateLabel}</time> : null}
         </div>
         <h3>{item.title}</h3>

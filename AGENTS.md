@@ -82,6 +82,8 @@ This is the working memory for `manaaziz.com`, Mana Azizsoltani's personal websi
 
 ## Manalogue And Blog Cards
 
+- All post/category tags use `src/components/topic_pill.js` and its shared CSS module. Use it in cards, carousels, post headers, search results, and map details; do not create page-specific pill styles.
+
 - The Manalogue should use a clean newspaper/editorial card approach, not the experimental Gaudi mosaic idea.
 - Blog post cards should be standardized in size where possible.
 - Avoid weird vertical whitespace in cards with images; images should sit naturally at the top and card content should flow below.

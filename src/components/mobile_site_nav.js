@@ -1,5 +1,6 @@
 "use client";
 
+import TopicPill from "@/components/topic_pill";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 
@@ -146,7 +147,7 @@ export default function MobileSiteNav({ navItems, searchItems }) {
           <div className="mobile-search-results" role="list">
             {results.length ? results.map((item) => (
               <Link className="mobile-search-result" href={item.href} key={`${item.href}-${item.title}`} role="listitem" onClick={closePanels}>
-                <span>{item.type}</span>
+                <TopicPill>{item.type}</TopicPill>
                 <strong>{item.title}</strong>
                 {item.description ? <small>{item.description}</small> : null}
               </Link>

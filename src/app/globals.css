@@ -457,30 +457,7 @@ main {
   transform: scale(1.025);
 }
 
-.manalogue-story-topic {
-  display: inline-flex;
-  width: max-content;
-  margin-bottom: 0.4rem;
-  padding: 0.25rem 0.48rem;
-  border: 1px solid rgba(47, 111, 100, 0.3);
-  border-radius: 999px;
-  background: rgba(232, 241, 237, 0.9);
-  box-shadow: 0 0.13rem 0 rgba(23, 23, 23, 0.78);
-  color: #2b7867;
-  cursor: default;
-  font-size: 0.72rem;
-  font-weight: 900;
-  letter-spacing: 0.08em;
-  line-height: 1;
-  text-transform: uppercase;
-  transition: box-shadow 180ms ease, transform 180ms var(--ease-out-back);
-  user-select: none;
-}
 
-.manalogue-story-topic:hover {
-  box-shadow: 0 0.28rem 0 rgba(23, 23, 23, 0.82), 0 0.55rem 0.85rem rgba(23, 23, 23, 0.12);
-  transform: translateY(-0.15rem);
-}
 
 .manalogue-editorial-copy h2 {
   margin: 0;
@@ -572,9 +549,6 @@ main {
   grid-row: 1;
 }
 
-.manalogue-editorial-card.is-latest .manalogue-story-topic {
-  display: none;
-}
 
 .manalogue-editorial-card.is-latest .manalogue-editorial-copy h2 {
   font-size: 1rem;
@@ -3092,15 +3066,15 @@ h3 {
 }
 
 .work-pie-slice.consulting {
-  stroke: #171717;
+  stroke: #285e53;
 }
 
 .work-pie-slice.research {
-  stroke: #6f6a61;
+  stroke: #739c91;
 }
 
 .work-pie-slice.teaching {
-  stroke: #b5aea2;
+  stroke: #c3d6cf;
 }
 
 .work-pie-wrap[data-comparing="true"] .work-pie-slice:not([data-active="true"]) {
@@ -3670,6 +3644,7 @@ h3 {
 
 .feature-blog-meta {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
   align-items: center;
   justify-content: space-between;
@@ -9231,35 +9206,8 @@ h3 {
   margin-top: 0.25rem;
 }
 
-.post-card-tags small,
-.post-tag-row span {
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: rgba(255, 250, 241, 0.72);
-  color: var(--green);
-  font-size: 0.68rem;
-  font-weight: 900;
-  padding: 0.28rem 0.62rem;
-  text-transform: uppercase;
-}
 
-.post-tag-row span {
-  border-color: var(--line-strong);
-  box-shadow:
-    0 0.24rem 0 #000,
-    0 0.6rem 1.2rem rgba(23, 23, 23, 0.12);
-  cursor: default;
-  transition:
-    box-shadow 160ms ease,
-    transform 160ms ease;
-}
 
-.post-tag-row span:hover {
-  box-shadow:
-    0 0.34rem 0 #000,
-    0 0.9rem 1.5rem rgba(23, 23, 23, 0.15);
-  transform: translateY(-3px);
-}
 
 .recent-posts {
   display: grid;
@@ -13698,15 +13646,6 @@ h3 {
     aspect-ratio: 4 / 3;
   }
 
-  .manalogue-mobile-story-meta {
-    display: block;
-    margin-bottom: 0.38rem;
-    color: #2f6f64;
-    font-size: 0.68rem;
-    font-weight: 900;
-    letter-spacing: 0.035em;
-    text-transform: uppercase;
-  }
 
   .manalogue-mobile-story h3 {
     margin: 0;

@@ -1,5 +1,6 @@
 "use client";
 
+import TopicPill from "@/components/topic_pill";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -37,7 +38,7 @@ function StoryCard({ story }) {
   const content = (
     <>
       {story.image ? <img src={story.image} alt="" loading="lazy" decoding="async" /> : null}
-      <span>{story.topic}</span>
+      <TopicPill>{story.topic}</TopicPill>
       <h2>{story.title}</h2>
       <p>{story.excerpt}</p>
       <strong className={story.actionStyle === "button" ? "button button-small" : undefined}>{story.action}</strong>
@@ -127,7 +128,7 @@ function formatStoryDate(value) {
 }
 
 function storyMeta(story) {
-  return [story.topic, formatStoryDate(story.date), story.minutes ? `${story.minutes} min read` : ""].filter(Boolean).join(" · ");
+  return [formatStoryDate(story.date), story.minutes ? `${story.minutes} min read` : ""].filter(Boolean).join(" · ");
 }
 
 function NewspaperStory({ story, variant = "brief" }) {
@@ -147,6 +148,7 @@ function NewspaperStory({ story, variant = "brief" }) {
         </div>
       ) : null}
       <div className="manalogue-paper-copy">
+        <TopicPill>{story.topic}</TopicPill>
         <span>{storyMeta(story)}</span>
         <h3>{story.title}</h3>
         <p>{story.excerpt}</p>
@@ -251,15 +253,14 @@ function ManalogueMobileStory({ story, variant = "row" }) {
         </div>
       ) : null}
       <div className="manalogue-mobile-story-copy">
-        <span
-          className="manalogue-mobile-story-meta manalogue-story-topic"
+        <TopicPill
           onClick={(event) => {
             event.preventDefault();
             event.stopPropagation();
           }}
         >
           {story.topic}
-        </span>
+        </TopicPill>
         <h3>{story.title}</h3>
         {variant === "lead" && story.excerpt ? <p>{story.excerpt}</p> : null}
         <p className="manalogue-mobile-byline">
@@ -346,15 +347,14 @@ function EditorialStoryCard({ story, variant = "standard", eager = false }) {
         </figure>
       ) : null}
       <div className={`manalogue-editorial-copy ${cardStyles.copy}`}>
-        <span
-          className={`manalogue-story-topic ${cardStyles.topic}`}
+        <TopicPill
           onClick={(event) => {
             event.preventDefault();
             event.stopPropagation();
           }}
         >
           {story.topic}
-        </span>
+        </TopicPill>
         <h2 className={cardStyles.title}>{story.title}</h2>
         {variant !== "latest" && story.excerpt ? <p className={cardStyles.excerpt}>{story.excerpt}</p> : null}
         <strong className={cardStyles.byline}>
