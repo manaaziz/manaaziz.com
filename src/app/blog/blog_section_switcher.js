@@ -552,7 +552,10 @@ export default function BlogSectionSwitcher({ allPosts = [], posts = [], section
   const consultingStories = storiesByTag(visiblePosts, "consulting", "Consulting", true);
   const researchStories = storiesByTag(visiblePosts, "research", "Research", true);
   const teachingStories = promoteStory(storiesByTag(visiblePosts, "teaching", "Teaching", true), "/blog/teaching/spain-recap");
-  const travelPostStories = storiesByTag(visiblePosts, "travel", "Travel", true);
+  const travelPostStories = promoteStory(
+    storiesByTag(visiblePosts, "travel", "Travel"),
+    "/blog/travel/wyatts-wedding"
+  ).map((story, index) => ({ ...story, size: index === 0 ? "lead" : "standard" }));
   const frontPageStories = promoteStory(
     visiblePosts.slice(0, 7).map((post) => postToStory(post, postTopic(post))),
     "/blog/teaching/spain-recap"
