@@ -9480,6 +9480,31 @@ h3 {
   height: auto;
 }
 
+.post-photo-beside-text {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 11rem);
+  align-items: center;
+  gap: clamp(1rem, 4vw, 2.5rem);
+  margin-block: 2rem;
+}
+
+.post-photo-beside-text > p,
+.post-photo-beside-text > figure {
+  margin: 0;
+}
+
+.post-photo-beside-text img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 480px) {
+  .post-photo-beside-text {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 7rem);
+  }
+}
+
 .post-photo-natural-pair > div {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
