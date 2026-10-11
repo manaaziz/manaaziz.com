@@ -159,8 +159,7 @@ export default function SanFranciscoPhotoMap() {
       if (event.key === "Escape" && selected) closePhoto();
     }}>
       <div className={styles.intro}>
-        <div><p className="eyebrow">A city, one stop at a time</p><h2>Follow the photos.</h2></div>
-        <p>A little wandering, a few detours, and the moments in between. Tap a photo to take a closer look.</p>
+        <div><p className="eyebrow">A city, one stop at a time</p></div>
       </div>
       <div className={styles.toolbar}>
         <button type="button" className={styles.fit} onClick={() => fitStops(false)} disabled={!ready}>City view</button>
@@ -171,7 +170,6 @@ export default function SanFranciscoPhotoMap() {
         {status !== "ready" && <p role="status" className={styles.notice}>
           {status === "loading" ? "Opening the map…" : "The map is unavailable right now. You can still open the photo stops below."}
         </p>}
-        <div className={styles.mapLabel}><span />One day · {stops.length} moments</div>
       </div>
       {status === "unavailable" && <div className={styles.fallback} aria-label="Photo stops">
         {stops.map((stop) => <button className={styles.fit} type="button" key={stop.id} onClick={(event) => {
