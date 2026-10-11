@@ -5,6 +5,7 @@ import Link from "next/link";
 import AnalyticsConsent from "@/components/analytics_consent";
 import MobileSiteNav from "@/components/mobile_site_nav";
 import SiteLogo from "@/components/site_logo";
+import NewsletterSignup from "@/components/newsletter_signup";
 import { getVisiblePosts } from "@/lib/posts";
 
 const siteTitle = "Mana Azizsoltani";
@@ -360,8 +361,6 @@ const socialLinks = [
   { href: "https://www.ratemyprofessors.com/professor/3107663", label: "RateMyProfessors", icon: "rmp" }
 ];
 
-const newsletterAction = process.env.NEXT_PUBLIC_NEWSLETTER_FORM_URL || "";
-
 function SocialIcon({ icon }) {
   if (icon === "in") {
     return (
@@ -470,26 +469,7 @@ export default function RootLayout({ children }) {
               <section className="footer-newsletter" aria-label="Newsletter signup">
                 <p>Want to know when I publish new research, teaching notes, or field updates?</p>
                 <p>Enter your email to join my newsletter:</p>
-                <form
-                  action={newsletterAction || undefined}
-                  className="newsletter-form ph-no-capture"
-                  data-provider="surveymonkey"
-                  method={newsletterAction ? "post" : "get"}
-                >
-                  <label className="sr-only" htmlFor="newsletter-email">
-                    Email address
-                  </label>
-                  <input
-                    id="newsletter-email"
-                    name="email"
-                    placeholder="mana@example.com"
-                    required
-                    type="email"
-                  />
-                  <button aria-label="Join newsletter" disabled={!newsletterAction} type="submit">
-                    <span aria-hidden="true">→</span>
-                  </button>
-                </form>
+                <NewsletterSignup />
               </section>
 
               <div className="footer-links-panel">

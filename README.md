@@ -90,3 +90,20 @@ comparing a future branch to the baseline.
 ## Notes
 
 This repository was migrated from an older Jekyll/Minimal Mistakes site. The active site now lives in the Next.js structure above; converted legacy blog content is stored in `src/content/blog`.
+
+## Newsletter signup
+
+The footer posts directly to the original Mailchimp **Manalogue** audience using its
+public embedded form URL in `src/components/newsletter_signup.js`. It works with
+GitHub Pages and without client JavaScript or API keys. Mailchimp displays the result
+and handles any CAPTCHA, duplicate-address, or confirmation steps configured for the audience.
+The site does not claim a subscription succeeded before Mailchimp responds.
+
+To switch audiences, copy the HTTPS `/subscribe/post` action URL from a Mailchimp
+embedded signup form into the GitHub Actions variable `NEXT_PUBLIC_NEWSLETTER_FORM_URL`
+and rebuild/deploy. The same optional variable can be set in `.env.local`. Leave it
+blank to use the original audience. Keep the `u` and `id` parameters; the spam-trap
+field is derived from them. Never put a Mailchimp API key into a public variable.
+
+The email field and spam trap remain inside `ph-no-capture`. Browser tests intercept
+the outgoing signup request, so they do not add fake subscribers or send emails.

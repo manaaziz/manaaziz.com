@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "node scripts/validate_site.mjs",
     "test:responsive": "playwright test",
-    "test:responsive:ci": "playwright test tests/responsive.spec.js tests/accessibility-responsive.spec.js tests/stylesheet-recovery.spec.js",
+    "test:responsive:ci": "playwright test tests/responsive.spec.js tests/accessibility-responsive.spec.js tests/stylesheet-recovery.spec.js tests/newsletter.spec.js",
     "test:responsive:update": "playwright test --update-snapshots",
     "audit:assets": "node scripts/audit_assets.mjs",
     "generate:responsive-images": "node scripts/generate_responsive_images.mjs",

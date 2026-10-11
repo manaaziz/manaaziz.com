@@ -11531,13 +11531,12 @@ h3 {
   transform: translate(2px, -2px) rotate(-3deg);
 }
 
-.newsletter-form button:disabled {
-  cursor: default;
-}
-
-.newsletter-form button:disabled:hover {
-  background: var(--cream);
-  transform: none;
+.newsletter-honeypot {
+  position: absolute;
+  left: -5000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
 }
 
 .footer-links-panel {
