@@ -107,3 +107,16 @@ field is derived from them. Never put a Mailchimp API key into a public variable
 
 The email field and spam trap remain inside `ph-no-capture`. Browser tests intercept
 the outgoing signup request, so they do not add fake subscribers or send emails.
+
+The email field requires a common unquoted address with a dotted domain, limits
+the address to 254 characters and the local part to 64, and rejects empty dot
+segments and invalid domain labels. Plus tags and apostrophes remain supported.
+Browser validation works without JavaScript, but can be bypassed and does not
+prove mailbox ownership; Mailchimp is responsible for server-side validation and
+any email confirmation configured for the audience.
+
+Site search is limited to 200 characters and only searches an in-memory index
+using literal string matching. Visitor input is never inserted as HTML or used in
+SQL queries. The HTML rendered by post components comes from repository content,
+not visitor submissions. If a backend is introduced, validate input server-side
+and use parameterized queries rather than relying on these browser checks.

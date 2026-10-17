@@ -140,9 +140,10 @@ export default function MobileSiteNav({ navItems, searchItems }) {
             id="mobile-site-search"
             className="mobile-search-input"
             type="search"
+            maxLength={200}
             value={query}
             placeholder="Search posts, pages, places..."
-            onChange={(event) => setQuery(event.target.value)}
+            onChange={(event) => setQuery(event.target.value.slice(0, 200))}
           />
           <div className="mobile-search-results" role="list">
             {results.length ? results.map((item) => (

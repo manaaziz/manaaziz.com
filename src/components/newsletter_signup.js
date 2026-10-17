@@ -6,6 +6,13 @@ const endpoint = new URL(action);
 const audience = endpoint.searchParams.get("id");
 const account = endpoint.searchParams.get("u");
 
+// Common unquoted email addresses: preserve + tags and apostrophes, but reject
+// empty dot segments, malformed public domains, and excessive lengths.
+// These browser checks are UX safeguards; Mailchimp must validate server-side.
+const emailAtom = "[A-Za-z0-9!#$%&'*+\\x2F=?^_\\x60\\x7B\\x7C\\x7D~\\x2D]+";
+const domainLabel = "[A-Za-z0-9](?:[A-Za-z0-9\\x2D]{0,61}[A-Za-z0-9])?";
+const emailPattern = `(?=.{1,254}$)(?=.{1,64}@)${emailAtom}(?:\\.${emailAtom})*@${domainLabel}(?:\\.${domainLabel})+`;
+
 if (endpoint.protocol !== "https:" || !endpoint.hostname.endsWith(".list-manage.com") ||
     endpoint.pathname !== "/subscribe/post" || !audience || !account) {
   throw new Error("NEXT_PUBLIC_NEWSLETTER_FORM_URL must be a Mailchimp HTTPS embedded signup form action with u and id parameters.");
@@ -24,6 +31,9 @@ export default function NewsletterSignup() {
         spellCheck={false}
         required
         type="email"
+        maxLength={254}
+        pattern={emailPattern}
+        title="Enter an email address like name@example.com, with no spaces or repeated dots."
       />
       <div className="newsletter-honeypot" aria-hidden="true">
         <input type="text" name={`b_${account}_${audience}`} tabIndex={-1} defaultValue="" autoComplete="off" />
